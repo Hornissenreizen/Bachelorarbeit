@@ -1,0 +1,97 @@
+\documentclass{article}
+
+\usepackage{amsthm}  % For theorem environments
+\usepackage{amsmath} % For mathematical symbols
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+
+% Define theorem style
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+
+\begin{document}
+\noindent
+In order to prove the Hammersley Clifford Theorem, it is sufficient, like mentioned in the script, to show the converse of Corollary 1, that is:
+
+\begin{theorem}
+    If $\{i,j\} \in E$, then $x_i$ and $x_j$ are dependent conditioned on $x_K, K = [n] \backslash \{i,j\}$.
+\end{theorem}
+
+\begin{proof}
+    Per definition, independency means that for all $x \in \mathcal{X}_{[n]}$ we have
+    \begin{align*}
+        p(x_i, x_j | x_{-\{i,j\}}) &= p(x_i | x_{-\{i,j\}}) \cdot p(x_j | x_{-\{i,j\}})
+    \end{align*}
+    and hence
+    \begin{align*}
+        p(x_i | x_{-\{i,j\}}) &= \frac{p(x_i, x_j | x_{-\{i,j\}})}{p(x_j | x_{-\{i,j\}})} \\
+        &= \dfrac{\ \dfrac{p(x)}{p(x_{-\{i,j\}})}\ }{\dfrac{p(x_{-i})}{p(x_{-\{i,j\}})}} \\
+        &= \frac{p(x)}{p(x_{-i})} \\
+        &= p(x_i | x_{-i}) \quad .
+    \end{align*}
+
+    \medskip
+    \noindent
+    Thus, we only have to find one $x \in \mathcal{X}_{[n]}$ s.t. this equality breaks.
+
+    \medskip \noindent
+    Note that $p(x_i | x_{-\{i,j\}})$ does not depend on $x_j \in \mathcal{X}_j$ as we marginalize over it. Hence, we would like to find a pair $(x, x') \in \mathcal{X}_{[n]}^2$ s.t. they only differ in $x_j$ and $p(x_i | x_{-i}) \neq p(x'_i | x'_{-i})$, as this would imply that either $p(x_i | x_{-\{i,j\}}) \neq p(x_i | x_{-i})$ or $p(x'_i | x'_{-\{i,j\}}) \neq p(x'_i | x'_{-i})$.
+
+    \medskip \noindent
+    To this end, let us analyze $p(x_i | x_{-i})$ with regard to the influence of $x_j$. We have
+
+    \begin{align*}
+        p(x_i | x_{-i}) &= \frac{p(x)}{\sum\limits_{x_i \in \mathcal{X}_i}p(x)} \\
+        &= \frac{\left(\prod\limits_{I \in \mathcal{I}: j \in I} a_I(x_I)\right) \cdot \left(\prod\limits_{I \in \mathcal{I}: j \not\in I} a_I(x_I)\right)}{\sum\limits_{x_i \in \mathcal{X}_i} \left[\left(\prod\limits_{I \in \mathcal{I}: i \not\in I} a_I(x_I)\right) \cdot \left(\prod\limits_{I \in \mathcal{I}: i \in I} a_I(x_I)\right)\right]} \\
+        &= \frac{\left(\prod\limits_{I \in \mathcal{I}: j \in I} a_I(x_I)\right) \cdot \left(\prod\limits_{I \in \mathcal{I}: j \not\in I} a_I(x_I)\right)}{\left(\prod\limits_{I \in \mathcal{I}: i \not\in I} a_I(x_I)\right) \cdot \left(\sum\limits_{x_i \in \mathcal{X}_i}\prod\limits_{I \in \mathcal{I}: i \in I} a_I(x_I)\right)} \\
+        &= \frac{\left(\prod\limits_{I \in \mathcal{I}: \{i,j\} \subseteq I} a_I(x_I)\right) \cdot \left(\prod\limits_{I \in \mathcal{I}: i \not\in I, j \in I} a_I(x_I)\right)}{\left(\prod\limits_{I \in \mathcal{I}: i \not\in I} a_I(x_I)\right) \cdot \left(\sum\limits_{x_i \in \mathcal{X}_i}\prod\limits_{I \in \mathcal{I}: i \in I} a_I(x_I)\right)} \cdot \left(\prod\limits_{I \in \mathcal{I}: j \not\in I} a_I(x_I)\right) \\
+        &= \frac{\left(\prod\limits_{I \in \mathcal{I}: \{i,j\} \subseteq I} a_I(x_I)\right) \cdot \left(\prod\limits_{I \in \mathcal{I}: i \not\in I, j \in I} a_I(x_I)\right)}{\left(\prod\limits_{I \in \mathcal{I}: i \not\in I, j \in I} a_I(x_I)\right) \cdot \left(\prod\limits_{I \in \mathcal{I}: i \not\in I, j \not\in I} a_I(x_I)\right) \cdot \left(\sum\limits_{x_i \in \mathcal{X}_i}\prod\limits_{I \in \mathcal{I}: i \in I} a_I(x_I)\right)} \cdot \left(\prod\limits_{I \in \mathcal{I}: j \not\in I} a_I(x_I)\right) \\
+        &= \frac{\left(\prod\limits_{I \in \mathcal{I}: \{i,j\} \subseteq I} a_I(x_I)\right)}{\left(\sum\limits_{x_i \in \mathcal{X}_i}\prod\limits_{I \in \mathcal{I}: i \in I} a_I(x_I)\right)} \cdot \frac{\left(\prod\limits_{I \in \mathcal{I}: j \not\in I} a_I(x_I)\right)}{\left(\prod\limits_{I \in \mathcal{I}: i \not\in I, j \not\in I} a_I(x_I)\right)} \\
+        &\eqqcolon \frac{\left(\prod\limits_{I \in \mathcal{I}: \{i,j\} \subseteq I} a_I(x_I)\right)}{\left(\sum\limits_{x_i \in \mathcal{X}_i}\prod\limits_{I \in \mathcal{I}: i \in I} a_I(x_I)\right)} \cdot c(x_{-j}) \quad .
+    \end{align*}
+
+    \medskip \noindent
+    Note that $c(x_{-j})$ does not depend on $x_j$, so we can fully focus on
+    \begin{equation}
+        \frac{\left(\prod\limits_{I \in \mathcal{I}: \{i,j\} \subseteq I} a_I(x_I)\right)}{\left(\sum\limits_{x_i \in \mathcal{X}_i}\prod\limits_{I \in \mathcal{I}: i \in I} a_I(x_I)\right)} \eqqcolon \frac{n(x)}{d(x)} \quad . \label{eq:target} 
+    \end{equation}
+
+    \medskip \noindent
+    Since we have $\{i,j\} \in E$, there must be an interval $I \in \mathcal{I}$ and $x_I^* \in \mathcal{X}_I$ s.t. $\{i,j\} \subseteq I$ and
+    \[
+        q_I(x_I^*) \neq 0 \iff a_I(x_I^*) \neq 1 \quad .
+    \]
+
+    \medskip \noindent
+    Among all those intervals $\mathscr{I} \subseteq \mathcal{I}$ that have these properties, we pick a minimal interval $I$, i.e. there is no other interval $I'$ in $\mathscr{I}$ except for $I$ s.t. $I' \subseteq I$. This is done in order to have only one factor in $n(x)$ as we will see in a moment. We also fix the associated $x_I^* \in \mathcal{X}_I$. Note that both $I$ and $x_I^*$ are not necessarily uniquely determined, but that is not an issue.
+
+    \medskip \noindent
+    Now, we define our $x$ s.t. it equals $x_I^*$ for all $x_k, k \in I \backslash \{i\}$. For all other indices $k \not\in I$ we set $x_k \coloneqq 1$. For now, we let the value of $x_i$ undefined. For $x'$, we set $x'_k \coloneqq x_k$ for all $k \in [n] \backslash \{j\}$ like already discussed, and for index $j$ we set $x'_j \coloneqq 1$. Note that $x_j \neq 1$.
+
+    \medskip \noindent
+    By doing so, we achieved that the numerator $n(x)$ of \eqref{eq:target} evaluates to
+    \[
+        a_I(x_I)
+    \]
+    for $x$, since for all index sets $I' \in \mathcal{I}, \{i,j\} \subseteq I'$ other than I we have that $I' \not\subseteq I$ per construction of $I$ and hence it will contain an index $k \in [n]$ s.t. $k \in I', k \not\in I$. Thus, $x_k$ = 1, and therefore all $a_{I'}(x_{I'})$ will evaluate to $1$. Similarly, $n(x')$ evaluates to
+    \[
+        a_I(x'_I) = 1 \quad ,
+    \]
+    because we have set $x'_j = 1$.
+
+    \bigskip \noindent
+    Now, note that divisor $d(x)$ of our expression \eqref{eq:target} does not depend on $x_i$, which is why we haven't defined it yet. Now there are two cases:
+
+    \medskip \noindent
+    \textbf{Case 1:} $d(x) = d(x')$\\
+    Then we set $x_i \coloneqq x'_i \coloneqq x_i^*$. Thus, $n(x) = a_I(x_I) \neq 1 = a_I(x'_i) = n(x')$ per definition of $I$, and hence ultimately $p(x_i | x_{-i}) \neq p(x'_i | x'_{-i})$.
+
+    \medskip \noindent
+    \textbf{Case 2:} $d(x) \neq d(x')$\\
+    Then we set $x_i \coloneqq x'_i \coloneqq 1$. Thus, $n(x) = a_I(x_I) = 1 = a_I(x'_i) = n(x')$, and hence ultimately $p(x_i | x_{-i}) \neq p(x'_i | x'_{-i})$.
+
+    \bigskip \noindent
+    Either way, we get $p(x_i | x_{-i}) \neq p(x'_i | x'_{-i})$ as desired, which concludes the proof.
+\end{proof}
+
+\end{document}

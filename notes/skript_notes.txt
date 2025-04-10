@@ -1,0 +1,45 @@
+- Anmerkungen im Skript
+    - page 5 slighly -> slightly
+    - page 8 Carol -> Claire
+    - page 17 additive term of a(q)
+        - I think log|X| is wrong (based on derivation, and also trivial if we set c := 0)
+        - the double sum evaluates to (2^n-1) * c
+    - page 19 |X \ {(1, . . . , 1)} -> |X \ {(1, . . . , 1)}|
+    
+    - Ich denke is gibt intuitivere Beweise fuer Theorem 1, oder fuer das kombinatorische Resultat dass
+
+        n_1 * ... * n_n = 1 + sum_over_1_subsets (n_i-1) + ...
+
+    -> Beweis durch doppeltes Abzaehlen der n Tupel ueber den n Kategorien: links klar, rechts: die eins steht fuer den Merkmalsvektor (MV) fuer alle 1, dann addieren wir alle MVs mit einem Merkmal != 1 (entspricht erster Summe) usw.
+
+    - Fuer Theorem 1:
+        - Ich denke es ist intuitiver a(q) als positive Konstante zu definieren (ist eigentlich komplett egal, passt aber so besser in das folgende Schma, and a(q) steht quasi fuer q_empty_set). Dann ist
+        - a(q) = ln(p(1,...,1))
+        - Dann sind auch alle q_i(x_i) klar, denn fuer den Vektor v = (1,...,x_i,...,1) ergibt sich p(v) = exp(q(v)) = exp(a(q)) * exp(q_i(x_i))
+        - Laesst sich nach q_i(x_i) umstellen, ergibt
+
+            q_i(x_i) = ln(p(1,...,x_i,...,1) / p(1,...,1)) = ln(p(1,...,x_i,...,1)) - ln(p(1,...,1))
+        
+        - Das laesst sich induktiv weiterfuehren (2er Teilmengen, dann 3er Teilmengen usw), und so sind alle q Parameter durch die Wahrscheinlichkeiten eindeutig gegeben. Durch Induktion und Kombinatorik laesst sich zudem zeigen, dass
+
+            exp(q_I(x_i1,...,x_ik)) = p(1,...,x_i1,...,x_ik,...,1) * (alle solche Vektoren, bloss nur k-2 entries =! 1) * (-||- k-4) * ... / ((-||- k-1) * (-||- k-3) * ...)
+
+        - Zum Beispiel ist
+            exp(q_{1,3,5}(4,2,3)) = 
+            p(4,1,2,1,3) * p(4,1,1,1,1) * p(1,1,2,1,1) * p(1,1,1,1,3)
+            ---------------------------------------------------
+            p(4,1,2,1,1) * p(4,1,1,1,3) * p(1,1,2,1,3) * p(1,1,1,1,1)
+    
+    -> Das ist einfacher zu zeigen und ist intuitiver, und Kapitel 2 ist damit trivial, da man die q's aus den Wahrscheinlichkeiten direkt bestimmen kann. Zudem ist auch klar, dass keine Wahrscheinlichkeit = 0 sein kann, sowohl im Zaehler als auch im Nenner nicht erlaubt (und alle anderen sind offensichtlich abbildbar).
+
+    Ich habe daher den Proof fuer Theorem 1 und Kapitel 2 weitesgehend nur ueberflogen (sollte denke ich aber kein Problem sein).
+
+
+    Fuer Theorem 2 Hammersley and Clifford habe ich ebenfalls einen alternativen Beweis gefunden und den im Skript daher ausgelassen. Ich bin mir aber nicht ganz sicher ob korrekt ist.
+
+
+    - page 37 ganz unten: "and that the index sets of the parents of the variables xnd+(i) are contained in pa(i) ∪ nd−(i)" es fehlt noch nd+(i) (zumindest bei folgender Argumentation:)
+    	-> es wurden generall ein paar Schritte uebersprungen (fourth equality), man muesste die chain rule anwenden. (Ausserdem kann man erwaehnen dass pa(i) ∪ nd−(i) = [i-1].) Dann kann man argumentieren dass es sich um markov blankets handelt, und daher bei den konditionierten Variablen lediglich eben das markov planket x_pa(k) enthalten sein muss, und die anderen Variablen "irrelevant" sind.
+    	-> die Kernidee ist eigentlich dass das man ein Markovblanket einer Menge x_I erhaelt, indem man die Vereinigung derer von x_i bildet \ I (zumindest unter gewissen Bedingungen: man kann es algebraisch zumindest dann einfach zeigen, wenn es einen Hamiltonpfad in I gibt, wobei eine Kante (u,v)' genau dann existiert, wenn (u,v) nicht in G enthalten ist (Komplementgraph))
+
+            

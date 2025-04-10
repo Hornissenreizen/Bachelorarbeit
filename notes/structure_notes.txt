@@ -1,0 +1,24 @@
+Perron-Frobenius
+	-> Specialization for stochastic matrices
+	-> Proof: similar to the one found, but with l1 norm
+		- contraction mapping is easy to show:
+		- first note that the map defined by M takes a "stochastic vector", which specifies a weighted average of the columns of M
+		- these columns are thus corers of an n-simplex which M maps into. it is a subspace of the unit input simplex.
+		- the distance from one corner in the unit input simplex to the opposite side is always 2.
+		- if two points don't contract, then we can find 2 points with a distance of 2, and the difference vector is a scaled version of the original one
+		- this mapped distance would than also not contract and hence be greater than or equal to 2, which is not possible, because the greatest distance in the image is from one corner to another and no two corners have distance 2 because all entries in the matrix (and hence all coordinates of each corner (they of course also add up to 1)) are strictly positive
+		- the rest for the other eigenvalues is similar to the found proof, just set the length of w = 1 and the rest is trivial.
+
+Markov chains
+	- can be modeled with stochastic matrices
+	- columns sum to 1 (easier for product notation)
+	- matrix matrix (or vector) multiplication relation to probabilities -> easy proof by induction.
+	- can be visualized as a graph. Explain communication groups.
+	- we want stationary points. This also means that the matrix must be "stationary" (matrix matrix multiplication), and the matrix must have the stationary distribution along each column (why? -> start with vector (1,0,...), (0,1,0,...) etc.).
+	- we want irreducibility, because only closed communications groups are interesting for convergence. If there are multiple there are multiple stationary points -> we could split the problem.
+	- we also want aperiodicity, because it is necessary for stationary point (obviously). It also guarantees that we cane find an n s.t. M^n > 0.
+	- Lemma: we also have M^(n+a) > 0 for every a > 0, especially for a = 1.
+	-> (M^n)^i and (M^(n+1))^i converge to M' and M'' by Perron-Frobenius (independent of metric/norm)
+	-> (M^(n*(n+1))^i is a subsequence of both sequences -> M' = M''
+	-> M' * M = lim_i (M^n)^i * M = lim_i M^(i*n+1)   j:=1+i*(n+1)   ... = lim_i M^((1+i*(n+1))*n+1) = lim_i M^(n+i*n*(n+1)+1)   factor out (n+1)   ... = lim_i M^((1+i*n)*(n+1)) = lim_i (M^(n+1))^(1+i*n) = M'' = M'
+	-> so M itself converges (matrix matrix and matrix vector (stationary point))
