@@ -89,9 +89,9 @@ Hence, by induction, the result holds for all \( n \geq 1 \).
 
 
 \subsection{Properties}
-At first glance, this model seems to be very simple. However, we can characterize Markov chains by their individual properties. But what could these properties be? Well, we first might want to visualize Markov chains. To this end, we employ a graph $G = (V, E)$ with $V = S$ and $E = \{(u, v) \mid \bm{P}_{vu} \neq 0\}$.
+Markov chains are a very simple model. Thus, we can analyze them thoroughly and investigate their properties. But what could these properties be? Well, we first might want to visualize Markov chains. To this end, we employ a graph $G = (V, E)$ with $V = S$ and $E = \{(u, v) \mid \bm{P}_{vu} \neq 0\}$.
 
-Hence, the Markov chain from example~\ref{ex:markov_chain} becomes:
+Hence, the Markov chain from example~\ref{ex:markov_chain} can be visualized as in figure~\ref{fig:markov_chain}.
 
 \begin{figure}[h]
     \center
@@ -168,8 +168,9 @@ Before defining this property formally, we may first introduce a very related co
         &\implies \exists_{m,n \in \mathbb{N}_{>0}} P(X_m = j \mid X_0 = i) > 0 \text{ and } P(X_{m+n} = k \mid X_m = j) > 0 \\
         &\implies P(X_{m+n} = k \mid X_0 = i) > 0 \\
         &\implies (\bm{P}^{m+n})_{ki} > 0 \\
-        &\implies i \leftrightsquigarrow k
+        &\implies i \leadsto k
     \end{align*}
+    $k \leadsto i$ can be show in similar fashion.
 \end{proof}
 
 Based on this result, the following definition suggests itself:
@@ -214,7 +215,7 @@ Assume all communication classes $C_1, \dots, C_k$ are open. Hence, we can trave
 
 
 \subsubsection{Aperiodicity}
-We will now analyze the second important property of Markov chains. The reader might ask, \emph{important for what?} Well, the answer will make more sense in the big picture later, but the short answer is that these two properties will guarantee for a convergence to a unique stationary probability distribution.
+We will now analyze the second important property of Markov chains. The reader might ask, \emph{important for what?} Well, the answer will make more sense in the bigger picture later, but the short answer is that these two properties will guarantee for a convergence to a unique stationary probability distribution.
 
 To motivate the following discussion, say we had the following Markov chain:
 
@@ -260,7 +261,7 @@ We notice that the behavior of this chain is periodic with a period of length $3
 \begin{proof}
     Since $i$ is aperiodic, we can find an $n \in \mathbb{N}$ s.t. both $(\bm{P}^n)_{ii} > 0$ and $(\bm{P}^{n+1})_{ii} > 0$ due to results from number theory. Since $j \leadsto i$, we can go from $j$ to $i$ in $t_{ji}$ steps, and from $i$ to $j$ in $t_{ij}$ steps since $i \leadsto j$. Thus:
     \[
-        \{ t_{ji} + n + t_{ij}, t_{ji} + n + 1 + t_{ij} \} \subseteq \gcd \{ n \in \mathbb{N}_{>0} : (\bm{P}^n)_{jj} > 0 \} \quad .
+        \{ t_{ji} + n + t_{ij}, t_{ji} + n + 1 + t_{ij} \} \subseteq \{ n \in \mathbb{N}_{>0} : (\bm{P}^n)_{jj} > 0 \} \quad .
     \]
     Since $\gcd \{ t_{ji} + n + t_{ij}, t_{ji} + n + 1 + t_{ij} \} = 1$, we conclude that $\gcd \{ n \in \mathbb{N}_{>0} : (\bm{P}^n)_{jj} > 0 \} = 1$, and hence $j$ is aperiodic.
 \end{proof}
@@ -302,7 +303,7 @@ Furthermore, we also might ask whether the stationary probability distribution i
 
     \end{tikzpicture}
     \caption{Graph of a reducible Markov chain with two closed communication classes. Note that we might end up stuck at either state $2$ or state $3$.}
-    \label{fig:markov_chain_periodic}
+    \label{fig:markov_chain_two_closed_classes}
 \end{figure}
 
 Clearly, we have two stationary probability distributions with all their weight in either state $2$ or state $3$. Once again, our intuition tells us we might require an irreducible Markov chain.
@@ -347,7 +348,7 @@ To come straight to the point, the Perron-Frobenius Theorem reads as follows:
 
 \begin{theorem}[Perron-Frobenius]
     \label{theorem:perron_frobenius}
-    Let \( \bm{A} \) be a non-negative, irreducible matrix (i.e., all entries of \( \bm{A} \) are non-negative, and there exists some \( m \) such that all entries of \( \bm{A}^m \) are positive). Then the following hold:
+    Let \( \bm{A} \) be a non-negative matrix (i.e., all entries of \( \bm{A} \) are non-negative) with the propetry that there exists some \( m \in \mathbb{N} \) such that all entries of \( \bm{A}^m \) are strictly positive. Then the following hold:
 
     \begin{enumerate}
         \item The matrix \( \bm{A} \) has a unique largest non-negative eigenvalue \( \lambda_{\max} \), and this eigenvalue is simple (it has algebraic multiplicity 1).
@@ -357,36 +358,36 @@ To come straight to the point, the Perron-Frobenius Theorem reads as follows:
     \end{enumerate}
 \end{theorem}
 
-This is a mouthful, and we will not prove this theorem in this general form, as it is not trivial to do so. Instead, we focus on the case of $\bm{A}$ being a Markov chain transition matrix, meaning all columns sum to $1$. To this end, we will write $\bm{P}$ again instead of $\bm{A}$. Additionally, we assume $\bm{P}$ to be strictly positive for now instead of irreducible. Furthermore, we will not provide a rigorous proof, but we will lay the foundation for a solid intuitive understanding.
+This is a mouthful, and we will not prove this theorem in this general form, as it is not trivial to do so. Instead, we focus on the case of $\bm{A}$ being a Markov chain transition matrix, meaning all columns sum to $1$. To this end, we will write $\bm{P}$ again instead of $\bm{A}$. Additionally, we assume $\bm{P}$ to be strictly positive. Furthermore, we will not provide a rigorous proof, but we will lay the foundation for an intuitive understanding.
 
 \begin{proof}[Proof of Perron-Frobenius for Positive Markov Chain Transition Matrices]
     ~\\
-    Consider the mapping $T: \Delta \to \Delta$ from the unit simplex $\Delta$ onto itself defined by $T(v) \coloneqq \bm{P} v$. We want to show that $T$ is a contraction mapping with respect to the $L_1$ norm. We do this step last in order to understand the line of argument better.
+    Consider the mapping $T: \Delta \to \Delta$ from the unit simplex $\Delta$ onto itself defined by $T(\bm{v}) \coloneqq \bm{Pv}$. We want to show that $T$ is a contraction mapping with respect to the $L_1$ norm. We do this step last in order to understand the line of argument better.
     
-    Thus, assume that $T$ is a contraction mapping with respect to the $L_1$ norm. By the \textsc{Banach Fixed-Point Theorem} we know that this mapping has a \emph{unique} fixed point $v^*$. We see that $v^*$ is an eigenvector of $\bm{P}$ with eigenvalue $\lambda = 1$. Clearly, $v^*$ is the only eigenvector with non-negative (actually positive!) entries, as if there were another one say $v'$, then $\frac{v'}{\|v'\|_1}$ must be one as well, but this point lies on $\Delta$, hence it must have an eigenvalue of $1$ and must be a fixed point of $T$, a contradiction to the uniqueness of $v^*$.
+    Thus, assume that $T$ is a contraction mapping with respect to the $L_1$ norm. By the \textsc{Banach Fixed-Point Theorem} we know that this mapping has a \emph{unique} fixed point $\bm{v}^*$. We see that $\bm{v}^*$ is an eigenvector of $\bm{P}$ with eigenvalue $\lambda = 1$. Clearly, $\bm{v}^*$ is positive and is the only eigenvector with non-negative entries, as if there were another one say $\bm{v}'$, then $\frac{\bm{v}'}{\|\bm{v}'\|_1}$ must be one as well, but this point lies on $\Delta$, hence it must have an eigenvalue of $1$ and must be a fixed point of $T$, a contradiction to the uniqueness of $\bm{v}^*$.
 
-    So every other eigenvector $w$ with eigenvalue $\mu$ must have a coordinate-entry which is negative or truly complex. Write $|w|$ for the vector with coordinates $|w_j|$. The computation
+    So every other eigenvector $\bm{w}$ with eigenvalue $\mu$ must have a coordinate-entry which is negative or truly complex. Write $|\bm{w}|$ for the vector with coordinates $|\bm{w}_j|$. The computation
     \[
-        |\mu||w|_i = |\mu w_i| = |\sum_{j} \bm{P}_{ij} w_j| \leq \sum_{j} |\bm{P}_{ij}| |w_j| = \sum_{j} \bm{P}_{ij} |w_j| = (\bm{P} |w|)_i
+        |\mu||\bm{w}|_i = |\mu \bm{w}_i| = |\sum_{j} \bm{P}_{ij} \bm{w}_j| \leq \sum_{j} |\bm{P}_{ij}| |\bm{w}_j| = \sum_{j} \bm{P}_{ij} |\bm{w}_j| = (\bm{P} |\bm{w}|)_i
     \]
-    shows that $|\mu| \|w\|_1 \leq \|\bm{P} |w|\|_1 = \|w\|_1$ and hence $|\mu| \leq 1$. Now, the final trick is that we can assume the "$\leq$" in the equation above to actually be "$<$".
+    shows that $|\mu| \|\bm{w}\|_1 \leq \|\bm{P} |\bm{w}|\|_1 = \|\bm{w}\|_1$ and hence $|\mu| \leq 1$. Now, the final trick is that we can assume the "$\leq$" in the equation above to actually be "$<$".
 
-    To see this, note that we only have equality iff all entries of $w$ are on a line in the complex plane, i.e. we can write $w = c |w|$ for some $c \in \mathbb{C}, |c| = 1$. This would mean that $\bm{P} w = \bm{P} c |w| = c \bm{P} |w| \overset{!}{=} \mu w$. Hence, $\bm{P} |w| = \frac{\mu}{c} w = |\frac{\mu}{c}| |w|$. Thus, we must have $|w| = v^*$ and $|\mu| = |c| = 1$ as already discussed. Hence, $w = c v^*$ (and $\mu = 1$), which is just a different representation of the eigenvector $v^*$ already found. So for every eigenvector $w$ other than $v^*$ with eigenvalue $\mu$ we must have that $|\mu| < 1$.
+    To see this, note that we only have equality iff all entries of $\bm{w}$ are on a line in the complex plane, i.e. we can write $\bm{w} = c |\bm{w}|$ for some $c \in \mathbb{C}, |c| = 1$. This would mean that $\bm{P} \bm{w} = \bm{P} c |\bm{w}| = c \bm{P} |\bm{w}| \overset{!}{=} \mu \bm{w}$. Hence, $\bm{P} |\bm{w}| = \frac{\mu}{c} \bm{w} = |\frac{\mu}{c}| |\bm{w}|$. Thus, we must have $|\bm{w}| = \bm{v}^*$ and $|\mu| = |c| = 1$ as already discussed. Hence, $\bm{w} = c \bm{v}^*$ (and $\mu = 1$), which is just a different representation of the eigenvector $\bm{v}^*$ already found. So for every eigenvector $\bm{w}$ other than $\bm{v}^*$ with eigenvalue $\mu$ we must have that $|\mu| < 1$.
 
     \smallskip
-    Now, the only thing left to do is to show that $T$ is in fact a contraction mapping. To this end, we must find a $0 \leq k < 1$ s.t. for all $x, y \in \Delta$ we have
+    Now, the only thing left to do is to show that $T$ is in fact a contraction mapping. To this end, we must find a $0 \leq k < 1$ s.t. for all $\bm{x}, \bm{y} \in \Delta$ we have
     \[
-        \|T(x) - T(y)\|_1 = \|\bm{P} (x - y)\|_1 \leq k \|x - y\|_1
+        \|T(\bm{x}) - T(\bm{y})\|_1 = \|\bm{P} (\bm{x} - \bm{y})\|_1 \leq k \|\bm{x} - \bm{y}\|_1 \quad .
     \]
     The idea is that $T$ maps from $\Delta$ into a real subspace $\Delta_{\bm{P}} \subsetneq \Delta$ defined by the simplex spanned by the columns of $\bm{P}$, which we call the vertices of the simplex $\Delta_{\bm{P}}$. $\Delta_{\bm{P}}$ does not contain any of the border points of $\Delta$. Applying $T$, we see that $T^2$ maps into an even smaller sub-simplex $\Delta_{\bm{P}^2} \subsetneq \Delta_{\bm{P}}$, and so on and so forth.
 
     Formally, we define $k$ as $k \coloneqq \frac{\|\Delta_{\bm{P}}\|_1}{2}$, where $\|\Delta_{\bm{P}}\|_1$ denotes the maximum $L_1$ distance between any points in $\Delta_{\bm{P}}$. We can always measure this distance at two of the vertices of the simplex, as both the $L_1$ norm and the simplex are convex, so the maximum will be reached at vertices. But since all coordinates of all vertices are strictly positive, we have $\|\Delta_{\bm{P}}\|_1 < 2$, so $k$ is in fact valid.
 
-    Now, for the sake of contradiction, assume $\|\bm{P} (x - y)\|_1 > k \|x - y\|_1$ for some $x, y \in \Delta$. Note that $x - y$ is a vector with entries which sum to $0$, which defines a direction tangent to the unit simplex $\Delta$. We can always find two points $x', y' \in \Delta$ with the same direction and $\|x' - y'\|_1 = 2$ (one point will be a vertex, the other will lay on the opposite side). Hence:
+    Now, for the sake of contradiction, assume $\|\bm{P} (\bm{x} - \bm{y})\|_1 > k \|\bm{x} - \bm{y}\|_1$ for some $\bm{x}, \bm{y} \in \Delta$. Note that $\bm{x} - \bm{y}$ is a vector with entries which sum to $0$, which defines a direction tangent to the unit simplex $\Delta$. We can always find two points $\bm{x}', \bm{y}' \in \Delta$ with the same direction and $\|\bm{x}' - \bm{y}'\|_1 = 2$ (one point will be a vertex, the other will lay on the opposite side). Hence:
     \begin{align*}
-        \|\bm{P} (x' - y')\|_1 &= \frac{\|(x' - y')\|_1}{\|(x - y)\|_1} \|\bm{P} (x - y)\|_1 \\
-        &> k \frac{\|(x' - y')\|_1}{\|(x - y)\|_1} \|x - y\|_1 \\
-        &= k \|(x' - y')\|_1 = 2k = \|\Delta_{\bm{P}}\|_1 \quad , \\
+        \|\bm{P} (\bm{x}' - \bm{y}')\|_1 &= \frac{\|(\bm{x}' - \bm{y}')\|_1}{\|(\bm{x} - \bm{y})\|_1} \|\bm{P} (\bm{x} - \bm{y})\|_1 \\
+        &> k \frac{\|(\bm{x}' - \bm{y}')\|_1}{\|(\bm{x} - \bm{y})\|_1} \|\bm{x} - \bm{y}\|_1 \\
+        &= k \|(\bm{x}' - \bm{y}')\|_1 = 2k = \|\Delta_{\bm{P}}\|_1 \quad , \\
     \end{align*}
     a contradiction.
 \end{proof}
@@ -396,13 +397,13 @@ This is a mouthful, and we will not prove this theorem in this general form, as 
 \end{corollary}
 
 \begin{lemma}[Assuming a Positive Matrix is not a Restriction]
-    If the Perron-Frobenius Theorem holds for positive matrices, then it also holds for irreducible aperiodic matrices $\bm{A}$.
+    If the Perron-Frobenius Theorem holds for positive matrices, then it also holds for non-negative matrices $\bm{A}$ with the property that there exists an $m \in \mathbb{N}$ s.t. $\bm{A}^m > \bm{0}$.
 \end{lemma}
 \vspace{-2.5em}
 \begin{proof}
     Let $\lambda_1, \dots, \lambda_n$ by the eigenvalues of $\bm{A}$ allowing for multiplicity and ordering them s.t. $|\lambda_1| \geq \dots \geq |\lambda_n|$. Per definition, we know there exists an $m \in \mathbb{N}$ s.t. $\bm{A}^m > \bm{0}$. Also, for every $\tau \in \mathbb{N}$ we have $\bm{A}^{m + \tau} > \bm{0}$. We apply the Perron-Frobenius Theorem on $\bm{A}^{m + \tau}$ to get the eigenvalues $\lambda_1^{(\tau)}, \dots, \lambda_n^{(\tau)}$ s.t. $\lambda_1^{(\tau)} > |\lambda_2^{(\tau)}| \geq \dots \geq |\lambda_n^{(\tau)}|$. Now, assume that we have ordered $\lambda_1, \dots, \lambda_n$ perefectly s.t. $\lambda_i^{m + \tau} = \lambda_i^{(\tau)}$, as such an order always exists. From this, we immediately see that $|\lambda_1|$ is strictly bigger than all other eigenvalues of $\bm{A}$. It also must be real and positive, as both $\lambda_1^{(0)}$ and $\lambda_1^{(1)}$ are real and positive, and thus $\lambda_1 = \frac{\lambda_1^{(1)}}{\lambda_1^{(0)}}$ is real and positive. So statements (1), (2), and (4) of theorem~\ref{theorem:perron_frobenius} follow.
 
-    Let $\bm{v}^{\tau}$ be the eigenvector of $\bm{A}^{m + \tau}$ with eigenvalue $\lambda_1^{(\tau)}$. By the Perron-Frobenius theorem we know that $\bm{v}^{\tau}$ is positive. Also, we know that $\bm{A}$ has an eigenvector $\bm{v}^*$ with eigenvalue $\lambda_1$, since $\lambda_1$ is unique. This eigenvector will not change for $\bm{A}^r$ for every $r \in \mathbb{N}$, and the only fitting match for $\bm{v}^*$ when $r = m + \tau$ is $\bm{v}^{\tau}$ based on the eigenvalues. And hence $\bm{v}^*$ itself is positive, which was the last claim (3).
+    Let $\bm{v}^{\tau}$ be the eigenvector of $\bm{A}^{m + \tau}$ with eigenvalue $\lambda_1^{(\tau)}$. By the Perron-Frobenius theorem we know that $\bm{v}^{\tau}$ is positive. Also, we know that $\bm{A}$ has an eigenvector $\bm{v}^*$ with eigenvalue $\lambda_1$, since $\lambda_1$ is unique. This eigenvector will not change for $\bm{A}^r$ for every $r \in \mathbb{N}$, and the only matching eigenvector for $\bm{v}^*$ when $r = m + \tau$ is $\bm{v}^{\tau}$ based on the eigenvalues. And hence $\bm{v}^* \coloneqq \bm{v}^{\tau}$ itself is positive, which was the last claim (3).
 \end{proof}
 
 \begin{corollary}
@@ -414,6 +415,7 @@ This is a mouthful, and we will not prove this theorem in this general form, as 
 \end{remark}
 
 \begin{remark}
+    \label{remark:exponential_decay}
     Again, let $m \in \mathbb{N}$ be s.t. $\bm{P}^m > \bm{0}$. Based on the proof, we see that
     \[
         \| \bm{P}^{mr} \bm{v} - \bm{\mu} \|_1 \leq \dfrac{\|\Delta_{\bm{P^m}}\|_1^r}{2^r} \| (\bm{v} - \bm{\mu}) \|_1 \in \mathcal{O} \left( \left[ \frac{\|\Delta_{\bm{P^m}}\|_1}{2} \right] ^r \right) \quad .

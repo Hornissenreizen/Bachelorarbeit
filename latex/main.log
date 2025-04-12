@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.4.10)  12 APR 2025 13:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.4.10)  12 APR 2025 16:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -518,9 +518,6 @@ File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
 \l__pdf_internal_box=\box67
 ) (./main.aux
 
-LaTeX Warning: Label `fig:markov_chain_periodic' multiply defined.
-
-
 LaTeX Warning: Label `fig:markov_chain' multiply defined.
 
 )
@@ -598,14 +595,9 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./chapters/markov_chains_introduction/sub.tex
-Overfull \hbox (30.59908pt too wide) detected at line 15
-\U/msb/m/n/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 x[] \OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 X[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 x[]; X[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 x[]; [] ; X[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 x[]\OT1/cmr/m/n/10 ) = \U/msb/m/n/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 x[] \OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 X[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 x[]\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ;
- []
-
-[2]
-Overfull \hbox (7.15057pt too wide) detected at line 72
-\U/msb/m/n/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 i \OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 X[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 j\OT1/cmr/m/n/10 ) = [] \U/msb/m/n/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 i \OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 X[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 m\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ^^A \U/msb/m/n/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 m \OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 X[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 j\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 :
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./chapters/markov_chains_introduction/sub.tex [2]
+Overfull \hbox (13.91089pt too wide) detected at line 73
+[]
  []
 
 
@@ -616,8 +608,13 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [7] [8] [9] [10]
-Overfull \hbox (2.88866pt too wide) in paragraph at lines 397--398
+Overfull \hbox (2.88866pt too wide) in paragraph at lines 396--397
 [][]\OT1/cmr/bx/n/10 Corollary 1.2. []\OT1/cmr/m/it/10 Based on the proof, we see that for ev-ery $\OML/cmm/b/it/10 v \OMS/cmsy/m/n/10 2 \OT1/cmr/m/n/10 ^^A : [][] \OML/cmm/b/it/10 P[]v \OT1/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (0.46878pt too wide) in paragraph at lines 400--401
+\OT1/cmr/m/it/10 Frobenius The-o-rem holds for pos-i-tive ma-tri-ces, then it also holds for non-negative
  []
 
 [11]) [12] (./chapters/markov_chains_exponential_decay/sub.tex
@@ -632,18 +629,18 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 8A86AB3325BE19821D0E7C20B513E0CC;1278.
  ) 
 Here is how much of TeX's memory you used:
- 23030 strings out of 480247
- 426341 string characters out of 5896151
+ 23033 strings out of 480247
+ 426414 string characters out of 5896151
  871559 words of memory out of 5000000
- 40489 multiletter control sequences out of 15000+600000
+ 40491 multiletter control sequences out of 15000+600000
  484004 words of font info for 84 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  84i,12n,89p,1210b,1020s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/jonas/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on main.pdf (17 pages, 307154 bytes).
+Output written on main.pdf (17 pages, 307298 bytes).
 PDF statistics:
- 311 PDF objects out of 1000 (max. 8388607)
- 242 compressed objects within 3 object streams
- 65 named destinations out of 1000 (max. 500000)
+ 314 PDF objects out of 1000 (max. 8388607)
+ 245 compressed objects within 3 object streams
+ 66 named destinations out of 1000 (max. 500000)
  77 words of extra memory for PDF output out of 10000 (max. 10000000)
 
