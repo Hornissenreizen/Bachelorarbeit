@@ -1,6 +1,8 @@
 \documentclass[../../main.tex]{subfiles}
 
 \begin{document}
+\section{Mutual Information}
+\subsection{Exponential Decay in Markov Chains}
     \noindent
     If we have a Markov chain defined by the matrix $\boldsymbol{M}$, which is \emph{irreducible} and \emph{aperiodic}, and has a finite state space $E = \{1, \dots, n\}$, then we have that
     \[
@@ -88,7 +90,7 @@
         &= \sum_{(a,b) \in E^2} \frac{P(b \,|\, a)^2 P(a)^2}{P(a) P(b)} \\
         &= \sum_{(a,b) \in E^2} \frac{\boldsymbol{\mu}_a}{\boldsymbol{\mu}_b} \left[ (\boldsymbol{M}^{\tau})_{b,a} \right] ^2 \quad .
     \end{align*}
-    Let us now focus on $(\boldsymbol{M}^{\tau})_{b,a}$. For simplicity, we consider the case that the eigenvalues of $\boldsymbol{M}$ are all distinct, and hence $\boldsymbol{M}$ being diagonalizable. Note that since M is irreducible and aperiodic, we have that $1 = \lambda_1 > |\lambda_2| > \dots > |\lambda_n|$. The authors provide proof for the other case as well. But for now, let
+    Let us now focus on $(\boldsymbol{M}^{\tau})_{b,a}$. For simplicity, we consider the case that the eigenvalues of $\boldsymbol{M}$ are all distinct, and hence $\boldsymbol{M}$ being diagonalizable. Note that since M is irreducible and aperiodic, we have that $1 = \lambda_1 > |\lambda_2| \geq \dots \geq |\lambda_n|$. The authors provide proof for the other case as well. But for now, let
     \[
         \boldsymbol{M} = \boldsymbol{BDB}^{-1}
     \]

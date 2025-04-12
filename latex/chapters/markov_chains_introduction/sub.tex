@@ -11,23 +11,23 @@ A \textbf{Markov Chain} is a stochastic process $\{X_n\}_{n=0}^\infty$ defined o
 \begin{definition}[Markov Chain]
 A \textbf{Markov Chain} is a stochastic process $\{X_n\}_{n=0}^\infty$ on a discrete finite state space $S = \{1, \dots , N\}$ satisfying the \emph{Markov property}:
 \[
-\mathbb{P}(X_{n+1} = x_{n+1} \mid X_n = x_n, X_{n-1} = x_{n-1}, \dots, X_0 = x_0) = \mathbb{P}(X_{n+1} = x_{n+1} \mid X_n = x_n),
+    P(X_{n+1} = x_{n+1} \mid X_n = x_n, \dots, X_0 = x_0) = P(X_{n+1} = x_{n+1} \mid X_n = x_n) \quad ,
 \]
 for all $n \geq 0$ and all $x_0, \dots, x_{n+1} \in S$.
 
 \noindent
-The transition probabilities are described by a matrix $P$ with entries
+The transition probabilities are described by a matrix $\bm{P}$ with entries
 \[
-P_{ij} = \mathbb{P}(X_{n+1} = i \mid X_n = j), \quad \text{where } \sum_{i \in S} P_{ij} = 1 \text{ for all } j \in S.
+    \bm{P}_{ij} = P(X_{n+1} = i \mid X_n = j), \quad \text{where } \sum_{i \in S} \bm{P}_{ij} = 1 \text{ for all } j \in S.
 \]
 \end{definition}
 
 
 \begin{example}[Markov Transition Matrix]
 \label{ex:markov_chain}
-Let the state space be $S = \{1, 2, 3\}$. A possible transition matrix $P$ is:
+Let the state space be $S = \{1, 2, 3\}$. A possible transition matrix $\bm{P}$ is:
 \[
-P =
+\bm{P} =
 \begin{bmatrix}
 0 & 0.7 & 0 \\
 0.5 & 0.3 & 1 \\
@@ -35,7 +35,6 @@ P =
 \end{bmatrix}
 \]
 Note that each column sums to 1.
-Hence, $P$ is a valid column-stochastic Markov matrix according to the given definition.
 \end{example}
 
 
@@ -48,9 +47,9 @@ Based on these simple definitions, we can deduce very useful properties. For exa
 
 
 \begin{lemma}[n-Step Transition Probabilities]
-The probability of transitioning from state $j$ to state $i$ in $n$ steps is given by the $(i,j)$-th entry of the matrix power $P^n$:
+The probability of transitioning from state $j$ to state $i$ in $n$ steps is given by the $(i,j)$-th entry of the matrix power $\bm{P}^n$:
 \[
-\mathbb{P}(X_{t+n} = i \mid X_t = j) = (P^n)_{ij}.
+    P(X_{t+n} = i \mid X_t = j) = (\bm{P}^n)_{ij}.
 \]
 \end{lemma}
 
@@ -59,20 +58,19 @@ We prove this by induction on \( n \).
 
 \textbf{Base case:} When \( n = 1 \), we have
 \[
-\mathbb{P}(X_{t+1} = i \mid X_t = j) = P_{ij} = (P^1)_{ij}.
+    P(X_{t+1} = i \mid X_t = j) = \bm{P}_{ij} = (\bm{P}^1)_{ij}.
 \]
 
 \textbf{Inductive step:} Assume the claim holds for \( n = k \), i.e.,
 \[
-\mathbb{P}(X_{t+k} = i \mid X_t = j) = (P^k)_{ij}.
+    P(X_{t+k} = i \mid X_t = j) = (\bm{P}^k)_{ij}.
 \]
 For \( n = k+1 \), using the law of total probability and the Markov property:
-\[
-\mathbb{P}(X_{t+k+1} = i \mid X_t = j) = \sum_{m \in S} \mathbb{P}(X_{t+k+1} = i \mid X_{t+k} = m) \cdot \mathbb{P}(X_{t+k} = m \mid X_t = j).
-\]
-\[
-= \sum_{m \in S} P_{im} \cdot (P^k)_{mj} = (P \cdot P^k)_{ij} = (P^{k+1})_{ij}.
-\]
+\begin{align*}
+    P(X_{t+k+1} = i \mid X_t = j) &= \sum_{m \in S} P(X_{t+k+1} = i \mid X_{t+k} = m) \cdot P(X_{t+k} = m \mid X_t = j) \\
+    &= \sum_{m \in S} \bm{P}_{im} \cdot (\bm{P}^k)_{mj} \\
+    &= (\bm{P} \cdot \bm{P}^k)_{ij} = (\bm{P}^{k+1})_{ij} \quad .
+\end{align*}
 Hence, by induction, the result holds for all \( n \geq 1 \).
 \end{proof}
 
@@ -312,7 +310,7 @@ Clearly, we have two stationary probability distributions with all their weight 
 Now it's time to specify our intuitions precisely. The following result is for irreducible aperiodic Markov chains is very significant.
 
 \begin{theorem}[Positive n-Step Transition Matrix for Irreducible Aperiodic Markov Chains]
-    For every irreducible aperiodic Markov chain specified by $\bm{P}$, there exists an $n \in \mathbb{N}_{>0}$ s.t. $\bm{P}^n > \bm{0}$, where the comparison is element-wise.
+    For every irreducible aperiodic Markov chain specified by $\bm{P}$, there exists an $m \in \mathbb{N}_{>0}$ s.t. $\bm{P}^m > \bm{0}$, where the comparison is element-wise.
     \label{theorem:positive_transition_matrix}
 \end{theorem}
 
@@ -338,7 +336,7 @@ We first prove the following auxiliary lemma:
 \end{proof}
 
 \begin{corollary}
-    Once $\bm{P}^n > \bm{0}$, then for all $\tau \in \mathbb{N}: \bm{P}^{n + \tau} > \bm{0}$. 
+    Once $\bm{P}^m > \bm{0}$, then for all $\tau \in \mathbb{N}: \bm{P}^{m + \tau} > \bm{0}$. 
 \end{corollary}
 
 The reader might question the importance of Theorem~\ref{theorem:positive_transition_matrix}. Clearly, we can see the interplay of the two properties of the Markov chain being irreducible and aperiodic in the proofs. But how does it help us finding a stationary probability distribution? Well, to answer this, we need another fundamental result, which we will cover next.
@@ -348,12 +346,13 @@ The reader might question the importance of Theorem~\ref{theorem:positive_transi
 To come straight to the point, the Perron-Frobenius Theorem reads as follows:
 
 \begin{theorem}[Perron-Frobenius]
-    Let \( \bm{A} \) be a non-negative, irreducible matrix (i.e., all entries of \( \bm{A} \) are non-negative, and there exists some \( n \) such that all entries of \( \bm{A}^n \) are positive). Then the following hold:
+    \label{theorem:perron_frobenius}
+    Let \( \bm{A} \) be a non-negative, irreducible matrix (i.e., all entries of \( \bm{A} \) are non-negative, and there exists some \( m \) such that all entries of \( \bm{A}^m \) are positive). Then the following hold:
 
     \begin{enumerate}
         \item The matrix \( \bm{A} \) has a unique largest non-negative eigenvalue \( \lambda_{\max} \), and this eigenvalue is simple (it has algebraic multiplicity 1).
         \item The eigenvalue \( \lambda_{\max} \) is real and positive.
-        \item There is a corresponding positive eigenvector \( \bm{v} \) (i.e., all entries of \( \bm{v} \) are positive) associated with \( \lambda_{\max} \).
+        \item There is a corresponding positive eigenvector \( \bm{v}^* \) (i.e., all entries of \( \bm{v}^* \) are positive) associated with \( \lambda_{\max} \).
         \item Any other eigenvalue \( \lambda \) of \( \bm{A} \) satisfies \( |\lambda| < \lambda_{\max} \).
     \end{enumerate}
 \end{theorem}
@@ -372,6 +371,59 @@ This is a mouthful, and we will not prove this theorem in this general form, as 
     \]
     shows that $|\mu| \|w\|_1 \leq \|\bm{P} |w|\|_1 = \|w\|_1$ and hence $|\mu| \leq 1$. Now, the final trick is that we can assume the "$\leq$" in the equation above to actually be "$<$".
 
-    To see this, note that we only have equality iff all entries of $w$ are on a line in the Gauss plane, i.e. we can write $w = c |w|$ for some $c \in \mathbb{C}, |c| = 1$. This would mean that $\bm{P} w = \bm{P} c |w| = c \bm{P} |w| \overset{!}{=} \mu w$. Hence, $\bm{P} |w| = \frac{\mu}{c} w = |\frac{\mu}{c}| |w|$. Thus, we must have $|w| = v^*$ and $|\mu| = |c| = 1$ as already discussed. Hence, $w = c v^*$ (and $\mu = 1$), which is just a different representation of the eigenvector $v^*$ already found. So for every eigenvector $w$ other than $v^*$ with eigenvalue $\mu$ we must have that $|\mu| < 1$.
+    To see this, note that we only have equality iff all entries of $w$ are on a line in the complex plane, i.e. we can write $w = c |w|$ for some $c \in \mathbb{C}, |c| = 1$. This would mean that $\bm{P} w = \bm{P} c |w| = c \bm{P} |w| \overset{!}{=} \mu w$. Hence, $\bm{P} |w| = \frac{\mu}{c} w = |\frac{\mu}{c}| |w|$. Thus, we must have $|w| = v^*$ and $|\mu| = |c| = 1$ as already discussed. Hence, $w = c v^*$ (and $\mu = 1$), which is just a different representation of the eigenvector $v^*$ already found. So for every eigenvector $w$ other than $v^*$ with eigenvalue $\mu$ we must have that $|\mu| < 1$.
+
+    \smallskip
+    Now, the only thing left to do is to show that $T$ is in fact a contraction mapping. To this end, we must find a $0 \leq k < 1$ s.t. for all $x, y \in \Delta$ we have
+    \[
+        \|T(x) - T(y)\|_1 = \|\bm{P} (x - y)\|_1 \leq k \|x - y\|_1
+    \]
+    The idea is that $T$ maps from $\Delta$ into a real subspace $\Delta_{\bm{P}} \subsetneq \Delta$ defined by the simplex spanned by the columns of $\bm{P}$, which we call the vertices of the simplex $\Delta_{\bm{P}}$. $\Delta_{\bm{P}}$ does not contain any of the border points of $\Delta$. Applying $T$, we see that $T^2$ maps into an even smaller sub-simplex $\Delta_{\bm{P}^2} \subsetneq \Delta_{\bm{P}}$, and so on and so forth.
+
+    Formally, we define $k$ as $k \coloneqq \frac{\|\Delta_{\bm{P}}\|_1}{2}$, where $\|\Delta_{\bm{P}}\|_1$ denotes the maximum $L_1$ distance between any points in $\Delta_{\bm{P}}$. We can always measure this distance at two of the vertices of the simplex, as both the $L_1$ norm and the simplex are convex, so the maximum will be reached at vertices. But since all coordinates of all vertices are strictly positive, we have $\|\Delta_{\bm{P}}\|_1 < 2$, so $k$ is in fact valid.
+
+    Now, for the sake of contradiction, assume $\|\bm{P} (x - y)\|_1 > k \|x - y\|_1$ for some $x, y \in \Delta$. Note that $x - y$ is a vector with entries which sum to $0$, which defines a direction tangent to the unit simplex $\Delta$. We can always find two points $x', y' \in \Delta$ with the same direction and $\|x' - y'\|_1 = 2$ (one point will be a vertex, the other will lay on the opposite side). Hence:
+    \begin{align*}
+        \|\bm{P} (x' - y')\|_1 &= \frac{\|(x' - y')\|_1}{\|(x - y)\|_1} \|\bm{P} (x - y)\|_1 \\
+        &> k \frac{\|(x' - y')\|_1}{\|(x - y)\|_1} \|x - y\|_1 \\
+        &= k \|(x' - y')\|_1 = 2k = \|\Delta_{\bm{P}}\|_1 \quad , \\
+    \end{align*}
+    a contradiction.
 \end{proof}
+
+\begin{corollary}
+    Based on the proof, we see that for every $\bm{v} \in \Delta: \lim_{n \to \infty} \bm{P}^n \bm{v} = \bm{v}^*$. Now, set $\bm{v} \coloneqq \bm{e_i}$. It follows that $\lim_{n \to \infty} \bm{P}^n = \bm{P}_{\bm{v}^*}$, where $\bm{P}_{\bm{v}^*}$ is the matrix whose columns all consist of the unique fixed point $\bm{v}^*$. This convergence is independent of the norm.
+\end{corollary}
+
+\begin{lemma}[Assuming a Positive Matrix is not a Restriction]
+    If the Perron-Frobenius Theorem holds for positive matrices, then it also holds for irreducible aperiodic matrices $\bm{A}$.
+\end{lemma}
+\vspace{-2.5em}
+\begin{proof}
+    Let $\lambda_1, \dots, \lambda_n$ by the eigenvalues of $\bm{A}$ allowing for multiplicity and ordering them s.t. $|\lambda_1| \geq \dots \geq |\lambda_n|$. Per definition, we know there exists an $m \in \mathbb{N}$ s.t. $\bm{A}^m > \bm{0}$. Also, for every $\tau \in \mathbb{N}$ we have $\bm{A}^{m + \tau} > \bm{0}$. We apply the Perron-Frobenius Theorem on $\bm{A}^{m + \tau}$ to get the eigenvalues $\lambda_1^{(\tau)}, \dots, \lambda_n^{(\tau)}$ s.t. $\lambda_1^{(\tau)} > |\lambda_2^{(\tau)}| \geq \dots \geq |\lambda_n^{(\tau)}|$. Now, assume that we have ordered $\lambda_1, \dots, \lambda_n$ perefectly s.t. $\lambda_i^{m + \tau} = \lambda_i^{(\tau)}$, as such an order always exists. From this, we immediately see that $|\lambda_1|$ is strictly bigger than all other eigenvalues of $\bm{A}$. It also must be real and positive, as both $\lambda_1^{(0)}$ and $\lambda_1^{(1)}$ are real and positive, and thus $\lambda_1 = \frac{\lambda_1^{(1)}}{\lambda_1^{(0)}}$ is real and positive. So statements (1), (2), and (4) of theorem~\ref{theorem:perron_frobenius} follow.
+
+    Let $\bm{v}^{\tau}$ be the eigenvector of $\bm{A}^{m + \tau}$ with eigenvalue $\lambda_1^{(\tau)}$. By the Perron-Frobenius theorem we know that $\bm{v}^{\tau}$ is positive. Also, we know that $\bm{A}$ has an eigenvector $\bm{v}^*$ with eigenvalue $\lambda_1$, since $\lambda_1$ is unique. This eigenvector will not change for $\bm{A}^r$ for every $r \in \mathbb{N}$, and the only fitting match for $\bm{v}^*$ when $r = m + \tau$ is $\bm{v}^{\tau}$ based on the eigenvalues. And hence $\bm{v}^*$ itself is positive, which was the last claim (3).
+\end{proof}
+
+\begin{corollary}
+    The Perron-Frobenius Theorem holds for irreducible aperiodic Markov chain transition matrices $\bm{P}$, and $\lambda_{max} = 1$. The associated eigenvector is the stationary probability distribution $\bm{\mu}$.
+\end{corollary}
+
+\begin{remark}
+    $T: \Delta \to \Delta, T(\bm{v}) \coloneqq \bm{Pv}$ is not a contraction mapping in general for irreducible aperiodic Markov chain tranisition matrices $\bm{P}$. But we still have $\Delta_{\bm{P}^{r+1}} \subsetneq \Delta_{\bm{P}^{r}}$, so intuitively $T^{r}(\bm{v}) = \bm{P}^r\bm{v}$ itself will converge to $\bm{\mu}$. To formally prove this, let $m \in \mathbb{N}$ be s.t. $\bm{P}^m > \bm{0}$. Then also $\bm{P}^{m + 1} > \bm{0}$. $((\bm{P}^m)^r)_{r \in \mathbb{N}}$ and $((\bm{P}^{m + 1})^r)_{r \in \mathbb{N}}$ have the common subsequence $((\bm{P}^{m^2 + m})^r)_{r \in \mathbb{N}}$ and hence must converge to the same $\bm{P_\mu}$. From this, it follows that $(\bm{P}^r)_{r \in \mathbb{N}}$ itself converges to $\bm{P_\mu}$.
+\end{remark}
+
+\begin{remark}
+    Again, let $m \in \mathbb{N}$ be s.t. $\bm{P}^m > \bm{0}$. Based on the proof, we see that
+    \[
+        \| \bm{P}^{mr} \bm{v} - \bm{\mu} \|_1 \leq \dfrac{\|\Delta_{\bm{P^m}}\|_1^r}{2^r} \| (\bm{v} - \bm{\mu}) \|_1 \in \mathcal{O} \left( \left[ \frac{\|\Delta_{\bm{P^m}}\|_1}{2} \right] ^r \right) \quad .
+    \]
+    In other words, we have \emph{exponential decay} in the distance between $\bm{P}^{mr} \bm{v}$ and $\bm{\mu}$ with respect to $r$. Hence, we also have
+    \[
+        \| \bm{P}^{r} \bm{v} - \bm{\mu} \|_1 \in \mathcal{O} \left( \left[ \frac{\|\Delta_{\bm{P^m}}\|_1}{2} \right] ^{\dfrac{r}{m}} \right) = 
+        \mathcal{O} \left( \left[ \left( \frac{\|\Delta_{\bm{P^m}}\|_1}{2} \right) ^{\dfrac{1}{m}} \right] ^r \right) \quad .
+    \]
+\end{remark}
+
+
 \end{document}
