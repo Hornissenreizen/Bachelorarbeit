@@ -26,7 +26,7 @@
     \]
     
     \bigskip \noindent
-    There is a lot of math involved, so let us first get an intuition for what is going on. When considering Markov chains, we consider a set of states, say $S = \{A, B, C\}$, and for each time $t \in \mathbb{N}$ we assign a probability to the random variable $X_t \in S$. So let us consider the following Markov chain in figure~\ref{fig:markov_chain}.
+    There is a lot of math involved, so let us first get an intuition for what is going on. When considering Markov chains, we consider a set of states, say $S = \{A, B, C\}$, and for each time $t \in \mathbb{N}$ we assign a probability to the random variable $X_t \in S$. So let us consider the following Markov chain in figure~\ref{fig:2_markov_chain}.
 
     \begin{figure}[h]
     \center
@@ -49,7 +49,7 @@
 
     \end{tikzpicture}
     \caption{A simple irreducible aperiodic Markov chain. Note that if $X_{t_0} = C$, then we know that $X_{t_0+1} = A$.}
-    \label{fig:markov_chain}
+    \label{fig:2_markov_chain}
     \end{figure}
 
     \noindent
@@ -133,9 +133,68 @@
 
     \bigskip
     \begin{remark}
-        Based on the proof, we see that if the distance between $\bm{M}^\tau$ and $\bm{M_\mu}$ experiences exponential decay, we can translate this exponential decay to the mutual information measure $I_R(X, Y)$. Note that we have already established that irreducible aperiodic Markov chains have this property in remark~\ref{remark:exponential_decay}.
+        The above proof should also work without the approximation $P(a) \approx \bm{\mu}_a$, so $t_0$ musn't be big.
     \end{remark}
 
-\subsection{The Degenerate Case}
-    Nonetheless, we will prove the case that $\bm{M}$ is not diagonalizable seperately and establish the connection to $\lambda_2$.
+    \begin{remark}
+        Based on the proof, we see that if the distance between $\bm{M}^\tau$ and $\bm{M_\mu}$ experiences exponential decay, we can translate this exponential decay to the mutual information measure $I_R(X, Y)$. Note that we have already established that \emph{all} irreducible aperiodic Markov chains have this property in remark~\ref{remark:exponential_decay}.
+    \end{remark}
+
+\subsubsection{The Defective Case}
+    Nonetheless, we will prove the case that $\bm{M}$ is not diagonalizable seperately and establish the connection to $\lambda_2$. The idea is that while not every matrix is diagonalizable, every square matrix over the complex numbers can be put into \emph{Jordan normal form}, which resembles diagonalization. In this form, the matrix is nearly diagonal, except that for each repeated eigenvalue, there may be 1s on the superdiagonal (just above the main diagonal), indicating the presence of generalized eigenvectors.
+
+    For example, if there are only three distinct eigenvalues and $\lambda_2$ is threefold degenerate, the the Jordan form of $\bm{M}$ would be
+    \[
+        \bm{B}^{-1}\bm{MB} =
+        \begin{bmatrix}
+        \lambda_1 & 0 & 0 & 0 & 0 \\
+        0 & \lambda_2 & 1 & 0 & 0 \\
+        0 & 0 & \lambda_2 & 1 & 0 \\
+        0 & 0 & 0 & \lambda_2 & 0 \\
+        0 & 0 & 0 & 0 & \lambda_3 \\
+        \end{bmatrix}
+        \eqqcolon \bm{D}
+        \quad .
+    \]
+    Thus, again $\bm{M}^\tau = \bm{BD}^\tau \bm{B}^{-1}$, and the claim is that for our example $\bm{D}^\tau$ reads as
+    \[
+        \bm{D} =
+        \begin{bmatrix}
+        1 & 0 & 0 & 0 & 0 \\
+        0 & \lambda_2^\tau & \binom{\tau}{1} \lambda_2^{\tau - 1} & \binom{\tau}{2} \lambda_2^{\tau - 2} & 0 \\
+        0 & 0 & \lambda_2^\tau & \binom{\tau}{1} \lambda_2^{\tau - 1} & 0 \\
+        0 & 0 & 0 & \lambda_2^\tau & 0 \\
+        0 & 0 & 0 & 0 & \lambda_3^\tau \\
+        \end{bmatrix}
+        \quad .
+    \]
+    All the entries except the ones in the blocks with the binomial coefficient terms are trivial. So let us quickly verify those. For $\tau \coloneqq 1$ it obviously holds when setting $\binom{\tau}{n} \coloneqq 0$ for $n > \tau$. So assume the claim holds for $\tau \coloneqq k$. Then we have
+    \begin{align*}
+        \bm{D}^{k + 1} &= \bm{D}^k \bm{D} \\
+        &=
+        \begin{bmatrix}
+        1 & 0 & 0 & 0 & 0 \\
+        0 & \lambda_2^k & \binom{\tau}{1} \lambda_2^{k - 1} & \binom{k}{2} \lambda_2^{k - 2} & 0 \\
+        0 & 0 & \lambda_2^k & \binom{k}{1} \lambda_2^{k - 1} & 0 \\
+        0 & 0 & 0 & \lambda_2^k & 0 \\
+        0 & 0 & 0 & 0 & \lambda_3^k \\
+        \end{bmatrix}
+        \begin{bmatrix}
+        \lambda_1 & 0 & 0 & 0 & 0 \\
+        0 & \lambda_2 & 1 & 0 & 0 \\
+        0 & 0 & \lambda_2 & 1 & 0 \\
+        0 & 0 & 0 & \lambda_2 & 0 \\
+        0 & 0 & 0 & 0 & \lambda_3 \\
+        \end{bmatrix}
+        \quad . \\
+    \end{align*}
+    Thus, at $j geq i, \ d \coloneqq j - i$, $(\bm{D}^k)_{ij} = \binom{k}{d} \lambda_2^{k - d}$, and hence we have
+    \begin{align*}
+        (\bm{D}^{k + 1})ij &= (\bm{D}^k)_{i, i - (d - 1)} (\bm{D})_{i - (d - 1), j} + (\bm{D}^k)_{i, i - d} (\bm{D})_{i - d, j} \\
+        &= \binom{k}{d - 1} \lambda_2^{k - d + 1} + \binom{k}{d} \lambda_2^{k - d} \lambda_2 \\
+        &= \binom{k}{d - 1} \lambda_2^{k - d + 1} + \binom{k}{d} \lambda_2^{k - d + 1} \\
+        &= \left( \binom{k}{d - 1} + \binom{k}{d} \right) \lambda_2^{k - d + 1} \\
+        &= \binom{k + 1}{d} \lambda_2^{k + 1 - d} \quad ,
+    \end{align*}
+    just as expected.
 \end{document}
