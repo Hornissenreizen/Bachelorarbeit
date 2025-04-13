@@ -1,8 +1,8 @@
 \documentclass[../../main.tex]{subfiles}
 
 \begin{document}
-\section{Mutual Information}
-\subsection{Exponential Decay in Markov Chains}
+\section{Mutual Information in Markov Chains}
+\subsection{Exponential Decay in Irreducible Aperiodic Markov Chains}
     \noindent
     If we have a Markov chain defined by the matrix $\boldsymbol{M}$ (we adopt the notation in the paper and write $\bm{M}$ instead of $\bm{P}$), which is \emph{irreducible} and \emph{aperiodic}, and has a finite state space $S = \{1, \dots, n\}$, then we have that
     \[
@@ -174,7 +174,7 @@
         &=
         \begin{bmatrix}
         1 & 0 & 0 & 0 & 0 \\
-        0 & \lambda_2^k & \binom{\tau}{1} \lambda_2^{k - 1} & \binom{k}{2} \lambda_2^{k - 2} & 0 \\
+        0 & \lambda_2^k & \binom{k}{1} \lambda_2^{k - 1} & \binom{k}{2} \lambda_2^{k - 2} & 0 \\
         0 & 0 & \lambda_2^k & \binom{k}{1} \lambda_2^{k - 1} & 0 \\
         0 & 0 & 0 & \lambda_2^k & 0 \\
         0 & 0 & 0 & 0 & \lambda_3^k \\
@@ -188,13 +188,43 @@
         \end{bmatrix}
         \quad . \\
     \end{align*}
-    Thus, at $j geq i, \ d \coloneqq j - i$, $(\bm{D}^k)_{ij} = \binom{k}{d} \lambda_2^{k - d}$, and hence we have
+    Thus, at $j \geq i, \ d \coloneqq j - i$, $(\bm{D}^k)_{i,j} = \binom{k}{d} \lambda_2^{k - d}$, and hence we have
     \begin{align*}
-        (\bm{D}^{k + 1})ij &= (\bm{D}^k)_{i, i - (d - 1)} (\bm{D})_{i - (d - 1), j} + (\bm{D}^k)_{i, i - d} (\bm{D})_{i - d, j} \\
+        (\bm{D}^{k + 1})_{i,j} &= (\bm{D}^k)_{i, j - 1} (\bm{D})_{j - 1, j} + (\bm{D}^k)_{i, j} (\bm{D})_{j, j} \\
+        &= (\bm{D}^k)_{i, i + (d - 1)} + (\bm{D}^k)_{i, i + d} \lambda_2 \\
         &= \binom{k}{d - 1} \lambda_2^{k - d + 1} + \binom{k}{d} \lambda_2^{k - d} \lambda_2 \\
         &= \binom{k}{d - 1} \lambda_2^{k - d + 1} + \binom{k}{d} \lambda_2^{k - d + 1} \\
         &= \left( \binom{k}{d - 1} + \binom{k}{d} \right) \lambda_2^{k - d + 1} \\
-        &= \binom{k + 1}{d} \lambda_2^{k + 1 - d} \quad ,
+        &\overset{\checkmark}{=} \binom{k + 1}{d} \lambda_2^{k + 1 - d} \quad ,
     \end{align*}
     just as expected.
+
+    This was just an example, but it is easy to see that we can generalize this, and we get that the absolute value of every entry in $\bm{D}^\tau$, except the top left 1, is $\mathcal{O}(|\lambda_2|^\tau)$. Note that $|\binom{\tau}{d} \lambda_2^{\tau - d}| \in \mathcal{O}(|\lambda_2|^\tau)$ for each $d \in \mathbb{N}$.
+
+    The rest is trivial, as all the the entries in $\bm{B}$ and $\bm{B}^{-1}$ are really just constants, and hence when calculating $(\bm{M}^\tau)_{ba} = (\bm{BD}^\tau\bm{B}^{-1})_{ba}$, we have
+    \begin{align*}
+        (\bm{BD}^\tau\bm{B}^{-1})_{ba} &= \left( \bm{B} \left(
+            \begin{bmatrix}
+            1      & 0      & \cdots & 0 \\
+            0      & 0      & \cdots & 0 \\
+            \vdots & \vdots & \ddots & \vdots \\
+            0      & 0      & \cdots & 0
+            \end{bmatrix}
+            +
+            \begin{bmatrix}
+            c_{11} & c_{12} & \cdots & c_{1n} \\
+            c_{21} & c_{22} & \cdots & c_{2n} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            c_{n1} & c_{n2} & \cdots & c_{nn}
+            \end{bmatrix}
+            \mathcal{O}(|\lambda_2|^\tau)
+        \right)
+        \bm{B}^{-1} \right)_{ba} \\
+        &= \bm{\mu}_b \pm \mathcal{O}(|\lambda_2|^\tau)
+        \quad ,
+    \end{align*}
+    for some $c_{ij} \in \mathbb{C}, \ |c_{ij}| = 1$. The rest of the proof is identical to the one given.
+
+    \subsection{Other Cases}
+    lol
 \end{document}

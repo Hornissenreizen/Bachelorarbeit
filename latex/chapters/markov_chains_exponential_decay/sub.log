@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.4.10)  13 APR 2025 11:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.4.10)  13 APR 2025 14:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -599,26 +599,31 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 LaTeX Warning: Reference `remark:exponential_decay' on page 5 undefined on input line 140.
 
-[5] [6] (chapters/markov_chains_exponential_decay/sub.aux)
+[5]
+Overfull \hbox (25.25185pt too wide) detected at line 225
+[]
+ []
+
+[6] [7] (chapters/markov_chains_exponential_decay/sub.aux)
 
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `sub.out' has not changed.
-(rerunfilecheck)             Checksum: 01E7AAE114B7E72075BC8B52BF8450E0;538.
+(rerunfilecheck)             Checksum: EF9DA84793E7DB514431A6D0DB52D9CE;863.
  ) 
 Here is how much of TeX's memory you used:
- 22919 strings out of 480247
- 425543 string characters out of 5896151
- 876494 words of memory out of 5000000
- 40450 multiletter control sequences out of 15000+600000
+ 22922 strings out of 480247
+ 425579 string characters out of 5896151
+ 882494 words of memory out of 5000000
+ 40451 multiletter control sequences out of 15000+600000
  476101 words of font info for 54 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 104i,15n,106p,1009b,845s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/jonas/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on chapters/markov_chains_exponential_decay/sub.pdf (6 pages, 181990 bytes).
+ 104i,18n,106p,1009b,845s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/jonas/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on chapters/markov_chains_exponential_decay/sub.pdf (7 pages, 193639 bytes).
 PDF statistics:
- 136 PDF objects out of 1000 (max. 8388607)
- 96 compressed objects within 1 object stream
- 13 named destinations out of 1000 (max. 500000)
- 37 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 152 PDF objects out of 1000 (max. 8388607)
+ 108 compressed objects within 2 object streams
+ 15 named destinations out of 1000 (max. 500000)
+ 45 words of extra memory for PDF output out of 10000 (max. 10000000)
 
