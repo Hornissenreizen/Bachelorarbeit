@@ -225,6 +225,16 @@
     \end{align*}
     for some $c_{ij} \in \mathbb{C}, \ |c_{ij}| = 1$. The rest of the proof is identical to the one given.
 
-    \subsection{Other Cases}
-    lol
+\subsection{Other Cases}
+    We are interested in cases where $I(X, Y)$ decays to $0$. This means that for incrasing $\tau$, we get in the limit $\tau \to \infty$ that $P(a, b) = P(a) P(a \mid b) = P(a) (\bm{M}^\tau)_{ba} \overset{!}{=} P(a) P(b)$, and hence $(\bm{M}^\tau)_{ba} = P(b)$ for every $a \in S$. Clearly, this means that $\bm{M}^\tau$ must converge to a stationary matrix $\bm{M_\mu}$, where all columns are equal, at least given the case that $P(b)$ converges for all $b \in S$.
+
+\subsubsection{Case: P(b) Does Not Converge}
+    The problem is that the convergence of $P(b)$ might depend on the initial probability distribution vector $\bm{p}_0$. But actually, note that we still must have close to equal columns for increasing $\tau$, because $(\bm{M}^\tau)_{ba}$ must be independent of $a$. But such a matrix must be stationary (and hence $P(b)$ converges), so we cannot have $I(X, Y) = 0$ if $P(b)$ does not converge.
+
+\subsubsection{Case: P(b) Does Converge}
+    So now we assume that $\bm{M}^\tau$ converges to a stationary matrix $\bm{M_\mu}$. $\bm{M_\mu}$ must contain 0-entries, as if it didn't, it would mean that $\bm{M}$ is irreducible and aperiodic based on remark~\ref{remark:converse_lemma_aux}, and we already have covered that.
+
+    So this must mean that the set $S_C$ of all the states defined by the rows of $\bm{M_\mu}$ that are not 0 form the only closed communication class (and hence all other states are in an open communication class. All those states form the set $S_O$). Hence, after $n = |S|$ ticks we already have that all the rows associated with states in $S_O$ are filled up with 0-entries.
+
+    So we look at $\bm{M}^n$. Imagine for simplicity that the top rows are zeroed out. But then we can \emph{solely} focus on the sub-matrix $\bm{M}_{S_C}$ defined by the set of states $S_C$. But $\bm{M}_{S_C}$ converges to a positiv matrix, so $\bm{M}_{S_C}$ must be aperiodic based on remark~\ref{remark:converse_lemma_aux} again. This means that the irreducible aperiodic matrix $\bm{M}_{S_C}$ converges with exponential decay, and hence so does $\bm{M}^n$. Furthermore, we also know that $\bm{M}$ itself converges, and hence it also must experience exponential decay towards $\bm{M_\mu}$.
 \end{document}

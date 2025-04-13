@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.4.10)  13 APR 2025 14:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.4.10)  13 APR 2025 16:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -605,12 +605,12 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [7] [8] [9] [10]
-Overfull \hbox (2.88866pt too wide) in paragraph at lines 396--397
+Overfull \hbox (2.88866pt too wide) in paragraph at lines 397--398
 [][]\OT1/cmr/bx/n/10 Corollary 1.2. []\OT1/cmr/m/it/10 Based on the proof, we see that for ev-ery $\OML/cmm/b/it/10 v \OMS/cmsy/m/n/10 2 \OT1/cmr/m/n/10 ^^A : [][] \OML/cmm/b/it/10 P[]v \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (0.46878pt too wide) in paragraph at lines 400--401
+Overfull \hbox (0.46878pt too wide) in paragraph at lines 401--402
 \OT1/cmr/m/it/10 Frobenius The-o-rem holds for pos-i-tive ma-tri-ces, then it also holds for non-negative
  []
 
@@ -623,23 +623,23 @@ Overfull \hbox (25.25185pt too wide) detected at line 225
 []
  []
 
-[18]) [19] (./main.aux)
+[18]) [19] [20] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: FAA1756FE3A9281F773EC7629C06D2E2;1767.
+(rerunfilecheck)             Checksum: 72D9A57BC00A6412BBAFFE1185CE88D8;2196.
  ) 
 Here is how much of TeX's memory you used:
- 23049 strings out of 480247
- 426629 string characters out of 5896151
+ 23055 strings out of 480247
+ 426743 string characters out of 5896151
  880686 words of memory out of 5000000
- 40501 multiletter control sequences out of 15000+600000
+ 40504 multiletter control sequences out of 15000+600000
  484004 words of font info for 84 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  84i,18n,89p,1210b,1020s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/jonas/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on main.pdf (19 pages, 324768 bytes).
+Output written on main.pdf (20 pages, 328818 bytes).
 PDF statistics:
- 341 PDF objects out of 1000 (max. 8388607)
- 268 compressed objects within 3 object streams
- 72 named destinations out of 1000 (max. 500000)
- 93 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 359 PDF objects out of 1000 (max. 8388607)
+ 285 compressed objects within 3 object streams
+ 75 named destinations out of 1000 (max. 500000)
+ 109 words of extra memory for PDF output out of 10000 (max. 10000000)
 
