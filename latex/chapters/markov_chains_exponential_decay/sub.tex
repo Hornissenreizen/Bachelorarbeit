@@ -225,16 +225,76 @@
     \end{align*}
     for some $c_{ij} \in \mathbb{C}, \ |c_{ij}| = 1$. The rest of the proof is identical to the one given.
 
-\subsection{Other Cases}
-    We are interested in cases where $I(X, Y)$ decays to $0$. This means that for incrasing $\tau$, we get in the limit $\tau \to \infty$ that $P(a, b) = P(a) P(a \mid b) = P(a) (\bm{M}^\tau)_{ba} \overset{!}{=} P(a) P(b)$, and hence $(\bm{M}^\tau)_{ba} = P(b)$ for every $a \in S$. Clearly, this means that $\bm{M}^\tau$ must converge to a stationary matrix $\bm{M_\mu}$, where all columns are equal, at least given the case that $P(b)$ converges for all $b \in S$.
+\subsection{No Markov Chain with Power-Law Decay}
+    We are interested in cases where $I(X, Y)$ decays to $0$, as this is implied by a power-law decay. This means that for increasing $\tau$, we get in the limit $\tau \to \infty$ that $P(a, b) = P(a) P(b \mid a) = P(a) (\bm{M}^\tau)_{ba} \overset{!}{=} P(a) P(b)$, and hence $(\bm{M}^\tau)_{ba} = P(b)$ for every $a \in S$. Clearly, this means that $\bm{M}^\tau$ must converge to a stationary matrix $\bm{M_\mu}$, where all columns are equal, at least given the case that $P(b)$ converges for all $b \in S$. But thanks to the following lemma, we can assume that this is the case:
 
-\subsubsection{Case: P(b) Does Not Converge}
-    The problem is that the convergence of $P(b)$ might depend on the initial probability distribution vector $\bm{p}_0$. But actually, note that we still must have close to equal columns for increasing $\tau$, because $(\bm{M}^\tau)_{ba}$ must be independent of $a$. But such a matrix must be stationary (and hence $P(b)$ converges), so we cannot have $I(X, Y) = 0$ if $P(b)$ does not converge.
+    \begin{lemma}[Convergence of P(b) is Necessary for Power-Law Decay]
+        In order for $I(X, Y)$ to converge to $0$ for increasing $\tau$, we must have that $\lim_{t \to \infty}\bm{M}^t \bm{p}_0 = \bm{\mu}$ for every $\bm{p}_0 \in \Delta$ (and hence $P(b)$ converges).
+    \end{lemma}
+    \vspace{-2.5em}
+    \begin{proof}
+        In order for $I(X, Y)$ to converge to $0$, we still must have that $|(\bm{M}^\tau)_{ba} - P(X_{t_0 + \tau} = b)| \xrightarrow{\tau \to \infty} 0$ for every $a \in S$. But note that for this to happen we must have close to equal columns for increasing $\tau$, because $(\bm{M}^\tau)_{ba}$ must be independent of $a$. But such a matrix must be stationary (and hence $P(b)$ converges), so we cannot have $I(X, Y) = 0$ if $P(b)$ does not converge.
+    \end{proof}
 
-\subsubsection{Case: P(b) Does Converge}
-    So now we assume that $\bm{M}^\tau$ converges to a stationary matrix $\bm{M_\mu}$. $\bm{M_\mu}$ must contain 0-entries, as if it didn't, it would mean that $\bm{M}$ is irreducible and aperiodic based on remark~\ref{remark:converse_lemma_aux}, and we already have covered that.
+    \begin{theorem}[No Markov Chain with Power-Law Decay]
+        There is no Markov chain $\bm{M}$ with $I(X_{t_0}, X_{t_0 + \tau}) \in \mathcal{O}(\tau^{-\alpha})$ for an $\alpha \in \mathbb{R}_{>0}$.
+    \end{theorem}
+    \vspace{-2.5em}
+    \begin{proof}
+        For the sake of contradiction, assume that $\bm{M}$ produces power-law decay. Due to the previous results, we know that $\bm{M}^\tau$ converges to a stationary matrix $\bm{M_\mu}$. $\bm{M_\mu}$ must contain 0-entries, as if it didn't, it would mean that $\bm{M}$ is irreducible and aperiodic based on remark~\ref{remark:converse_lemma_aux}, and hence $\bm{M}$ would have exponential decay.
 
-    So this must mean that the set $S_C$ of all the states defined by the rows of $\bm{M_\mu}$ that are not 0 form the only closed communication class (and hence all other states are in an open communication class. All those states form the set $S_O$). Hence, after $n = |S|$ ticks we already have that all the rows associated with states in $S_O$ are filled up with 0-entries.
+        Thus, let's focus on all the rows of $\bm{M_\mu}$ with non-0-entries with associated states $S_C$. We see that for all $i \in S_C, j \in S$ we have that $(\bm{M_\mu})_{ij} > 0$ (especially for $j \in S_C$). Hence, the set $S_C$ describes a closed communication class. Furthermore, there cannot be another closed communication class, since in a closed communication class the transition probabilities between any two states cannot approach 0. Thus, all other states $S \setminus S_C \eqqcolon S_O$ are in an open communication class.
+        
+        For indexing reasons, we assume without loss of generality that $S_C = \{ 1, \dots, n' \} \subseteq S$.
+        Since $S_C$ is a closed communication class, we have that for all $j \in S_C, i \in S_O, t \in \mathbb{N}_{>0}: (\bm{M}^t)_{ij} = 0$ (especially for $t \coloneqq 1$). Thus for all $i,j \in S_C, t \in \mathbb{N}_{>0}$:
+        \begin{align*}   
+            (\bm{M}^{t+1})_{ij} &= (\bm{M}^t \bm{M})_{ij} \\
+            &= \sum_{k \in S} (\bm{M}^t)_{ik} (\bm{M})_{kj} \\
+            &= \sum_{k \in S_C} (\bm{M}^t)_{ik} (\bm{M})_{kj} \quad .
+        \end{align*}
+        Now, let $\bm{M}_{S_C}$ be the sub-matrix of $\bm{M}$ containing and only containing the transition probability entries for the states in $S_C$ (with our assumption $\bm{M}_{S_C}$ is the top left sub-matrix of $\bm{M}$). From our result, we see that $(\bm{M}^t)_{S_C} = (\bm{M}_{S_C})^t$.
 
-    So we look at $\bm{M}^n$. Imagine for simplicity that the top rows are zeroed out. But then we can \emph{solely} focus on the sub-matrix $\bm{M}_{S_C}$ defined by the set of states $S_C$. But $\bm{M}_{S_C}$ converges to a positiv matrix, so $\bm{M}_{S_C}$ must be aperiodic based on remark~\ref{remark:converse_lemma_aux} again. This means that the irreducible aperiodic matrix $\bm{M}_{S_C}$ converges with exponential decay, and hence so does $\bm{M}^n$. Furthermore, we also know that $\bm{M}$ itself converges, and hence it also must experience exponential decay towards $\bm{M_\mu}$.
+        But $(\bm{M}^t)_{S_C}$ converges to a positive matrix, and hence so must $(\bm{M}_{S_C})^t$. Hence, $\bm{M}_{S_C}$ must be aperiodic based on remark~\ref{remark:converse_lemma_aux} again. This means that $\bm{M}_{S_C}$ is an irreducible aperiodic matrix, and thus $(\bm{M}_{S_C})^t$ converges with exponential decay (with a basis of $|\lambda_2|$ of $\bm{M}_{S_C}$), and hence so does $(\bm{M}^t)_{S_C}$.
+
+        Quickly note that $\lambda_2$ of $\bm{M}_{S_C}$ is an eigenvalue of $\bm{M}$ as well: There must be (at least) one associated eigenvector $v \in \mathbb{C}^{|S_C|}$ s.t. $\bm{M}_{S_C} v = \lambda_2 v$. Now, extend $v$ to an eigenvector $v'$ of $\bm{M}$ by adding zeros in all the places associated with states in $S_O$ (here: at the end). For $i \in S_C$ we have:
+        \begin{align*}
+            (\bm{M} v')_i &= \sum_{j \in S} \bm{M}_{ij} v'_j \\
+            &\underset{\text{0-entries of v'}}{=} \sum_{j \in S_C} \bm{M}_{ij} v'_j \\
+            &= \sum_{j \in S_C} \bm{M}_{ij} v_j \\
+            &\underset{i \in S_C}{=} \sum_{j \in S_C} (\bm{M}_{S_C})_{ij} v_j \\
+            &= (\bm{M}_{S_C} v)_i \\
+            &= \lambda_2 v_i \overset{\checkmark}{=} \lambda_2 v'_i \quad ,
+        \end{align*}
+        and for $i \in S_O$ it follows that
+        \begin{align*}
+            (\bm{M} v')_i &= \sum_{j \in S} \bm{M}_{ij} v'_j \\
+            &\underset{\text{0-entries of v'}}{=} \sum_{j \in S_C} \bm{M}_{ij} v'_j \\
+            &\underset{i \in S_O}{=} \sum_{j \in S_C} 0 \cdot v'_j \\
+            &= 0 \overset{\checkmark}{=} \lambda_2 v'_i \quad .
+        \end{align*}
+
+        The only thing left to do is to show the convergence of $\bm{M}_{S_O}$, and that it also has exponential decay (with a basis less than or equal to $|\lambda_2|$ of $\bm{M}$). To this end, assume that $(\bm{M}^t)_{S_C}$ converged perfectly to $(\bm{M_\mu})_{S_C}$. So $\bm{M}^t$ looks like this:
+        \[
+            \bm{M}^t =
+            \begin{bmatrix}
+                \uparrow & \uparrow & \cdots & \uparrow & \uparrow & \cdots & \uparrow \\
+                \bm{\mu}_{S_C} & \bm{\mu}_{S_C} & \cdots & \bm{\mu}_{S_C} & \mid & \cdots & \mid \\
+                \downarrow & \downarrow & \cdots & \downarrow & v^{(t)}_{n' + 1}  & \cdots & v^{(t)}_{n} \\
+                0 & 0 & \cdots & 0 & \mid & \cdots & \mid \\
+                \vdots & \vdots & \ddots & \vdots & \downarrow & \cdots & \downarrow
+            \end{bmatrix}
+            \quad .
+        \]
+        We collapse all the $S_C$ entries of $v^{(t)}$ by summing them up and create a single entry $(v'^{(t)})_1$ for it. Note that $(v'^{(t)})_1 > 0$ for $t \geq n$, because we can reach $S_C$ in at least $n = |S|$ ticks. We also collapse $\bm{\mu}_{S_C}$. Let's also set $t \coloneqq n$. Our matrix then looks like this:
+        \[
+            \bm{M}'^n =
+            \begin{bmatrix}
+                1 & \uparrow & \cdots & \uparrow \\
+                0 & v'^{(n)}_{n' + 1}  & \cdots & v'^{(n)}_{n} \\
+                \vdots & \downarrow & \cdots & \downarrow
+            \end{bmatrix}
+            \quad .
+        \]
+        But clearly, $T(v) \coloneqq \bm{M}'^n v$ is a contraction mapping since $|\Delta_{\bm{M}'^n}| < 2$ (because the top row is strictly positive).
+    \end{proof}
 \end{document}

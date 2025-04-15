@@ -308,7 +308,7 @@ Furthermore, we also might ask whether the stationary probability distribution i
 
 Clearly, we have two stationary probability distributions with all their weight in either state $2$ or state $3$. Once again, our intuition tells us we might require an irreducible Markov chain.
 
-Now it's time to specify our intuitions precisely. The following result is for irreducible aperiodic Markov chains is very significant.
+Now it's time to specify our intuitions precisely. The following result regarding irreducible aperiodic Markov chains is very significant.
 
 \begin{theorem}[Positive n-Step Transition Matrix for Irreducible Aperiodic Markov Chains]
     For every irreducible aperiodic Markov chain specified by $\bm{P}$, there exists an $m \in \mathbb{N}_{>0}$ s.t. $\bm{P}^m > \bm{0}$, where the comparison is element-wise.
@@ -321,6 +321,7 @@ We first prove the following auxiliary lemma:
     Let $i \in S$ be an aperiodic state. Then there exists an $L \in \mathbb{N}$ s.t. for all $n > L: (\bm{P}^n)_{ii} > 0$.
     \label{lemma:aux}
 \end{lemma}
+\vspace{-2.5em}
 \begin{proof}
     Since state $i$ is aperiodic, we can find $n_1, \dots, n_r \in \mathbb{N}$ s.t. $(\bm{P}^{n_1})_{ii} > 0, \dots, (\bm{P}^{n_r})_{ii} > 0$ and $\gcd \{ n_1, \dots , n_r \} = 1$. From number theory, we know that for $L \coloneqq \prod_{k=1}^{r} n_k$ we can write every natural number $n > L$ in the form $n = l_1 n_1 + \dots + l_r n_r$ for suitable $l_1, \dots, l_r \in \mathbb{N}$. Hence:
     \[
@@ -334,7 +335,7 @@ We first prove the following auxiliary lemma:
 \end{remark}
 
 \begin{proof}[Proof of Theorem~\ref{theorem:positive_transition_matrix}]
-    Let $L'$ be defined as the maximum of all $L$ defined like in Lemma~\ref{lemma:aux} when looping over all $i \in S$. Then for every $n > L'$, we have that $\bm{P}^n$ has positive entries along its diagonal. It follows that if $(\bm{P}^{t_{ji}})_{ij} > 0$ for some $t_{ji} \in \mathbb{N}_{>0}$, then we have $(\bm{P}^{n + t_{ji} + \tau})_{ij} > 0$ as well for every $\tau \in \mathbb{N}$. Furthermore, for every $i,j \in S$ we have $(\bm{P}^{t_{ji}})_{ij} > 0$ at some point $t_{ji} \in \mathbb{N}_{>0}$ due to aperiodicity. Hence, at some point all the zeros must have vanished.
+    Let $L'$ be defined as the maximum of all $L$ defined like in Lemma~\ref{lemma:aux} when looping over all $i \in S$. Then for every $n > L'$, we have that $\bm{P}^n$ has positive entries along its diagonal. It follows that if $(\bm{P}^{t_{ji}})_{ij} > 0$ for some $t_{ji} \in \mathbb{N}_{>0}$, then we have $(\bm{P}^{n + t_{ji} + \tau})_{ij} > 0$ as well for every $\tau \in \mathbb{N}$. Furthermore, for every $i,j \in S$ we have $(\bm{P}^{t_{ji}})_{ij} > 0$ at some point $t_{ji} \in \mathbb{N}_{>0}$ since $\bm{P}$ is irreducible. Hence, at some point all the zeros must have vanished.
 \end{proof}
 
 \begin{corollary}

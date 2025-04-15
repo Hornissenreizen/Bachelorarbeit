@@ -7,6 +7,4 @@
 \contentsline {section}{\numberline {2}Mutual Information in Markov Chains}{13}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Exponential Decay in Irreducible Aperiodic Markov Chains}{13}{subsection.2.1}%
 \contentsline {subsubsection}{\numberline {2.1.1}The Defective Case}{17}{subsubsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.2}Other Cases}{19}{subsection.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.1}Case: P(b) Does Not Converge}{19}{subsubsection.2.2.1}%
-\contentsline {subsubsection}{\numberline {2.2.2}Case: P(b) Does Converge}{19}{subsubsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2}No Markov Chain with Power-Law Decay}{19}{subsection.2.2}%
