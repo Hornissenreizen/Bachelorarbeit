@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.17)  15 APR 2025 12:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.17)  15 APR 2025 17:51
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -629,13 +629,8 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 [9]
 
 [10]
-Overfull \hbox (2.88866pt too wide) in paragraph at lines 398--399
-[][]\OT1/cmr/bx/n/10 Corollary 1.2. []\OT1/cmr/m/it/10 Based on the proof, we see that for ev-ery $\OML/cmm/b/it/10 v \OMS/cmsy/m/n/10 2 \OT1/cmr/m/n/10 ^^A : [][] \OML/cmm/b/it/10 P[]v \OT1/cmr/m/n/10 =
- []
-
-
-Overfull \hbox (0.46878pt too wide) in paragraph at lines 402--403
-\OT1/cmr/m/it/10 Frobenius The-o-rem holds for pos-i-tive ma-tri-ces, then it also holds for non-negative
+Overfull \hbox (2.88866pt too wide) in paragraph at lines 408--409
+[][]\OT1/cmr/bx/n/10 Corollary 1.4. []\OT1/cmr/m/it/10 Based on the proof, we see that for ev-ery $\OML/cmm/b/it/10 v \OMS/cmsy/m/n/10 2 \OT1/cmr/m/n/10 ^^A : [][] \OML/cmm/b/it/10 P[]v \OT1/cmr/m/n/10 =
  []
 
 
@@ -657,20 +652,20 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 [16]
 
 [17]
-Overfull \hbox (25.25185pt too wide) detected at line 225
+Overfull \hbox (25.25185pt too wide) detected at line 226
 []
  []
 
 
 
 [18]
-Overfull \hbox (7.72157pt too wide) in paragraph at lines 248--250
+
+[19]
+Overfull \hbox (7.72157pt too wide) in paragraph at lines 249--251
 []\OT1/cmr/m/n/10 For in-dex-ing rea-sons, we as-sume with-out loss of gen-er-al-ity that $\OML/cmm/m/it/10 S[] \OT1/cmr/m/n/10 = \OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 1\OML/cmm/m/it/10 ; [] ; n[]\OMS/cmsy/m/n/10 g ^^R
  []
 
 
-
-[19]
 
 [20])
 
@@ -683,18 +678,18 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 1986317EC578BB371CC56A4C6F7FC557;1904.
  ) 
 Here is how much of TeX's memory you used:
- 23449 strings out of 473330
- 431783 string characters out of 5719768
+ 23455 strings out of 473330
+ 431967 string characters out of 5719768
  999848 words of memory out of 5000000
- 46091 multiletter control sequences out of 15000+600000
+ 46095 multiletter control sequences out of 15000+600000
  572814 words of font info for 92 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,18n,93p,1237b,1046s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,18n,93p,1055b,1046s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on main.pdf (21 pages, 340722 bytes).
+Output written on main.pdf (21 pages, 343954 bytes).
 PDF statistics:
- 356 PDF objects out of 1000 (max. 8388607)
- 280 compressed objects within 3 object streams
- 76 named destinations out of 1000 (max. 500000)
+ 363 PDF objects out of 1000 (max. 8388607)
+ 287 compressed objects within 3 object streams
+ 78 named destinations out of 1000 (max. 500000)
  93 words of extra memory for PDF output out of 10000 (max. 10000000)
 

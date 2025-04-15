@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1744713052.75207 "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/main.tex" "main.pdf" "main" 1744713053.42973 0
-  "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/main.tex" 1744713051.89297 2011 f42dc1292569bbdcf57fa739cd735c45 ""
+["pdflatex"] 1744732296.38499 "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/main.tex" "main.pdf" "main" 1744732297.03248 0
+  "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/main.tex" 1744732296.18173 2011 f42dc1292569bbdcf57fa739cd735c45 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1734431872.38973 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1734431873.45473 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1734431879.03568 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -205,12 +205,12 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1734431864.2608 5485709 8129e419010b46b234085a26866cdb87 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1734431864.3988 3343776 2b14423543ae36c58e6a97232fe20f3b ""
   "/usr/local/texlive/2024/texmf.cnf" 1734431864.4218 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
-  "chapters/markov_chains_exponential_decay/sub.tex" 1744712523.43539 21655 b772d3c95b018aa3d6fa82a971643101 ""
-  "chapters/markov_chains_introduction/sub.tex" 1744705312.96726 27772 7349911f6be7ebb425ebc9e44c661f96 ""
-  "main.aux" 1744713053.35596 4023 0cbadce5ba919674548d1479f7c6e1cf "pdflatex"
-  "main.out" 1744713053.35696 1904 1986317ec578bb371cc56a4c6f7fc557 "pdflatex"
-  "main.tex" 1744713051.89297 2011 f42dc1292569bbdcf57fa739cd735c45 ""
-  "main.toc" 1744713053.35696 927 9c5aab036fae95fa823b4b1af51e9158 "pdflatex"
+  "chapters/markov_chains_exponential_decay/sub.tex" 1744732292.65075 23044 66bac8c1e4aa5fe0f6b8059fbccca8e6 ""
+  "chapters/markov_chains_introduction/sub.tex" 1744732092.67121 28629 984dd7bd23d4d9fb7a091fb37eb2378c ""
+  "main.aux" 1744732296.95972 4401 0c1ca507070eee9b57d111de8557650f "pdflatex"
+  "main.out" 1744732296.96072 1904 1986317ec578bb371cc56a4c6f7fc557 "pdflatex"
+  "main.tex" 1744732296.18173 2011 f42dc1292569bbdcf57fa739cd735c45 ""
+  "main.toc" 1744732296.96072 927 9c5aab036fae95fa823b4b1af51e9158 "pdflatex"
   (generated)
   "main.aux"
   "main.log"

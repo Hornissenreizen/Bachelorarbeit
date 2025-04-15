@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.17)  15 APR 2025 13:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.17)  15 APR 2025 17:51
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -614,7 +614,7 @@ LaTeX Warning: Reference `remark:exponential_decay' on page 5 undefined on input
 
 
 [5]
-Overfull \hbox (25.25185pt too wide) detected at line 225
+Overfull \hbox (25.25185pt too wide) detected at line 226
 []
  []
 
@@ -622,22 +622,28 @@ Overfull \hbox (25.25185pt too wide) detected at line 225
 
 [6]
 
-LaTeX Warning: Reference `remark:converse_lemma_aux' on page 7 undefined on input line 244.
-
-
-Overfull \hbox (7.72157pt too wide) in paragraph at lines 248--250
-[]\OT1/cmr/m/n/10 For in-dex-ing rea-sons, we as-sume with-out loss of gen-er-al-ity that $\OML/cmm/m/it/10 S[] \OT1/cmr/m/n/10 = \OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 1\OML/cmm/m/it/10 ; [] ; n[]\OMS/cmsy/m/n/10 g ^^R
- []
+LaTeX Warning: Reference `corollary:converse_positive_transition_matrix' on page 7 undefined on input line 245.
 
 
 
 [7]
+Overfull \hbox (7.72157pt too wide) in paragraph at lines 249--251
+[]\OT1/cmr/m/n/10 For in-dex-ing rea-sons, we as-sume with-out loss of gen-er-al-ity that $\OML/cmm/m/it/10 S[] \OT1/cmr/m/n/10 = \OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 1\OML/cmm/m/it/10 ; [] ; n[]\OMS/cmsy/m/n/10 g ^^R
+ []
 
-LaTeX Warning: Reference `remark:converse_lemma_aux' on page 8 undefined on input line 257.
+
+LaTeX Warning: Reference `corollary:converse_positive_transition_matrix' on page 8 undefined on input line 258.
 
 
 
 [8]
+
+LaTeX Warning: Reference `corollary:perron_frobenius_extension' on page 9 undefined on input line 279.
+
+
+LaTeX Warning: Reference `lemma:perron_frobenius_extension_A_to_the_m' on page 9 undefined on input line 279.
+
+
 
 [9] (chapters/markov_chains_exponential_decay/sub.aux)
  ***********
@@ -652,18 +658,18 @@ Package rerunfilecheck Info: File `sub.out' has not changed.
 (rerunfilecheck)             Checksum: 322EA825B44B2C31F958D3987DC78897;1000.
  ) 
 Here is how much of TeX's memory you used:
- 23304 strings out of 473330
- 430090 string characters out of 5719768
+ 23307 strings out of 473330
+ 430221 string characters out of 5719768
  1001545 words of memory out of 5000000
- 46023 multiletter control sequences out of 15000+600000
+ 46026 multiletter control sequences out of 15000+600000
  564911 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  104i,18n,110p,1036b,844s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on chapters/markov_chains_exponential_decay/sub.pdf (9 pages, 226414 bytes).
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on chapters/markov_chains_exponential_decay/sub.pdf (9 pages, 218506 bytes).
 PDF statistics:
- 169 PDF objects out of 1000 (max. 8388607)
- 120 compressed objects within 2 object streams
+ 166 PDF objects out of 1000 (max. 8388607)
+ 119 compressed objects within 2 object streams
  19 named destinations out of 1000 (max. 500000)
  45 words of extra memory for PDF output out of 10000 (max. 10000000)
 

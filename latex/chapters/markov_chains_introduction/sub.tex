@@ -342,6 +342,11 @@ We first prove the following auxiliary lemma:
     Once $\bm{P}^m > \bm{0}$, then for all $\tau \in \mathbb{N}: \bm{P}^{m + \tau} > \bm{0}$. 
 \end{corollary}
 
+\begin{corollary}
+    \label{corollary:converse_positive_transition_matrix}
+    The Converse of Theorem~\ref{theorem:positive_transition_matrix} is also true, that is if $\bm{P}^m > \bm{0}$ for some $m \in \mathbb{N}$, then $P$ is irreducible and aperiodic. Irreducibility directly follows from $\bm{P}^m > \bm{0}$, and since $\bm{P}^{m + 1} > \bm{0}$ as well, $\bm{P}$ must also be aperiodic.
+\end{corollary}
+
 The reader might question the importance of Theorem~\ref{theorem:positive_transition_matrix}. Clearly, we can see the interplay of the two properties of the Markov chain being irreducible and aperiodic in the proofs. But how does it help us finding a stationary probability distribution? Well, to answer this, we need another fundamental result, which we will cover next.
 
 
@@ -394,18 +399,24 @@ This is a mouthful, and we will not prove this theorem in this general form, as 
     a contradiction.
 \end{proof}
 
+\begin{corollary}[Extension to More General Markov Chains]
+    \label{corollary:perron_frobenius_extension}
+    Based on the proof, we see that we only needed $\bm{P}$ to be positive in order to, first, guarantee $\|\Delta_{\bm{P}}\|_1 < 2$. Of course, many other $\bm{P}$ imply this, as we just need every pair of columns of $\bm{P}$ to have at least one pair of positive entries at common indices. Thus, the Perron-Frobenius Theorem also applies to Markov chains $\bm{P}$ where one row of $\bm{P}$ is strictly positive for example. BUT: The associated eigenvector must not be positive anymore, since that was the second application of $\bm{P} > \bm{0}$.
+\end{corollary}
+
 \begin{corollary}
     Based on the proof, we see that for every $\bm{v} \in \Delta: \lim_{n \to \infty} \bm{P}^n \bm{v} = \bm{v}^*$. Now, set $\bm{v} \coloneqq \bm{e_i}$. It follows that $\lim_{n \to \infty} \bm{P}^n = \bm{P}_{\bm{v}^*}$, where $\bm{P}_{\bm{v}^*}$ is the matrix whose columns all consist of the unique fixed point $\bm{v}^*$. This convergence is independent of the norm.
 \end{corollary}
 
-\begin{lemma}[Assuming a Positive Matrix is not a Restriction]
-    If the Perron-Frobenius Theorem holds for positive matrices, then it also holds for non-negative matrices $\bm{A}$ with the property that there exists an $m \in \mathbb{N}$ s.t. $\bm{A}^m > \bm{0}$.
+\begin{lemma}
+    \label{lemma:perron_frobenius_extension_A_to_the_m}
+    If the Perron-Frobenius Theorem applies to both $\bm{A}^m$ and $\bm{A}^{m+1}$ for some $m \in \mathbb{N}_{>0}$, then it will also apply to $\bm{A}$.
 \end{lemma}
 \vspace{-2.5em}
 \begin{proof}
-    Let $\lambda_1, \dots, \lambda_n$ by the eigenvalues of $\bm{A}$ allowing for multiplicity and ordering them s.t. $|\lambda_1| \geq \dots \geq |\lambda_n|$. Per definition, we know there exists an $m \in \mathbb{N}$ s.t. $\bm{A}^m > \bm{0}$. Also, for every $\tau \in \mathbb{N}$ we have $\bm{A}^{m + \tau} > \bm{0}$. We apply the Perron-Frobenius Theorem on $\bm{A}^{m + \tau}$ to get the eigenvalues $\lambda_1^{(\tau)}, \dots, \lambda_n^{(\tau)}$ s.t. $\lambda_1^{(\tau)} > |\lambda_2^{(\tau)}| \geq \dots \geq |\lambda_n^{(\tau)}|$. Now, assume that we have ordered $\lambda_1, \dots, \lambda_n$ perefectly s.t. $\lambda_i^{m + \tau} = \lambda_i^{(\tau)}$, as such an order always exists. From this, we immediately see that $|\lambda_1|$ is strictly bigger than all other eigenvalues of $\bm{A}$. It also must be real and positive, as both $\lambda_1^{(0)}$ and $\lambda_1^{(1)}$ are real and positive, and thus $\lambda_1 = \frac{\lambda_1^{(1)}}{\lambda_1^{(0)}}$ is real and positive. So statements (1), (2), and (4) of theorem~\ref{theorem:perron_frobenius} follow.
+    Let $\lambda_1, \dots, \lambda_n$ by the eigenvalues of $\bm{A}$ allowing for multiplicity and ordering them s.t. $|\lambda_1| \geq \dots \geq |\lambda_n|$. We apply the Perron-Frobenius Theorem on $\bm{A}^{m}$ to get the eigenvalues $\lambda_1^{(m)}, \dots, \lambda_n^{(m)}$ s.t. $\lambda_1^{(m)} > |\lambda_2^{(m)}| \geq \dots \geq |\lambda_n^{(m)}|$. Now, assume that we have ordered $\lambda_1, \dots, \lambda_n$ perfectly s.t. $\lambda_i^{m} = \lambda_i^{(m)}$, as such an order always exists. From this, we immediately see that $|\lambda_1|$ is strictly bigger than all other eigenvalues of $\bm{A}$. It also must be real and positive, as both $\lambda_1^{(m)}$ and $\lambda_1^{(m + 1)}$ are real and positive, and thus $\lambda_1 = \frac{\lambda_1^{(m + 1)}}{\lambda_1^{(m)}}$ is real and positive. So statements (1), (2), and (4) of theorem~\ref{theorem:perron_frobenius} follow.
 
-    Let $\bm{v}^{\tau}$ be the eigenvector of $\bm{A}^{m + \tau}$ with eigenvalue $\lambda_1^{(\tau)}$. By the Perron-Frobenius theorem we know that $\bm{v}^{\tau}$ is positive. Also, we know that $\bm{A}$ has an eigenvector $\bm{v}^*$ with eigenvalue $\lambda_1$, since $\lambda_1$ is unique. This eigenvector will not change for $\bm{A}^r$ for every $r \in \mathbb{N}$, and the only matching eigenvector for $\bm{v}^*$ when $r = m + \tau$ is $\bm{v}^{\tau}$ based on the eigenvalues. And hence $\bm{v}^* \coloneqq \bm{v}^{\tau}$ itself is positive, which was the last claim (3).
+    Let $\bm{v}^{(m)}$ be the (unique up to scaling) eigenvector of $\bm{A}^{m}$ with eigenvalue $\lambda_1^{(m)}$. By the Perron-Frobenius Theorem we know that $\bm{v}^{(m)}$ is positive. Also, we know that $\bm{A}$ has an eigenvector $\bm{v}^*$ with eigenvalue $\lambda_1$, since $\lambda_1$ is unique. This eigenvector will not change for $\bm{A}^r$ for every $r \in \mathbb{N}$, and the only matching eigenvector for $\bm{v}^*$ when $r = m$ is $\bm{v}^{(m)}$ based on the eigenvalues. And hence $\bm{v}^* \coloneqq \bm{v}^{(m)}$ itself is positive, which was the last claim (3).
 \end{proof}
 
 \begin{corollary}

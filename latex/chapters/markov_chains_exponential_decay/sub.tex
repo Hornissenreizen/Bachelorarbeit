@@ -90,7 +90,7 @@
         &= \sum_{(a,b) \in S^2} \frac{P(b \,|\, a)^2 P(a)^2}{P(a) P(b)} \\
         &= \sum_{(a,b) \in S^2} \frac{\boldsymbol{\mu}_a}{\boldsymbol{\mu}_b} \left[ (\boldsymbol{M}^{\tau})_{ba} \right] ^2 \quad .
     \end{align*}
-    Let us now focus on $(\boldsymbol{M}^{\tau})_{ba}$. For simplicity, we consider the case that $\boldsymbol{M}$ is diagonalizable. Note that since M is irreducible and aperiodic, we have that $1 = \lambda_1 > |\lambda_2| \geq \dots \geq |\lambda_n|$. The authors provide proof for the other case as well. But for now, let
+    Let us now focus on $(\boldsymbol{M}^{\tau})_{ba}$. For simplicity, we consider the case that $\boldsymbol{M}$ is diagonalizable (for the general case see section~\ref{section:the_defectvie_case}). Note that since M is irreducible and aperiodic, we have that $1 = \lambda_1 > |\lambda_2| \geq \dots \geq |\lambda_n|$. Hence, let
     \[
         \boldsymbol{M} = \boldsymbol{BDB}^{-1}
     \]
@@ -113,7 +113,7 @@
     Note that this is informal writing. It would be more precise to state that $|(\boldsymbol{M}^\tau)_{ba} - \boldsymbol{\mu}_b| \in \mathcal{O}(|\lambda_2|^\tau)$.
 
     ~\\
-    This is looking promising, as this means that the discrepancy between $(\boldsymbol{M}^\tau)_{ba}$ and $\boldsymbol{\mu}_b$ decays exponentially. The only thing left to do is translating this exponential decay to the mutual independence measure $I_R(X, Y)$. To this end, we plug our results back into our previous equation. Note that this step deviates from the procedure in the paper (own interpretation, informal!). Thus:
+    This is looking promising, as this means that the discrepancy between $(\boldsymbol{M}^\tau)_{ba}$ and $\boldsymbol{\mu}_b$ decays exponentially. The only thing left to do is translating this exponential decay to the mutual independence measure $I_R(X, Y)$. To this end, we plug our results back into our previous equation. Thus:
     \begin{align*}
         I_R(X, Y) &= \left( \sum_{(a,b) \in S^2} \frac{\boldsymbol{\mu}_a}{\boldsymbol{\mu}_b} \left[ (\boldsymbol{M}^{\tau})_{ba} \right] ^2 \right) - 1 \\
         &= \sum_{(a,b) \in S^2} \left( \frac{\boldsymbol{\mu}_a}{\boldsymbol{\mu}_b} \left[ (\boldsymbol{M}^{\tau})_{ba} \right] ^2 - \boldsymbol{\mu}_a \boldsymbol{\mu}_b \right) \\
@@ -141,7 +141,8 @@
     \end{remark}
 
 \subsubsection{The Defective Case}
-    Nonetheless, we will prove the case that $\bm{M}$ is not diagonalizable seperately and establish the connection to $\lambda_2$. The idea is that while not every matrix is diagonalizable, every square matrix over the complex numbers can be put into \emph{Jordan normal form}, which resembles diagonalization. In this form, the matrix is nearly diagonal, except that for each repeated eigenvalue, there may be 1s on the superdiagonal (just above the main diagonal), indicating the presence of generalized eigenvectors.
+    \label{section:the_defectvie_case}
+    Nonetheless, we will prove the case that $\bm{M}$ is not diagonalizable separately and establish the connection to $\lambda_2$. The idea is that while not every matrix is diagonalizable, every square matrix over the complex numbers can be put into \emph{Jordan normal form}, which resembles diagonalization. In this form, the matrix is nearly diagonal, except that for each repeated eigenvalue, there may be 1s on the superdiagonal (just above the main diagonal), indicating the presence of generalized eigenvectors.
 
     For example, if there are only three distinct eigenvalues and $\lambda_2$ is threefold degenerate, the the Jordan form of $\bm{M}$ would be
     \[
@@ -237,11 +238,11 @@
     \end{proof}
 
     \begin{theorem}[No Markov Chain with Power-Law Decay]
-        There is no Markov chain $\bm{M}$ with $I(X_{t_0}, X_{t_0 + \tau}) \in \mathcal{O}(\tau^{-\alpha})$ for an $\alpha \in \mathbb{R}_{>0}$.
+        There is no Markov chain $\bm{M}$ with $I(X_{t_0}, X_{t_0 + \tau}) \in \mathcal{O}(\tau^{-\alpha})$ and $I(X_{t_0}, X_{t_0 + \tau}) \in \Omega (\tau^{-\beta})$ for some $\alpha, \beta \in \mathbb{R}_{>0}$.
     \end{theorem}
     \vspace{-2.5em}
     \begin{proof}
-        For the sake of contradiction, assume that $\bm{M}$ produces power-law decay. Due to the previous results, we know that $\bm{M}^\tau$ converges to a stationary matrix $\bm{M_\mu}$. $\bm{M_\mu}$ must contain 0-entries, as if it didn't, it would mean that $\bm{M}$ is irreducible and aperiodic based on remark~\ref{remark:converse_lemma_aux}, and hence $\bm{M}$ would have exponential decay.
+        For the sake of contradiction, assume that $\bm{M}$ produces power-law decay. Due to the previous results, we know that $\bm{M}^\tau$ converges to a stationary matrix $\bm{M_\mu}$. (The following discussion is facultative; it aims to enhance the reader's understanding). $\bm{M_\mu}$ must contain 0-entries, as if it didn't, it would mean that $\bm{M}$ is irreducible and aperiodic based on corollary~\ref{corollary:converse_positive_transition_matrix}, and hence $\bm{M}$ would have exponential decay.
 
         Thus, let's focus on all the rows of $\bm{M_\mu}$ with non-0-entries with associated states $S_C$. We see that for all $i \in S_C, j \in S$ we have that $(\bm{M_\mu})_{ij} > 0$ (especially for $j \in S_C$). Hence, the set $S_C$ describes a closed communication class. Furthermore, there cannot be another closed communication class, since in a closed communication class the transition probabilities between any two states cannot approach 0. Thus, all other states $S \setminus S_C \eqqcolon S_O$ are in an open communication class.
         
@@ -254,7 +255,7 @@
         \end{align*}
         Now, let $\bm{M}_{S_C}$ be the sub-matrix of $\bm{M}$ containing and only containing the transition probability entries for the states in $S_C$ (with our assumption $\bm{M}_{S_C}$ is the top left sub-matrix of $\bm{M}$). From our result, we see that $(\bm{M}^t)_{S_C} = (\bm{M}_{S_C})^t$.
 
-        But $(\bm{M}^t)_{S_C}$ converges to a positive matrix, and hence so must $(\bm{M}_{S_C})^t$. Hence, $\bm{M}_{S_C}$ must be aperiodic based on remark~\ref{remark:converse_lemma_aux} again. This means that $\bm{M}_{S_C}$ is an irreducible aperiodic matrix, and thus $(\bm{M}_{S_C})^t$ converges with exponential decay (with a basis of $|\lambda_2|$ of $\bm{M}_{S_C}$), and hence so does $(\bm{M}^t)_{S_C}$.
+        But $(\bm{M}^t)_{S_C}$ converges to a positive matrix, and hence so must $(\bm{M}_{S_C})^t$. Hence, $\bm{M}_{S_C}$ must be irreducible aperiodic based on corollary~\ref{corollary:converse_positive_transition_matrix} again. Thus, $(\bm{M}_{S_C})^t$ converges with exponential decay (with a basis of $|\lambda_2| < 1$ of $\bm{M}_{S_C}$), and hence so does $(\bm{M}^t)_{S_C}$.
 
         Quickly note that $\lambda_2$ of $\bm{M}_{S_C}$ is an eigenvalue of $\bm{M}$ as well: There must be (at least) one associated eigenvector $v \in \mathbb{C}^{|S_C|}$ s.t. $\bm{M}_{S_C} v = \lambda_2 v$. Now, extend $v$ to an eigenvector $v'$ of $\bm{M}$ by adding zeros in all the places associated with states in $S_O$ (here: at the end). For $i \in S_C$ we have:
         \begin{align*}
@@ -273,28 +274,10 @@
             &= 0 \overset{\checkmark}{=} \lambda_2 v'_i \quad .
         \end{align*}
 
-        The only thing left to do is to show the convergence of $\bm{M}_{S_O}$, and that it also has exponential decay (with a basis less than or equal to $|\lambda_2|$ of $\bm{M}$). To this end, assume that $(\bm{M}^t)_{S_C}$ converged perfectly to $(\bm{M_\mu})_{S_C}$. So $\bm{M}^t$ looks like this:
-        \[
-            \bm{M}^t =
-            \begin{bmatrix}
-                \uparrow & \uparrow & \cdots & \uparrow & \uparrow & \cdots & \uparrow \\
-                \bm{\mu}_{S_C} & \bm{\mu}_{S_C} & \cdots & \bm{\mu}_{S_C} & \mid & \cdots & \mid \\
-                \downarrow & \downarrow & \cdots & \downarrow & v^{(t)}_{n' + 1}  & \cdots & v^{(t)}_{n} \\
-                0 & 0 & \cdots & 0 & \mid & \cdots & \mid \\
-                \vdots & \vdots & \ddots & \vdots & \downarrow & \cdots & \downarrow
-            \end{bmatrix}
-            \quad .
-        \]
-        We collapse all the $S_C$ entries of $v^{(t)}$ by summing them up and create a single entry $(v'^{(t)})_1$ for it. Note that $(v'^{(t)})_1 > 0$ for $t \geq n$, because we can reach $S_C$ in at least $n = |S|$ ticks. We also collapse $\bm{\mu}_{S_C}$. Let's also set $t \coloneqq n$. Our matrix then looks like this:
-        \[
-            \bm{M}'^n =
-            \begin{bmatrix}
-                1 & \uparrow & \cdots & \uparrow \\
-                0 & v'^{(n)}_{n' + 1}  & \cdots & v'^{(n)}_{n} \\
-                \vdots & \downarrow & \cdots & \downarrow
-            \end{bmatrix}
-            \quad .
-        \]
-        But clearly, $T(v) \coloneqq \bm{M}'^n v$ is a contraction mapping since $|\Delta_{\bm{M}'^n}| < 2$ (because the top row is strictly positive).
+        The only things left to do are, first, to verify that $|\lambda_2|$ of $\bm{M}_{S_C}$ is less than or equal to the absolute value of the second largest eigenvalue of $\bm{M}$; and second, to show the convergence of $\bm{M}_{S_O}$ and that it also exhibits exponential decay (with a base less than or equal to $|\lambda_2|$ of $\bm{M}$). Luckily, we achieve all our goals thanks to the following observation:
+
+        (Start of the actual proof.) Since $\bm{M}^t$ converges to $\bm{M_\mu}$, there must exist an $m \in \mathbb{N}_{>0}$ s.t. $\bm{M}^m$ and $\bm{M}^{m + 1}$ both have a positive row. Thus, thanks to corollary~\ref{corollary:perron_frobenius_extension} we can apply the Perron-Frobenius Theorem (with the exception that the eigenvector must not be positive) to $\bm{M}^m$ and $\bm{M}^{m + 1}$, and thanks to lemma~\ref{lemma:perron_frobenius_extension_A_to_the_m} also to $\bm{M}$ itself. Of course, $\lambda_{max} = 1$ with the associated eigenvector $\bm{\mu}$. So we know that $|\lambda_2| < 1$ of $\bm{M}_{S_C}$ is less than or equal to the absolute value of the second largest eigenvalue of $\bm{M}$.
+
+        Furthermore, we of course have that $\lim_{\tau \to \infty} (\bm{M}^\tau)_{ba} = \bm{\mu}_b \ (\coloneqq \lim_{\tau \to \infty} P(b))$. But those were the only two assumptions made in section~\ref{section:the_defectvie_case}. Thus, by the same logic, we get $I(X_{t_0}, X_{t_0 + \tau}) \in \mathcal{O}(|\lambda_2|^\tau)$.
     \end{proof}
 \end{document}
