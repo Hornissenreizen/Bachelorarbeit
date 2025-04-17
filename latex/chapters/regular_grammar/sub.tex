@@ -1,0 +1,86 @@
+\documentclass[../../main.tex]{subfiles}
+
+\begin{document}
+\section{No Power-Law in Hidden Markov Models}
+    When modelling \emph{natural language}, we generate the next token(s) based on the previous tokens (and hence not based on future tokens; we generate text from left to right). Thus, when disregarding the future tokens, i.e. when marginalizing over them, we can determine the Markov blanket of the current token, i.e. determine the minimal set of tokens that infuluence the current one.
+
+    Naturally, we can think of natural language modelling as \emph{Bayesian networks} over the characters in the text. Because we generate text from left to right, we naturally assume all arrows to go from previous tokens to future tokens (because this is also the modus operandi for token generation). For example, Markov chains up to character position $t$ have the following simple representation:
+
+    \begin{figure}[h]
+        \center
+        \begin{tikzpicture}[node distance=1.5cm, auto]
+        \node (X0) {$X_0$};
+        \node (X1) [right of=X0] {$X_1$};
+        \node (dots) [right of=X1] {$\cdots$};
+        \node (Xt) [right of=dots] {$X_t$};
+
+        \draw[->] (X0) -- (X1);
+        \draw[->] (X1) -- (dots);
+        \draw[->] (dots) -- (Xt);
+        \end{tikzpicture}
+        \caption{Bayesian network of Markov chains. All arrows go from previous tokens to future tokens.}
+        \label{fig:bayesian_network_markov_chain}
+    \end{figure}
+
+    But really, in Markov chains $P(X_{t + 1} = a \mid X_t = b)$ is independent of $t$ and hence is constant over time. So really, all the arrows in figure~\ref{fig:bayesian_network_markov_chain} represent the same transition, this is very important to note.
+
+    From a modelling perspective, it is very reasonable to reuse the same transitions over time, as we cannot have infinitely many "hard-coded" transitions (but we can use different models whith implicitely infitite transitions). Furthermore, for the same \emph{mode of transition}, which we define as the "arrow structure" in the Bayesian network (in figure~\ref{fig:bayesian_network_markov_chain} the mode of transition would be from the current token to the next), it seems reasonable to assume invariance in time for a single constant mode of transition based on the characteristics of natural language.
+
+    Now, the question is, can we achieve power law decay with only one constant (hard-coded) mode of transition? Well, for Markov chains it did not work, so maybe we just have to augment the context window and create new modes of transition.
+
+    This is an interesting approach, which we will investigate on. Since we already established interesting results for Markov chains, we would like to reduce any constant mode of transition to a Markov chain. But how do we do this for a larger context window, where we have many random variables influencing the current one?
+    
+    The idea is to employ a hidden variable $Y \in \Sigma ^s$, where $\Sigma$ is the alphabet, and $s$ is the size of the context window, which we define as the length of the longest arrow in the mode of transition (for Markov chains $s = 1$). Clearly, $Y$ captures the entire \emph{state} at time $t$ of our model, and we can model the transitions $Y_t \to Y_{t + 1}$ as simple Markov chain transitions (and hence independent of time). And, of course, once we know $Y_t$, we also know $X_t$ (which of course can be modelled with Markov chain transitions as well). Thus, we have the following Bayesian network:
+
+    \begin{figure}[h]
+        \center
+        \begin{tikzpicture}[node distance=1.5cm and 1.5cm, auto]
+
+        % Top row (Y)
+        \node (Y0) {$Y_0$};
+        \node (Y1) [right of=Y0] {$Y_1$};
+        \node (Ydots) [right of=Y1] {$\cdots$};
+        \node (Yt) [right of=Ydots] {$Y_t$};
+
+        % Bottom row (X)
+        \node (X0) [below of=Y0] {$X_0$};
+        \node (X1) [right of=X0] {$X_1$};
+        \node (Xdots) [right of=X1] {$\cdots$};
+        \node (Xt) [right of=Xdots] {$X_t$};
+
+        % Horizontal arrows (Y row)
+        \draw[->] (Y0) -- (Y1);
+        \draw[->] (Y1) -- (Ydots);
+        \draw[->] (Ydots) -- (Yt);
+
+        % Vertical arrows
+        \draw[->] (Y0) -- (X0);
+        \draw[->] (Y1) -- (X1);
+        \draw[->] (Yt) -- (Xt);
+
+        \end{tikzpicture}
+        \caption{Bayesian network of a hidden Markov model.}
+        \label{fig:bayesian_network_hidden_markov}
+    \end{figure}
+
+    These models are known as \emph{hidden Markov models}. Unfortunately, there is no free lunch, as we see in the following theorem:
+
+    \begin{theorem}[No Hidden Markov Model with Power-Law decay]
+        There is no hidden Markov model $(\bm{M_Y}, \bm{M_X})$ with $I(X_{t_0}, X_{t_0 + \tau}) \in \mathcal{O}(\tau^{-\alpha})$ and $I(X_{t_0}, X_{t_0 + \tau}) \in \Omega (\tau^{-\beta})$ for some $\alpha, \beta \in \mathbb{R}_{>0}$.
+    \end{theorem}
+    \vspace{-2.5em}
+    \begin{proof}
+        First, note that $P(X_{t + \tau} = b \mid Y_t = c) = (\bm{M_X} \bm{M_Y}^\tau)_{bc}$. Furthermore,
+        \begin{align*}
+            P(Y_t = c \mid X_t = a) &= \dfrac{P(Y_t = c, X_t = a)}{P(X_t = a)} \\
+            &= \dfrac{P(X_t = a \mid Y_t = c) P(Y_t = c)}{P(X_t = a)} \\
+            &= (\bm{M_X})_{ac} \dfrac{P(Y_t = c)}{P(X_t = a)} \quad .
+        \end{align*}
+
+        We are interested in $P(X_{t + \tau} = b \mid X_t = a)$. Based on our observations, we have
+        \begin{align*}
+            P(X_{t + \tau} = b \mid X_t = a) &= \sum_{c \in S_Y} P(Y_t = c \mid X_t = a) P(X_{t + \tau} = b \mid Y_t = c) \\
+            &= \sum_{c \in S_Y} (\bm{M_X})_{ac} \dfrac{P(Y_t = c)}{P(X_t = a)} (\bm{M_X} \bm{M_Y}^\tau)_{bc} \\
+        \end{align*}
+    \end{proof}
+\end{document}
