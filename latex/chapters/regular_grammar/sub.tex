@@ -70,17 +70,63 @@
     \end{theorem}
     \vspace{-2.5em}
     \begin{proof}
-        First, note that $P(X_{t + \tau} = b \mid Y_t = c) = (\bm{M_X} \bm{M_Y}^\tau)_{bc}$. Furthermore,
+        Set $t \coloneqq t_0$. First, note that $P(X_{t + \tau} = b \mid Y_t = c) = (\bm{M_X} \bm{M_Y}^\tau)_{bc}$. Furthermore,
         \begin{align*}
             P(Y_t = c \mid X_t = a) &= \dfrac{P(Y_t = c, X_t = a)}{P(X_t = a)} \\
             &= \dfrac{P(X_t = a \mid Y_t = c) P(Y_t = c)}{P(X_t = a)} \\
             &= (\bm{M_X})_{ac} \dfrac{P(Y_t = c)}{P(X_t = a)} \quad .
         \end{align*}
-
         We are interested in $P(X_{t + \tau} = b \mid X_t = a)$. Based on our observations, we have
         \begin{align*}
             P(X_{t + \tau} = b \mid X_t = a) &= \sum_{c \in S_Y} P(Y_t = c \mid X_t = a) P(X_{t + \tau} = b \mid Y_t = c) \\
             &= \sum_{c \in S_Y} (\bm{M_X})_{ac} \dfrac{P(Y_t = c)}{P(X_t = a)} (\bm{M_X} \bm{M_Y}^\tau)_{bc} \\
+            &= \dfrac{1}{P(X_t = a)} \sum_{c \in S_Y} (\bm{M_X})_{ac} P(Y_t = c) (\bm{M_X} \bm{M_Y}^\tau)_{bc} \\
+            &= \dfrac{1}{P(X_t = a)} \sum_{c \in S_Y} (\bm{M_X})_{ac} P(Y_t = c) \sum_{d \in S_Y} (\bm{M_X})_{bd} (\bm{M_Y}^\tau)_{dc} \quad . \\
         \end{align*}
+        For the case that $\bm{M_Y}^\tau$ converges to $\bm{M_{\mu_Y}}$, it must do so with exponential decay. So we get:
+        \begin{align*}
+            &= \dfrac{1}{P(X_t = a)} \sum_{c \in S_Y} (\bm{M_X})_{ac} P(Y_t = c) \sum_{d \in S_Y} (\bm{M_X})_{bd} ((\bm{\mu_Y})_{d} \pm \mathcal{O}(|\lambda_2^+|^\tau)) \\
+            &= \dfrac{1}{P(X_t = a)} \sum_{c \in S_Y} (\bm{M_X})_{ac} P(Y_t = c) \left[ (\bm{M_X}\bm{\mu_Y})_{b} \pm \mathcal{O}(|\lambda_2^+|^\tau) \right] \\
+            &= \dfrac{1}{P(X_t = a)} \sum_{c \in S_Y} \left[ (\bm{M_X})_{ac} P(Y_t = c) (\bm{M_X}\bm{\mu_Y})_{b} \pm \mathcal{O}(|\lambda_2^+|^\tau) \right] \\
+            &= \left[ \dfrac{1}{P(X_t = a)} \sum_{c \in S_Y} (\bm{M_X})_{ac} P(Y_t = c) (\bm{M_X}\bm{\mu_Y})_{b} \right] \pm \mathcal{O}(|\lambda_2^+|^\tau) \\
+            &= \left[ \dfrac{(\bm{M_X}\bm{\mu_Y})_{b}}{P(X_t = a)} \sum_{c \in S_Y} (\bm{M_X})_{ac} P(Y_t = c) \right] \pm \mathcal{O}(|\lambda_2^+|^\tau) \\
+            &= \left[ \dfrac{(\bm{M_X}\bm{\mu_Y})_{b}}{P(X_t = a)} P(X_t = a) \right] \pm \mathcal{O}(|\lambda_2^+|^\tau) \\
+            &= (\bm{M_X}\bm{\mu_Y})_{b} \pm \mathcal{O}(|\lambda_2^+|^\tau) \quad . \\
+        \end{align*}
+        Thus, we get:
+        \begin{align*}
+            I_R(X_t, X_{t + \tau}) + 1 &= \sum_{(a,b) \in {S_X}^2} \dfrac{P(X_t = a)}{P(X_{t + \tau} = b)} P(X_{t + \tau} = b \mid X_t = a)^2 \\
+            &= \sum_{(a,b) \in {S_X}^2} \dfrac{P(X_t = a)}{P(X_{t + \tau} = b)} \left[ (\bm{M_X}\bm{\mu_Y})_{b} \pm \mathcal{O}(|\lambda_2^+|^\tau) \right] ^2 \\
+            &= \sum_{(a,b) \in {S_X}^2} \dfrac{P(X_t = a)}{P(X_{t + \tau} = b)} \left[ (\bm{M_X}\bm{\mu_Y})_{b}^2 \pm \mathcal{O}(|\lambda_2^+|^\tau) \right] \\
+            &= \left[ \sum_{(a,b) \in {S_X}^2} \dfrac{P(X_t = a)}{P(X_{t + \tau} = b)} (\bm{M_X}\bm{\mu_Y})_{b}^2 \right] \pm \mathcal{O}(|\lambda_2^+|^\tau) \\
+            &= \left[ \sum_{(a,b) \in {S_X}^2} \dfrac{P(X_t = a)}{(\bm{M_X}\bm{\mu_Y})_{b} \pm \mathcal{O}(|\lambda_2^+|^{t + \tau})} (\bm{M_X}\bm{\mu_Y})_{b}^2 \right] \pm \mathcal{O}(|\lambda_2^+|^\tau) \\
+            &= \left[ \sum_{(a,b) \in {S_X}^2} P(X_t = a)(\bm{M_X}\bm{\mu_Y})_{b} \pm \mathcal{O}(|\lambda_2^+|^{t + \tau}) \right] \pm \mathcal{O}(|\lambda_2^+|^\tau) \\
+            &= 1 \pm \mathcal{O}(|\lambda_2^+|^\tau) \quad ,
+        \end{align*}
+        from which $I(X_t, X_{t + \tau}) \in \mathcal{O}(|\lambda_2^+|^\tau)$ follows.
+
+        Now assume $\bm{M_Y}^\tau$ does not converges to $\bm{M_{\mu_Y}}$. This case is much harder to prove, and we will only provide an intuition.
+        
+        Like before, we still must have $\lim_{\tau \to \infty} |P(X_{t + \tau} = b \mid X_t = a) - P(X_{t + \tau} = b)| = 0$ in order for $I(X_t, X_{t + \tau})$ to converge to $0$. Again, this means that $P(X_{t + \tau} = b \mid X_t = a)$ should become independent of $a$.
+        Let's analyze it further:
+        \begin{align*}
+            P(X_{t + \tau} = b \mid X_t = a) &= \sum_{c \in S_Y} P(Y_t = c \mid X_t = a) P(X_{t + \tau} = b \mid Y_t = c) \\
+            &= \sum_{c \in S_Y} P(Y_t = c \mid X_t = a) (\bm{M_X} \bm{M_Y}^\tau)_{bc} \quad .
+        \end{align*}
+        If we assume $P(X_{t + \tau} = b)$ to converge, then our expression must also be independent of $t$! But the coefficients $P(Y_t = c \mid X_t = a)$ vary a lot with $t$ and $a$, so $(\bm{M_X} \bm{M_Y}^\tau)_{bc}$ should become independent of $c$ (for every $b$). But since $\bm{M_Y}^\tau$ does not converge to $\bm{M_{\mu_Y}}$, $\bm{M_X}$ must correct it. But $\bm{M_X} \bm{M_Y}^\tau$ must also converge with exponential decay (why?).
+
+        The case that $P(X_{t + \tau} = b)$ does not converge is also not easy. But for now we are satisfied with the fact that natural languages should have this property, so we may assume convergence of $P(X_{t + \tau} = b)$.
     \end{proof}
+
+    \smallskip
+\subsection{Conclusions for Model Selection}
+    Since we are interested in natural language modelling, we should choose a model with power-law decay in the mutual independence measure. And since a constant mode of transition is not sufficient for this purpose, we should instead look at alternatives.
+
+    \textbf{1. Change Transition Tables over Time.} This is a simple approach, but it assumes a prior about the character distribution based on their position, but this non-characteristic of natural language. Instead, we should change the transitions based on what we have seen (or generated) thus far, but this is equivalent of augmenting the context window at each step. Of course, we now must have a dynamic model capable of processing arbitrary large sentences.
+
+    \textbf{2. Augmenting Context Window Dynamically.} This is a very natural approach. We can choose whether we want to read in the entire previous text, or maybe every second character, or so on, but the context window should keep growing indefinitely (or else we would have the same mode of transition at two points, and we assume that the same mode of transition stays constant over time, and it would be strange to alternate between finite modes of transition, because this assumes a prior based on the character position again).
+    
+    Intuitively, we should base our token guess based on the entire previous text, as we humans operate in similar manner. Or, alternatively, the context window should grow really large, until there will only be minor differences, at which point it may stay constant (in theory we might have some exponential decay, but this would only be noticeable over very large distances, where the mutual information naturally already decayed to almost zero).
+
+    In the next chapter, 
 \end{document}
