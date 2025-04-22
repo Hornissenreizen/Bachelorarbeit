@@ -9,3 +9,4 @@
 \contentsline {subsubsection}{\numberline {2.1.1}The Defective Case}{17}{subsubsection.2.1.1}%
 \contentsline {subsection}{\numberline {2.2}No Markov Chain with Power-Law Decay}{19}{subsection.2.2}%
 \contentsline {section}{\numberline {3}No Power-Law in Hidden Markov Models}{22}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Conclusions for Model Selection}{25}{subsection.3.1}%

@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1745071081 "/home/jonas/Desktop/Bachelorarbeit/latex/chapters/regular_grammar/sub.tex" "chapters/regular_grammar/sub.pdf" "sub" 1745071082
+["pdflatex"] 1745310053 "/home/jonas/Desktop/Bachelorarbeit/latex/chapters/regular_grammar/sub.tex" "chapters/regular_grammar/sub.pdf" "sub" 1745310055
   "/etc/texmf/web2c/texmf.cnf" 1667832238 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/jonas/Desktop/Bachelorarbeit/latex/chapters/regular_grammar/sub.tex" 1745071081 11593 3ca4a8d3ef4beb7db99f5452bb0fa140 ""
+  "/home/jonas/Desktop/Bachelorarbeit/latex/chapters/regular_grammar/sub.tex" 1745310053 11961 e2dd7b7663556654e9557419fd067abc ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1246382020 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm" 1246382020 1120 7f9f170e8aa57527ad6c49feafd45d54 ""
@@ -180,9 +180,9 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1697878699 128028 f533b797fba58d231669ea19e894e23e ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1712737265 1405647 f966d3218063cabc8be94f5b4e8cfbea ""
   "chapters/regular_grammar/../../main.tex" 1745069131 2063 b64bc11cf4e8d996c848715387a90c78 ""
-  "chapters/regular_grammar/sub.aux" 1745071081 1570 3b31fec3cea3e6abbe4c69f7c28d4fd6 "pdflatex"
-  "chapters/regular_grammar/sub.out" 1745071081 459 8f54ba2574cb7e8e4a7b4e1781540c5e "pdflatex"
-  "chapters/regular_grammar/sub.tex" 1745071081 11593 3ca4a8d3ef4beb7db99f5452bb0fa140 ""
+  "chapters/regular_grammar/sub.aux" 1745310054 1570 3b31fec3cea3e6abbe4c69f7c28d4fd6 "pdflatex"
+  "chapters/regular_grammar/sub.out" 1745310054 459 8f54ba2574cb7e8e4a7b4e1781540c5e "pdflatex"
+  "chapters/regular_grammar/sub.tex" 1745310053 11961 e2dd7b7663556654e9557419fd067abc ""
   (generated)
   "chapters/regular_grammar/sub.aux"
   "chapters/regular_grammar/sub.log"

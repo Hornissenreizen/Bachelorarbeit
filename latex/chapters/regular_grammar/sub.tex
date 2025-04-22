@@ -24,7 +24,7 @@
 
     But really, in Markov chains $P(X_{t + 1} = a \mid X_t = b)$ is independent of $t$ and hence is constant over time. So really, all the arrows in figure~\ref{fig:bayesian_network_markov_chain} represent the same transition, this is very important to note.
 
-    From a modelling perspective, it is very reasonable to reuse the same transitions over time, as we cannot have infinitely many "hard-coded" transitions (but we can use different models whith implicitely infitite transitions). Furthermore, for the same \emph{mode of transition}, which we define as the "arrow structure" in the Bayesian network (in figure~\ref{fig:bayesian_network_markov_chain} the mode of transition would be from the current token to the next), it seems reasonable to assume invariance in time for a single constant mode of transition based on the characteristics of natural language.
+    From a modelling perspective, it is very reasonable to reuse the same transitions over time, as we cannot have infinitely many "hard-coded" transitions (but we can use different models whith implicitely infitite transitions). Furthermore, for the same \emph{mode of transition}, which we define as the "arrow structure" of all ingoing edges into the current node in the Bayesian network (in figure~\ref{fig:bayesian_network_markov_chain} the mode of transition would be from the current token to the next), it seems reasonable to assume invariance in time, i.e. fixed transition probabilities. We call such transitions to be \emph{constant}.
 
     Now, the question is, can we achieve power law decay with only one constant (hard-coded) mode of transition? Well, for Markov chains it did not work, so maybe we just have to augment the context window and create new modes of transition.
 
@@ -128,5 +128,7 @@
     
     Intuitively, we should base our token guess based on the entire previous text, as we humans operate in similar manner. Or, alternatively, the context window should grow really large, until there will only be minor differences, at which point it may stay constant (in theory we might have some exponential decay, but this would only be noticeable over very large distances, where the mutual information naturally already decayed to almost zero).
 
-    In the next chapter, 
+    Theoretically, however, we can always construct counter examples where the mutual information stays relatively high over large distances. Thus, such models may serve only as heuristics—albeit very capable ones.
+
+    In the next chapter, we analyze models with dynamically increasing context windows, and we will actually see some power-law behavior.
 \end{document}
