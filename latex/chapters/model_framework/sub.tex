@@ -25,6 +25,10 @@
         \]
     \end{definition}
 
+    \begin{remark}
+        Markov chains and hidden Markov models are well behaved.
+    \end{remark}
+
     \begin{lemma}
         For every $d \in \mathbb{N}$, let $I \coloneqq [n + d] \setminus [n] = \{ n+1, \dots, n + d \}$. Then, if $S$ is well behaved, we have for every $w \in \Sigma^{n + d}$:
         \[
@@ -72,7 +76,7 @@
     For our model $S$, we want the mutual information between \emph{any} two variables $X_t$, $X_{t + \tau}$ to be $I(X_t, X_{t + \tau}) \in \Omega(\tau^{-\alpha})$, i.e. it has to hold for every $t$ and \emph{every} $S_n$. Thus, let us define the following:
 
     \begin{definition}
-        We define $i_{S_n}(\tau)$ (, $I_{S_n}(\tau)$) to be the minimal (, maximal) mutual information between any two variables of $S_n$ with distance $\tau$. Formally, let $X_t, X_{t + \tau}$ be random variables with distributions defined by $S_n$. Then:
+        We define $i_{S_n}(\tau)$ and $I_{S_n}(\tau)$ to be the minimal and maximal mutual information between any two variables of $S_n$ with distance $\tau$. Formally, let $X_t, X_{t + \tau}$ ($t + \tau \leq n$) be random variables with distributions defined by $S_n$. Then:
         \vspace{-1em}
         \begin{itemize}
             \item $i_{S_n}(\tau) \coloneqq \min_{t \in [n - \tau]} I(X_t, X_{t + \tau}) \quad ,$
@@ -81,6 +85,19 @@
     \end{definition}
 
     \begin{definition}
-        A model $S$ has \emph{lower bound power-law behavior} iff there exist constants $c, \alpha \in \mathbb{R}_{>0}$ s.t. for every $n \in \mathbb{N}$ it holds true that $i_{S_n}(\tau) \geq c \tau^{-\alpha}$. Furthermore, $S$ has \emph{decaying behavior} iff for every $n \in \mathbb{N}$ we have $I_{S_{n + \tau}}(\tau) \xrightarrow{\tau \to \infty} 0$. Lastly, $S$ has \emph{power-law behavior} iff it has lower bound power-law behavior and decaying behavior.
+        A model $S$ has \emph{lower bound power-law behavior} iff there exist constants $c, \alpha \in \mathbb{R}_{>0}$ s.t. for every $n \in \mathbb{N}$ it holds true that $i_{S_n}(\tau) \geq c \tau^{-\alpha}$. Similarly, $S$ has \emph{upper bound power-law behavior} iff there exist constants $c', \alpha' \in \mathbb{R}_{>0}$ s.t. for every $n \in \mathbb{N}$ it holds true that $I_{S_n}(\tau) \leq c' \tau^{-\alpha'}$. Furthermore, $S$ has \emph{decaying behavior} iff for every $n \in \mathbb{N}$ we have $I_{S_{n + \tau}}(\tau) \xrightarrow{\tau \to \infty} 0$. Lastly, $S$ has \emph{power-law behavior} iff it has lower and upper bound power-law behavior (alternatively decaying behavior instead of upper bound power-law behavior).
     \end{definition}
+
+    \begin{definition}
+        We define $\overline{i_{S_n}}$ and $\overline{I_{S_n}}$ to be the minimal and maximal mutual information between any two variables of $S_n$ with arbitrary distance $\tau$. Formally, let $X_i, X_j$ ($1 \leq i < j \leq n$) be random variables with distributions defined by $S_n$. Then:
+        \vspace{-1em}
+        \begin{itemize}
+            \item $\overline{i_{S_n}} \coloneqq \min_{(i, j) \in [n]^2, i < j} I(X_i, X_j) = \min_{\tau \in [n - 1]} i_{S_n}(\tau) \quad ,$
+            \item $\overline{I_{S_n}} \coloneqq \max_{(i, j) \in [n]^2, i < j} I(X_i, X_j) = \max_{\tau \in [n - 1]} I_{S_n}(\tau) \quad .$
+        \end{itemize}
+    \end{definition}
+
+    \begin{theorem}
+        Let $S^*$ be a well behaved model. Then $S^*$ has lower bound power-law behavior iff $\overline{i_{S_n}} \equiv \overline{i_S}(n) \in \Omega(n^{-\alpha})$ for some $\alpha \in \mathbb{R}_{>0}$.
+    \end{theorem}
 \end{document}
