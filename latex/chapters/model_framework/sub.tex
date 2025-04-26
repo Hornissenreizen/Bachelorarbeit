@@ -19,43 +19,48 @@
     We present one strict definition for this \emph{similarity} in the following definition:
 
     \begin{definition}
-        We say $S$ is \emph{well behaved} iff for every $n \in \mathbb{N}, \ w \in \Sigma^{n + 1}$ it holds true that
+        We say $S$ is \emph{well-behaved} iff for every $n \in \mathbb{N}, \ w \in \Sigma^{n + 1}$ it holds true that
         \[
             \sum_{w_{n + 1} \in \Sigma} S_{n + 1}(w) = S_n(w_{-(n + 1)}) \quad .
         \]
     \end{definition}
 
     \begin{remark}
-        Markov chains and hidden Markov models are well behaved.
+        Markov chains and hidden Markov models are well-behaved.
     \end{remark}
 
     \begin{lemma}
-        For every $d \in \mathbb{N}$, let $I \coloneqq [n + d] \setminus [n] = \{ n+1, \dots, n + d \}$. Then, if $S$ is well behaved, we have for every $w \in \Sigma^{n + d}$:
+        \label{lemma:random_variables_do_not_change_with_future_models}
+        For every $d \in \mathbb{N}$, let $I \coloneqq [n + d] \setminus [n] = \{ n+1, \dots, n + d \}$. Then, if $S$ is well-behaved, we have for every $w \in \Sigma^{n + d}$:
         \[
             \sum_{w_I \in \Sigma^d} S_{n + d}(w) = S_n(w_{-I}) \quad .
         \]
     \end{lemma}
     % \vspace{-2.5em}
     \begin{proof}
-        We use induction over $d$. The base case follows directly from the definition of $S$ being well behaved. Thus, assume the claim holds for some $d \coloneqq k$. Then we have
+        We use induction over $d$. The base case follows directly from the definition of $S$ being well-behaved. Thus, assume the claim holds for some $d \coloneqq k$. Then we have
         \begin{align*}
             \sum_{w_I \in \Sigma^{k + 1}} S_{n + k + 1}(w) &= \sum_{w_{I \setminus \{ k + 1 \}} \in \Sigma^{k}} \sum_{w_{k + 1} \in \Sigma} S_{n + k + 1}(w) \\
-            &\underset{S \text{ well defined}}{=} \sum_{w_{I \setminus \{ k + 1 \}} \in \Sigma^{k}} S_{n + k}(w_{-\{ k + 1 \}}) \\
+            &\underset{S \text{ well-defined}}{=} \sum_{w_{I \setminus \{ k + 1 \}} \in \Sigma^{k}} S_{n + k}(w_{-\{ k + 1 \}}) \\
             &\underset{\text{induction hypothesis}}{=} S_n(w_{-I}) \quad ,
         \end{align*}
         which concludes the induction step.
     \end{proof}
 
-    \begin{definition}
-        From any model $S$, we can construct the \emph{induced well behaved} model $S^*$ by defining $S_n^*$ recursively as 
+    \begin{definition}[Induced Well-Behaved Model]
+        Based on the model $S$, we can construct the \emph{induced well-behaved} model $S^*$ by defining $S_n^*$ recursively as 
         \begin{itemize}
             \item $S_1^* \coloneqq S_1$ ,
             \item $S_{n + 1}^*(w) \coloneqq S_n^*(w_{-\{n+1\}}) \dfrac{S_{n+1}(w)}{\sum_{w_{n+1} \in \Sigma} S_{n+1}(w)}$ .
         \end{itemize}
     \end{definition}
 
+    \begin{remark}
+        If $\frac{S_{n+1}(w)}{\sum_{w_{n+1} \in \Sigma} S_{n+1}(w)} = \frac{0}{0}$, we might set $\frac{S_{n+1}(w)}{\sum_{w_{n+1} \in \Sigma} S_{n+1}(w)} \coloneqq \frac{1}{|\Sigma|}$.
+    \end{remark}
+
     \begin{lemma}
-        The induced well behaved model $S^*$ is indeed well behaved.
+        The induced well-behaved model $S^*$ is indeed well-behaved.
     \end{lemma}
     \vspace{-2.5em}
     \begin{proof}
@@ -73,7 +78,7 @@
         We say $(S_n)_{n \in \mathbb{N}}$ is a family of models over the model space $\mathcal{S}$ iff $S_n \in \mathcal{S}_n$ for every $n \in \mathbb{N}$. As a shorthand, we write $S \in \mathcal{S}$.
     \end{definition}
 
-    For our model $S$, we want the mutual information between \emph{any} two variables $X_t$, $X_{t + \tau}$ to be $I(X_t, X_{t + \tau}) \in \Omega(\tau^{-\alpha})$, i.e. it has to hold for every $t$ and \emph{every} $S_n$. Thus, let us define the following:
+    For our model $S$, we want power-law decay in the mutual information with respect to $\tau$ between \emph{any} two variables $X_t$, $X_{t + \tau}$, i.e. it has to hold for every $t$ and \emph{every} $S_n$. But what does this actually mean?
 
     \begin{definition}
         We define $i_{S_n}(\tau)$ and $I_{S_n}(\tau)$ to be the minimal and maximal mutual information between any two variables of $S_n$ with distance $\tau$. Formally, let $X_t, X_{t + \tau}$ ($t + \tau \leq n$) be random variables with distributions defined by $S_n$. Then:
@@ -84,11 +89,12 @@
         \end{itemize}
     \end{definition}
 
-    \begin{definition}
+    \begin{definition}[Power-Law Behavior of a Model]
+        \label{definition:model_power_law_behavior}
         A model $S$ has \emph{lower bound power-law behavior} iff there exist constants $c, \alpha \in \mathbb{R}_{>0}$ s.t. for every $n \in \mathbb{N}$ it holds true that $i_{S_n}(\tau) \geq c \tau^{-\alpha}$. Similarly, $S$ has \emph{upper bound power-law behavior} iff there exist constants $c', \alpha' \in \mathbb{R}_{>0}$ s.t. for every $n \in \mathbb{N}$ it holds true that $I_{S_n}(\tau) \leq c' \tau^{-\alpha'}$. Furthermore, $S$ has \emph{decaying behavior} iff for every $n \in \mathbb{N}$ we have $I_{S_{n + \tau}}(\tau) \xrightarrow{\tau \to \infty} 0$. Lastly, $S$ has \emph{power-law behavior} iff it has lower and upper bound power-law behavior (alternatively decaying behavior instead of upper bound power-law behavior).
     \end{definition}
 
-    \begin{definition}
+    \begin{definition}[Not Needed]
         We define $\overline{i_{S_n}}$ and $\overline{I_{S_n}}$ to be the minimal and maximal mutual information between any two variables of $S_n$ with arbitrary distance $\tau$. Formally, let $X_i, X_j$ ($1 \leq i < j \leq n$) be random variables with distributions defined by $S_n$. Then:
         \vspace{-1em}
         \begin{itemize}
@@ -97,7 +103,7 @@
         \end{itemize}
     \end{definition}
 
-    \begin{theorem}
-        Let $S^*$ be a well behaved model. Then $S^*$ has lower bound power-law behavior iff $\overline{i_{S_n}} \equiv \overline{i_S}(n) \in \Omega(n^{-\alpha})$ for some $\alpha \in \mathbb{R}_{>0}$.
-    \end{theorem}
+    \begin{corollary}[Power-Law Behavior for Well-Behaved Models]
+        For a well-behaved model $S^*$ we can replace "for every $n \in \mathbb{N}$" in definition~\ref{definition:model_power_law_behavior} with "for $n \to \infty$" thanks to lemma~\ref{lemma:random_variables_do_not_change_with_future_models}.
+    \end{corollary}
 \end{document}
