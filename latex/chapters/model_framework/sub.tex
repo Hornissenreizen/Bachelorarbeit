@@ -25,5 +25,49 @@
         \]
     \end{definition}
 
-    Now, we want to look at how we might restrict our model $(S_n)_{n \in \mathbb{N}} \equiv S$. One approach might be to define a model structure for every $n \in \mathbb{N}$ with parameters $\bm{\theta}$, thus $S_n \in \{ S_n(\bm{\theta}) : \bm{\theta} \in \Theta_n \}$. We write $S_{n, \bm{\theta}}$ for $S_n$ with parameters $\bm{\theta}$.
+    \begin{lemma}
+        For every $d \in \mathbb{N}$, let $I \coloneqq [n + d] \setminus [n] = \{ n+1, \dots, n + d \}$. Then, if $S$ is well behaved, we have for every $w \in \Sigma^{n + d}$:
+        \[
+            \sum_{w_I \in \Sigma^d} S_{n + d}(w) = S_n(w_{-I}) \quad .
+        \]
+    \end{lemma}
+    % \vspace{-2.5em}
+    \begin{proof}
+        We use induction over $d$. The base case follows directly from the definition of $S$ being well behaved. Thus, assume the claim holds for some $d \coloneqq k$. Then we have
+        \begin{align*}
+            \sum_{w_I \in \Sigma^{k + 1}} S_{n + k + 1}(w) &= \sum_{w_{I \setminus \{ k + 1 \}} \in \Sigma^{k}} \sum_{w_{k + 1} \in \Sigma} S_{n + k + 1}(w) \\
+            &\underset{S \text{ well defined}}{=} \sum_{w_{I \setminus \{ k + 1 \}} \in \Sigma^{k}} S_{n + k}(w_{-\{ k + 1 \}}) \\
+            &\underset{\text{induction hypothesis}}{=} S_n(w_{-I}) \quad ,
+        \end{align*}
+        which concludes the induction step.
+    \end{proof}
+
+    Now, we want to look at how we might restrict our model $(S_n)_{n \in \mathbb{N}} \equiv S$. One approach might be to define a model structure for every $n \in \mathbb{N}$ with finite parameters $\bm{\theta}_n$, thus $S_n \in \{ S_n(\bm{\theta}_n) : \bm{\theta}_n \in \Theta_n \} \eqqcolon \mathcal{S}_n$. We write $S_{n, \bm{\theta}_n}$ for $S_n$ with parameters $\bm{\theta}_n$. Hence, $(S_n)_{n \in \mathbb{N}}$ is completely defined by $(\mathcal{S}_n, \bm{\theta}_n)_{n \in \mathbb{N}}$. We call $\mathcal{S}(n) \equiv \mathcal{S}_n$ the \emph{model space}.
+
+    \begin{definition}
+        We say $(S_n)_{n \in \mathbb{N}}$ is a family of models over the model space $\mathcal{S}$ iff $S_n \in \mathcal{S}_n$ for every $n \in \mathbb{N}$. As a shorthand, we write $S \in \mathcal{S}$.
+    \end{definition}
+
+    For our model $S$, we want the mutual information between \emph{any} two variables $X_t$, $X_{t + \tau}$ to be $I(X_t, X_{t + \tau}) \in \Omega(\tau^{-\alpha})$, i.e. it has to hold for every $t$ and \emph{every} $S_n$. Thus, let us define the following:
+
+    \begin{definition}
+        We define $I_S(n)$ te be the minimal mutual information between any two variables of $S_n$. Formally, let $X_i, X_j$ be random variables with distributions defined by $S_n$. Then:
+        \[
+            I_S(n) \coloneqq \min_{(i, j) \in [n]^2} I(X_i, X_j) \quad .
+        \]
+    \end{definition}
+
+    \begin{theorem}
+        Let $S$ be a model. If $I_S(n) \geq c n^{-\alpha}$ for some $c, \alpha \in \mathbb{R}_{>0}$, then for every $X_t, X_{t + \tau}$ over any $S_n$ ($n \geq t + \tau$), it follows that $I(X_t, X_{t + \tau}) \geq c\tau^{-\alpha}$.
+    \end{theorem}
+
+    \begin{proof}
+        Assume there exists $t, \tau$ and $S_n$ s.t. $I(X_t, X_{t + \tau}) < c\tau^{-\alpha}$. But then, by the definition of $I_S(n)$, we must have $I_S(\tau)\leq I(X_t, X_{t + \tau}) < c\tau^{-\alpha}$, a contradiction.
+    \end{proof}
+
+    Based on this result, we define:
+
+    \begin{definition}
+        A model space $\mathcal{S}$ has power-law capacity iff there exists an $S \in \mathcal{S}$ s.t. $I_S(n) \in \Omega(n^{-\alpha})$ for some $\alpha \in \mathbb{R}_{>0}$ and $I_S(n) \xrightarrow{n \to \infty} 0$.
+    \end{definition}
 \end{document}
