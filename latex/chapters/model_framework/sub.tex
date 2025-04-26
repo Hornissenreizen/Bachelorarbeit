@@ -42,6 +42,27 @@
         which concludes the induction step.
     \end{proof}
 
+    \begin{definition}
+        From any model $S$, we can construct the \emph{induced well behaved} model $S^*$ by defining $S_n^*$ recursively as 
+        \begin{itemize}
+            \item $S_1^* \coloneqq S_1$ ,
+            \item $S_{n + 1}^*(w) \coloneqq S_n^*(w_{-\{n+1\}}) \dfrac{S_{n+1}(w)}{\sum_{w_{n+1} \in \Sigma} S_{n+1}(w)}$ .
+        \end{itemize}
+    \end{definition}
+
+    \begin{lemma}
+        The induced well behaved model $S^*$ is indeed well behaved.
+    \end{lemma}
+    \vspace{-2.5em}
+    \begin{proof}
+        We have:
+        \begin{align*}
+            \sum_{w_{n + 1} \in \Sigma} S_{n + 1}^*(w) &= \sum_{w_{n + 1} \in \Sigma} S_n^*(w_{-\{n+1\}}) \dfrac{S_{n+1}(w)}{\sum_{w_{n+1} \in \Sigma} S_{n+1}(w)} \\
+            &= \dfrac{S_n^*(w_{-\{n+1\}})}{\sum_{w_{n+1} \in \Sigma} S_{n+1}(w)} \sum_{w_{n + 1} \in \Sigma} S_{n+1}(w) \\
+            &\overset{\checkmark}{=} S_n^*(w_{-\{n+1\}}) \quad .
+        \end{align*}
+    \end{proof}
+
     Now, we want to look at how we might restrict our model $(S_n)_{n \in \mathbb{N}} \equiv S$. One approach might be to define a model structure for every $n \in \mathbb{N}$ with finite parameters $\bm{\theta}_n$, thus $S_n \in \{ S_n(\bm{\theta}_n) : \bm{\theta}_n \in \Theta_n \} \eqqcolon \mathcal{S}_n$. We write $S_{n, \bm{\theta}_n}$ for $S_n$ with parameters $\bm{\theta}_n$. Hence, $(S_n)_{n \in \mathbb{N}}$ is completely defined by $(\mathcal{S}_n, \bm{\theta}_n)_{n \in \mathbb{N}}$. We call $\mathcal{S}(n) \equiv \mathcal{S}_n$ the \emph{model space}.
 
     \begin{definition}
