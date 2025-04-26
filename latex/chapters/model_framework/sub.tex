@@ -72,23 +72,15 @@
     For our model $S$, we want the mutual information between \emph{any} two variables $X_t$, $X_{t + \tau}$ to be $I(X_t, X_{t + \tau}) \in \Omega(\tau^{-\alpha})$, i.e. it has to hold for every $t$ and \emph{every} $S_n$. Thus, let us define the following:
 
     \begin{definition}
-        We define $I_S(n)$ te be the minimal mutual information between any two variables of $S_n$. Formally, let $X_i, X_j$ be random variables with distributions defined by $S_n$. Then:
-        \[
-            I_S(n) \coloneqq \min_{(i, j) \in [n]^2} I(X_i, X_j) \quad .
-        \]
+        We define $i_{S_n}(\tau)$ (, $I_{S_n}(\tau)$) to be the minimal (, maximal) mutual information between any two variables of $S_n$ with distance $\tau$. Formally, let $X_t, X_{t + \tau}$ be random variables with distributions defined by $S_n$. Then:
+        \vspace{-1em}
+        \begin{itemize}
+            \item $i_{S_n}(\tau) \coloneqq \min_{t \in [n - \tau]} I(X_t, X_{t + \tau}) \quad ,$
+            \item $I_{S_n}(\tau) \coloneqq \max_{t \in [n - \tau]} I(X_t, X_{t + \tau}) \quad .$
+        \end{itemize}
     \end{definition}
 
-    \begin{theorem}
-        Let $S$ be a model. If $I_S(n) \geq c n^{-\alpha}$ for some $c, \alpha \in \mathbb{R}_{>0}$, then for every $X_t, X_{t + \tau}$ over any $S_n$ ($n \geq t + \tau$), it follows that $I(X_t, X_{t + \tau}) \geq c\tau^{-\alpha}$.
-    \end{theorem}
-
-    \begin{proof}
-        Assume there exists $t, \tau$ and $S_n$ s.t. $I(X_t, X_{t + \tau}) < c\tau^{-\alpha}$. But then, by the definition of $I_S(n)$, we must have $I_S(\tau)\leq I(X_t, X_{t + \tau}) < c\tau^{-\alpha}$, a contradiction.
-    \end{proof}
-
-    Based on this result, we define:
-
     \begin{definition}
-        A model space $\mathcal{S}$ has power-law capacity iff there exists an $S \in \mathcal{S}$ s.t. $I_S(n) \in \Omega(n^{-\alpha})$ for some $\alpha \in \mathbb{R}_{>0}$ and $I_S(n) \xrightarrow{n \to \infty} 0$.
+        A model $S$ has \emph{lower bound power-law behavior} iff there exist constants $c, \alpha \in \mathbb{R}_{>0}$ s.t. for every $n \in \mathbb{N}$ it holds true that $i_{S_n}(\tau) \geq c \tau^{-\alpha}$. Furthermore, $S$ has \emph{decaying behavior} iff for every $n \in \mathbb{N}$ we have $I_{S_{n + \tau}}(\tau) \xrightarrow{\tau \to \infty} 0$. Lastly, $S$ has \emph{power-law behavior} iff it has lower bound power-law behavior and decaying behavior.
     \end{definition}
 \end{document}
