@@ -2,6 +2,8 @@
 
 \begin{document}
 \section{Model Framework}
+    We no longer focus on Markov chains, so the associated symbols like $S$ and $n$ no longer carry the same meaning. We will redefine them shortly.
+
     We are interested in models with asymptotically power-law decay of the mutual information measure with respect to the distance between the tokens in the sequence. So far so good. But what does it \emph{actually} mean?
 
     The tokens, represented by random variables $X_t$, are elements of a finite alphabet $\Sigma$. The distance between $X_t$ and $X_{t + \tau}$ is $\tau$, and for every $t$ and every $\tau$ we want to bound
@@ -10,9 +12,11 @@
     \]
     for some fixed $\alpha, \beta \in \mathbb{R}_{>0}$. The first condition is the important one, while the latter ensures that $I(X_t, X_{t + \tau}) \xrightarrow{\tau \to \infty} 0$. We also may replace the latter condition by this one.
 
-    This was straight forward. The challenging part is to define what a  model is. In the case of Markov chains this seems trivial: We define a finite set of parameters (the transition probabilities), and we get a model over $\Sigma^*$, that is for every $n \in \mathbb{N}$ the model defines a probability measure over $\Sigma^n$. Thus, the first conclusion is every model $S$ must define a probability measure over $\Sigma^n$ for every $n\in \mathbb{N}$.
+    This was straight forward. The challenging part is to define what a  model is. In the case of Markov chains this seems trivial: We define a finite set of parameters (the transition probabilities), and we get a model over $\Sigma^*$, that is for every $n \in \mathbb{N}$ the model defines a probability measure over $\Sigma^n$. Thus:
 
-    As a first formalization, $S$ is a function $S: (n, w) \mapsto [0, 1]$, for $n \in \mathbb{N}, \ w \in \Sigma^n$ s.t. $\sum_{w \in \Sigma^n} S(n, w) = 1$.
+    \begin{definition}[Model over $\Sigma^*$]
+        A model $S$ over $\Sigma^*$ is a function $S: \mathbb{N} \times \Sigma^* \mapsto [0, 1], \ (n, w) \mapsto p$, for $n \in \mathbb{N}, \ w \in \Sigma^n, \ p \in [0, 1]$ s.t. $\sum_{w \in \Sigma^n} S(n, w) = 1$. $S$ assigns the probability $p$ to the word $w$ of length $n$.
+    \end{definition}
 
     But really, we want to restrain $S$ in order to have reasonable time and space complexity, and to ensure the model is \emph{reasonable}, which means that the language of $S_n(w)$ should look \emph{similar} to $S_{n + d}(w)$, whatever this might mean, where we used the notation $S_n(w) \equiv S(n, w)$. We also write $w_i$ for $X_i$. Really, $w$ is a 1-indexed String of $X_i$.  
 
@@ -72,10 +76,18 @@
         \end{align*}
     \end{proof}
 
-    Now, we want to look at how we might restrict our model $(S_n)_{n \in \mathbb{N}} \equiv S$. One approach might be to define a model structure for every $n \in \mathbb{N}$ with finite parameters $\bm{\theta}_n$, thus $S_n \in \{ S_n(\bm{\theta}_n) : \bm{\theta}_n \in \Theta_n \} \eqqcolon \mathcal{S}_n$. We write $S_{n, \bm{\theta}_n}$ for $S_n$ with parameters $\bm{\theta}_n$. Hence, $(S_n)_{n \in \mathbb{N}}$ is completely defined by $(\mathcal{S}_n, \bm{\theta}_n)_{n \in \mathbb{N}}$. We call $\mathcal{S}(n) \equiv \mathcal{S}_n$ the \emph{model space}.
+    Now, we want to look at how we might restrict our model $(S_n)_{n \in \mathbb{N}} \equiv S$. One approach might be to define a model structure for every $n \in \mathbb{N}$. To this end, we define $S_n$ by some finite parameters $\bm{\theta}_n$ over the \emph{model space} $\mathcal{S}(n) \equiv \mathcal{S}_n$, which specifies the structure of our models. Thus:
+    \[
+        S_n \in \{ S_n(\bm{\theta}_n) : \bm{\theta}_n \in \Theta_n \} \eqqcolon \mathcal{S}_n \quad ,
+    \]
+    where $\Theta_n$ is the set of all possible parameters of $\mathcal{S}_n$. We write $S_{n, \bm{\theta}_n}$ for $S_n$ with parameters $\bm{\theta}_n$. Hence, $(S_n)_{n \in \mathbb{N}}$ is completely defined by $(\mathcal{S}_n, \bm{\theta}_n)_{n \in \mathbb{N}}$.
 
-    \begin{definition}
-        We say $(S_n)_{n \in \mathbb{N}}$ is a family of models over the model space $\mathcal{S}$ iff $S_n \in \mathcal{S}_n$ for every $n \in \mathbb{N}$. As a shorthand, we write $S \in \mathcal{S}$.
+    \begin{remark}
+        The parameter space $\Theta_n$ may consist of parameter vectors with varying lengths. The same model $S_n$ may be defined by two parameter vectors with very different sizes over the same model space $\mathcal{S}_n$ or potentially two different model spaces. Thus, the parametrization complexity depends of the model space $\mathcal{S}$.
+    \end{remark}
+
+    \begin{definition}[Family of Models]
+        We say $(S_n)_{n \in \mathbb{N}}$ is a \emph{family of models} over the model space $\mathcal{S}$ iff $S_n \in \mathcal{S}_n$ for every $n \in \mathbb{N}$. As a shorthand, we write $S \in \mathcal{S}$.
     \end{definition}
 
     For our model $S$, we want power-law decay in the mutual information with respect to $\tau$ between \emph{any} two variables $X_t$, $X_{t + \tau}$, i.e. it has to hold for every $t$ and \emph{every} $S_n$. But what does this actually mean?
@@ -89,12 +101,16 @@
         \end{itemize}
     \end{definition}
 
-    \begin{definition}[Power-Law Behavior of a Model]
-        \label{definition:model_power_law_behavior}
-        A model $S$ has \emph{lower bound power-law behavior} iff there exist constants $c, \alpha \in \mathbb{R}_{>0}$ s.t. for every $n \in \mathbb{N}$ it holds true that $i_{S_n}(\tau) \geq c \tau^{-\alpha}$. Similarly, $S$ has \emph{upper bound power-law behavior} iff there exist constants $c', \alpha' \in \mathbb{R}_{>0}$ s.t. for every $n \in \mathbb{N}$ it holds true that $I_{S_n}(\tau) \leq c' \tau^{-\alpha'}$. Furthermore, $S$ has \emph{decaying behavior} iff for every $n \in \mathbb{N}$ we have $I_{S_{n + \tau}}(\tau) \xrightarrow{\tau \to \infty} 0$. Lastly, $S$ has \emph{power-law behavior} iff it has lower and upper bound power-law behavior (alternatively decaying behavior instead of upper bound power-law behavior).
+    \begin{definition}[Strong Power-Law Behavior]
+        \label{definition:strong_model_power_law_behavior}
+        A model $S$ has \emph{strong lower bound power-law behavior} iff there exist constants $c, \alpha \in \mathbb{R}_{>0}$ s.t. for every $n \in \mathbb{N}$ it holds true that $i_{S_n}(\tau) \geq c \tau^{-\alpha}$. Similarly, $S$ has \emph{strong upper bound power-law behavior} iff there exist constants $c', \alpha' \in \mathbb{R}_{>0}$ s.t. for every $n \in \mathbb{N}$ it holds true that $I_{S_n}(\tau) \leq c' \tau^{-\alpha'}$. Furthermore, $S$ has \emph{decaying behavior} iff for every $n \in \mathbb{N}$ we have $I_{S_{n + \tau}}(\tau) \xrightarrow{\tau \to \infty} 0$. Lastly, $S$ has \emph{strong power-law behavior} iff it has strong lower and upper bound power-law behavior (alternatively decaying behavior instead of strong upper bound power-law behavior).
     \end{definition}
 
-    \begin{definition}[Not Needed]
+    \begin{corollary}[Strong Power-Law Behavior for Well-Behaved Models]
+        For a well-behaved model $S^*$ we can replace "for every $n \in \mathbb{N}$" in definition~\ref{definition:strong_model_power_law_behavior} with "for $n \to \infty$" thanks to lemma~\ref{lemma:random_variables_do_not_change_with_future_models}.
+    \end{corollary}
+
+    \begin{definition}
         We define $\overline{i_{S_n}}$ and $\overline{I_{S_n}}$ to be the minimal and maximal mutual information between any two variables of $S_n$ with arbitrary distance $\tau$. Formally, let $X_i, X_j$ ($1 \leq i < j \leq n$) be random variables with distributions defined by $S_n$. Then:
         \vspace{-1em}
         \begin{itemize}
@@ -103,7 +119,18 @@
         \end{itemize}
     \end{definition}
 
-    \begin{corollary}[Power-Law Behavior for Well-Behaved Models]
-        For a well-behaved model $S^*$ we can replace "for every $n \in \mathbb{N}$" in definition~\ref{definition:model_power_law_behavior} with "for $n \to \infty$" thanks to lemma~\ref{lemma:random_variables_do_not_change_with_future_models}.
-    \end{corollary}
+    \begin{definition}[Weak Power-Law Behavior]
+        A model $S$ has \emph{weak lower bound power-law behavior} iff $\overline{i_{S_n}} \in \Omega(n^{-\alpha})$ for some $\alpha \in \mathbb{R}_{>0}$. Similarly, $S$ has \emph{weak upper bound power-law behavior} iff $\overline{I_{S_n}} \in \mathcal{O}(n^{-\beta})$ for some $\beta \in \mathbb{R}_{>0}$. Lastly, $S$ has \emph{weak power-law behavior} iff it has weak lower and upper bound power-law behavior (alternatively decaying behavior instead of weak upper bound power-law behavior).
+    \end{definition}
+
+    \begin{remark}
+        Weak power-law behavior does \emph{not} imply strong power-law behavior, not even for well-behaved models. To see this, note that we might have  $i_{S_n}(1) \xrightarrow{n \to \infty} 0$ for some models with weak lower bound power-law behavior. ($S_n$ may force $i_{S_n}(1)$ to decay to $0$ for $n \to \infty$ because of weak correlations of consecutive tokens very late in the sequence.)
+    \end{remark}
+
+    \begin{proposition}[Every Token has Power-Law Decay in Models with Weak Power-Law Behavior]
+        Let $S$ be a model with weak power-law behavior. Then for every $X_t$, there exists an $\alpha, \ \beta \in \mathbb{R}_{>0}$ s.t. $I(X_{t}, X_{t + \tau}) \in \Omega(\tau^{-\alpha})$ and $I(X_{t}, X_{t + \tau}) \in \mathcal{O}(\tau^{-\beta})$.
+    \end{proposition}
+    \begin{proof}
+        We may only prove the existence of $\alpha$, as the claim for $b$ follows similarly.
+    \end{proof}
 \end{document}
