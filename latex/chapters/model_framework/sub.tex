@@ -2,7 +2,7 @@
 
 \begin{document}
 \section{Model Framework}
-    We no longer focus on Markov chains, so the associated symbols like $S$ and $n$ no longer carry the same meaning. We will redefine them shortly.
+    We no longer focus on Markov chains, so the associated symbols like $S$ and $n$ no longer carry the same meaning. We will redefine them shortly. Also, in order for the polynomials to be well defined later, we will constrain $\tau > 0$.
 
     We are interested in models with asymptotically power-law decay of the mutual information measure with respect to the distance between the tokens in the sequence. So far so good. But what does it \emph{actually} mean?
 
@@ -127,10 +127,31 @@
         Weak power-law behavior does \emph{not} imply strong power-law behavior, not even for well-behaved models. To see this, note that we might have  $i_{S_n}(1) \xrightarrow{n \to \infty} 0$ for some models with weak lower bound power-law behavior. ($S_n$ may force $i_{S_n}(1)$ to decay to $0$ for $n \to \infty$ because of weak correlations of consecutive tokens very late in the sequence.)
     \end{remark}
 
-    \begin{proposition}[Every Token has Power-Law Decay in Models with Weak Power-Law Behavior]
-        Let $S$ be a model with weak power-law behavior. Then for every $X_t$, there exists an $\alpha, \ \beta \in \mathbb{R}_{>0}$ s.t. $I(X_{t}, X_{t + \tau}) \in \Omega(\tau^{-\alpha})$ and $I(X_{t}, X_{t + \tau}) \in \mathcal{O}(\tau^{-\beta})$.
+    \begin{proposition}[Every Token has Power-Law Decay in well-behaved Models with Weak Power-Law Behavior]
+        Let $S$ be a well-behaved model with weak power-law behavior. Then, there exists an $\alpha, \ \beta \in \mathbb{R}_{>0}$ s.t. for every $X_t$, $I(X_{t}, X_{t + \tau}) \in \Omega(\tau^{-\alpha})$ and $I(X_{t}, X_{t + \tau}) \in \mathcal{O}(\tau^{-\beta})$ (where $X_t$ and $X_{t + \tau}$ are sampled over $S_{t + \tau}$, or, equivalently, any $S_{t + \tau + k}$).
     \end{proposition}
     \begin{proof}
-        We may only prove the existence of $\alpha$, as the claim for $b$ follows similarly.
+        We may only prove the existence of $\alpha$, as the claim for $\beta$ follows similarly. Since $S$ has weak power-law behavior, there exist $\alpha', \ c' \in \mathbb{R}_{>0}$ s.t. $\overline{i_{S_n}} \geq c' n^{-\alpha'}$. Then, for every $t \in \mathbb{N}$, we have for $n \coloneqq t + \tau$ by the definition of $\overline{i_{S_n}}$:
+        \begin{align*}
+            I(X_{t}, X_{t + \tau}) &\geq \overline{i_{S_{t + \tau}}} \\
+            &\geq c' (t + \tau)^{-\alpha'} \\
+            &= c' \tau^{-\alpha'} (\frac{t}{\tau} + 1)^{-\alpha'} \\
+            &\geq c' \tau^{-\alpha'} (t + 1)^{-\alpha'} \quad .
+        \end{align*}
+        Since $S$ is well-behaved, this inequality holds when sampling over any $S_{t + \tau + k}, \ k \in \mathbb{N}$. Now, set $\alpha \coloneqq \alpha'$ and $c \coloneqq c' (t + 1)^{-\alpha'}$. Note that $\alpha$ does not depend on $t$. Finally, we see that $I(X_{t}, X_{t + \tau}) \geq c \tau^{-\alpha}$. Thus, we get $I(X_{t}, X_{t + \tau}) \in \Omega(\tau^{-\alpha})$.
+    \end{proof}
+
+    \begin{theorem}
+        Strong lower bound power-law behavior implies weak lower bound power-law behavior, and, similarly, strong upper bound power-law behavior implies weak upper bound power-law behavior.
+    \end{theorem}
+    \begin{proof}
+        TODO.
+    \end{proof}
+
+    \begin{proposition}[Upper Bound Power-Law Behavior implies Decaying Behavior]
+        Weak upper bound power-law behavior implies decaying behavior (and hence so does strong upper bound power-law behavior).
+    \end{proposition}
+    \begin{proof}
+        TODO.
     \end{proof}
 \end{document}
