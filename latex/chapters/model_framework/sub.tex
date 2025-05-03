@@ -23,37 +23,37 @@
     We present one strict definition for this \emph{similarity} in the following definition:
 
     \begin{definition}
-        We say $S$ is \emph{well-behaved} iff for every $n \in \mathbb{N}, \ w \in \Sigma^{n + 1}$ it holds true that
+        We say $S$ has the \emph{bulk marginal property} iff for every $n \in \mathbb{N}, \ w \in \Sigma^{n + 1}$ it holds true that
         \[
-            \sum_{w_{n + 1} \in \Sigma} S_{n + 1}(w) = S_n(w_{-(n + 1)}) \quad .
+            \sum_{w_{n + 1} \in \Sigma} S_{n + 1}(w) = S_n(w_{-\{n + 1\}}) \quad .
         \]
     \end{definition}
 
     \begin{remark}
-        Markov chains and hidden Markov models are well-behaved.
+        Markov chains and hidden Markov models have the bulk marginal property.
     \end{remark}
 
 \pagebreak
     \begin{lemma}
         \label{lemma:random_variables_do_not_change_with_future_models}
-        For every $d \in \mathbb{N}$, let $I \coloneqq [n + d] \setminus [n] = \{ n+1, \dots, n + d \}$. Then, if $S$ is well-behaved, we have for every $w \in \Sigma^{n + d}$:
+        For every $d \in \mathbb{N}$, let $I \coloneqq [n + d] \setminus [n] = \{ n+1, \dots, n + d \}$. Then, if $S$ has the bulk marginal property, we have for every $w \in \Sigma^{n + d}$:
         \[
             \sum_{w_I \in \Sigma^d} S_{n + d}(w) = S_n(w_{-I}) \quad .
         \]
     \end{lemma}
     % \vspace{-2.5em}
     \begin{proof}
-        We use induction over $d$. The base case follows directly from the definition of $S$ being well-behaved. Thus, assume the claim holds for some $d \coloneqq k$. Then we have
+        We use induction over $d$. The base case follows directly from the definition of the bulk marginal property. Thus, assume the claim holds for some $d \coloneqq k$. Then we have
         \begin{align*}
             \sum_{w_I \in \Sigma^{k + 1}} S_{n + k + 1}(w) &= \sum_{w_{I \setminus \{ k + 1 \}} \in \Sigma^{k}} \sum_{w_{k + 1} \in \Sigma} S_{n + k + 1}(w) \\
-            &\underset{S \text{ well-defined}}{=} \sum_{w_{I \setminus \{ k + 1 \}} \in \Sigma^{k}} S_{n + k}(w_{-\{ k + 1 \}}) \\
+            &\underset{\text{bulk marginal property}}{=} \sum_{w_{I \setminus \{ k + 1 \}} \in \Sigma^{k}} S_{n + k}(w_{-\{ k + 1 \}}) \\
             &\underset{\text{induction hypothesis}}{=} S_n(w_{-I}) \quad ,
         \end{align*}
         which concludes the induction step.
     \end{proof}
 
-    \begin{definition}[Induced Well-Behaved Model]
-        Based on the model $S$, we can construct the \emph{induced well-behaved} model $S^*$ by defining $S_n^*$ recursively as 
+    \begin{definition}[Induced Bulk Marginal Model]
+        Based on the model $S$, we can construct an \emph{induced bulk marginal} model $S^*$ by defining $S_n^*$ recursively as 
         \begin{itemize}
             \item $S_1^* \coloneqq S_1$ ,
             \item $S_{n + 1}^*(w) \coloneqq S_n^*(w_{-\{n+1\}}) \dfrac{S_{n+1}(w)}{\sum_{w_{n+1} \in \Sigma} S_{n+1}(w)}$ .
@@ -61,11 +61,11 @@
     \end{definition}
 
     \begin{remark}
-        If $\frac{S_{n+1}(w)}{\sum_{w_{n+1} \in \Sigma} S_{n+1}(w)} = \frac{0}{0}$, we might set $\frac{S_{n+1}(w)}{\sum_{w_{n+1} \in \Sigma} S_{n+1}(w)} \coloneqq \frac{1}{|\Sigma|}$.
+        If $\sum_{w_{n+1} \in \Sigma} S_{n+1}(w) = 0$, we might set $S_{n + 1}^*(w) \coloneqq S_n^*(w_{-\{n+1\}}) \dfrac{1}{|\Sigma|}$.
     \end{remark}
 
     \begin{lemma}
-        The induced well-behaved model $S^*$ is indeed well-behaved.
+        The induced bulk marginal model $S^*$ indeed has the bulk marginal property.
     \end{lemma}
     \vspace{-2.5em}
     \begin{proof}
@@ -108,9 +108,9 @@
         A model $S$ has \emph{strong lower bound power-law behavior} iff there exist constants $c_\alpha, \alpha \in \mathbb{R}_{>0}$ s.t. for every $n \in \mathbb{N}$ it holds true that $i_{S_n}(\tau) \geq c_\alpha \tau^{-\alpha}$. Similarly, $S$ has \emph{upper bound power-law behavior} iff there exist constants $c_\beta, \beta \in \mathbb{R}_{>0}$ s.t. for every $n \in \mathbb{N}$ it holds true that $I_{S_n}(\tau) \leq c_\beta \tau^{-\beta}$. Furthermore, $S$ has \emph{decaying behavior} iff for every $n \in \mathbb{N}$ we have $I_{S_{n + \tau}}(\tau) \xrightarrow{\tau \to \infty} 0$. Lastly, $S$ has \emph{strong power-law behavior} iff it has strong lower bound and upper bound power-law behavior (alternatively decaying behavior instead of upper bound power-law behavior).
     \end{definition}
 
-    \begin{corollary}[Strong Power-Law Behavior for Well-Behaved Models]
-        For a well-behaved model $S^*$ we can replace "for every $n \in \mathbb{N}$" in definition~\ref{definition:strong_model_power_law_behavior} with "for $n \to \infty$" thanks to lemma~\ref{lemma:random_variables_do_not_change_with_future_models}.
-    \end{corollary}
+    \begin{remark}
+        For a model $S^*$ with the bulk marginal property we can replace "for every $n \in \mathbb{N}$" in definition~\ref{definition:strong_model_power_law_behavior} with "for $n \to \infty$" thanks to lemma~\ref{lemma:random_variables_do_not_change_with_future_models}.
+    \end{remark}
 
 \pagebreak
     \begin{proposition}
@@ -135,9 +135,9 @@
         A model $S$ has \emph{weak lower bound power-law behavior} iff $\overline{i_{S_n}} \in \Omega(n^{-\alpha})$ for some $\alpha \in \mathbb{R}_{>0}$. Additionally, $S$ has \emph{weak power-law behavior} iff it has weak lower bound and upper bound power-law behavior (alternatively decaying behavior instead of upper bound power-law behavior).
     \end{definition}
 
-    \begin{theorem}[Every Token has Power-Law Decay in Well-Behaved Models with Weak Power-Law Behavior]
+    \begin{theorem}[Every Token has Power-Law Decay in Models with the Bulk Marginal Property and Weak Power-Law Behavior]
         \label{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior}
-        Let $S$ be a well-behaved model with weak power-law behavior. Then, there exists an $\alpha \in \mathbb{R}_{>0}$ s.t. for every $X_t$, $I(X_{t}, X_{t + \tau}) \in \Omega(\tau^{-\alpha})$ (where $X_t$ and $X_{t + \tau}$ are sampled over $S_{t + \tau}$, or, equivalently, any $S_{t + \tau + k}$).
+        Let $S$ be a model that satisfies the bulk marginal property and exhibits weak power-law behavior. Then, there exists an $\alpha \in \mathbb{R}_{>0}$ s.t. for every $X_t$, $I(X_{t}, X_{t + \tau}) \in \Omega(\tau^{-\alpha})$ (where $X_t$ and $X_{t + \tau}$ are sampled over $S_{t + \tau}$, or, equivalently, any $S_{t + \tau + k}$).
     \end{theorem}
     \vspace{-2.5em}
     \begin{proof}
@@ -148,11 +148,15 @@
             &= c' \tau^{-\alpha'} (\frac{t}{\tau} + 1)^{-\alpha'} \\
             &\geq c' \tau^{-\alpha'} (t + 1)^{-\alpha'} \quad .
         \end{align*}
-        Since $S$ is well-behaved, this inequality holds when sampling over any $S_{t + \tau + k}, \ k \in \mathbb{N}$. Now, set $\alpha \coloneqq \alpha'$ and $c \coloneqq c' (t + 1)^{-\alpha'}$. Note that $\alpha$ does not depend on $t$. Finally, we see that $I(X_{t}, X_{t + \tau}) \geq c \tau^{-\alpha}$. Thus, we get $I(X_{t}, X_{t + \tau}) \in \Omega(\tau^{-\alpha})$.
+        Since $S$ is has the bulk marginal property, this inequality holds when sampling over any $S_{t + \tau + k}, \ k \in \mathbb{N}$. Now, set $\alpha \coloneqq \alpha'$ and $c \coloneqq c' (t + 1)^{-\alpha'}$. Note that $\alpha$ does not depend on $t$. Finally, we see that $I(X_{t}, X_{t + \tau}) \geq c \tau^{-\alpha}$. Thus, we get $I(X_{t}, X_{t + \tau}) \in \Omega(\tau^{-\alpha})$.
     \end{proof}
 
     \begin{remark}
-        It is crucial for $S$ to be well-behaved in theorem~\ref{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior}, or else $I(X_{t}, X_{t + \tau})$ might depend on $S_n$ and potentially decays to $0$.
+        The decay of $I(X_{t}, X_{t + \tau})$ follows from $S$ having upper bound power-law behavior (or decaying behavior).
+    \end{remark}
+
+    \begin{remark}
+        It is crucial for $S$ to have the bulk marginal property in theorem~\ref{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior}, or else $I(X_{t}, X_{t + \tau})$ might depend on $S_n$ and potentially decays to $0$.
     \end{remark}
 
 \pagebreak
@@ -174,6 +178,13 @@
     \end{proof}
 
     \begin{remark}
-        Weak lower bound power-law behavior does \emph{not} imply strong lower bound power-law behavior, not even for well-behaved models. To see this, note that we might have  $i_{S_n}(1) \xrightarrow{n \to \infty} 0$ for some models with weak lower bound power-law behavior. ($S_n$ may force $i_{S_n}(1)$ to decay to $0$ for $n \to \infty$ because of weak correlations of consecutive tokens very late in the sequence.) The proof of theorem~\ref{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior} fails when defining $c_\alpha$, as it depends on $t$.
+        Weak lower bound power-law behavior does \emph{not} imply strong lower bound power-law behavior, not even for models with the bulk marginal property. To see this, note that we might have  $i_{S_n}(1) \xrightarrow{n \to \infty} 0$ for some models with weak lower bound power-law behavior. ($S_n$ may force $i_{S_n}(1)$ to decay to $0$ for $n \to \infty$ because of weak correlations of consecutive tokens very late in the sequence.) The proof of theorem~\ref{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior} fails when defining $c$, as it depends on $t$.
+    \end{remark}
+
+    \begin{remark}
+        If $S$ has decaying behavior, we cannot prove that $S$ has strong lower bound power-law behavior by bounding $\overline{i_{S_{t + \tau}}}$ (using $\overline{i_{S_{t + \tau}}} \leq i_{S_{t + \tau}}(\tau)$), as we have for every $\tau \in \mathbb{N}$:
+        \[
+            0 \leq \overline{i_{S_{t + \tau}}} \leq I_{S_{t + \tau}}(t) \xrightarrow{t \to \infty} 0 \quad .
+        \]
     \end{remark}
 \end{document}

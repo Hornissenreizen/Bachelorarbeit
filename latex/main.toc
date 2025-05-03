@@ -11,3 +11,4 @@
 \contentsline {section}{\numberline {3}No Power-Law in Hidden Markov Models}{22}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Conclusions for Model Selection}{25}{subsection.3.1}%
 \contentsline {section}{\numberline {4}Model Framework}{27}{section.4}%
+\contentsline {section}{\numberline {5}Tensor Networks}{32}{section.5}%

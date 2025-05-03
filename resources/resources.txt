@@ -1,0 +1,1 @@
+tree tensor networks: https://arxiv.org/abs/1704.01552
