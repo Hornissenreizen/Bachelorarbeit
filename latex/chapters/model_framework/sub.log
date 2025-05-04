@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.17)  3 MAY 2025 15:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.17)  4 MAY 2025 14:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -599,7 +599,7 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 [1
 
 {/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (14.16275pt too wide) in paragraph at lines 64--65
+Overfull \hbox (14.16275pt too wide) in paragraph at lines 65--66
 [][]\OT1/cmr/bx/n/10 Remark 1.2. []\OT1/cmr/m/n/10 If $[][] \OML/cmm/m/it/10 S[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 w\OT1/cmr/m/n/10 ) = 0$, we might set $\OML/cmm/m/it/10 S[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 w\OT1/cmr/m/n/10 ) [][]= \OML/cmm/m/it/10 S[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 w[]\OT1/cmr/m/n/10 )[]$. 
  []
 
@@ -620,10 +620,10 @@ Package rerunfilecheck Info: File `sub.out' has not changed.
 (rerunfilecheck)             Checksum: F792101950157223A845979FE5DD5F49;121.
  ) 
 Here is how much of TeX's memory you used:
- 23227 strings out of 473330
- 428107 string characters out of 5719768
+ 23228 strings out of 473330
+ 428140 string characters out of 5719768
  991645 words of memory out of 5000000
- 45937 multiletter control sequences out of 15000+600000
+ 45938 multiletter control sequences out of 15000+600000
  564306 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  104i,15n,110p,920b,438s stack positions out of 10000i,1000n,20000p,200000b,200000s

@@ -353,6 +353,8 @@ INPUT ./chapters/tensor_networks/sub.tex
 INPUT chapters/tensor_networks/sub.tex
 INPUT ./chapters/tensor_networks/sub.tex
 INPUT chapters/tensor_networks/sub.tex
+INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmti7.tfm
+INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmti7.tfm
 INPUT main.aux
 INPUT ./main.out
 INPUT ./main.out

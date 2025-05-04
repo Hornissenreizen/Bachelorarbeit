@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1746273488.96756 "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/main.tex" "main.pdf" "main" 1746273489.71795 0
-  "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/main.tex" 1746273487.97414 2216 18863979fbc591f73b5406eef6fe64e2 ""
+["pdflatex"] 1746351539.25116 "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/main.tex" "main.pdf" "main" 1746351540.04595 0
+  "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/main.tex" 1746351538.26441 2216 18863979fbc591f73b5406eef6fe64e2 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1734431872.38973 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1734431873.45473 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1734431879.03568 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -41,6 +41,7 @@
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm" 1734431875.08571 1116 933a60c408fc0a863a92debe84b2d294 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1734431875.08571 1120 8b7d695260f3cff42e636090a8002094 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmti10.tfm" 1734431875.08671 1480 aa8e34af0eb6a2941b776984cf1dfdc4 ""
+  "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmti7.tfm" 1734431875.08671 1492 86331993fe614793f5e7e755835c31c5 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/rsfs/rsfs10.tfm" 1734431877.4467 688 37338d6ab346c2f1466b29e195316aa4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/rsfs/rsfs5.tfm" 1734431877.4467 684 3a51bd4fd9600428d5264cf25f04bb9a ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/rsfs/rsfs7.tfm" 1734431877.4467 692 1b6510779f0f05e9cbf03e0f6c8361e6 ""
@@ -207,13 +208,13 @@
   "/usr/local/texlive/2024/texmf.cnf" 1734431864.4218 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
   "chapters/markov_chains_exponential_decay/sub.tex" 1745494020.31568 23280 97b4184adb83c3ddb40d97b0a9339c17 ""
   "chapters/markov_chains_introduction/sub.tex" 1745494020.31868 28636 703d87236184afbb797515b05a67929e ""
-  "chapters/model_framework/sub.tex" 1746268237.34668 14099 c4e48297e95bed89d0d0de839ff3e390 ""
+  "chapters/model_framework/sub.tex" 1746278104.59428 13983 e21226dda0f5cad0c694cc0f31c0f153 ""
   "chapters/regular_grammar/sub.tex" 1745494020.31968 11961 e2dd7b7663556654e9557419fd067abc ""
-  "chapters/tensor_networks/sub.tex" 1746273334.12916 2118 a2732775f4daeec587e7a296992783d5 ""
-  "main.aux" 1746273489.64313 5936 8e16887b7fe121ecb756d82f36c372eb "pdflatex"
-  "main.out" 1746273489.64313 2609 f30c0ed06ff88fddd87700d5173198e4 "pdflatex"
-  "main.tex" 1746273487.97414 2216 18863979fbc591f73b5406eef6fe64e2 ""
-  "main.toc" 1746273489.64313 1262 a8b265cacc75cc6a61c4b1bdb0b628d7 "pdflatex"
+  "chapters/tensor_networks/sub.tex" 1746351521.32857 12004 ce7e4da5a49cc95316378238c4c6d9fd ""
+  "main.aux" 1746351539.9694 6324 c6a8202cddc239922bee1795be731e6e "pdflatex"
+  "main.out" 1746351539.9704 2609 f30c0ed06ff88fddd87700d5173198e4 "pdflatex"
+  "main.tex" 1746351538.26441 2216 18863979fbc591f73b5406eef6fe64e2 ""
+  "main.toc" 1746351539.9704 1262 a8b265cacc75cc6a61c4b1bdb0b628d7 "pdflatex"
   (generated)
   "main.aux"
   "main.log"
