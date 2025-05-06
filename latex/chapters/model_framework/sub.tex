@@ -138,7 +138,7 @@
 
     \begin{theorem}[Every Token has Power-Law Decay in Models with the Bulk Marginal Property and Weak Power-Law Behavior]
         \label{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior}
-        Let $S$ be a model that satisfies the bulk marginal property and exhibits weak power-law behavior. Then, there exists an $\alpha \in \mathbb{R}_{>0}$ s.t. for every $X_t$, $I(X_{t}, X_{t + \tau}) \in \Omega(\tau^{-\alpha})$ (where $X_t$ and $X_{t + \tau}$ are sampled over $S_{t + \tau}$, or, equivalently, any $S_{t + \tau + k}$).
+        Let $S$ be a model that satisfies the bulk marginal property and exhibits weak lower bound power-law behavior. Then, there exists an $\alpha \in \mathbb{R}_{>0}$ s.t. for every $X_t$, $I(X_{t}, X_{t + \tau}) \in \Omega(\tau^{-\alpha})$ (where $X_t$ and $X_{t + \tau}$ are sampled over $S_{t + \tau}$, or, equivalently, any $S_{t + \tau + k}$).
     \end{theorem}
     \vspace{-2.5em}
     \begin{proof}
@@ -153,14 +153,18 @@
     \end{proof}
 
     \begin{remark}
-        The decay of $I(X_{t}, X_{t + \tau})$ follows from $S$ having upper bound power-law behavior (or decaying behavior).
+        If additionally $S$ had decaying behavior, then of course we would also have $I(X_{t}, X_{t + \tau}) \xrightarrow{\tau \to \infty} 0$.
     \end{remark}
 
     \begin{remark}
-        It is crucial for $S$ to have the bulk marginal property in theorem~\ref{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior}, or else $I(X_{t}, X_{t + \tau})$ might depend on $S_n$ and potentially decays to $0$.
+        The importance of this implication might depend on the context. However, this theorem proves to be very useful when considering its contraposition. In fact, we unknowingly used this contraposition previously to disprove weak power-law behavior (and hence also strong power-law behavior).
     \end{remark}
 
-\pagebreak
+    \begin{remark}
+        It is crucial for $S$ to have the bulk marginal property in theorem~\ref{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior}, or else $I(X_{t}, X_{t + \tau})$ might depend on $S_n$ and we cannot exclude $I(X_{t}, X_{t + \tau}) \xrightarrow{n \to \infty} 0$.
+    \end{remark}
+
+% \pagebreak
     \begin{proposition}
         Strong lower bound power-law behavior implies weak lower bound power-law behavior.
     \end{proposition}
@@ -188,4 +192,12 @@
             0 \leq \overline{i_{S_{t + \tau}}} \leq I_{S_{t + \tau}}(t) \xrightarrow{t \to \infty} 0 \quad .
         \]
     \end{remark}
+
+    \begin{definition}
+        A model $S$ is called \emph{large scale time invariant} iff there exists a vector $\bm{\mu} \in [0,1]^\Sigma$ s.t. for all $a \in \Sigma$ we have
+        \[
+            P(X_t = a) \xrightarrow{t \to \infty} \bm{\mu}_a \quad ,
+        \]
+        where $X_t$ is sampled over any $S_{t + k}, k \in \mathbb{N}$.
+    \end{definition}
 \end{document}

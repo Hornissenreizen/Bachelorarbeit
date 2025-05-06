@@ -93,6 +93,7 @@
 
 
     \begin{lemma}
+        \label{lemma:normalized_tensor_networks}
         Let $J \subseteq [n]$ and let $\mathcal{T}$ be a tensor network over $\Sigma^n$. Define a modified network $\mathcal{T}_J$ where for all $j \in J$, the input tensor $T_{0,j}$ is initialized to the all-ones vector (i.e., $\mathbf{1} \in \mathbb{R}^{|\Sigma|}$). Then for any $w \in \Sigma^{[n] \setminus J}$:
         \[
             \sum_{w_J \in \Sigma^{|J|}} \mathcal{T}(w_J, w) = \mathcal{T}_J(w) \quad .
@@ -152,6 +153,7 @@
     One might ask whether our definition for tensor networks is bit restrictive, as it only allows for contraction over \emph{pairs} of tensors. But what if we wanted to contract, say, three tensors at once over a common index?
 
     \begin{proposition}
+        \label{proposition:contracting_over_shared_index}
         Let $V' \subseteq V$ be a set of tensors in a tensor network, each containing an axis of dimension $d$ labeled by a shared index $i$. Contracting all tensors in $V'$ over the shared index $i$ is equivalent to contracting each tensor individually with a single tensor 
         \[
         \delta_{|V'|} : [d]^{|V'|} \mapsto \mathbb{R}_{\geq 0}
@@ -235,7 +237,7 @@ which is exactly the original contraction. Hence, the two constructions are equi
     We are interested in tensor networks that have the bulk marginal property. When further specifying our network structure, we might have a model space for varying word lengths $n$, but not for every $n \in \mathbb{N}$. Take for example the model space of binary trees as shown in figure~\ref{fig:binary_tree_tensor_network}.
 
     \begin{figure}[h]
-        \center
+        \centering
         \begin{tikzpicture}[
             every node/.style={circle, draw, minimum size=8mm, inner sep=0pt},
             level distance=10mm,
@@ -283,4 +285,109 @@ which is exactly the original contraction. Hence, the two constructions are equi
     In definition~\ref{def:induced_bulk_marginal_model} we saw how to construct a model with the desired bulk marginal property based on the base model. However, we might not always have a base model for ever $n \in \mathbb{N}$ like discussed. Luckily, it turns out that this is not an issue, as there are many ways we can build a new model with the bulk marginal property from a base model even if it is only defined on a subset of $\mathbb{N}$. Without a proof, we might do the same procedure as in definition~\ref{def:induced_bulk_marginal_model} but with bigger steps (instead of taking always the consecutive model), and induce the in-between models by marginalizing the bigger ones.
 
     Alternatively, if we wanted a model with bulk marginal property that itself is also an element of our specified model space, we might ask ourselves, how we can construct a bigger tensor network while preserving the distribution in its leading random variables.
+
+    Let's analyze the following example: Say we wanted to integrate the tree tensor network for $n = 2$ in figure~\ref{fig:binary_tree_tensor_network} into a bigger tree tensor network with $n = 4$. We assume that our network is normalized. Thus, in order for our new tensor network to have the bulk marginal property, contracting the smaller network must be equivalent to contracting the bigger one, where the new nodes (in this case $T_{1,3}$ and $T_{1,4}$) are contracted with all-ones vectors.
+
+    But there is one important question: How do we actually connect the smaller network to the new nodes? Because all nodes represent tensors that have a fixed number of axes, so we cannot just draw an additional edge connecting them with the new nodes. However, we might use proposition~\ref{proposition:contracting_over_shared_index} to contract multiple tensors over a shared index. Hence, we might use the following structure as depicted in figure~\ref{fig:integrating_tree_tensor_network}.
+
+    \begin{figure}[h]
+        \centering
+        \begin{tikzpicture}[
+            every node/.style={circle, draw, minimum size=8mm, inner sep=0pt},
+            level distance=10mm,
+            sibling distance=10mm,
+            edge from parent/.style={draw},
+            level 1/.style={sibling distance=20mm},
+            level 2/.style={sibling distance=20mm}
+        ]
+            \node[draw=none] at (0.5,0) {$n=4$};
+            \node (t21) at (-1, -1) {$T_{2,1}$} [grow=down]
+            child {node (t21a) [xshift=1cm] {$\delta_3$}
+                child {node (t11c) {$T_{1,1}$} edge from parent[draw=none]}
+                child {node (t13) [xshift=-0.5cm] {$T_{1,2}$}}};
+            \node (t31) at (2, -1) {$T_{3,1}$} [grow=down]
+            child {node (t22) {$T_{2,2}$}
+                child {node (t14) [xshift=0.5cm] {$T_{1,3}$}}
+                child {node (t15) [xshift=-0.5cm] {$T_{1,4}$}}};
+            \draw (t11c) -- (t21);
+            \draw (t21a) -- (t31);
+            \draw (t11c) -- ++(0,-0.7);
+            \draw (t13) -- ++(0,-0.7);
+            \draw (t14) -- ++(0,-0.7);
+            \draw (t15) -- ++(0,-0.7);
+        \end{tikzpicture}
+        \caption{Integrating a smaller tensor network into a bigger one based on figure~\ref{fig:binary_tree_tensor_network}.}
+        \label{fig:integrating_tree_tensor_network}
+    \end{figure}
+
+    Like already discussed, because we want to ensure the bulk marginal property, we must have equivalence of the following tensor networks in figure~\ref{fig:bmp_model_equiv}.
+
+    \begin{figure}[h]
+        \centering
+        \begin{tikzpicture}[
+            every node/.style={circle, draw, minimum size=8mm, inner sep=0pt},
+            level distance=10mm,
+            sibling distance=10mm,
+            edge from parent/.style={draw},
+            level 1/.style={sibling distance=20mm},
+            level 2/.style={sibling distance=20mm}
+        ]
+            \node (t21) at (-5, -1) {$T_{2,1}$} [grow=down]
+            child {node (t11b) {$T_{1,1}$}}
+            child {node (t12) {$T_{1,2}$}};
+            \draw (t11b) -- ++(0,-0.7);
+            \draw (t12) -- ++(0,-0.7);
+
+            \node [draw=none] (eqv) at (-2.5, -2) {$\equiv$};
+
+            \node (t21) at (-1, -1) {$T_{2,1}$} [grow=down]
+            child {node (t21a) [xshift=1cm] {$\delta_3$}
+                child {node (t11c) {$T_{1,1}$} edge from parent[draw=none]}
+                child {node (t13) [xshift=-0.5cm] {$T_{1,2}$}}};
+            \node (t31) at (2, -1) {$T_{3,1}$} [grow=down]
+            child {node (t22) {$T_{2,2}$}
+                child {node (t14) [xshift=0.5cm] {$T_{1,3}$}
+                    child {node (11) {$\bm{1}$}}}
+                child {node (t15) [xshift=-0.5cm] {$T_{1,4}$}
+                    child {node (12) {$\bm{1}$}}}};
+            \draw (t11c) -- (t21);
+            \draw (t21a) -- (t31);
+            \draw (t11c) -- ++(0,-0.7);
+            \draw (t13) -- ++(0,-0.7);
+        \end{tikzpicture}
+        \caption{Bulk marginal property enforces the equivalence of these models.}
+        \label{fig:bmp_model_equiv}
+    \end{figure}
+
+    Note that if we indeed had equivalence of these models, this would imply that the bigger model is now normalized as well based on lemma~\ref{lemma:normalized_tensor_networks}.
+
+    We can ensure equivalence if the new tensor networks contracts to an all-ones vector like depicted in figure~\ref{fig:sufficient_condition_bmp}.
+
+    \begin{figure}[h]
+        \centering
+        \begin{tikzpicture}[
+            every node/.style={circle, draw, minimum size=8mm, inner sep=0pt},
+            level distance=10mm,
+            sibling distance=10mm,
+            edge from parent/.style={draw},
+            level 1/.style={sibling distance=20mm},
+            level 2/.style={sibling distance=20mm}
+        ]
+            \node (1) at (-4, -2) {$\bm{1}$};
+
+            \node [draw=none] (eqv) at (-2.5, -2) {$\equiv$};
+
+            \node (t31) at (-0.5, -1) {$T_{3,1}$} [grow=down]
+            child {node (t22) {$T_{2,2}$}
+                child {node (t14) [xshift=0.5cm] {$T_{1,3}$}
+                    child {node (11) {$\bm{1}$}}}
+                child {node (t15) [xshift=-0.5cm] {$T_{1,4}$}
+                    child {node (12) {$\bm{1}$}}}};
+            \draw (t31) -- ++(-0.5,-0.5);
+        \end{tikzpicture}
+        \caption{It is sufficient for the bulk marginal property that this tensor network evaluates to an all-ones vector.}
+        \label{fig:sufficient_condition_bmp}
+    \end{figure}
+
+    We may call this approach of integrating a smaller tensor network into a bigger one as \emph{structural integration}. However, there might be other options to ensure bulk marginal property: Lets assume all tensors of figure~\ref{fig:binary_tree_tensor_network} for $n = 4$ have free parameters except tensor $T_{1,1}$. Then, when assigning all-ones vectors to $T_{1,3}$ and $T_{1,4}$, we get a matrix upon contracting all tensors except for $T_{1,1}$. But $T_{1,1}$ itself is a matrix, and so the probability distribution of the first two random variables is completely defined by the multiplication of these two matrices. Now, assuming that the matrix dimensions are sufficient, we can completely restore the original distribution by defining the entries of $T_{1,1}$ accordingly (assuming that it is possible).
 \end{document}

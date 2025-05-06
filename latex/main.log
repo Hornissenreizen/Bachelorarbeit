@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.17)  4 MAY 2025 11:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.17)  6 MAY 2025 11:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -599,9 +599,11 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 
 [1
 
-{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./chapters/markov_chains_introduction/sub.tex
+{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 
-[2]
+[2] (./chapters/markov_chains_introduction/sub.tex
+
+[3]
 Overfull \hbox (13.91089pt too wide) detected at line 73
 []
  []
@@ -611,68 +613,68 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 
-[3]
-
 [4]
 
 [5]
 
 [6]
 
+[7]
+
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-
-[7]
 
 [8]
 
 [9]
 
 [10]
+
+[11]
 Overfull \hbox (2.88866pt too wide) in paragraph at lines 408--409
 [][]\OT1/cmr/bx/n/10 Corollary 1.4. []\OT1/cmr/m/it/10 Based on the proof, we see that for ev-ery $\OML/cmm/b/it/10 v \OMS/cmsy/m/n/10 2 \OT1/cmr/m/n/10 ^^A : [][] \OML/cmm/b/it/10 P[]v \OT1/cmr/m/n/10 =
  []
 
 
 
-[11])
+[12])
 
-[12] (./chapters/markov_chains_exponential_decay/sub.tex
+[13] (./chapters/markov_chains_exponential_decay/sub.tex
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 
-[13]
+[14]
 
-[14{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-
-[15]
+[15{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 
 [16]
 
 [17]
+
+[18]
 Overfull \hbox (27.40463pt too wide) detected at line 226
 []
  []
 
 
 
-[18]
-
 [19]
+
+[20]
 Overfull \hbox (7.72157pt too wide) in paragraph at lines 249--251
 []\OT1/cmr/m/n/10 For in-dex-ing rea-sons, we as-sume with-out loss of gen-er-al-ity that $\OML/cmm/m/it/10 S[] \OT1/cmr/m/n/10 = \OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 1\OML/cmm/m/it/10 ; [] ; n[]\OMS/cmsy/m/n/10 g ^^R
  []
 
 
 
-[20])
+[21])
 
-[21] (./chapters/regular_grammar/sub.tex
+[22] (./chapters/regular_grammar/sub.tex
 
-[22]
+[23]
 Overfull \hbox (18.4676pt too wide) in paragraph at lines 69--70
 \OT1/cmr/m/it/10 hid-den Markov model $\OT1/cmr/m/n/10 (\OML/cmm/b/it/10 M[]\OML/cmm/m/it/10 ; \OML/cmm/b/it/10 M[]\OT1/cmr/m/n/10 )$ \OT1/cmr/m/it/10 with $\OML/cmm/m/it/10 I\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X[]; X[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 2 O\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ^^\[]\OT1/cmr/m/n/10 )$ \OT1/cmr/m/it/10 and $\OML/cmm/m/it/10 I\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X[]; X[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 2
  []
@@ -684,63 +686,84 @@ Overfull \hbox (17.23503pt too wide) detected at line 85
 
 
 
-[23]
+[24]
 Overfull \hbox (2.67255pt too wide) detected at line 105
 []
  []
 
 
 
-[24]
+[25]
 
-[25])
+[26])
 
-[26] (./chapters/model_framework/sub.tex
+[27] (./chapters/model_framework/sub.tex
 
-[27]
-Overfull \hbox (14.16275pt too wide) in paragraph at lines 64--65
+[28]
+Overfull \hbox (14.16275pt too wide) in paragraph at lines 65--66
 [][]\OT1/cmr/bx/n/10 Remark 4.2. []\OT1/cmr/m/n/10 If $[][] \OML/cmm/m/it/10 S[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 w\OT1/cmr/m/n/10 ) = 0$, we might set $\OML/cmm/m/it/10 S[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 w\OT1/cmr/m/n/10 ) [][]= \OML/cmm/m/it/10 S[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 w[]\OT1/cmr/m/n/10 )[]$. 
  []
 
 
 
-[28]
-
 [29]
 
-[30])
+[30]
 
-[31] (./chapters/tensor_networks/sub.tex
+[31])
 
-[32]
+[32] (./chapters/tensor_networks/sub.tex
 
 [33]
 
 [34]
 
-[35])
+[35]
 
-[36] (./main.aux)
+[36]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+
+[37]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+
+[38]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+)
+
+[39]
+
+[40] (./main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-11-02>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: F30C0ED06FF88FDDD87700D5173198E4;2609.
+(rerunfilecheck)             Checksum: 868A568406BBECD8B3EE968CEEA4974D;2783.
  ) 
 Here is how much of TeX's memory you used:
- 23761 strings out of 473330
- 436883 string characters out of 5719768
+ 23905 strings out of 473330
+ 439362 string characters out of 5719768
  1000948 words of memory out of 5000000
- 46336 multiletter control sequences out of 15000+600000
+ 46472 multiletter control sequences out of 15000+600000
  573512 words of font info for 94 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,18n,93p,1055b,1046s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,18n,93p,1055b,1382s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on main.pdf (36 pages, 409270 bytes).
+Output written on main.pdf (40 pages, 420498 bytes).
 PDF statistics:
- 496 PDF objects out of 1000 (max. 8388607)
- 403 compressed objects within 5 object streams
- 130 named destinations out of 1000 (max. 500000)
- 125 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 536 PDF objects out of 1000 (max. 8388607)
+ 438 compressed objects within 5 object streams
+ 138 named destinations out of 1000 (max. 500000)
+ 133 words of extra memory for PDF output out of 10000 (max. 10000000)
 
