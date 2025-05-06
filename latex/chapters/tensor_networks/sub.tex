@@ -7,7 +7,7 @@
     \bigskip
     We denote a tensor \( T_v \) with \( k \) axes of sizes \( D_v = \{d_1, \dots, d_k\} \) as a function
     \[
-    T_v : [d_1] \times \dots \times [d_k] \to \mathbb{R}_{\geq 0}.
+    T_v : [d_1] \times \dots \times [d_k] \to \mathbb{R} \quad .
     \]
     As a shorthand, we write
     \[
@@ -39,8 +39,9 @@
 
     Once the input tensors are initialized with one-hot encodings derived from a string \( w \in \Sigma^n \), the network computes a scalar output \( \mathcal{T}(w) \). This induces a probability distribution over \( \Sigma^n \) defined by:
     \[
-    S_{n, \mathcal{T}}(w) \coloneqq \frac{\mathcal{T}(w)}{\sum_{w' \in \Sigma^n} \mathcal{T}(w')}.
+    S_{n, \mathcal{T}}(w) \coloneqq \frac{f(\mathcal{T}(w))}{\sum_{w' \in \Sigma^n} f(\mathcal{T}(w'))} \quad ,
     \]
+    where $f: \mathbb{R} \mapsto \mathbb{R}_{\geq 0}$ is any arbitrary function like $f \equiv \exp$.
     \end{definition}
 
     \begin{figure}[h]
@@ -81,14 +82,22 @@
 
 
     \bigskip
-    \begin{definition}[Normalization of Tensor Networks]
+    \begin{definition}[Normalized and Non-Negative Tensor Networks]
         Let $\mathcal{T}$ be a tensor network over $\Sigma^n$ with scalar output $\mathcal{T}(w)$ for each $w \in \Sigma^n$. Define the total mass of the network as
         \[
             |\mathcal{T}| \coloneqq \sum_{w \in \Sigma^n} \mathcal{T}(w) \quad .
         \]
         We say $\mathcal{T}$ is \emph{normalized} iff $|\mathcal{T}| = 1$.
 
-        Let $H \coloneqq V \setminus I$ be the set of non-input tensors, and define $|H|$ as its cardinality. The \emph{induced normalized tensor network} $\dfrac{\mathcal{T}}{|\mathcal{T}|}$ is the same network as $\mathcal{T}$, but each entry of each tensor in $H$ is scaled by the factor $\dfrac{1}{\sqrt[|H|]{|\mathcal{T}|}}$.
+        Furthermore, a tensor network is said to be \emph{non-negative} iff for all $w \in \Sigma^n$ we have $\mathcal{T}(w) \geq 0$.
+    \end{definition}
+
+    \begin{remark}
+        We can enforce all tensor networks of our model space to be non-negative by only allowing for non-negative tensors in the networks.
+    \end{remark}
+
+    \begin{definition}[Normalization of Tensor Networks]
+        Let $\mathcal{T}$ be a tensor network over $\Sigma^n$, and let $H \coloneqq V \setminus I$ be the set of non-input tensors, and define $|H|$ as its cardinality. The \emph{induced normalized tensor network} $\dfrac{\mathcal{T}}{|\mathcal{T}|}$ is the same network as $\mathcal{T}$, but each entry of each tensor in $H$ is scaled by the factor $\dfrac{1}{\sqrt[|H|]{|\mathcal{T}|}}$.
     \end{definition}
 
 
@@ -100,15 +109,38 @@
         \]
     \end{lemma}
     \begin{proof}
-    The tensor network $\mathcal{T}(w)$ evaluates to a scalar obtained by contracting the network, where each input tensor $T_{0,j}$ is initialized with a one-hot vector corresponding to the symbol $w_j \in \Sigma$.
+    We proceed by induction on the size of the subset \( J \subseteq [n] \).
 
-    For $j \in J$, replacing the one-hot vector by the all-ones vector is equivalent to summing over all possible $w_j \in \Sigma$. That is, for fixed $w \in \Sigma^{[n] \setminus J}$,
+    \textbf{Base case:} \( |J| = 0 \).  
+    Then \( J = \emptyset \), so \( \mathcal{T}_J = \mathcal{T} \), and the sum over \( w_J \in \Sigma^{|J|} \) is a sum over a singleton (the empty word), yielding:
     \[
-        \mathcal{T}_J(w) = \sum_{w_J \in \Sigma^{|J|}} \mathcal{T}(w_J, w) \quad ,
+        \sum_{w_J \in \Sigma^0} \mathcal{T}(w_J, w) = \mathcal{T}(w),
     \]
-    since the multilinearity of the network ensures that the contraction distributes over summation in each input.
+    and since \( \mathcal{T}_J(w) = \mathcal{T}(w) \), the base case holds.
 
-    Formally, each contraction involving an input tensor $T_{0,j}$ with the one-hot vector $\delta_{w_j}$ is replaced by a sum over $\delta_{w_j}$ for all $w_j \in \Sigma$, i.e., the all-ones vector $\mathbf{1}$. The result of the total contraction is thus the sum over all \( w_J \in \Sigma^{|J|} \) of \( \mathcal{T}(w_J, w) \), as required.
+    \textbf{Inductive step:}  
+    Assume the lemma holds for all subsets of size \( k \), and let \( J \subseteq [n] \) with \( |J| = k+1 \). Pick any \( j_0 \in J \), and define \( J' = J \setminus \{j_0\} \), which has size \( k \). By the inductive hypothesis, for any \( w \in \Sigma^{[n] \setminus J} \), we have:
+    \[
+        \sum_{w_{J'} \in \Sigma^{k}} \mathcal{T}(w_{J'}, w, w_{j_0}) = \mathcal{T}_{J'}(w, w_{j_0}) \quad ,
+    \]
+    where \( w_{j_0} \in \Sigma \) varies over its values.
+
+    Now consider the sum over all \( w_J \in \Sigma^{k+1} \), which we write as:
+    \[
+        \sum_{w_{J'} \in \Sigma^k} \sum_{w_{j_0} \in \Sigma} \mathcal{T}(w_{J'}, w_{j_0}, w) \quad .
+    \]
+    By the inductive hypothesis, this equals:
+    \[
+        \sum_{w_{j_0} \in \Sigma} \mathcal{T}_{J'}(w_{j_0}, w) \quad .
+    \]
+    Observe that in \( \mathcal{T}_{J'} \), the input tensor at position \( j_0 \) is still initialized to a one-hot vector, while the inputs at \( J' \) have been replaced with the all-ones vector.
+
+    Now, note that the inner sum over \( w_{j_0} \) is equivalent to replacing the input at \( j_0 \) with the all-ones vector, since the sum represents a sum over vector dot products of vector $\bm{v}_{w_{j_0}} \coloneqq \mathcal{T}_{J'}(w_{j_0}, w)$ with one-hot encoded vectors. It follows from linearity that we can factor out $\bm{v}$, and the sum of the one-hot encoded vector yields the all-ones vector. Thus:
+    \[
+        \sum_{w_{j_0} \in \Sigma} \mathcal{T}_{J'}(w_{j_0}, w) = \mathcal{T}_J(w) \quad .
+    \]
+    Hence, by induction, the lemma holds for all subsets \( J \subseteq [n] \).
+
     \end{proof}
 
     \begin{corollary}
@@ -120,7 +152,7 @@
     \end{corollary}
 
     \begin{lemma}
-        Let $\mathcal{T}$ be a tensor network over $\Sigma^n$. The induced normalized tensor network $\frac{\mathcal{T}}{|\mathcal{T}|}$ is indeed normalized and we have for all $w \in \Sigma^n$:
+        Let $\mathcal{T}$ be a tensor network over $\Sigma^n$. The induced normalized tensor network $\frac{\mathcal{T}}{|\mathcal{T}|}$ is indeed normalized, and if additionally $\mathcal{T}$ is non-negative and $f \equiv \text{id}$, we have for all $w \in \Sigma^n$:
         \[
             S_{n, \mathcal{T}}(w) = S_{n, \frac{\mathcal{T}}{|\mathcal{T}|}}(w) \quad .
         \]
@@ -140,7 +172,7 @@
             \left| \frac{\mathcal{T}}{|\mathcal{T}|} \right| = \sum_{w \in \Sigma^n} \frac{\mathcal{T}(w)}{|\mathcal{T}|} = \frac{1}{|\mathcal{T}|} \sum_{w \in \Sigma^n} \mathcal{T}(w) = \frac{|\mathcal{T}|}{|\mathcal{T}|} = 1 \quad .
         \]
 
-        Moreover, since the normalization rescales all outputs by the same constant, the softmax remains unchanged:
+        Moreover, since the normalization rescales all outputs by the same constant, the ratio of the terms to the total sum remains unchanged:
         \[
             S_{n, \frac{\mathcal{T}}{|\mathcal{T}|}}(w) = \frac{\left( \frac{\mathcal{T}(w)}{|\mathcal{T}|} \right)}{\sum_{w' \in \Sigma^n} \left( \frac{\mathcal{T}(w')}{|\mathcal{T}|} \right)} = \frac{\mathcal{T}(w)}{|\mathcal{T}|} \cdot \frac{1}{1} = S_{n, \mathcal{T}}(w) \quad .
         \]
@@ -374,6 +406,7 @@ which is exactly the original contraction. Hence, the two constructions are equi
             level 2/.style={sibling distance=20mm}
         ]
             \node (1) at (-4, -2) {$\bm{1}$};
+            \draw (1) -- ++(-0.5, -0.5);
 
             \node [draw=none] (eqv) at (-2.5, -2) {$\equiv$};
 

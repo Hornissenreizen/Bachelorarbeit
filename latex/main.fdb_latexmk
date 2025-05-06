@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1746523529.38838 "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/main.tex" "main.pdf" "main" 1746523530.31132 0
-  "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/main.tex" 1746523527.36749 2216 18863979fbc591f73b5406eef6fe64e2 ""
+["pdflatex"] 1746534126.13587 "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/main.tex" "main.pdf" "main" 1746534127.03814 0
+  "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/main.tex" 1746534125.94076 2216 18863979fbc591f73b5406eef6fe64e2 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1734431872.38973 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1734431873.45473 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1734431879.03568 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -208,13 +208,13 @@
   "/usr/local/texlive/2024/texmf.cnf" 1734431864.4218 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
   "chapters/markov_chains_exponential_decay/sub.tex" 1745494020.31568 23280 97b4184adb83c3ddb40d97b0a9339c17 ""
   "chapters/markov_chains_introduction/sub.tex" 1745494020.31868 28636 703d87236184afbb797515b05a67929e ""
-  "chapters/model_framework/sub.tex" 1746361499.98877 14031 68d46f9b195cfb72f93f9da98914d59c ""
+  "chapters/model_framework/sub.tex" 1746534119.76279 14804 57867c26216a4737f0af7aa15dd6e934 ""
   "chapters/regular_grammar/sub.tex" 1745494020.31968 11961 e2dd7b7663556654e9557419fd067abc ""
-  "chapters/tensor_networks/sub.tex" 1746523502.22363 21229 028b88b4667f5694176fd0d7541b3ee9 ""
-  "main.aux" 1746523530.23447 8077 c894dd7074cc9f0ecb304d330a478b87 "pdflatex"
-  "main.out" 1746523530.23547 2783 868a568406bbecd8b3ee968ceea4974d "pdflatex"
-  "main.tex" 1746523527.36749 2216 18863979fbc591f73b5406eef6fe64e2 ""
-  "main.toc" 1746523530.23547 1352 a0e6c0498760843bb55b37d2e5c190f4 "pdflatex"
+  "chapters/tensor_networks/sub.tex" 1746533751.87847 23062 6e1b57b3c2a8783c32463ddf755dbe47 ""
+  "main.aux" 1746534126.96376 8077 73472ee30430998e8e3a4693e5737a8a "pdflatex"
+  "main.out" 1746534126.96376 2783 868a568406bbecd8b3ee968ceea4974d "pdflatex"
+  "main.tex" 1746534125.94076 2216 18863979fbc591f73b5406eef6fe64e2 ""
+  "main.toc" 1746534126.96376 1352 960d7f6c6fa056e6f13144381b3b8c72 "pdflatex"
   (generated)
   "main.aux"
   "main.log"

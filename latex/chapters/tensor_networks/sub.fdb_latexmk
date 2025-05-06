@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1746523502.45277 "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/chapters/tensor_networks/sub.tex" "chapters/tensor_networks/sub.pdf" "sub" 1746523503.39739 0
-  "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/chapters/tensor_networks/sub.tex" 1746523502.22363 21229 028b88b4667f5694176fd0d7541b3ee9 ""
+["pdflatex"] 1746533752.10377 "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/chapters/tensor_networks/sub.tex" "chapters/tensor_networks/sub.pdf" "sub" 1746533753.03549 0
+  "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/chapters/tensor_networks/sub.tex" 1746533751.87847 23062 6e1b57b3c2a8783c32463ddf755dbe47 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1734431872.38973 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1734431873.45473 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1734431879.03568 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -33,6 +33,7 @@
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1734431879.95368 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb" 1734431879.95468 37912 77d683123f92148345f3fc36a38d9ab1 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb" 1734431879.95468 36281 c355509802a035cadc5f15869451dcee ""
+  "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb" 1734431879.95568 36912 b448ef9ad9d7228ec3c6e71005136d55 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1734431879.95568 35752 024fb6c41858982481f6968b5fc26508 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb" 1734431879.95668 31809 8670ca339bf94e56da1fc21c80635e2a ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1734431879.95668 32762 224316ccc9ad3ca0423a14971cfa7fc1 ""
@@ -179,10 +180,10 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1734431864.2608 5485709 8129e419010b46b234085a26866cdb87 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1734431864.3988 3343776 2b14423543ae36c58e6a97232fe20f3b ""
   "/usr/local/texlive/2024/texmf.cnf" 1734431864.4218 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
-  "chapters/tensor_networks/../../main.tex" 1746351538.26441 2216 18863979fbc591f73b5406eef6fe64e2 ""
-  "chapters/tensor_networks/sub.aux" 1746523503.30563 2282 e5d3d5332f9ceeab1d01095d9ccbdde5 "pdflatex"
-  "chapters/tensor_networks/sub.out" 1746523503.30663 294 458e89249aba41958b00d1e1f58f01e0 "pdflatex"
-  "chapters/tensor_networks/sub.tex" 1746523502.22363 21229 028b88b4667f5694176fd0d7541b3ee9 ""
+  "chapters/tensor_networks/../../main.tex" 1746523527.36749 2216 18863979fbc591f73b5406eef6fe64e2 ""
+  "chapters/tensor_networks/sub.aux" 1746533752.95346 2282 21366bd00fc571d67c341b4546ea2553 "pdflatex"
+  "chapters/tensor_networks/sub.out" 1746533752.95346 294 458e89249aba41958b00d1e1f58f01e0 "pdflatex"
+  "chapters/tensor_networks/sub.tex" 1746533751.87847 23062 6e1b57b3c2a8783c32463ddf755dbe47 ""
   (generated)
   "chapters/tensor_networks/sub.aux"
   "chapters/tensor_networks/sub.log"
