@@ -7,7 +7,7 @@
     \bigskip
     We denote a tensor \( T_v \) with \( k \) axes of sizes \( D_v = \{d_1, \dots, d_k\} \) as a function
     \[
-    T_v : [d_1] \times \dots \times [d_k] \to \mathbb{R} \quad .
+    T_v : [d_1] \times \dots \times [d_k] \mapsto \mathbb{R} \quad .
     \]
     As a shorthand, we write
     \[
@@ -202,25 +202,25 @@
         That is, a full contraction over a shared index can be implemented by introducing a single copy tensor connected to each tensor in $V'$.
     \end{proposition}
 
-\begin{proof}
-Each tensor $T_v$ for $v \in V'$ has an index \( i \in [d] \) corresponding to the shared axis. The contraction over this index is defined by summing over the common value of \( i \) across all tensors:
-\[
-\sum_{i=1}^d \prod_{v \in V'} T_v(\dots, i, \dots) \quad .
-\]
+    \begin{proof}
+    Each tensor $T_v$ for $v \in V'$ has an index \( i \in [d] \) corresponding to the shared axis. The contraction over this index is defined by summing over the common value of \( i \) across all tensors:
+    \[
+    \sum_{i=1}^d \prod_{v \in V'} T_v(\dots, i, \dots) \quad .
+    \]
 
-Now consider a new tensor \( \delta_{|V'|} \) of order \( |V'| \), defined as 1 if all indices are equal and 0 otherwise. Let each tensor \( T_v \) maintain its original indices, but connect to \( \delta_{|V'|} \) via the position corresponding to \( v \).
+    Now consider a new tensor \( \delta_{|V'|} \) of order \( |V'| \), defined as 1 if all indices are equal and 0 otherwise. Let each tensor \( T_v \) maintain its original indices, but connect to \( \delta_{|V'|} \) via the position corresponding to \( v \).
 
-The contraction over this shared structure gives:
-\[
-\sum_{i_1, \dots, i_{|V'|}} \left( \prod_{v \in V'} T_v(\dots, i_v, \dots) \right) \delta_{|V'|}(i_1, \dots, i_{|V'|}) \quad .
-\]
+    The contraction over this shared structure gives:
+    \[
+    \sum_{i_1, \dots, i_{|V'|}} \left( \prod_{v \in V'} T_v(\dots, i_v, \dots) \right) \delta_{|V'|}(i_1, \dots, i_{|V'|}) \quad .
+    \]
 
-By definition of \( \delta_{|V'|} \), this enforces \( i_1 = \dots = i_{|V'|} \), reducing the above to:
-\[
-\sum_{i=1}^d \prod_{v \in V'} T_v(\dots, i, \dots) \quad ,
-\]
-which is exactly the original contraction. Hence, the two constructions are equivalent.
-\end{proof}
+    By definition of \( \delta_{|V'|} \), this enforces \( i_1 = \dots = i_{|V'|} \), reducing the above to:
+    \[
+    \sum_{i=1}^d \prod_{v \in V'} T_v(\dots, i, \dots) \quad ,
+    \]
+    which is exactly the original contraction. Hence, the two constructions are equivalent.
+    \end{proof}
 
     \begin{figure}[h]
         \center
@@ -393,7 +393,7 @@ which is exactly the original contraction. Hence, the two constructions are equi
 
     Note that if we indeed had equivalence of these models, this would imply that the bigger model is now normalized as well based on lemma~\ref{lemma:normalized_tensor_networks}.
 
-    We can ensure equivalence if the new tensor networks contracts to an all-ones vector like depicted in figure~\ref{fig:sufficient_condition_bmp}.
+    We can ensure equivalence if the new tensors of the network contract to an all-ones vector like depicted in figure~\ref{fig:sufficient_condition_bmp}.
 
     \begin{figure}[h]
         \centering
