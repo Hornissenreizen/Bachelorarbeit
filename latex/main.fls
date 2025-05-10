@@ -949,8 +949,8 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmmib5.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbsy10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm
-OUTPUT main.toc
 INPUT /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map
+OUTPUT main.toc
 INPUT ./chapters/markov_chains_introduction/sub.tex
 INPUT chapters/markov_chains_introduction/sub.tex
 INPUT ./chapters/markov_chains_introduction/sub.tex
@@ -976,6 +976,10 @@ INPUT ./chapters/tensor_networks/sub.tex
 INPUT chapters/tensor_networks/sub.tex
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmti7.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmti7.tfm
+INPUT ./chapters/tree_tensor_networks/sub.tex
+INPUT chapters/tree_tensor_networks/sub.tex
+INPUT ./chapters/tree_tensor_networks/sub.tex
+INPUT chapters/tree_tensor_networks/sub.tex
 INPUT main.aux
 INPUT ./main.out
 INPUT ./main.out

@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1746866983 "/home/jonas/Documents/temp desktop/Bachelorarbeit/latex/chapters/tree_tensor_networks/sub.tex" "chapters/tree_tensor_networks/sub.pdf" "sub" 1746866984
+["pdflatex"] 1746881853 "/home/jonas/Documents/temp desktop/Bachelorarbeit/latex/chapters/tree_tensor_networks/sub.tex" "chapters/tree_tensor_networks/sub.pdf" "sub" 1746881854
   "/etc/texmf/web2c/texmf.cnf" 1667832238 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/jonas/Documents/temp desktop/Bachelorarbeit/latex/chapters/tree_tensor_networks/sub.tex" 1746866982 4394 ad740e317914a3985fa68b6156edbca4 ""
+  "/home/jonas/Documents/temp desktop/Bachelorarbeit/latex/chapters/tree_tensor_networks/sub.tex" 1746881852 9120 24d2369779bc82a8e87bcffe980daec4 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1246382020 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm" 1246382020 1120 7f9f170e8aa57527ad6c49feafd45d54 ""
@@ -27,6 +27,7 @@
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/rsfs/rsfs7.tfm" 1229303445 692 1b6510779f0f05e9cbf03e0f6c8361e6 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb" 1248133631 34811 78b52f49e893bcba91bd7581cdc144c0 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1248133631 32080 340ef9bf63678554ee606688e7b5339d ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1248133631 30251 6afa5cb1d0204815a708a080681d4674 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1248133631 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb" 1248133631 37912 77d683123f92148345f3fc36a38d9ab1 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb" 1248133631 36281 c355509802a035cadc5f15869451dcee ""
@@ -175,10 +176,10 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1697878699 128028 f533b797fba58d231669ea19e894e23e ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1712737265 1405647 f966d3218063cabc8be94f5b4e8cfbea ""
-  "chapters/tree_tensor_networks/../../main.tex" 1746864358 2216 18863979fbc591f73b5406eef6fe64e2 ""
-  "chapters/tree_tensor_networks/sub.aux" 1746866984 1131 88892b276310a6e2751562d1a7cd4b65 "pdflatex"
-  "chapters/tree_tensor_networks/sub.out" 1746866984 154 56bbbcba9937c5d998e58695a88fa46b "pdflatex"
-  "chapters/tree_tensor_networks/sub.tex" 1746866982 4394 ad740e317914a3985fa68b6156edbca4 ""
+  "chapters/tree_tensor_networks/../../main.tex" 1746881575 2274 e2157ccf73b0795ff825fc5a399fc2da ""
+  "chapters/tree_tensor_networks/sub.aux" 1746881854 1250 2f1bec18f9833b7829f5dba1f1983f3c "pdflatex"
+  "chapters/tree_tensor_networks/sub.out" 1746881854 319 744b6bd130a6ba25b644d670e90b08b8 "pdflatex"
+  "chapters/tree_tensor_networks/sub.tex" 1746881852 9120 24d2369779bc82a8e87bcffe980daec4 ""
   (generated)
   "chapters/tree_tensor_networks/sub.aux"
   "chapters/tree_tensor_networks/sub.log"
