@@ -1,15 +1,145 @@
 \documentclass[../../main.tex]{subfiles}
 
 \begin{document}
-\section{Tree Tensor Networks}
-    Now, we want to analyze the properties of these binary tree tensor networks further. It may not bother us how we construct increasingly bigger models that satisfy the bulk marginal property, we know that the model space of binary tree tensor networks is capable of producing a family of networks that satisfy this property.
+\section{Binary Tree Tensor Networks}
+    We are interested in the model space of binary tree tensor networks as shown in figure~\ref{fig:binary_tree_tensor_network}. We assume that every network is non-negative and normalized, and we set $f \equiv \text{id}$.
 
-    Furthermore, we may also constrain every tensor network to be non-negative and normalized. Of course, such networks are always constructable as well. We also allow for negative entries in the tensors. We also don't apply any function $f$ to the tensor output, the network outputs directly correspond to probabilities.
+    \begin{figure}[h]
+        \centering
+        \begin{tikzpicture}[
+            every node/.style={circle, draw, minimum size=8mm, inner sep=0pt},
+            level distance=10mm,
+            sibling distance=10mm,
+            edge from parent/.style={draw},
+            level 1/.style={sibling distance=20mm},
+            level 2/.style={sibling distance=10mm}
+        ]
+
+        % Tree with 1 leaf
+        \node[draw=none] at (-6,0) {$n=1$};
+        \node (t11a) at (-6,-1) {$T_{1,1}$};
+        \draw (t11a) -- ++(0,-0.7);
+
+        % Tree with 2 leaves
+        \node[draw=none] at (-3,0) {$n=2$};
+        \node (t21) at (-3, -1) {$T_{2,1}$} [grow=down]
+        child {node (t11b) {$T_{1,1}$}}
+        child {node (t12) {$T_{1,2}$}};
+        \draw (t11b) -- ++(0,-0.7);
+        \draw (t12) -- ++(0,-0.7);
+
+        % Tree with 4 leaves
+        \node[draw=none] at (1,0) {$n=4$};
+        \node (t31) at (1, -1) {$T_{3,1}$} [grow=down]
+        child {node (t21a) {$T_{2,1}$}
+            child {node (t11c) {$T_{1,1}$}}
+            child {node (t13) {$T_{1,2}$}}}
+        child {node (t22) {$T_{2,2}$}
+            child {node (t14) {$T_{1,3}$}}
+            child {node (t15) {$T_{1,4}$}}};
+        \draw (t11c) -- ++(0,-0.7);
+        \draw (t13) -- ++(0,-0.7);
+        \draw (t14) -- ++(0,-0.7);
+        \draw (t15) -- ++(0,-0.7);
+
+        % Dots representing omitted trees
+        \node[draw=none] at (5,0) {$n=\dots$};
+        \node[draw=none] at (5,-1.5) {$\vdots$};
+        \end{tikzpicture}
+        \caption{Binary tree model space for sequences of length $n = 2^k$.}
+        \label{fig:binary_tree_tensor_network}
+    \end{figure}
+
+\subsection{Bulk Marginal Property}
+    In definition~\ref{def:induced_bulk_marginal_model} we saw how to construct a model with the desired bulk marginal property based on the base model. However, we might not always have a base model for every $n \in \mathbb{N}$ like discussed. Luckily, it turns out that this is not an issue, as there are many ways we can build a new model with the bulk marginal property from a base model even if it is only defined on a subset of $\mathbb{N}$. Without a proof, we might do the same procedure as in definition~\ref{def:induced_bulk_marginal_model} but with bigger steps (instead of taking always the consecutive model), and induce the in-between models by marginalizing the bigger ones.
+
+    Alternatively, if we wanted a model with bulk marginal property that itself is also an element of our specified model space, we might ask ourselves, how we can construct a bigger tensor network while preserving the distribution in its leading random variables.
+
+    Let's analyze the following example: Say we wanted to integrate the tree tensor network for $n = 2$ in figure~\ref{fig:binary_tree_tensor_network} into a bigger tree tensor network with $n = 4$. Note that by assumptions the tensor networks are non-negative and normalized, and $f \equiv \text{id}$. Thus, in order for our new tensor network to have the bulk marginal property, contracting the smaller network must be equivalent to contracting the bigger one, where the new nodes (in this case $T'_{1,3}$ and $T'_{1,4}$) are contracted with all-ones vectors, see figure~\ref{fig:bmp_model_equiv}.
+
+    \begin{figure}[h]
+        \centering
+        \begin{tikzpicture}[
+            every node/.style={circle, draw, minimum size=8mm, inner sep=0pt},
+            level distance=10mm,
+            sibling distance=10mm,
+            edge from parent/.style={draw},
+            level 1/.style={sibling distance=20mm},
+            level 2/.style={sibling distance=10mm}
+        ]
+            \node [draw=none] at (-5,0) {$n=2$};
+            \node (t21) at (-5, -1) {$T_{2,1}$} [grow=down]
+            child {node (t11b) {$T_{1,1}$}}
+            child {node (t12) {$T_{1,2}$}};
+            \draw (t11b) -- ++(0,-0.7);
+            \draw (t12) -- ++(0,-0.7);
+
+            \node [draw=none] (eqv) at (-2.5, -2) {$\equiv$};
+
+            \node[draw=none] at (0,0) {$n=4$};
+            \node (t31) at (0, -1) {$T'_{3,1}$} [grow=down]
+            child {node (t21a) {$T'_{2,1}$}
+                child {node (t11c) {$T'_{1,1}$}}
+                child {node (t13) {$T'_{1,2}$}}}
+            child {node (t22) {$T'_{2,2}$}
+                child {node (t14) {$T'_{1,3}$}
+                    child {node {$\bm{1}$}}}
+                child {node (t15) {$T'_{1,4}$}
+                    child {node {$\bm{1}$}}}};
+            \draw (t11c) -- ++(0,-0.7);
+            \draw (t13) -- ++(0,-0.7);
+        \end{tikzpicture}
+        \caption{Bulk marginal property enforces the equivalence of these models.}
+        \label{fig:bmp_model_equiv}
+    \end{figure}
+
+    Note that if we indeed had equivalence of these models, this would imply that the bigger model is now normalized as well based on lemma~\ref{lemma:normalized_tensor_networks}.
+
+    Let's now analyze the vector $\bm{v}$ depicted in figure~\ref{fig:sufficient_condition_bmp}.
+
+    \begin{figure}[h]
+        \centering
+        \begin{tikzpicture}[
+            every node/.style={circle, draw, minimum size=8mm, inner sep=0pt},
+            level distance=10mm,
+            sibling distance=10mm,
+            edge from parent/.style={draw},
+            level 1/.style={sibling distance=20mm},
+            level 2/.style={sibling distance=20mm}
+        ]
+            \node [draw=none] (v) at (-4, -2) {$\bm{v}$};
+
+            \node [draw=none] (eqv) at (-2.5, -2) {$\coloneqq$};
+
+            \node (t31) at (-0.5, -1) {$T'_{3,1}$} [grow=down]
+            child {node (t22) [xshift=1cm] {$T'_{2,2}$}
+                child {node (t14) [xshift=0.5cm] {$T'_{1,3}$}
+                    child {node (11) {$\bm{1}$}}}
+                child {node (t15) [xshift=-0.5cm] {$T'_{1,4}$}
+                    child {node (12) {$\bm{1}$}}}};
+            \draw (t31) -- ++(-0.5,-0.5);
+        \end{tikzpicture}
+        \caption{Contracting this sub-network with all-ones vectors yields vector $\bm{v}$.}
+        \label{fig:sufficient_condition_bmp}
+    \end{figure}
+
+    What can we say about $\bm{v}$? Well, we can assume that it has at least one non-zero entry. This is always possible, and if $\bm{v}$ consisted of only zeros, then the network wouldn't be normalized.
+
+    But now we can initialize the remaining tensors: The leaf tensors $T'_{1,1}$ and $T'_{2,1}$ can be taking over from the smaller model, and the new tensor $T'_{2, 1}$, which is now a vector of matrices like the old $T_{2, 1}$, can initialized as the matrix $T_{2, 1}$ divided by the non-zero entry of $\bm{v}$ at the same position. All other matrices in this vector will just be set to zero-matrices.
+
+    It is apparent that this initialization ensures the equivalence of the models as depicted in figure~\ref{fig:bmp_model_equiv}. It is also clear that this method works when transitioning from any $n = 2^k$ to $n' = 2^{k+1}$. Note that we also didn't increase the sizes of the tensors (except for $T'_{2, 1}$, as it got another axis). Furthermore, when assuming all tensor entries are non-negative, then the new tensor network $\mathcal{T}'$ is also non-negative. This leads to the following observation:
+
+    \begin{corollary}
+        Constrain every tensor to have non-negative entries, and let $\mathcal{T}$ be a binary tree tensor network over $\Sigma^n, n = 2^k$. Then, there exists a binary tree tensor network $\mathcal{T}'$ over $\Sigma^{n'}, n' = 2^{k+1}$ s.t. the transition from $\mathcal{T}$ to $\mathcal{T}'$ complies with the bulk marginal property. Furthermore, $\mathcal{T}'$ complies with axes-sizes constrains (under the assumption of a maximum axis-size constrain which is increasing in $n$).
+    \end{corollary}
+
+\subsection{Binary Tree Tensor Networks are Universal Approximators}
+    Now, we want to analyze the properties of these binary tree tensor networks further. It may not bother us how we construct increasingly bigger models that satisfy the bulk marginal property, we know that the model space of binary tree tensor networks is capable of producing such families.
 
     One question we might ask is whether such a model space restricts the space of possible probability distributions, and if so by how much. As it turns out, in the most general case when allowing very large tensors in the networks, we can model \emph{any} probability distribution:
 
     \begin{proposition}
-        Given any probability distribution $p: \Sigma^{2^k} \mapsto [0,1]$, we can always construct a binary tree tensor network $\mathcal{T}$ over $\Sigma^{2^k}$ s.t. $p \equiv S_{2^k, \mathcal{T}}$ (, where $\mathcal{T}$ has the properties like discussed above and has no constrains on the tensor sizes).
+        Given any probability distribution $p: \Sigma^{2^k} \mapsto [0,1]$, we can always construct a binary tree tensor network $\mathcal{T}$ over $\Sigma^{2^k}$ s.t. $p \equiv S_{2^k, \mathcal{T}}$. (Where $\mathcal{T}$ has the properties mentioned in the beginning and has no constrains on the tensor sizes.)
     \end{proposition}
     \vspace{-2.5em}
     \begin{proof}
@@ -47,7 +177,7 @@
         \label{fig:binary_tree_tensor_network_n_equals_four}
     \end{figure}
 
-    Now, we initialize the leaf matrices as identity matrices $\delta_2 \in \mathbb{R}^{|\Sigma| \times |\Sigma|}$. Thus, when contracting a leaf tensor with a one-hot encoded input vector at position $i$, we get the vector $v_j = \bm{1}[X_i = c_j], c_j \in \Sigma$.
+    Now, we initialize the leaf matrices as identity matrices $\delta_2 \in \mathbb{R}^{|\Sigma| \times |\Sigma|}$. Thus, when contracting a leaf tensor with a one-hot encoded input vector at position $i$, we get the vector $\bm{v}^{(i)}$ with $\bm{v}^{(i)}_j = \bm{1}[X_i = c_j], c_j \in \Sigma$.
 
     Now, the tensors in layer two are of the following form:
     \[
@@ -68,27 +198,32 @@
     Note that this construction can easily be extended to arbitrary $n = 2^k$.
     \end{proof}
 
-    As one might expect, we see that our general construction needs $\Omega(|\Sigma|^n)$ many parameters because the root tensor stores all the $|\Sigma|^n$ many probabilities for $w \in \Sigma^n$. Of course, there cannot be a general model capable of any probability distribution with $o(|\Sigma|^n)$ many parameters.
+    As one might expect, we see that our general construction needs $\Omega(|\Sigma|^n)$ many parameters, as the root tensor stores all the $|\Sigma|^n$ many probabilities for $w \in \Sigma^n$.
+    % Of course, there cannot be a general model capable of any probability distribution with $o(|\Sigma|^n)$ many parameters.
 
 \subsection{Restricting Parameters}
-    One natural question is what happens if we restrict the number of parameters. Obviously, we don't have exponentially many parameters with respect to the word length, we won't be able to construct \emph{every} probability distribution.
+    One natural question is what happens if we restrict the number of parameters. Obviously, if we don't have exponentially many parameters with respect to the word length, we won't be able to construct \emph{every} probability distribution.
 
     However, when modelling natural language for example, we really aren't interested in the most general case of probability distributions. For example, for a fixed word length $n$, we might want behavior similar to large scale time invariance (see definition~\ref{definition:large_scale_time_invariance}). Note that for a fixed $n$, the constrain of the bulk marginal property has no restrictive effect on the possible distributions.
 
     Most decisively, we are interested in models capable of power-law behavior. Our goal is to show that binary tree tensor networks are incapable of this when we cap the number of parameters (i.e. the tensor sizes).
 
-    To formalize this, we first specify what it means to cap the parameters. There are two approaches that come to my mind: Either cap the total number of parameters (the entries of \emph{all} tensors), or cap the axes-sizes and hence the size of each tensor individually. Of course, the latter approach implies that the total number of parameters are capped by $2n$ times the maximal number of parameters per tensor, as there are $2n-1$ many tensors in the network. Thus, it seems natural to cap the individual tensor sizes to ensure a \emph{good} distribution of the parameters to the tensors (which means that there shouldn't be one very large tensor and many small tensors). We might do this by capping the axes-sizes, as this allows the tensors to be more "cube-like" and don't have one big axis and two smaller ones for example (note that most tensors have three axes).
+    To formalize this, we first specify what it means to cap the parameters. There are two approaches that come to my mind: Either cap the total number of parameters (the entries of \emph{all} tensors), or cap the axes-sizes and hence the size of each tensor individually. Of course, the latter approach implies that the total number of parameters are capped by $2n$ times the maximal number of parameters per tensor, as there are $2n-1$ many tensors in the network. Thus, it seems natural to cap the individual tensor sizes to ensure a \emph{good} distribution of parameters over the tensors (which means that there shouldn't be one very large tensor and many small tensors). We might do this by capping the axes-sizes, as this allows the tensors to be more "cube-like" and to not have one big axis and two smaller ones for example (note that most tensors have three axes).
 
-    Thus, let us assume we cap the axes-sizes. We could define an upper bound for every tensor individually in the network, or for every layer, but for the simplicities sake we define an upper bound on the axes-sizes in the entire network. As it turns out, it also doesn't really matter which approach we choose for specification, as we will argue with complexity bounds.
+    Thus, let us assume we cap the axes-sizes. We could define an upper bound for every tensor individually in the network, or, for every layer, but for simplicity's sake we define an upper bound on the axes-sizes in the entire network. As it turns out, it also doesn't really matter which approach we choose when arguing with complexity bounds.
 
-    So, we want to cap the axes-sizes. To this end, let $d$ denote the biggest axis-size allowed. Now, there are multiple options again: First, $d$ could stay constant for every network of size $n = 2^k$. In this case the parameters grow linearly in $n$ (since the number of tensors grows linearly). This, however, is probably too restrictive. The second approach is to let $d$ grow with $n$. Of course, if $d \coloneqq |\Sigma|^n$ (or even $d \coloneqq |\Sigma|^{\frac{n}{2}} = \left(\sqrt{|\Sigma|}\right)^n$), we won't have any restrictions and way too many parameters. Alternatively, we could try to find a smaller base $b$ for $d = b^n$. Another approach is to define $d(n) \in \mathcal{O}(n^p)$ for some $p \in \mathbb{N}$. This means that axes-sizes grow polynomially with respect to the word length $n$. Of course, this implies that every tensor grows polynomial in $n$ with $\mathcal{O}((n^p)^3) = \mathcal{O}(n^{3p})$, and hence the parameter complexity of the entire network grows with $\mathcal{O}(n^{3p+1})$.
+    So, we want to cap the axes-sizes. To this end, let $d$ denote the biggest axis-size allowed. Now, there are multiple options again: First, $d$ could stay constant for every network of size $n = 2^k$. In this case, the parameters grow linearly in $n$ (since the number of tensors grows linearly). This, however, is probably too restrictive. The second approach is to let $d$ grow with $n$. Of course, if $d \coloneqq |\Sigma|^n$ (or even $d \coloneqq |\Sigma|^{\frac{n}{2}} = \left(\sqrt{|\Sigma|}\right)^n$), we won't have any restrictions and way too many parameters. Alternatively, we could try to find a smaller base $b$ for $d = b^n$. Another approach is to define $d(n) \in \mathcal{O}(n^p)$ for some $p \in \mathbb{N}$. This means that axes-sizes grow polynomially with respect to the word length $n$. Of course, this implies that every tensor grows polynomial in $n$ with $\mathcal{O}((n^p)^3) = \mathcal{O}(n^{3p})$, and hence the parameter complexity of the entire network grows with $\mathcal{O}(n^{3p+1})$.
 
     \bigskip
     We see that polynomially growing parameters of the entire network with respect to $n$ es equivalent to polynomially growing axes-sizes. Good. Let us now turn to the power-law constrain.
 
     \bigskip
-    As we now know, there are different definitions for power-law behavior. The strongest proof would include to disprove weak power-law behavior (see definition~\ref{definition:weak_power_law_behavior}), as this would also disprove strong power law behavior (see definition~\ref{definition:strong_model_power_law_behavior}, proposition~\ref{proposition:strong_slbplb_implies_wlbplb}). A bit weaker, under the assumption that our model complies with the bulk marginal property, we can use the contraposition of theorem~\ref{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior} to show that there is no model satisfying the bulk marginal property and having weak power-law behavior (and hence also strong power-law behavior).
+    As we now know, there are different definitions for power-law behavior. The strongest proof would include to disprove weak power-law behavior (see definition~\ref{definition:weak_power_law_behavior}), as this would also disprove strong power law behavior (see definition~\ref{definition:strong_model_power_law_behavior}, proposition~\ref{proposition:strong_slbplb_implies_wlbplb}). Alternatively, under the assumption that our model complies with the bulk marginal property, we can use the contraposition of theorem~\ref{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior} to show the weaker fact that there is no model satisfying the bulk marginal property and having weak power-law behavior (and hence also strong power-law behavior).
 
-    Let us look at the latter approach of employing the contraposition of theorem~\ref{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior}. What we would need to show is that there exists a character at position $t$, and no matter what tensor network we apply, we can bound the mutual information by $I(X_t, X_{t + \tau}) \in \mathcal{O}(e^{-\lambda \tau})$ for some fixed $\lambda \in \mathbb{R}_{>0}$, as this of course implies that there is no $\alpha \in \mathbb{R}_{>0}$ s.t. $I(X_t, X_{t + \tau}) \in \Omega(\tau^{-\alpha})$.
+    Let us look at the latter approach of employing the contraposition of theorem~\ref{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior}. What we would need to show is that there exists a character at position $t$, and no matter what tensor network we apply, we can bound the mutual information by $I(X_t, X_{t + \tau}) \in \mathcal{O}(e^{-\lambda \tau})$ for some fixed $\lambda \in \mathbb{R}_{>0}$, as this of course implies that there is no $\alpha \in \mathbb{R}_{>0}$ s.t. $I(X_t, X_{t + \tau}) \in \Omega(\tau^{-\alpha})$. Note that there obviously exist families satisfying the bulk marginal property. Thus, a potential proof of this claim has meaning concerning power-law behavior of binary tree tensor networks.
+
+    \begin{theorem}[No Power-Law in BTTN with BMP for Polynomially Capped Parameters]
+        Let $d(n)$ denote the maximum axis-size in a binary tree tensor network over $\Sigma^n$. If $d(n) \in \mathcal{O}(n^p)$ for some $p \in \mathbb{N}$, then there exists no family of binary tree tensor networks $\left(\mathcal{T}_{2^k}\right)_{k \in \mathbb{N}}$ with associated model $S_n(w)$ s.t. $S$ complies with the bulk marginal property and has weak power-law behavior.
+    \end{theorem}
 
 \end{document}
