@@ -1,0 +1,353 @@
+\documentclass[../../main.tex]{subfiles}
+\usepackage{pgfplots}
+
+\begin{document}
+\section{Information Theory}
+
+\subsection{Entropy}
+
+\begin{definition}[Entropy]
+Let \( X \) be a discrete random variable taking values in a finite set \( \mathcal{X} \) with probability mass function \( p(x) = P(X = x) \). The \emph{entropy} of \( X \), denoted \( H(X) \), is defined as:
+\[
+H(X) \coloneqq - \sum_{x \in \mathcal{X}} p(x) \log p(x),
+\]
+where the logarithm is typically taken base 2 (bits) or base \( e \) (nats).
+\end{definition}
+
+\begin{remark}
+    If $p(x) = 0$, we set $p(x) \log p(x) \coloneqq 0$. This ensures that $p(x) \log p(x)$ is continuous on $[0, 1]$.
+\end{remark}
+
+\begin{figure}[h]
+    \centering
+\begin{tikzpicture}[>=stealth]
+    \begin{axis}[
+        xmin=0,xmax=1,
+        ymin=0,ymax=1,
+        axis x line=middle,
+        axis y line=middle,
+        axis line style=->,
+        xlabel={$x$},
+        ylabel={$y$},
+        ]
+        \addplot[no marks,black,-] expression[domain=0:1,samples=100]{-x * ln(x)} 
+                    node[pos=0.65,anchor=south west]{$y=-x\ln(x)$}; 
+    \end{axis}
+\end{tikzpicture}
+    \caption{Plot of the function $y=-x\ln(x)$.}
+\end{figure}
+
+\begin{remark}
+Entropy measures the uncertainty or information content of a random variable. Higher entropy indicates more unpredictability.
+\end{remark}
+
+\begin{proposition}[Non-Negativity of Entropy]
+For any discrete random variable \( X \), we have \( H(X) \geq 0 \).
+\end{proposition}
+\vspace{-2.5em}
+\begin{proof}
+Since \( 0 \leq p(x) \leq 1 \) and \( -\log p(x) \geq 0 \), each term in the sum is non-negative, so their total sum is non-negative.
+\end{proof}
+
+\begin{lemma}[Jensen's Inequality]
+    Let $X \in \mathcal{X}$ be a random variable over a finite set $\mathcal{X}$, and let $\phi$ be a convex function defined for all $X$. Then:
+    \[
+        \phi(E[X]) \leq E[\phi(X)] \quad .
+    \]
+\end{lemma}
+\begin{proof}
+    We use induction over $n = |\mathcal{X}|$. The base case $n = 1$ is trivial. Hence, assume that the claim holds for some $n$. We now prove the claim for $n + 1$. Clearly, for $n > 1$, we must have $P(X = x_k) < 1$ for some $x_k \in \mathcal{X}$. Without loss of generality, we assume $k = n+1$. Hence:
+
+    \begin{align*}
+        \phi(E[X]) &= \phi \left( \sum_{i = 1}^{n+1} p(x_i) x_i \right) \\
+        &= \phi \left( \left[ (1 - p(x_{n+1})) \sum_{i = 1}^{n} \frac{p(x_i)}{1 - p(x_{n+1})} x_i \right] + p(x_{n+1}) x_{n+1} \right) \\
+        &\underset{\text{convexity}}{\leq} (1 - p(x_{n+1})) \phi \left( \sum_{i = 1}^{n} \frac{p(x_i)}{1 - p(x_{n+1})} x_i \right) + p(x_{n+1}) \phi(x_{n+1}) \\
+        &\underset{\text{I.V.}}{\leq} (1 - p(x_{n+1})) \sum_{i = 1}^{n} \frac{p(x_i)}{1 - p(x_{n+1})} \phi(x_i) + p(x_{n+1}) \phi(x_{n+1}) \\
+        &= \sum_{i = 1}^{n+1} p(x_i) \phi(x_i) = E[\phi(X)] \quad .
+    \end{align*}
+\end{proof}
+
+\begin{proposition}[Maximum Entropy]
+    For a discrete random variable \( X \) over \( n \) outcomes, entropy is maximized when \( X \) is uniform:
+    \[
+        H(X) \leq \log n \quad .
+    \]
+\end{proposition}
+\begin{proof}
+    We have:
+    \begin{align*}
+        -H(X) &= -E[-\log(p(X))] \\
+        &= E \left[ -\log \left( \frac{1}{p(X)} \right)  \right] \\
+        &\underset{\text{Jensen's Inequality}}{\geq} -\log \left( E \left[ \frac{1}{p(X)} \right] \right) \\
+        &= -\log n \quad ,
+    \end{align*}
+    where we assumed $p(X) > 0$. Of course, the cases where $p(X) = 0$ follow directly, since $p(X) \log p(X) = 0$.
+    
+    $H(X) \leq \log n$ follows directly. Note that we have equality if $X$ has uniform distribution.
+\end{proof}
+
+\subsubsection{Joint Entropy and Conditional Entropy}
+
+\begin{definition}[Joint Entropy]
+    For a pair of discrete random variables \( X \) and \( Y \), the joint entropy is:
+    \[
+        H(X, Y) \coloneqq -\sum_{x,y} p(x, y) \log p(x, y) \quad .
+    \]
+\end{definition}
+
+\begin{definition}[Conditional Entropy]
+    The conditional entropy of \( Y \) given \( X \) is defined as:
+    \[
+        H(Y \mid X) \coloneqq \sum_{x} p(x) H(Y \mid X = x) = -\sum_{x, y} p(x, y) \log p(y \mid x).
+    \]
+\end{definition}
+
+\begin{corollary}
+    We immediately see from the first equation that $H(Y \mid X) \geq 0$.
+\end{corollary}
+
+\begin{theorem}[Chain Rule for Entropy]
+    \[
+        H(X, Y) = H(X) + H(Y \mid X) \quad .
+    \]
+\end{theorem}
+\vspace{-2.5em}
+\begin{proof}
+    We have:
+    \begin{align*}
+        H(X, Y) &= - \sum_{x,y} p(x, y) \log p(x, y) \\
+        &= - \sum_{x,y} p(x, y) \log \left(p(x) p(y \mid x) \right) \\
+        &= - \sum_{x,y} p(x, y) \log p(x) - \sum_{x,y} p(x, y) \log p(y \mid x) \\
+        &= H(X) + H(Y \mid X) \quad .
+    \end{align*}
+\end{proof}
+
+\begin{corollary}
+    $H(X, Y) \geq 0$ follows directly.
+\end{corollary}
+
+\bigskip
+\subsubsection{Properties of Entropy}
+
+\begin{proposition}
+    \label{proposition:entropy_conditional}
+    Conditional entropy satisfies:
+    \[
+        H(Y \mid X) \leq H(Y) \quad ,
+    \]
+    with equality if and only if \( X \) and \( Y \) are independent.
+\end{proposition}
+\vspace{-2.5em}
+\begin{proof}
+    From the chain rule:
+    \[
+        H(X, Y) = H(Y) + H(X \mid Y) = H(X) + H(Y \mid X) \quad ,
+    \]
+    which implies:
+    \[
+        H(Y \mid X) = H(Y) + H(X \mid Y) - H(X) = H(Y) - I(X; Y) \quad ,
+    \]
+    with mutual information \( I(X; Y) \geq 0 \) (see section~\ref{sec:mutual_information}). Equality holds if and only if \( I(X; Y) = 0 \), i.e., \( X \) and \( Y \) are independent.
+\end{proof}
+
+\medskip
+\begin{corollary}[Subadditivity of Entropy]
+    For any two random variables \( X \) and \( Y \),
+    \[
+        H(X, Y) \leq H(X) + H(Y),
+    \]
+    with equality if and only if \( X \) and \( Y \) are independent.
+\end{corollary}
+\vspace{-2.5em}
+\begin{proof}
+    From the chain rule:
+    \[
+        H(X, Y) = H(X) + H(Y \mid X) \leq H(X) + H(Y) \quad ,
+    \]
+    since \( H(Y \mid X) \leq H(Y) \) based on proposition~\ref{proposition:entropy_conditional}. Equality holds if and only if \( H(Y \mid X) = H(Y) \), i.e., \( X \) and \( Y \) are independent.
+\end{proof}
+
+\medskip
+\begin{theorem}[Concavity of Entropy]
+The entropy function \( H(p) \), where \( p \) is a probability vector, is concave on the probability simplex.
+\end{theorem}
+
+\begin{proof}
+This follows from the fact that \( f(x) = -x \log x \) is concave for \( x > 0 \), and entropy is the sum of such terms. Therefore, for convex combinations \( p = \lambda p_1 + (1 - \lambda)p_2 \),
+\[
+H(p) \geq \lambda H(p_1) + (1 - \lambda) H(p_2).
+\]
+\end{proof}
+
+\textbf{Summary of Key Properties}
+
+\begin{itemize}[leftmargin=1.2cm]
+    \item \textbf{Non-negativity:} \( H(X) \geq 0 \)
+    \item \textbf{Maximum entropy:} \( H(X) \leq \log |\mathcal{X}| \)
+    \item \textbf{Chain rule:} \( H(X, Y) = H(X) + H(Y \mid X) \)
+    \item \textbf{Subadditivity:} \( H(X, Y) \leq H(X) + H(Y) \)
+    \item \textbf{Conditioning reduces entropy:} \( H(Y \mid X) \leq H(Y) \)
+    \item \textbf{Concavity:} \( H(p) \) is concave in the distribution \( p \)
+\end{itemize}
+
+
+\subsection{Kullback-Leibler Divergence}
+
+\begin{definition}[KL Divergence]
+    Let \( P \) and \( Q \) be two discrete probability distributions over the same finite set \( \mathcal{X} \), with \( P(x) > 0 \Rightarrow Q(x) > 0 \). The Kullback-Leibler divergence (or relative entropy) from \( P \) to \( Q \) is defined as:
+    \[
+        D_{\mathrm{KL}}(P \| Q) = \sum_{x \in \mathcal{X}} P(x) \log \frac{P(x)}{Q(x)}.
+    \]
+\end{definition}
+
+\begin{remark}
+    If $P(x) = Q(x) = 0$, we set $P(x) \log \dfrac{P(x)}{Q(x)} \coloneqq 0$.
+\end{remark}
+
+\begin{remark}
+KL divergence measures the inefficiency of assuming that the distribution is \( Q \) when the true distribution is \( P \). It is not a metric: it is not symmetric and does not satisfy the triangle inequality.
+\end{remark}
+
+\begin{lemma}[Gibb's Inequality]
+    Suppose that $P = \{ p_1, \dots, p_n \}$ and $Q = \{ q_1, \dots, q_n \}$ are discrete probability distributions. Then:
+    \[
+        - \sum_{i = 1}^{n} p_i \log p_i \leq - \sum_{i = 1}^{n} p_i \log q_i \quad .
+    \]
+\end{lemma}
+\begin{proof}
+    The claim is equivalent to $\sum_{i = 1}^{n} p_i \log p_i - \sum_{i = 1}^{n} p_i \log q_i \geq 0$. We have:
+    \begin{align*}
+        \sum_{i = 1}^{n} p_i \log p_i - \sum_{i = 1}^{n} p_i \log q_i &= \sum_{i = 1}^{n} p_i \log \frac{p_i}{q_i} \\
+        &= \sum_{i = 1}^{n} p_i \left( - \log \frac{q_i}{p_i} \right) \\
+        &\underset{\text{Jensen's Inequality}}{\geq} - \log \left( \sum_{i = 1}^{n} p_i \frac{q_i}{p_i} \right) \\
+        &= - \log(1) = 0 \quad .
+    \end{align*}
+\end{proof}
+
+\begin{corollary}
+    It directly follows from the proof that $D_{\mathrm{KL}}(P \| Q) \geq 0$.
+\end{corollary}
+
+\begin{remark}[Asymmetry]
+    In general,
+    \[
+        D_{\mathrm{KL}}(P \| Q) \neq D_{\mathrm{KL}}(Q \| P) \quad .
+    \]
+
+    To see this, let \( \mathcal{X} = \{0,1\} \), \( P = (0.9, 0.1) \), \( Q = (0.5, 0.5) \). Then:
+    \[
+        D_{\mathrm{KL}}(P \| Q) \neq D_{\mathrm{KL}}(Q \| P) \quad .
+    \]
+\end{remark}
+
+\begin{proposition}[Additivity]
+    Let \( P = P_1 \times P_2 \), \( Q = Q_1 \times Q_2 \). Then:
+    \[
+        D_{\mathrm{KL}}(P \| Q) = D_{\mathrm{KL}}(P_1 \| Q_1) + D_{\mathrm{KL}}(P_2 \| Q_2) \quad .
+    \]
+\end{proposition}
+\begin{proof}
+    \begin{align*}
+        D_{\mathrm{KL}}(P_1 \times P_2 \| Q_1 \times Q_2)
+        &= \sum_{x,y} P_1(x)P_2(y) \log \frac{P_1(x)P_2(y)}{Q_1(x)Q_2(y)} \\
+        &= \sum_{x,y} P_1(x)P_2(y) \left( \log \frac{P_1(x)}{Q_1(x)} + \log \frac{P_2(y)}{Q_2(y)} \right) \\
+        &= \sum_x P_1(x) \log \frac{P_1(x)}{Q_1(x)} + \sum_y P_2(y) \log \frac{P_2(y)}{Q_2(y)} \\
+        &= D_{\mathrm{KL}}(P_1 \| Q_1) + D_{\mathrm{KL}}(P_2 \| Q_2) \quad .
+    \end{align*}
+\end{proof}
+
+\begin{proposition}[Entropy Representation via KL Divergence]
+    Let \( U \) be the uniform distribution over \( \mathcal{X} \), where \( |\mathcal{X}| = n \). Then for any distribution \( P \),
+    \[
+        H(P) = \log n - D_{\mathrm{KL}}(P \| U) \quad .
+    \]
+\end{proposition}
+\begin{proof}
+    \begin{align*}
+        D_{\mathrm{KL}}(P \| U) &= \sum_{x} P(x) \log \frac{P(x)}{1/n}
+        = \sum_{x} P(x) \log P(x) + \sum_{x} P(x) \log n \\
+        &= -H(P) + \log n \quad .
+    \end{align*}
+\end{proof}
+
+\textbf{Summary of Properties}
+
+\begin{itemize}[leftmargin=1.2cm]
+    \item \( D_{\mathrm{KL}}(P \| Q) \geq 0 \)
+    \item \( D_{\mathrm{KL}}(P \| Q) = 0 \iff P = Q \)
+    \item Asymmetric: \( D_{\mathrm{KL}}(P \| Q) \neq D_{\mathrm{KL}}(Q \| P) \)
+    \item Additive over independent distributions
+    \item Connects with entropy: \( H(P) = \log n - D_{\mathrm{KL}}(P \| U) \)
+\end{itemize}
+
+
+\subsection{Mutual Information}
+\label{sec:mutual_information}
+
+\begin{definition}[Mutual Information]
+The \emph{mutual information} between two discrete random variables \( X \) and \( Y \) is defined as:
+\[
+I(X; Y) = \sum_{x,y} p(x, y) \log \left( \frac{p(x, y)}{p(x)p(y)} \right).
+\]
+\end{definition}
+
+\begin{lemma}
+Mutual information is symmetric: \( I(X; Y) = I(Y; X) \).
+\end{lemma}
+
+\begin{lemma}
+Mutual information is non-negative: \( I(X; Y) \geq 0 \).
+\end{lemma}
+
+\begin{proof}
+Follows from the non-negativity of KL divergence:
+\[
+I(X; Y) = D_{\mathrm{KL}}(p(x, y) \,\|\, p(x)p(y)) \geq 0.
+\]
+\end{proof}
+
+\begin{theorem}[Chain Rule for Mutual Information]
+\[
+I(X, Z; Y) = I(X; Y) + I(Z; Y \mid X).
+\]
+\end{theorem}
+
+\begin{definition}[Conditional Mutual Information]
+\[
+I(X; Y \mid Z) = H(X \mid Z) - H(X \mid Y, Z).
+\]
+\end{definition}
+
+\begin{theorem}[Relation Between Entropy and Mutual Information]
+\[
+I(X; Y) = H(X) + H(Y) - H(X, Y).
+\]
+\end{theorem}
+
+\begin{proof}
+Apply the chain rule in both directions:
+\[
+\begin{aligned}
+I(X; Y) &= H(X) - H(X \mid Y) \\
+&= H(X) + H(Y) - H(Y) - H(X \mid Y) \\
+&= H(X) + H(Y) - H(X, Y).
+\end{aligned}
+\]
+\end{proof}
+
+\section{Subadditivity of Mutual Information}
+
+\begin{theorem}[Subadditivity over Pairwise Mutual Information]
+Let \( X_1, \dots, X_m \) and \( Y_1, \dots, Y_n \) be discrete random variables. Then:
+\[
+\sum_{i=1}^{m} \sum_{j=1}^{n} I(X_i; Y_j) \leq I(X_1, \dots, X_m; Y_1, \dots, Y_n).
+\]
+\end{theorem}
+
+\begin{proof}
+Each \( I(X_i; Y_j) = D_{\mathrm{KL}}(p_{X_i, Y_j} \,\|\, p_{X_i} p_{Y_j}) \), and since KL divergence is jointly convex and marginalizing reduces information, we have:
+\[
+\sum_{i,j} D_{\mathrm{KL}}(p_{X_i, Y_j} \,\|\, p_{X_i} p_{Y_j}) \leq D_{\mathrm{KL}}(p_{\mathbf{X}, \mathbf{Y}} \,\|\, p_{\mathbf{X}} p_{\mathbf{Y}}) = I(\mathbf{X}; \mathbf{Y}).
+\]
+\end{proof}
+\end{document}

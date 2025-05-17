@@ -130,7 +130,7 @@
     It is apparent that this initialization ensures the equivalence of the models as depicted in figure~\ref{fig:bmp_model_equiv}. It is also clear that this method works when transitioning from any $n = 2^k$ to $n' = 2^{k+1}$. Note that we also didn't increase the sizes of the tensors (except for $T'_{2, 1}$, as it got another axis). Furthermore, when assuming all tensor entries are non-negative, then the new tensor network $\mathcal{T}'$ is also non-negative. This leads to the following observation:
 
     \begin{corollary}
-        Constrain every tensor to have non-negative entries, and let $\mathcal{T}$ be a binary tree tensor network over $\Sigma^n, n = 2^k$. Then, there exists a binary tree tensor network $\mathcal{T}'$ over $\Sigma^{n'}, n' = 2^{k+1}$ s.t. the transition from $\mathcal{T}$ to $\mathcal{T}'$ complies with the bulk marginal property. Furthermore, $\mathcal{T}'$ complies with axes-sizes constrains (under the assumption of a maximum axis-size constrain which is increasing in $n$).
+        Let $\mathcal{T}$ be a binary tree tensor network over $\Sigma^n, n = 2^k$. Then, there exists a binary tree tensor network $\mathcal{T}'$ over $\Sigma^{n'}, n' = 2^{k+1}$ s.t. the transition from $\mathcal{T}$ to $\mathcal{T}'$ complies with the bulk marginal property. Furthermore, $\mathcal{T}'$ complies with axes-sizes constrains (under the assumption of a maximum axis-size constrain which is increasing in $n$).
     \end{corollary}
 
 \subsection{Binary Tree Tensor Networks are Universal Approximators}
@@ -183,6 +183,9 @@
     \[
     T_{2, j}: |\Sigma| \times |\Sigma| \mapsto \mathbb{R}^{|\Sigma|^2} \quad .
     \]
+
+    \pagebreak
+    
     The outgoing axis may be index by $(X'_i, X'_{i + 1}) \in \Sigma^2$. The map is then defined by
     \[
         T_{2, j}(X_i, X_{i + 1}) = \bm{1}[(X'_i, X'_{i + 1}) = (X_i, X_{i + 1})] \quad ,
