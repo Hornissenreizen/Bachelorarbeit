@@ -16,3 +16,11 @@
 \contentsline {subsection}{\numberline {6.1}Bulk Marginal Property}{39}{subsection.6.1}%
 \contentsline {subsection}{\numberline {6.2}Binary Tree Tensor Networks are Universal Approximators}{41}{subsection.6.2}%
 \contentsline {subsection}{\numberline {6.3}Restricting Parameters}{42}{subsection.6.3}%
+\contentsline {section}{\numberline {7}Information Theory}{45}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Entropy}{45}{subsection.7.1}%
+\contentsline {subsubsection}{\numberline {7.1.1}Joint, Conditional, and Cross Entropy}{47}{subsubsection.7.1.1}%
+\contentsline {subsubsection}{\numberline {7.1.2}Properties of Entropy}{48}{subsubsection.7.1.2}%
+\contentsline {subsection}{\numberline {7.2}Kullback-Leibler Divergence}{50}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Mutual Information}{52}{subsection.7.3}%
+\contentsline {subsubsection}{\numberline {7.3.1}Data Processing Inequality}{55}{subsubsection.7.3.1}%
+\contentsline {subsection}{\numberline {7.4}Bounding Mutual Information via Matrix Rank of the Joint Distribution}{56}{subsection.7.4}%

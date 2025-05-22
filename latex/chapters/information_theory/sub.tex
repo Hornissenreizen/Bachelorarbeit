@@ -1,5 +1,4 @@
 \documentclass[../../main.tex]{subfiles}
-\usepackage{pgfplots}
 
 \begin{document}
 \section{Information Theory}
@@ -62,7 +61,7 @@ Since \( 0 \leq p(x) \leq 1 \) and \( -\log p(x) \geq 0 \), each term in the sum
         \phi(E[X]) &= \phi \left( \sum_{i = 1}^{n+1} p(x_i) x_i \right) \\
         &= \phi \left( \left[ (1 - p(x_{n+1})) \sum_{i = 1}^{n} \frac{p(x_i)}{1 - p(x_{n+1})} x_i \right] + p(x_{n+1}) x_{n+1} \right) \\
         &\underset{\text{convexity}}{\leq} (1 - p(x_{n+1})) \phi \left( \sum_{i = 1}^{n} \frac{p(x_i)}{1 - p(x_{n+1})} x_i \right) + p(x_{n+1}) \phi(x_{n+1}) \\
-        &\underset{\text{I.V.}}{\leq} (1 - p(x_{n+1})) \sum_{i = 1}^{n} \frac{p(x_i)}{1 - p(x_{n+1})} \phi(x_i) + p(x_{n+1}) \phi(x_{n+1}) \\
+        &\underset{\text{inductive hypothesis}}{\leq} (1 - p(x_{n+1})) \sum_{i = 1}^{n} \frac{p(x_i)}{1 - p(x_{n+1})} \phi(x_i) + p(x_{n+1}) \phi(x_{n+1}) \\
         &= \sum_{i = 1}^{n+1} p(x_i) \phi(x_i) = E[\phi(X)] \quad .
     \end{align*}
 \end{proof}
@@ -70,10 +69,11 @@ Since \( 0 \leq p(x) \leq 1 \) and \( -\log p(x) \geq 0 \), each term in the sum
 \begin{remark}
     For strictly convex $\phi$, it can be shown that
     \[
-        \phi(E[X]) = E[\phi(X)] \iff X \text{ is sampled from a uniform distribution} \quad .
+        \phi(E[X]) = E[\phi(X)] \text{ is maximized } \iff X \text{ is sampled from a uniform distribution} \quad .
     \]
 \end{remark}
 
+\pagebreak
 \begin{proposition}[Maximum Entropy]
     For a discrete random variable \( X \) over \( n \) outcomes, entropy is maximized when \( X \) is uniform:
     \[
@@ -93,6 +93,7 @@ Since \( 0 \leq p(x) \leq 1 \) and \( -\log p(x) \geq 0 \), each term in the sum
     $H(X) \leq \log n$ follows directly. Note that we have equality iff $X$ has uniform distribution (since $-\log(x)$ is strictly convex).
 \end{proof}
 
+\bigskip
 \subsubsection{Joint, Conditional, and Cross Entropy}
 
 \begin{definition}[Joint Entropy]
@@ -113,6 +114,7 @@ Since \( 0 \leq p(x) \leq 1 \) and \( -\log p(x) \geq 0 \), each term in the sum
     We immediately see from the first equation that $H(Y \mid X) \geq 0$.
 \end{corollary}
 
+\pagebreak
 \begin{theorem}[Chain Rule for Entropy]
     \[
         H(X, Y) = H(X) + H(Y \mid X) \quad .
@@ -148,7 +150,7 @@ Since \( 0 \leq p(x) \leq 1 \) and \( -\log p(x) \geq 0 \), each term in the sum
     Cross-entropy is non-negative (see section~\ref{sec:kullback_leibler_divergence}).
 \end{remark}
 
-\bigskip
+\smallskip
 \subsubsection{Properties of Entropy}
 
 \begin{proposition}
@@ -176,7 +178,7 @@ Since \( 0 \leq p(x) \leq 1 \) and \( -\log p(x) \geq 0 \), each term in the sum
 \begin{corollary}[Subadditivity of Entropy]
     For any two random variables \( X \) and \( Y \),
     \[
-        H(X, Y) \leq H(X) + H(Y),
+        H(X, Y) \leq H(X) + H(Y) \quad ,
     \]
     with equality if and only if \( X \) and \( Y \) are independent.
 \end{corollary}
@@ -191,28 +193,27 @@ Since \( 0 \leq p(x) \leq 1 \) and \( -\log p(x) \geq 0 \), each term in the sum
 
 \medskip
 \begin{theorem}[Concavity of Entropy]
-The entropy function \( H(p) \), where \( p \) is a probability vector, is concave on the probability simplex.
+The entropy function \( H(p) \), where \( p \in \Delta \) is a probability vector, is concave on the probability simplex $\Delta$.
 \end{theorem}
 
 \begin{proof}
-This follows from the fact that \( f(x) = -x \log x \) is concave for \( x > 0 \), and entropy is the sum of such terms. Therefore, for convex combinations \( p = \lambda p_1 + (1 - \lambda)p_2 \),
-\[
-H(p) \geq \lambda H(p_1) + (1 - \lambda) H(p_2).
-\]
+    This follows from the fact that \( f(x) = -x \log x \) is concave for \( x \in [0, 1] \), and entropy is the sum of such terms. Therefore, for every convex combination \( p = \lambda p_1 + (1 - \lambda)p_2 \):
+    \[
+        H(p) \geq \lambda H(p_1) + (1 - \lambda) H(p_2) \quad .
+    \]
 \end{proof}
 
 \textbf{Summary of Key Properties}
-
 \begin{itemize}[leftmargin=1.2cm]
-    \item \textbf{Non-negativity:} \( H(X) \geq 0 \)
-    \item \textbf{Maximum entropy:} \( H(X) \leq \log |\mathcal{X}| \)
-    \item \textbf{Chain rule:} \( H(X, Y) = H(X) + H(Y \mid X) \)
-    \item \textbf{Subadditivity:} \( H(X, Y) \leq H(X) + H(Y) \)
-    \item \textbf{Conditioning reduces entropy:} \( H(Y \mid X) \leq H(Y) \)
-    \item \textbf{Concavity:} \( H(p) \) is concave in the distribution \( p \)
+    \item Non-negativity: \( H(X) \geq 0 \)
+    \item Maximum entropy: \( H(X) \leq \log |\mathcal{X}| \)
+    \item Chain rule: \( H(X, Y) = H(X) + H(Y \mid X) \)
+    \item Subadditivity: \( H(X, Y) \leq H(X) + H(Y) \)
+    \item Conditioning reduces entropy: \( H(Y \mid X) \leq H(Y) \)
+    \item Concavity: \( H(p) \) is concave in the distribution \( p \)
 \end{itemize}
 
-
+\pagebreak
 \subsection{Kullback-Leibler Divergence}
 \label{sec:kullback_leibler_divergence}
 
@@ -255,17 +256,7 @@ KL divergence measures the inefficiency of assuming that the distribution is \( 
     It directly follows from the proof that $D_{\mathrm{KL}}(P \| Q) \geq 0$ and $0 \leq H(P) \leq H_Q(P)$.
 \end{corollary}
 
-\begin{remark}[Asymmetry]
-    In general,
-    \[
-        D_{\mathrm{KL}}(P \| Q) \neq D_{\mathrm{KL}}(Q \| P) \quad .
-    \]
-    To see this, let \( \mathcal{X} = \{0,1\} \), \( P = (0.9, 0.1) \), \( Q = (0.5, 0.5) \). Then:
-    \[
-        D_{\mathrm{KL}}(P \| Q) \neq D_{\mathrm{KL}}(Q \| P) \quad .
-    \]
-\end{remark}
-
+\pagebreak
 \begin{proposition}[Additivity]
     Let \( P = P_1 \times P_2 \), \( Q = Q_1 \times Q_2 \). Then:
     \[
@@ -296,14 +287,13 @@ KL divergence measures the inefficiency of assuming that the distribution is \( 
     \end{align*}
 \end{proof}
 
-\textbf{Summary of Properties}
-
+\textbf{Summary of Key Properties}
 \begin{itemize}[leftmargin=1.2cm]
     \item \( D_{\mathrm{KL}}(P \| Q) \geq 0 \)
     \item \( D_{\mathrm{KL}}(P \| Q) = 0 \iff P = Q \)
     \item Asymmetric: \( D_{\mathrm{KL}}(P \| Q) \neq D_{\mathrm{KL}}(Q \| P) \)
     \item Additive over independent distributions
-    \item Connects with entropy: \( H(P) = \log n - D_{\mathrm{KL}}(P \| U) \)
+    \item Connection to entropy: \( H(P) = \log n - D_{\mathrm{KL}}(P \| U) \)
 \end{itemize}
 
 
@@ -370,7 +360,7 @@ KL divergence measures the inefficiency of assuming that the distribution is \( 
 \begin{proposition}[Chain Rule for Mutual Information]
     Let \( X \), \( Y \), and \( Z \) be random variables. Then:
     \[
-        I(X; Y, Z) = I(X; Z) + I(X; Y \mid Z).
+        I(X; Y, Z) = I(X; Z) + I(X; Y \mid Z) \quad .
     \]
 \end{proposition}
 \begin{proof}
@@ -384,85 +374,153 @@ KL divergence measures the inefficiency of assuming that the distribution is \( 
 \end{proof}
 
 \begin{proposition}[Non-Negativity of Conditional Mutual Information]
-    We have
+    It holds true that
     \[
-        I(X; Y \mid Z) \geq 0 \quad
+        I(X; Y \mid Z) \geq 0 \quad .
     \]
 \end{proposition}
+\vspace{-2.5em}
 \begin{proof}
-    
+    We have:
+    \begin{align*}
+        I(X; Y \mid Z) &= \sum_{x, y, z} p(x, y, z) \log \frac{p(x, y \mid z)}{p(x \mid z) p(y \mid z)} \\
+        &= \sum_{z} p(z) \sum_{x, y} p(x, y \mid z) \log \frac{p(x, y \mid z)}{p(x \mid z) p(y \mid z)} \\
+        &= \sum_{z} p(z) D_{\mathrm{KL}} \left( p(x, y \mid z) \, \| \, p(x \mid z) p(y \mid z) \right) \geq 0 \quad .
+    \end{align*}
 \end{proof}
 
-\subsubsection{Data Processing Inequality}
+\begin{corollary}
+    As a direct consequence, we have
+    \[
+        I(X; Z) \leq I(X; Y, Z) \quad .
+    \]
+\end{corollary}
 
-\begin{definition}[Markov Chain]
-Random variables \( X \to Y \to Z \) form a \emph{Markov chain} if:
-\[
-p(z \mid x, y) = p(z \mid y),
-\]
-or equivalently,
-\[
-X \perp Z \mid Y.
-\]
+\begin{definition}[Conditional Independence]
+    Let \( X, Y, Z \) be discrete random variables. We say that \( X \) is \emph{conditionally independent} of \( Z \) given \( Y \), and write:
+    \[
+        X \perp Z \mid Y
+    \]
+    if and only if
+    \[
+        p(z \mid x, y) = p(z \mid y) \quad \text{for all } x, y, z \quad .
+    \]
+    Equivalently:
+    \[
+        p(x, z \mid y) = p(x \mid y) p(z \mid y) \quad .
+    \]
 \end{definition}
 
+\begin{proposition}
+    If \( X \perp Z \mid Y \), then the conditional mutual information between \( X \) and \( Z \) given \( Y \) is zero:
+    \[
+        I(X; Z \mid Y) = 0 \quad .
+    \]
+\end{proposition}
+
+\begin{proof}
+By definition of conditional mutual information:
+    \[
+        I(X; Z \mid Y) = \sum_{x, z, y} p(x, z, y) \log \frac{p(x, z \mid y)}{p(x \mid y) p(z \mid y)} \quad .
+    \]
+
+    If \( X \perp Z \mid Y \), then:
+    \[
+        p(x, z \mid y) = p(x \mid y) p(z \mid y) \quad ,
+    \]
+    so the logarithm becomes:
+    \[
+        \log \frac{p(x \mid y) p(z \mid y)}{p(x \mid y) p(z \mid y)} = \log 1 = 0 \quad .
+    \]
+
+    Hence, each term in the sum is zero, and:
+    \[
+        I(X; Z \mid Y) = 0 \quad .
+    \]
+\end{proof}
+
+\pagebreak
+\subsubsection{Data Processing Inequality}
+
+\begin{lemma}[Markov Chain]
+    Let \( X, Y, Z \) be random discrete random variables forming the Markov chain $X \to Y \to Z$. Then:
+    \[
+        X \perp Z \mid Y \quad .
+    \]
+\end{lemma}
+\begin{proof}
+    Per definition from Markov chains, we have:
+    \[
+        p(z \mid x, y) = p(z \mid y) \quad ,
+    \]
+    and hence $X \perp Z \mid Y$.
+\end{proof}
+
 \begin{theorem}[Data Processing Inequality]
-If \( X \to Y \to Z \) is a Markov chain, then:
-\[
-I(X; Z) \leq I(X; Y).
-\]
+    \label{theorem:data_processing_inequality}
+    If \( X \to Y \to Z \) is a Markov chain, then:
+    \[
+        I(X; Z) \leq I(X; Y) \quad .
+    \]
 \end{theorem}
 
 \begin{proof}
-We use the chain rule and conditional independence:
-\[
-\begin{aligned}
-I(X; Z) &= I(X; Z, Y) - I(X; Y \mid Z) \\
-       &= I(X; Y) + I(X; Z \mid Y) - I(X; Y \mid Z).
-\end{aligned}
-\]
-Since \( X \to Y \to Z \), we have \( I(X; Z \mid Y) = 0 \). Thus:
-\[
-I(X; Z) = I(X; Y) - I(X; Y \mid Z) \leq I(X; Y),
-\]
-because \( I(X; Y \mid Z) \geq 0 \).
+    We use the chain rule and conditional independence:
+    \begin{align*}
+        I(X; Z) &= I(X; Z, Y) - I(X; Y \mid Z) \\
+        &= I(X; Y) + I(X; Z \mid Y) - I(X; Y \mid Z) \quad .
+    \end{align*}
+    Since \( X \to Y \to Z \), we have \( I(X; Z \mid Y) = 0 \). Thus:
+    \[
+        I(X; Z) = I(X; Y) - I(X; Y \mid Z) \leq I(X; Y) \quad ,
+    \]
+    because \( I(X; Y \mid Z) \geq 0 \).
 \end{proof}
 
 \begin{corollary}[No Gain in Processing]
-Any function \( f(Y) \) of \( Y \) cannot increase information about \( X \):
-\[
-I(X; f(Y)) \leq I(X; Y).
-\]
+    Any function \( f(Y) \) of \( Y \) cannot increase information about \( X \):
+    \[
+        I(X; f(Y)) \leq I(X; Y) \quad .
+    \]
 \end{corollary}
-
 \begin{proof}
-This follows by applying the DPI to the chain \( X \to Y \to f(Y) \).
+    This follows by applying the DPI to the chain \( X \to Y \to f(Y) \).
 \end{proof}
 
-\section{Summary of Key Properties}
-
+\textbf{Summary of Key Properties}
 \begin{itemize}[leftmargin=1.2cm]
     \item \( I(X; Y) \geq 0 \)
     \item \( I(X; Y) = 0 \) if and only if \( X \perp Y \)
-    \item \( I(X; Y) = H(X) - H(X \mid Y) = H(Y) - H(Y \mid X) \)
     \item \( I(X; Y) = D_{\mathrm{KL}}(p(x, y) \| p(x)p(y)) \)
-    \item Chain rule: \( I(X, Z; Y) = I(X; Y) + I(Z; Y \mid X) \)
+    \item Chain rule: \( I(X; Y, Z) = I(X; Z) + I(X; Y \mid Z) \)
     \item Data Processing Inequality: \( X \to Y \to Z \Rightarrow I(X; Z) \leq I(X; Y) \)
 \end{itemize}
 
-\section{Subadditivity of Mutual Information}
-
-\begin{theorem}[Subadditivity over Pairwise Mutual Information]
-Let \( X_1, \dots, X_m \) and \( Y_1, \dots, Y_n \) be discrete random variables. Then:
-\[
-\sum_{i=1}^{m} \sum_{j=1}^{n} I(X_i; Y_j) \leq I(X_1, \dots, X_m; Y_1, \dots, Y_n).
-\]
+\subsection{Bounding Mutual Information via Matrix Rank of the Joint Distribution}
+\begin{theorem}
+    Let $X, Y$ be random variables from finite sets $\mathcal{X, Y}$, and let matrix $\bm{P}$ denote their joint probability distribution, i.e. $\bm{P}_{ij} = p(x_i, y_j)$. Let $r \coloneqq \operatorname{rank} \bm{P}$ denote the rank of matrix $\bm{P}$. Then we have
+    \[
+        I(X; Y) \leq \log r \quad .
+    \]
 \end{theorem}
-
 \begin{proof}
-Each \( I(X_i; Y_j) = D_{\mathrm{KL}}(p_{X_i, Y_j} \,\|\, p_{X_i} p_{Y_j}) \), and since KL divergence is jointly convex and marginalizing reduces information, we have:
-\[
-\sum_{i,j} D_{\mathrm{KL}}(p_{X_i, Y_j} \,\|\, p_{X_i} p_{Y_j}) \leq D_{\mathrm{KL}}(p_{\mathbf{X}, \mathbf{Y}} \,\|\, p_{\mathbf{X}} p_{\mathbf{Y}}) = I(\mathbf{X}; \mathbf{Y}).
-\]
+    Let $n \coloneqq |\mathcal{X}|$ and $m \coloneqq |\mathcal{Y}|$. If $\bm{P}$ has rank $r$, then so must the transition matrix $\bm{P}_{Y|X} \in \mathbb{R}^{m \times n}$ defined as $(\bm{P}_{Y|X})_{ij} \coloneqq p(y_i \mid x_j) = \frac{p(x_j, y_i)}{\sum_{k} p(x_k, y_i)}$, since $\bm{P}_{Y|X}$ is created from $\bm{P}$ by transposing and column scaling. If one column consisted of only zeros, i.e. $\sum_{k} p(x_k, y_i) = 0$, we may just copy a different scaled column vector to this column.
+
+    Now, let's analyze matrix $\bm{P}_{Y|X}$. First, note that it is a Markov chain transition matrix, and hence all its columns lie in the m-dimensional unit simplex. Consider the convex hull of the column vectors, it is a r-dimensional convex polytope in the m-dimensional unit simplex. Thus, we can find a r-dimensional simplex with corners collected by matrix $\bm{U}$ s.t. it is a superset of this polytope and still a subset of the (potentially) higher dimensional unit simplex. 
+
+    Thus, every column vector in $\bm{P}_{Y|X}$ can be written as a convex combination of the column vectors in $\bm{U}$. It follows that $\bm{P}_{Y|X}$ can be decomposed as
+    \[
+        \bm{P}_{Y|X} = \bm{UV} \ , \quad \bm{U} \in \mathbb{R}^{m \times r}, \bm{V} \in \mathbb{R}^{r \times n} \quad ,
+    \]
+    where both $\bm{U}$ and $\bm{V}$ are Markov chain transition matrices as well.
+
+    Hence, we can introduce a latent variable $Z \in \{ 1, \dots , r \}$, which forms the Markov chain
+    \[
+        X \underset{\bm{V}}{\to} Z \underset{\bm{U}}{\to} Y \quad .
+    \]
+    Finally, based on theorem~\ref{theorem:data_processing_inequality} it follows that
+    \[
+        I(X; Y) \leq I(X; Z) = H(Z) - H(Z \mid X) \leq H(Z) \leq \log r \quad .
+    \]
 \end{proof}
 \end{document}
