@@ -2,11 +2,9 @@
 
 \begin{document}
 \section{Model Framework}
-    We no longer focus on Markov chains, so the associated symbols like $S$ and $n$ no longer carry the same meaning. We will redefine them shortly. Also, in order for the polynomials to be well defined later, we will constrain $\tau > 0$.
-
     We are interested in models with asymptotically power-law decay of the mutual information measure with respect to the distance between the tokens in the sequence. So far so good. But what does it \emph{actually} mean?
 
-    The tokens, represented by random variables $X_t$, are elements of a finite alphabet $\Sigma$. The distance between $X_t$ and $X_{t + \tau}$ is $\tau$, and for every $t$ and every $\tau$ we want to bound
+    The tokens, represented by random variables $X_t$, are elements of a finite alphabet $\Sigma$. The distance between $X_t$ and $X_{t + \tau}$ is $\tau$, and for every $t$ and every $\tau > 0$ we want to bound
     \[
         I(X_t, X_{t + \tau}) \in \Omega(\tau^{-\alpha}), \ I(X_t, X_{t + \tau}) \in \mathcal{O}(\tau^{-\beta}) \quad ,
     \]
@@ -30,7 +28,7 @@
     \end{definition}
 
     \begin{remark}
-        Markov chains and hidden Markov models have the bulk marginal property.
+        Markov chains have the bulk marginal property.
     \end{remark}
 
 \pagebreak
@@ -47,7 +45,7 @@
         \begin{align*}
             \sum_{w_I \in \Sigma^{k + 1}} S_{n + k + 1}(w) &= \sum_{w_{I \setminus \{ k + 1 \}} \in \Sigma^{k}} \sum_{w_{k + 1} \in \Sigma} S_{n + k + 1}(w) \\
             &\underset{\text{bulk marginal property}}{=} \sum_{w_{I \setminus \{ k + 1 \}} \in \Sigma^{k}} S_{n + k}(w_{-\{ k + 1 \}}) \\
-            &\underset{\text{induction hypothesis}}{=} S_n(w_{-I}) \quad ,
+            &\underset{\text{inductive hypothesis}}{=} S_n(w_{-I}) \quad ,
         \end{align*}
         which concludes the induction step.
     \end{proof}
@@ -158,7 +156,7 @@
     \end{remark}
 
     \begin{remark}
-        The importance of this implication might depend on the context. However, this theorem proves to be very useful when considering its contraposition. In fact, we unknowingly used this contraposition previously to disprove weak power-law behavior (and hence also strong power-law behavior).
+        The importance of this implication might depend on the context. However, this theorem proves to be very useful when considering its contraposition. In fact, we will use this contraposition later to disprove weak power-law behavior for Markov chains (and hence also strong power-law behavior).
     \end{remark}
 
     \begin{remark}

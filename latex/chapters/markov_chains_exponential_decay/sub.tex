@@ -2,29 +2,38 @@
 
 \begin{document}
 \section{Mutual Information in Markov Chains}
-\subsection{Exponential Decay in Irreducible Aperiodic Markov Chains}
-    \noindent
     If we have a Markov chain defined by the matrix $\boldsymbol{M}$ (we adopt the notation in the paper and write $\bm{M}$ instead of $\bm{P}$), which is \emph{irreducible} and \emph{aperiodic}, and has a finite state space $S = \{1, \dots, n\}$, then we have that
     \[
         \lim_{i \to \infty} \boldsymbol{M}^i = \boldsymbol{M}_{\boldsymbol{\mu}} \quad ,
     \]
-    where $\boldsymbol{M_\mu}$ is the matrix whose columns all consist of the unique stationary probability distribution $\boldsymbol{\mu}$.
+    where $\boldsymbol{M_\mu}$ is the matrix whose columns all consist of the unique stationary probability distribution $\boldsymbol{\mu}$. In case the reader is unfamiliar with these terms or this result, one can read them in appendix~\ref{section:markov_chains}.
 
     ~\\
-    Now, let us consider two random variables $X$ and $Y$, which will denote the state of the Markov chain at times $t_0$ and $t_0 + \tau$ respectively. We assume that we measure these variables very late in the process, where we already have that $\boldsymbol{M}^{t_0} \approx \boldsymbol{M}_{\boldsymbol{\mu}}$. We will use this "equality" later.
+    Now, let us consider two random variables $X$ and $Y$, which will denote the state of the Markov chain at times $t_0$ and $t_0 + \tau$ respectively. We assume that we measure these variables very late in the process, where we already have that $\boldsymbol{M}^{t_0} \approx \boldsymbol{M}_{\boldsymbol{\mu}}$. We will use this fact later.
 
     ~\\
-    Our goal now is to quantify the mutual information of $X$ and $Y$, that is, the discrepancy between the joint probability distribution $P(X, Y)$ and the one defined by the product of the two marginalized distributions, that is $P'(X, Y) \coloneqq P(X) \cdot P(Y)$. We use the Kullback-Leibler divergence, so our target expression becomes
+    Our goal now is to quantify the mutual information $I(X;Y)$ between $X$ and $Y$, that is, the discrepancy between the joint probability distribution $P_{(X, Y)}$ and the one defined by the product of the two marginalized distributions $P_X$ and $P_Y$, that is $P' \coloneqq P_X \otimes P_Y$. We use the Kullback-Leibler divergence, so our target expression becomes
     \[
-        D(P(X, Y) \,\|\, P'(X, Y)) \quad .
+        I(X;Y) = D_{\mathrm{KL}}(P_{(X, Y)} \,\|\, P_X \otimes P_Y) \quad .
     \]
+
+    For further details, see appendix~\ref{section:information_theory}.
 
     \smallskip \noindent
-    Note that of course this divergence $I(X, Y) \coloneqq D(P(X, Y) \,\|\, P'(X, Y))$ depends on the properties of $M$, as well as on $\tau$. Because $\boldsymbol{M}$ is irreducible and aperiodic, it follows that $|\lambda_2| < 1$. The claim is that
-    \[
-        I(X, Y) \in \mathcal{O}(|\lambda_2|^\tau) \quad .
-    \]
+    \subsection{Exponential Decay in Irreducible Aperiodic Markov Chains}
+    Note that $I(X; Y)$ depends on the properties of $M$, as well as on $\tau$. Because $\boldsymbol{M}$ is irreducible and aperiodic, it follows that $|\lambda_2| < 1$. The claim is that:
+
+    \begin{theorem}[No Power-Law in Markov Chains]
+        Let $X$ and $Y$ be random variables from an irreducible aperiodic Markov chain at times $t_0$ and $t_0 + \tau$ respectively. Let $\bm{M}$ be the transition matrix, and let $|\lambda_2|$ denote the second largest absolute value of its eigenvalues. Then:
+        \[
+            I(X; Y) \in \mathcal{O}(|\lambda_2|^\tau) \quad .
+        \]
+    \end{theorem}
     
+    \begin{remark}
+        Based on theorem~\ref{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior}, it follows that Markov chains are incapable of weak power-law behavior (and hence also strong power-law behavior).
+    \end{remark}
+
     \bigskip \noindent
     There is a lot of math involved, so let us first get an intuition for what is going on. When considering Markov chains, we consider a set of states, say $S = \{A, B, C\}$, and for each time $t \in \mathbb{N}$ we assign a probability to the random variable $X_t \in S$. So let us consider the following Markov chain in figure~\ref{fig:2_markov_chain}.
 
@@ -53,21 +62,22 @@
     \end{figure}
 
     \noindent
-    If $\tau = 1$, i.e. we consider the mutual information of to consecutive states, we get a large value of $I(X, Y)$, as if $X_{t_0}$ is either $A$ or $C$, then $X_{t_0+1}$ is uniquely determined, so we have a strong dependency between the two random variables. If, however, we have $\tau = 5$, then we can reach every state independent of the starting position. To see this, note that we can reach every state from $A$ in four steps:
+    If $\tau = 1$, i.e. we consider the mutual information of two consecutive states, we get a large value of $I(X, Y)$, as if $X_{t_0}$ is either $A$ or $C$, then $X_{t_0+1}$ is uniquely determined, so we have a strong dependency between the two random variables. If, however, we have $\tau = 5$, then we can reach every state independent of the starting position. To see this, note that we can reach every state from $A$ in four steps:
     \begin{itemize}
         \item $A \rightarrow B \rightarrow C \rightarrow A \rightarrow B$
         \item $A \rightarrow B \rightarrow A \rightarrow B \rightarrow C$
         \item $A \rightarrow B \rightarrow A \rightarrow B \rightarrow A$
     \end{itemize}
-    The last step can then be used to go around in a cycle. If we on the other hand started at $B$ or $C$, then we could go to $A$ in one step, and consequently to every other state in the following four. Hence, the probability distribution will "wash out" over time and converge to the stationary one, which results in a decline of $I(X, Y)$ for increasing $\tau$.
+    The last step can then be used to go around in a cycle. If we on the other hand started at $B$ or $C$, then we could go to $A$ in one step, and consequently to every other state in the following four. Hence, the probability distribution will spread out over time and converge to the stationary probability distribution, which results in a decline of $I(X; Y)$ for increasing $\tau$.
     
     ~\\
-    Because we measure our $X$ very late in time, meaning $t_0$ is very large, we will have that $P(X = a) \approx \boldsymbol{\mu}_a$ because of this "washing out". Similarly, we have $P(Y = b) \approx \boldsymbol{\mu}_b$, since the probability distribution will only get attracted more towards $\boldsymbol{\mu}$. As we now increase $\tau$, $P(Y = b \,|\, X = a)$ itself will converge to $\boldsymbol{\mu}_b$ exactly due to the same "washing out" reason. Note that $P(Y = b \,|\, X = a) = (\boldsymbol{M}^{\tau})_{ba} \xrightarrow{\tau \to \infty}  \boldsymbol{\mu}_b$. And, of course, if $P(X = a, Y = b) = P(X = a) \cdot P(Y = b \,|\, X = a) = \boldsymbol{\mu}_a \cdot \boldsymbol{\mu}_b$, we have $I(X, Y) = 0$. Hence, in a sense the theorem describes how fast $\boldsymbol{M}^{\tau}\bm{p}_0$ converges to $\boldsymbol{\mu}$, or, equivalently, $\boldsymbol{M}^{\tau}$ towards $\boldsymbol{M}_{\boldsymbol{\mu}}$.
+    Because we measure our $X$ very late in time, meaning $t_0$ is very large, we will have that $P(X = a) \approx \boldsymbol{\mu}_a$ because of this. Similarly, we have $P(Y = b) \approx \boldsymbol{\mu}_b$, since the probability distribution will only get attracted more towards $\boldsymbol{\mu}$. As we now increase $\tau$, $P(Y = b \,|\, X = a)$ itself will converge to $\boldsymbol{\mu}_b$ exactly due to the same reason. Note that $P(Y = b \,|\, X = a) = (\boldsymbol{M}^{\tau})_{ba} \xrightarrow{\tau \to \infty}  \boldsymbol{\mu}_b$. And, of course, if $P(X = a, Y = b) = P(X = a) \cdot P(Y = b \,|\, X = a) = \boldsymbol{\mu}_a \cdot \boldsymbol{\mu}_b$, we have $I(X; Y) = 0$. Hence, in a sense the theorem describes how fast $\boldsymbol{M}^{\tau}\bm{p}_0$ converges to $\boldsymbol{\mu}$, or, equivalently, $\boldsymbol{M}^{\tau}$ towards $\boldsymbol{M}_{\boldsymbol{\mu}}$.
 
     \bigskip \bigskip \noindent
+    \begin{proof}
     Now it's time to dive into the math. In the following, we try to reconstruct the arguments given in the paper. We also adopt the notation $P (a, b) \equiv P (X = a, Y = b)$. By definition of the Kullback-Leibler divergence, we have
     \begin{align*}
-        D(P(X, Y) \,\|\, P'(X, Y)) &= \sum_{(a,b) \in S^2} P(a, b) \log_B \frac{P(a, b)}{P(a) P(b)} \quad .
+        I(X; Y) = D_{\mathrm{KL}}(P_{(X, Y)} \,\|\, P_X \otimes P_Y) &= \sum_{(a,b) \in S^2} P(a, b) \log_B \frac{P(a, b)}{P(a) P(b)} \quad .
     \end{align*}
     The idea is now that $log_B(\bullet)$ is \emph{concave}. Hence, we can upper bound it by its Taylor expansion of the first degree at the point $x_0 = 1$:
     \begin{align*}
@@ -78,15 +88,15 @@
     \end{align*}
     For simplicity, we set $B \coloneqq e$. So our expression becomes
     \begin{align*}
-        D(P(X, Y) \,\|\, P'(X, Y)) &\leq \frac{1}{\ln(B)}\sum_{(a,b) \in S^2} P(a, b) \left( \frac{P(a, b)}{P(a) P(b)} - 1 \right) \\
+        I(X; Y) &\leq \frac{1}{\ln(B)}\sum_{(a,b) \in S^2} P(a, b) \left( \frac{P(a, b)}{P(a) P(b)} - 1 \right) \\
         &= \sum_{(a,b) \in S^2} P(a, b) \left( \frac{P(a, b)}{P(a) P(b)} - 1 \right) \\
         &= \left( \sum_{(a,b) \in S^2} P(a, b) \frac{P(a, b)}{P(a) P(b)} \right) - 1 \\
         &= \left( \sum_{(a,b) \in S^2} \frac{P(a, b)^2}{P(a) P(b)} \right) - 1 \\
-        &\eqqcolon I_R(X, Y) \quad .
+        &\eqqcolon I_R(X; Y) \quad .
     \end{align*}
-    The authors of the paper coin this definition for $I_R(X, Y)$ the \emph{rational mutual information}, as it has some useful properties. As discussed, we can approximate $P(a) \approx \boldsymbol{\mu}_a$ and $P(b) \approx \boldsymbol{\mu}_b$, and also $P(b \,|\, a) = (\boldsymbol{M}^{\tau})_{ba}$. Thus:
+    The authors of the paper coin this definition for $I_R(X; Y)$ the \emph{rational mutual information}, as it has some useful properties. As discussed, we can approximate $P(a) \approx \boldsymbol{\mu}_a$ and $P(b) \approx \boldsymbol{\mu}_b$, and also $P(b \,|\, a) = (\boldsymbol{M}^{\tau})_{ba}$. Thus:
     \begin{align*}
-        I_R(X, Y) + 1 &= \sum_{(a,b) \in S^2} \frac{P(a, b)^2}{P(a) P(b)} \\
+        I_R(X; Y) + 1 &= \sum_{(a,b) \in S^2} \frac{P(a, b)^2}{P(a) P(b)} \\
         &= \sum_{(a,b) \in S^2} \frac{P(b \,|\, a)^2 P(a)^2}{P(a) P(b)} \\
         &= \sum_{(a,b) \in S^2} \frac{\boldsymbol{\mu}_a}{\boldsymbol{\mu}_b} \left[ (\boldsymbol{M}^{\tau})_{ba} \right] ^2 \quad .
     \end{align*}
@@ -113,27 +123,27 @@
     Note that this is informal writing. It would be more precise to state that $|(\boldsymbol{M}^\tau)_{ba} - \boldsymbol{\mu}_b| \in \mathcal{O}(|\lambda_2|^\tau)$.
 
     ~\\
-    This is looking promising, as this means that the discrepancy between $(\boldsymbol{M}^\tau)_{ba}$ and $\boldsymbol{\mu}_b$ decays exponentially. The only thing left to do is translating this exponential decay to the mutual independence measure $I_R(X, Y)$. To this end, we plug our results back into our previous equation. Thus:
+    This is looking promising, as this means that the discrepancy between $(\boldsymbol{M}^\tau)_{ba}$ and $\boldsymbol{\mu}_b$ decays exponentially. The only thing left to do is translating this exponential decay to the mutual independence measure $I_R(X; Y)$. To this end, we plug our results back into our previous equation. Thus:
     \begin{align*}
-        I_R(X, Y) &= \left( \sum_{(a,b) \in S^2} \frac{\boldsymbol{\mu}_a}{\boldsymbol{\mu}_b} \left[ (\boldsymbol{M}^{\tau})_{ba} \right] ^2 \right) - 1 \\
+        I_R(X; Y) &= \left( \sum_{(a,b) \in S^2} \frac{\boldsymbol{\mu}_a}{\boldsymbol{\mu}_b} \left[ (\boldsymbol{M}^{\tau})_{ba} \right] ^2 \right) - 1 \\
         &= \sum_{(a,b) \in S^2} \left( \frac{\boldsymbol{\mu}_a}{\boldsymbol{\mu}_b} \left[ (\boldsymbol{M}^{\tau})_{ba} \right] ^2 - \boldsymbol{\mu}_a \boldsymbol{\mu}_b \right) \\
         &= \sum_{(a,b) \in S^2} \left( \frac{\boldsymbol{\mu}_a}{\boldsymbol{\mu}_b} \left[ \boldsymbol{\mu}_b \pm \mathcal{O}(|\lambda_2|^\tau) \right] ^2 - \boldsymbol{\mu}_a \boldsymbol{\mu}_b \right) \\
         &= \sum_{(a,b) \in S^2} \left( \frac{\boldsymbol{\mu}_a}{\boldsymbol{\mu}_b} \left[ \boldsymbol{\mu}_b^2 \pm \mathcal{O}(|\lambda_2|^\tau) \right] - \boldsymbol{\mu}_a \boldsymbol{\mu}_b \right) \\
         &= \pm \sum_{(a,b) \in S^2} \frac{\boldsymbol{\mu}_a}{\boldsymbol{\mu}_b} \mathcal{O}(|\lambda_2|^\tau) \quad , \\
     \end{align*}
-    where we have used multiple facts about $\boldsymbol{\mu}$. For instance, $\sum_{a \in S} \boldsymbol{\mu}_a = 1$ and thus $\sum_{(a,b) \in S^2} \boldsymbol{\mu}_a \boldsymbol{\mu}_b = 1$, as well as $0 < \boldsymbol{\mu}_a < 1$ for all $a \in S$ (at least for $|S| > 1$). We now use the latter inequality again: We see that we can always bound $\frac{\boldsymbol{\mu}_a}{\boldsymbol{\mu}_b}$ from above, i.e. there exists $\alpha \in \mathbb{R}$ s.t. for all $(a,b) \in S^2$ we have $\frac{\boldsymbol{\mu}_a}{\boldsymbol{\mu}_b} < \alpha$. Hence:
-
+    where we have used multiple facts about $\boldsymbol{\mu}$. For instance, $\sum_{a \in S} \boldsymbol{\mu}_a = 1$ and thus $\sum_{(a,b) \in S^2} \boldsymbol{\mu}_a \boldsymbol{\mu}_b = 1$, as well as $0 < \boldsymbol{\mu}_a < 1$ for all $a \in S$ (at least for $|S| > 1$). We now use the inequality again: We see that we can always bound $\frac{\boldsymbol{\mu}_a}{\boldsymbol{\mu}_b}$ from above, i.e. there exists $\alpha \in \mathbb{R}$ s.t. for all $(a,b) \in S^2$ we have $\frac{\boldsymbol{\mu}_a}{\boldsymbol{\mu}_b} < \alpha$. Hence:
     \begin{align*}
-        &|I_R(X, Y)| \in \sum_{(a,b) \in S^2} \frac{\boldsymbol{\mu}_a}{\boldsymbol{\mu}_b} \mathcal{O}(|\lambda_2|^\tau) \\
+        &|I_R(X; Y)| \in \sum_{(a,b) \in S^2} \frac{\boldsymbol{\mu}_a}{\boldsymbol{\mu}_b} \mathcal{O}(|\lambda_2|^\tau) \\
         &\implies |I_R(X, Y)| \in \sum_{(a,b) \in S^2} \alpha \mathcal{O}(|\lambda_2|^\tau) \\
         &\implies |I_R(X, Y)| \in n^2 \alpha \mathcal{O}(|\lambda_2|^\tau) \\
         &\implies |I_R(X, Y)| \in \mathcal{O}(|\lambda_2|^\tau) \quad .
     \end{align*}
-    Of course, $I_R(X, Y) \geq 0$, so really $I_R(X, Y) \in \mathcal{O}(|\lambda_2|^\tau)$. Since $0 \leq I(X, Y) \leq I_R(X, Y)$, we also have $I(X, Y) \in \mathcal{O}(|\lambda_2|^\tau)$.
+    Of course, $I_R(X; Y) \geq 0$, so really $I_R(X; Y) \in \mathcal{O}(|\lambda_2|^\tau)$. Since $0 \leq I(X; Y) \leq I_R(X; Y)$, we also have $I(X; Y) \in \mathcal{O}(|\lambda_2|^\tau)$.
+    \end{proof}
 
     \bigskip
     \begin{remark}
-        The above proof should also work without the approximation $P(a) \approx \bm{\mu}_a$, so $t_0$ musn't be big.
+        The above proof should also work without the approximation $P(a) \approx \bm{\mu}_a$, so $t_0$ doesn't have to be  be large.
     \end{remark}
 
     \begin{remark}
@@ -227,22 +237,25 @@
     for some $c_{ij} \in \mathbb{C}, \ |c_{ij}| = 1$. The rest of the proof is identical to the one given.
 
 \subsection{No Markov Chain with Power-Law Decay}
-    We are interested in cases where $I(X, Y)$ decays to $0$, as this is implied by a power-law decay. This means that for increasing $\tau$, we get in the limit $\tau \to \infty$ that $P(a, b) = P(a) P(b \mid a) = P(a) (\bm{M}^\tau)_{ba} \overset{!}{=} P(a) P(b)$, and hence $(\bm{M}^\tau)_{ba} = P(b)$ for every $a \in S$. Clearly, this means that $\bm{M}^\tau$ must converge to a stationary matrix $\bm{M_\mu}$, where all columns are equal, at least given the case that $P(b)$ converges for all $b \in S$. But thanks to the following lemma, we can assume that this is the case:
+    We are interested in cases where $I(X; Y)$ decays to $0$, as this is implied by power-law behavior (see definition ~\ref{definition:strong_model_power_law_behavior} or definition~\ref{definition:weak_power_law_behavior}). This means that for increasing $\tau$, we get in the limit $\tau \to \infty$ that $P(a, b) = P(a) P(b \mid a) = P(a) (\bm{M}^\tau)_{ba} \overset{!}{=} P(a) P(b)$, and hence $(\bm{M}^\tau)_{ba} = P(b)$ for every $a \in S$. Clearly, this means that $\bm{M}^\tau$ must converge to a stationary matrix $\bm{M_\mu}$, where all columns are equal, at least given the case that $P(b)$ converges for all $b \in S$. But thanks to the following lemma, we can assume that this is the case:
 
-    \begin{lemma}[Convergence of P(b) is Necessary for Power-Law Decay]
-        In order for $I(X, Y)$ to converge to $0$ for increasing $\tau$, we must have that $\lim_{t \to \infty}\bm{M}^t \bm{p}_0 = \bm{\mu}$ for every $\bm{p}_0 \in \Delta$ (and hence $P(b)$ converges).
+    \begin{lemma}[Convergence of P(b) is Necessary for Power-Law Behavior]
+        In order for $I(X; Y)$ to converge to $0$ for increasing $\tau$, we must have that $\lim_{t \to \infty}\bm{M}^t \bm{p}_0 = \bm{\mu}$ for every $\bm{p}_0 \in \Delta$ (and hence $P(b)$ converges).
     \end{lemma}
     \vspace{-2.5em}
     \begin{proof}
-        In order for $I(X, Y)$ to converge to $0$, we still must have that $|(\bm{M}^\tau)_{ba} - P(X_{t_0 + \tau} = b)| \xrightarrow{\tau \to \infty} 0$ for every $a \in S$. But note that for this to happen we must have close to equal columns for increasing $\tau$, because $(\bm{M}^\tau)_{ba}$ must be independent of $a$. But such a matrix must be stationary (and hence $P(b)$ converges), so we cannot have $I(X, Y) = 0$ if $P(b)$ does not converge.
+        In order for $I(X; Y)$ to converge to $0$, we still must have that $|(\bm{M}^\tau)_{ba} - P(X_{t_0 + \tau} = b)| \xrightarrow{\tau \to \infty} 0$ for every $a \in S$. But note that for this to happen we must have close to equal columns for increasing $\tau$, because $(\bm{M}^\tau)_{ba}$ must be independent of $a$. But such a matrix must be stationary (and hence $P(b)$ converges).
     \end{proof}
 
-    \begin{theorem}[No Markov Chain with Power-Law Decay]
-        There is no Markov chain $\bm{M}$ with $I(X_{t_0}, X_{t_0 + \tau}) \in \mathcal{O}(\tau^{-\alpha})$ and $I(X_{t_0}, X_{t_0 + \tau}) \in \Omega (\tau^{-\beta})$ for some $\alpha, \beta \in \mathbb{R}_{>0}$.
+    % \begin{theorem}[No Markov Chain with Power-Law Behavior]
+    %     There is no Markov chain $\bm{M}$ with $I(X_{t_0}, X_{t_0 + \tau}) \in \mathcal{O}(\tau^{-\alpha})$ and $I(X_{t_0}, X_{t_0 + \tau}) \in \Omega (\tau^{-\beta})$ for some $\alpha, \beta \in \mathbb{R}_{>0}$.
+    % \end{theorem}
+    \begin{theorem}[No Markov Chain with Power-Law Behavior]
+        There is no Markov chain with weak power-law behavior (and hence also strong power-law behavior).
     \end{theorem}
     \vspace{-2.5em}
     \begin{proof}
-        For the sake of contradiction, assume that $\bm{M}$ produces power-law decay. Due to the previous results, we know that $\bm{M}^\tau$ converges to a stationary matrix $\bm{M_\mu}$. (The following discussion is facultative; it aims to enhance the reader's understanding). $\bm{M_\mu}$ must contain 0-entries, as if it didn't, it would mean that $\bm{M}$ is irreducible and aperiodic based on corollary~\ref{corollary:converse_positive_transition_matrix}, and hence $\bm{M}$ would have exponential decay.
+        For the sake of contradiction, assume that $\bm{M}$ has weak lower bound power-law behavior and decaying behavior ($\impliedby$ power-law behavior). Due to the previous results, we know that $\bm{M}^\tau$ converges to a stationary matrix $\bm{M_\mu}$. (The following discussion is facultative; it aims to enhance the reader's understanding). $\bm{M_\mu}$ must contain 0-entries, as if it didn't, it would mean that $\bm{M}$ is irreducible and aperiodic based on corollary~\ref{corollary:converse_positive_transition_matrix}, and hence $\bm{M}$ would have exponential decay.
 
         Thus, let's focus on all the rows of $\bm{M_\mu}$ with non-0-entries with associated states $S_C$. We see that for all $i \in S_C, j \in S$ we have that $(\bm{M_\mu})_{ij} > 0$ (especially for $j \in S_C$). Hence, the set $S_C$ describes a closed communication class. Furthermore, there cannot be another closed communication class, since in a closed communication class the transition probabilities between any two states cannot approach 0. Thus, all other states $S \setminus S_C \eqqcolon S_O$ are in an open communication class.
         
@@ -253,7 +266,7 @@
             &= \sum_{k \in S} (\bm{M}^t)_{ik} (\bm{M})_{kj} \\
             &= \sum_{k \in S_C} (\bm{M}^t)_{ik} (\bm{M})_{kj} \quad .
         \end{align*}
-        Now, let $\bm{M}_{S_C}$ be the sub-matrix of $\bm{M}$ containing and only containing the transition probability entries for the states in $S_C$ (with our assumption $\bm{M}_{S_C}$ is the top left sub-matrix of $\bm{M}$). From our result, we see that $(\bm{M}^t)_{S_C} = (\bm{M}_{S_C})^t$.
+        Now, let $\bm{M}_{S_C}$ be the submatrix of $\bm{M}$ containing and only containing the transition probability entries for the states in $S_C$ (with our assumption $\bm{M}_{S_C}$ is the top left submatrix of $\bm{M}$). From our result, we see that $(\bm{M}^t)_{S_C} = (\bm{M}_{S_C})^t$.
 
         But $(\bm{M}^t)_{S_C}$ converges to a positive matrix, and hence so must $(\bm{M}_{S_C})^t$. Hence, $\bm{M}_{S_C}$ must be irreducible aperiodic based on corollary~\ref{corollary:converse_positive_transition_matrix} again. Thus, $(\bm{M}_{S_C})^t$ converges with exponential decay (with a basis of $|\lambda_2| < 1$ of $\bm{M}_{S_C}$), and hence so does $(\bm{M}^t)_{S_C}$.
 
@@ -278,6 +291,6 @@
 
         (Start of the actual proof.) Since $\bm{M}^t$ converges to $\bm{M_\mu}$, there must exist an $m \in \mathbb{N}_{>0}$ s.t. $\bm{M}^m$ and $\bm{M}^{m + 1}$ both have a positive row. Thus, thanks to corollary~\ref{corollary:perron_frobenius_extension} we can apply the Perron-Frobenius Theorem (with the exception that the eigenvector doesn't have to be positive) to $\bm{M}^m$ and $\bm{M}^{m + 1}$, and thanks to lemma~\ref{lemma:perron_frobenius_extension_A_to_the_m} also to $\bm{M}$ itself. Of course, $\lambda_{max} = 1$ with the associated eigenvector $\bm{\mu}$. (So we know that $|\lambda_2| < 1$ of $\bm{M}_{S_C}$ is less than or equal to the absolute value of the second largest eigenvalue of $\bm{M}$.)
 
-        Furthermore, we of course have that $\lim_{\tau \to \infty} (\bm{M}^\tau)_{ba} = \bm{\mu}_b \ (\coloneqq \lim_{\tau \to \infty} P(b))$. But those were the only two assumptions made in section~\ref{section:the_defectvie_case}. Thus, by the same logic, we get $I(X_{t_0}, X_{t_0 + \tau}) \in \mathcal{O}(|\lambda_2^+|^\tau)$.
+        Furthermore, we of course have that $\lim_{\tau \to \infty} (\bm{M}^\tau)_{ba} = \bm{\mu}_b \ (\coloneqq \lim_{\tau \to \infty} P(b))$. But those were the only two assumptions made in section~\ref{section:the_defectvie_case}. Thus, by the same logic, we get $I(X_{t_0}; X_{t_0 + \tau}) \in \mathcal{O}(|\lambda_2^+|^\tau)$.
     \end{proof}
 \end{document}

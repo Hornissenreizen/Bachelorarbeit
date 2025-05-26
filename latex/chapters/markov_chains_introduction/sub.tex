@@ -3,10 +3,9 @@
 \begin{document}
 
 \section{Markov Chains}
+\label{section:markov_chains}
 
 A \textbf{Markov Chain} is a stochastic process $\{X_n\}_{n=0}^\infty$ defined on a discrete state space $S$ such that the probability of transitioning to the next state depends only on the present state and not on the sequence of events that preceded it. This property is known as the \emph{Markov property}. For simplicity's sake, we assume $S$ to be finite. Hence, the formal definition:
-
-
 
 \begin{definition}[Markov Chain]
 A \textbf{Markov Chain} is a stochastic process $\{X_n\}_{n=0}^\infty$ on a discrete finite state space $S = \{1, \dots , N\}$ satisfying the \emph{Markov property}:
@@ -33,6 +32,7 @@ Let the state space be $S = \{1, 2, 3\}$. A possible transition matrix $\bm{P}$ 
 0.5 & 0.3 & 1 \\
 0.5 & 0 & 0 \\
 \end{bmatrix}
+\quad .
 \]
 Note that each column sums to 1.
 \end{example}
@@ -440,12 +440,12 @@ This is a mouthful, and we will not prove this theorem in this general form, as 
     \]
 \end{remark}
 
-\begin{hypothesis}
-    Maybe
-    \[
-        \lim_{m \to \infty} \left[ \|\Delta_{\bm{P^m}}\|_1 \right] ^{\frac{1}{m}}
-    \]
-    evaluates to something interesting like $|\lambda_2|$ of $\bm{P}$, or equivalently $\lim_{m \to \infty}: |\lambda_2^{(m)}|^{\frac{1}{m}} = \|\Delta_{\bm{P^m}}\|_1^\frac{1}{m}$ where $\lambda_2^{(m)}$ is the second largest eigenvalue of $\bm{P}^m$. Maybe in the proof there is another (complex) eigenvector hidden. Maybe we also use another norm, as we have convergence independent of the norm, but the contraction mapping is not as trivial.
-\end{hypothesis}
+% \begin{hypothesis}
+%     Maybe
+%     \[
+%         \lim_{m \to \infty} \left[ \|\Delta_{\bm{P^m}}\|_1 \right] ^{\frac{1}{m}}
+%     \]
+%     evaluates to something interesting like $|\lambda_2|$ of $\bm{P}$, or equivalently $\lim_{m \to \infty}: |\lambda_2^{(m)}|^{\frac{1}{m}} = \|\Delta_{\bm{P^m}}\|_1^\frac{1}{m}$ where $\lambda_2^{(m)}$ is the second largest eigenvalue of $\bm{P}^m$. Maybe in the proof there is another (complex) eigenvector hidden. Maybe we also use another norm, as we have convergence independent of the norm, but the contraction mapping is not as trivial.
+% \end{hypothesis}
 
 \end{document}
