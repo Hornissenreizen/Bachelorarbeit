@@ -2,25 +2,25 @@
 \contentsline {section}{\numberline {2}Mutual Information in Markov Chains}{8}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Exponential Decay in Irreducible Aperiodic Markov Chains}{8}{subsection.2.1}%
 \contentsline {subsubsection}{\numberline {2.1.1}The Defective Case}{13}{subsubsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.2}No Markov Chain with Power-Law Decay}{14}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.2}No Markov Chain with Power-Law Behavior}{14}{subsection.2.2}%
 \contentsline {section}{\numberline {3}No Power-Law in Hidden Markov Models}{17}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Conclusions for Model Selection}{20}{subsection.3.1}%
-\contentsline {section}{\numberline {4}Tensor Networks}{22}{section.4}%
-\contentsline {section}{\numberline {5}Binary Tree Tensor Networks}{28}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Bulk Marginal Property}{28}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Binary Tree Tensor Networks are Universal Approximators}{30}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Restricting Parameters}{31}{subsection.5.3}%
-\contentsline {section}{\numberline {A}Markov Chains}{34}{appendix.A}%
-\contentsline {subsection}{\numberline {A.1}Properties}{35}{subsection.A.1}%
-\contentsline {subsubsection}{\numberline {A.1.1}Irreducibility}{36}{subsubsection.A.1.1}%
-\contentsline {subsubsection}{\numberline {A.1.2}Aperiodicity}{38}{subsubsection.A.1.2}%
-\contentsline {subsection}{\numberline {A.2}Irreducible Aperiodic Markov Chains}{39}{subsection.A.2}%
-\contentsline {subsection}{\numberline {A.3}Perron-Frobenius Theorem}{41}{subsection.A.3}%
-\contentsline {section}{\numberline {B}Information Theory}{45}{appendix.B}%
-\contentsline {subsection}{\numberline {B.1}Entropy}{45}{subsection.B.1}%
-\contentsline {subsubsection}{\numberline {B.1.1}Joint, Conditional, and Cross Entropy}{47}{subsubsection.B.1.1}%
-\contentsline {subsubsection}{\numberline {B.1.2}Properties of Entropy}{48}{subsubsection.B.1.2}%
-\contentsline {subsection}{\numberline {B.2}Kullback-Leibler Divergence}{50}{subsection.B.2}%
-\contentsline {subsection}{\numberline {B.3}Mutual Information}{52}{subsection.B.3}%
-\contentsline {subsubsection}{\numberline {B.3.1}Data Processing Inequality}{55}{subsubsection.B.3.1}%
-\contentsline {subsection}{\numberline {B.4}Bounding Mutual Information via Matrix Rank of the Joint Distribution}{56}{subsection.B.4}%
+\contentsline {subsection}{\numberline {3.1}Conclusions for Model Selection}{21}{subsection.3.1}%
+\contentsline {section}{\numberline {4}Tensor Networks}{23}{section.4}%
+\contentsline {section}{\numberline {5}Binary Tree Tensor Networks}{29}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Bulk Marginal Property}{29}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Binary Tree Tensor Networks are Universal Approximators}{31}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Restricting Parameters}{32}{subsection.5.3}%
+\contentsline {section}{\numberline {A}Markov Chains}{35}{appendix.A}%
+\contentsline {subsection}{\numberline {A.1}Properties}{36}{subsection.A.1}%
+\contentsline {subsubsection}{\numberline {A.1.1}Irreducibility}{37}{subsubsection.A.1.1}%
+\contentsline {subsubsection}{\numberline {A.1.2}Aperiodicity}{39}{subsubsection.A.1.2}%
+\contentsline {subsection}{\numberline {A.2}Irreducible Aperiodic Markov Chains}{40}{subsection.A.2}%
+\contentsline {subsection}{\numberline {A.3}Perron-Frobenius Theorem}{42}{subsection.A.3}%
+\contentsline {section}{\numberline {B}Information Theory}{46}{appendix.B}%
+\contentsline {subsection}{\numberline {B.1}Entropy}{46}{subsection.B.1}%
+\contentsline {subsubsection}{\numberline {B.1.1}Joint, Conditional, and Cross Entropy}{48}{subsubsection.B.1.1}%
+\contentsline {subsubsection}{\numberline {B.1.2}Properties of Entropy}{49}{subsubsection.B.1.2}%
+\contentsline {subsection}{\numberline {B.2}Kullback-Leibler Divergence}{51}{subsection.B.2}%
+\contentsline {subsection}{\numberline {B.3}Mutual Information}{53}{subsection.B.3}%
+\contentsline {subsubsection}{\numberline {B.3.1}Data Processing Inequality}{56}{subsubsection.B.3.1}%
+\contentsline {subsection}{\numberline {B.4}Bounding Mutual Information via Matrix Rank of the Joint Distribution}{57}{subsection.B.4}%

@@ -1,0 +1,2 @@
+- prove: I(X;Y) approaches 0 if and only if X and Y approach to be independent?
+- model framework I(X,Y) -> I(X;Y)

@@ -63,60 +63,200 @@
         \label{fig:bayesian_network_hidden_markov}
     \end{figure}
 
-    These models are known as \emph{hidden Markov models}. Unfortunately, there is no free lunch, as we see in the following theorem:
+    These models are known as \emph{hidden Markov models}. Unfortunately, there is no free lunch, as we will see in the following.
 
-    \begin{theorem}[No Hidden Markov Model with Power-Law decay]
-        There is no hidden Markov model $(\bm{M_Y}, \bm{M_X})$ with $I(X_{t_0}, X_{t_0 + \tau}) \in \mathcal{O}(\tau^{-\alpha})$ and $I(X_{t_0}, X_{t_0 + \tau}) \in \Omega (\tau^{-\beta})$ for some $\alpha, \beta \in \mathbb{R}_{>0}$.
+    \begin{lemma}[Hidden Markov Models have the Bulk Marginal Property]
+        Every hidden Markov model $(\bm{M_Y}, \bm{M_X})$ complies with the bulk marginal property.
+    \end{lemma}
+    \begin{proof}
+        Let $w_i \coloneqq X_{i - 1}$ for $n \in [n + 1]$. Then we have:
+        \begin{align*}
+            &\sum_{w_{n + 1} \in \Sigma} S_{n + 1}(w) \\
+            &\underset{\text{Bayesian network}}{=} \sum_{w_{n + 1} \in \Sigma} \sum_{q_1, \dots, q_{n+1} \in S_Y} \left[ P(q_1) \prod_{i=2}^{n+1} P(q_i \mid q_{i-1}) \cdot \prod_{i=1}^{n+1} P(w_i \mid q_i) \right] \\
+            &= \sum_{q_1, \dots, q_{n+1} \in S_Y} \sum_{w_{n + 1} \in \Sigma}  \left[ P(q_1) \prod_{i=2}^{n+1} P(q_i \mid q_{i-1}) \cdot \prod_{i=1}^{n+1} P(w_i \mid q_i) \right] \\
+            &= \sum_{q_1, \dots, q_{n+1} \in S_Y} \left[ P(q_1) \prod_{i=2}^{n+1} P(q_i \mid q_{i-1}) \cdot \prod_{i=1}^{n} P(w_i \mid q_i) \sum_{w_{n + 1} \in \Sigma}  P(w_{n+1} \mid q_{n+1}) \right] \\
+            &= \sum_{q_1, \dots, q_{n+1} \in S_Y} \left[ P(q_1) \prod_{i=2}^{n+1} P(q_i \mid q_{i-1}) \cdot \prod_{i=1}^{n} P(w_i \mid q_i) \right] \\
+            &= \sum_{q_1, \dots, q_{n} \in S_Y} \sum_{q_{n+1} \in S_Y} P(q_{n+1} \mid q_n) \left[ P(q_1) \prod_{i=2}^{n} P(q_i \mid q_{i-1}) \cdot \prod_{i=1}^{n} P(w_i \mid q_i) \right] \\
+            &= \sum_{q_1, \dots, q_{n} \in S_Y} \left[ P(q_1) \prod_{i=2}^{n} P(q_i \mid q_{i-1}) \cdot \prod_{i=1}^{n} P(w_i \mid q_i) \sum_{q_{n+1} \in S_Y} P(q_{n+1} \mid q_n) \right] \\
+            &= \sum_{q_1, \dots, q_{n} \in S_Y} \left[ P(q_1) \prod_{i=2}^{n} P(q_i \mid q_{i-1}) \cdot \prod_{i=1}^{n} P(w_i \mid q_i) \right] \\
+            &\overset{\checkmark}{=} S_n(w_{-\{n+1\}}) \quad .
+        \end{align*}
+    \end{proof}
+
+    \begin{theorem}[No Hidden Markov Model with Power-Law Behavior]
+        % There is no hidden Markov model $(\bm{M_Y}, \bm{M_X})$ with $I(X_{t_0}, X_{t_0 + \tau}) \in \mathcal{O}(\tau^{-\alpha})$ and $I(X_{t_0}, X_{t_0 + \tau}) \in \Omega (\tau^{-\beta})$ for some $\alpha, \beta \in \mathbb{R}_{>0}$.
+        There is no hidden Markov model $(\bm{M_Y}, \bm{M_X})$ with with weak power-law behavior (and hence also strong power-law behavior).
     \end{theorem}
     \vspace{-2.5em}
     \begin{proof}
-        Set $t \coloneqq t_0$. First, note that $P(X_{t + \tau} = b \mid Y_t = c) = (\bm{M_X} \bm{M_Y}^\tau)_{bc}$. Furthermore,
-        \begin{align*}
-            P(Y_t = c \mid X_t = a) &= \dfrac{P(Y_t = c, X_t = a)}{P(X_t = a)} \\
-            &= \dfrac{P(X_t = a \mid Y_t = c) P(Y_t = c)}{P(X_t = a)} \\
-            &= (\bm{M_X})_{ac} \dfrac{P(Y_t = c)}{P(X_t = a)} \quad .
-        \end{align*}
-        We are interested in $P(X_{t + \tau} = b \mid X_t = a)$. Based on our observations, we have
-        \begin{align*}
-            P(X_{t + \tau} = b \mid X_t = a) &= \sum_{c \in S_Y} P(Y_t = c \mid X_t = a) P(X_{t + \tau} = b \mid Y_t = c) \\
-            &= \sum_{c \in S_Y} (\bm{M_X})_{ac} \dfrac{P(Y_t = c)}{P(X_t = a)} (\bm{M_X} \bm{M_Y}^\tau)_{bc} \\
-            &= \dfrac{1}{P(X_t = a)} \sum_{c \in S_Y} (\bm{M_X})_{ac} P(Y_t = c) (\bm{M_X} \bm{M_Y}^\tau)_{bc} \\
-            &= \dfrac{1}{P(X_t = a)} \sum_{c \in S_Y} (\bm{M_X})_{ac} P(Y_t = c) \sum_{d \in S_Y} (\bm{M_X})_{bd} (\bm{M_Y}^\tau)_{dc} \quad . \\
-        \end{align*}
-        For the case that $\bm{M_Y}^\tau$ converges to $\bm{M_{\mu_Y}}$, it must do so with exponential decay. So we get:
-        \begin{align*}
-            &= \dfrac{1}{P(X_t = a)} \sum_{c \in S_Y} (\bm{M_X})_{ac} P(Y_t = c) \sum_{d \in S_Y} (\bm{M_X})_{bd} ((\bm{\mu_Y})_{d} \pm \mathcal{O}(|\lambda_2^+|^\tau)) \\
-            &= \dfrac{1}{P(X_t = a)} \sum_{c \in S_Y} (\bm{M_X})_{ac} P(Y_t = c) \left[ (\bm{M_X}\bm{\mu_Y})_{b} \pm \mathcal{O}(|\lambda_2^+|^\tau) \right] \\
-            &= \dfrac{1}{P(X_t = a)} \sum_{c \in S_Y} \left[ (\bm{M_X})_{ac} P(Y_t = c) (\bm{M_X}\bm{\mu_Y})_{b} \pm \mathcal{O}(|\lambda_2^+|^\tau) \right] \\
-            &= \left[ \dfrac{1}{P(X_t = a)} \sum_{c \in S_Y} (\bm{M_X})_{ac} P(Y_t = c) (\bm{M_X}\bm{\mu_Y})_{b} \right] \pm \mathcal{O}(|\lambda_2^+|^\tau) \\
-            &= \left[ \dfrac{(\bm{M_X}\bm{\mu_Y})_{b}}{P(X_t = a)} \sum_{c \in S_Y} (\bm{M_X})_{ac} P(Y_t = c) \right] \pm \mathcal{O}(|\lambda_2^+|^\tau) \\
-            &= \left[ \dfrac{(\bm{M_X}\bm{\mu_Y})_{b}}{P(X_t = a)} P(X_t = a) \right] \pm \mathcal{O}(|\lambda_2^+|^\tau) \\
-            &= (\bm{M_X}\bm{\mu_Y})_{b} \pm \mathcal{O}(|\lambda_2^+|^\tau) \quad . \\
-        \end{align*}
-        Thus, we get:
-        \begin{align*}
-            I_R(X_t, X_{t + \tau}) + 1 &= \sum_{(a,b) \in {S_X}^2} \dfrac{P(X_t = a)}{P(X_{t + \tau} = b)} P(X_{t + \tau} = b \mid X_t = a)^2 \\
-            &= \sum_{(a,b) \in {S_X}^2} \dfrac{P(X_t = a)}{P(X_{t + \tau} = b)} \left[ (\bm{M_X}\bm{\mu_Y})_{b} \pm \mathcal{O}(|\lambda_2^+|^\tau) \right] ^2 \\
-            &= \sum_{(a,b) \in {S_X}^2} \dfrac{P(X_t = a)}{P(X_{t + \tau} = b)} \left[ (\bm{M_X}\bm{\mu_Y})_{b}^2 \pm \mathcal{O}(|\lambda_2^+|^\tau) \right] \\
-            &= \left[ \sum_{(a,b) \in {S_X}^2} \dfrac{P(X_t = a)}{P(X_{t + \tau} = b)} (\bm{M_X}\bm{\mu_Y})_{b}^2 \right] \pm \mathcal{O}(|\lambda_2^+|^\tau) \\
-            &= \left[ \sum_{(a,b) \in {S_X}^2} \dfrac{P(X_t = a)}{(\bm{M_X}\bm{\mu_Y})_{b} \pm \mathcal{O}(|\lambda_2^+|^{t + \tau})} (\bm{M_X}\bm{\mu_Y})_{b}^2 \right] \pm \mathcal{O}(|\lambda_2^+|^\tau) \\
-            &= \left[ \sum_{(a,b) \in {S_X}^2} P(X_t = a)(\bm{M_X}\bm{\mu_Y})_{b} \pm \mathcal{O}(|\lambda_2^+|^{t + \tau}) \right] \pm \mathcal{O}(|\lambda_2^+|^\tau) \\
-            &= 1 \pm \mathcal{O}(|\lambda_2^+|^\tau) \quad ,
-        \end{align*}
-        from which $I(X_t, X_{t + \tau}) \in \mathcal{O}(|\lambda_2^+|^\tau)$ follows.
+        Since hidden Markov models satisfy the bulk marginal property, we can use the contraposition of theorem~\ref{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior} to show that hidden Markov models are incapable of weak power-law behavior. Note that we can chose our starting referencing random variable freely. Hence, we may analyze $I(X_0; X_{\tau})$.
 
-        Now assume $\bm{M_Y}^\tau$ does not converges to $\bm{M_{\mu_Y}}$. This case is much harder to prove, and we will only provide an intuition.
+        First, note that we can construct the following Bayesian network with adjusted transitions depicted in figure~\ref{fig:adjusted_bayesian_network_hidden_markov}.
+
+        \begin{figure}[h]
+            \center
+            \begin{tikzpicture}[node distance=1.5cm and 1.5cm, auto]
+
+            % Top row (Y)
+            \node (Y0) {$Y_0$};
+            \node (Y1) [right of=Y0] {$Y_1$};
+            \node (Ydots) [right of=Y1] {$\cdots$};
+            \node (Yt) [right of=Ydots] {$Y_\tau$};
+
+            % Bottom row (X)
+            \node (X0) [below of=Y0] {$X_0$};
+            \node (X1) [right of=X0] {$X_1$};
+            \node (Xdots) [right of=X1] {$\cdots$};
+            \node (Xt) [right of=Xdots] {$X_\tau$};
+
+            % Horizontal arrows (Y row)
+            \draw[->] (Y0) -- (Y1);
+            \draw[->] (Y1) -- (Ydots);
+            \draw[->] (Ydots) -- (Yt);
+
+            % Vertical arrows
+            \draw[->] (X0) -- (Y0);
+            \draw[->] (Y1) -- (X1);
+            \draw[->] (Yt) -- (Xt);
+
+            \end{tikzpicture}
+            \caption{Adjusted Bayesian network of a hidden Markov model.}
+            \label{fig:adjusted_bayesian_network_hidden_markov}
+        \end{figure}
+
+        We see that $P(X_{\tau} = a \mid X_0 = b) = (\bm{M_X} \bm{M_Y}^\tau \bm{M'})_{ab}$.
+
+        Now, for the sake of contradiction, assume that there exists a model $(\bm{M_Y}, \bm{M_X})$ with weak power-law behavior. It follows that in order for $I(X_0; X_{\tau}) \xrightarrow{\tau \to \infty} 0$ we must have that $\bm{M_X} \bm{M_Y}^\tau \bm{M'} \xrightarrow{\tau \to \infty} \bm{M_\mu}$, i.e. it must converge to a matrix with equal columns (TODO: citation). 
         
-        Like before, we still must have $\lim_{\tau \to \infty} |P(X_{t + \tau} = b \mid X_t = a) - P(X_{t + \tau} = b)| = 0$ in order for $I(X_t, X_{t + \tau})$ to converge to $0$. Again, this means that $P(X_{t + \tau} = b \mid X_t = a)$ should become independent of $a$.
-        Let's analyze it further:
-        \begin{align*}
-            P(X_{t + \tau} = b \mid X_t = a) &= \sum_{c \in S_Y} P(Y_t = c \mid X_t = a) P(X_{t + \tau} = b \mid Y_t = c) \\
-            &= \sum_{c \in S_Y} P(Y_t = c \mid X_t = a) (\bm{M_X} \bm{M_Y}^\tau)_{bc} \quad .
-        \end{align*}
-        If we assume $P(X_{t + \tau} = b)$ to converge, then our expression must also be independent of $t$! But the coefficients $P(Y_t = c \mid X_t = a)$ vary a lot with $t$ and $a$, so $(\bm{M_X} \bm{M_Y}^\tau)_{bc}$ should become independent of $c$ (for every $b$). But since $\bm{M_Y}^\tau$ does not converge to $\bm{M_{\mu_Y}}$, $\bm{M_X}$ must correct it. But $\bm{M_X} \bm{M_Y}^\tau$ must also converge with exponential decay (why?).
+        We want to show that $\bm{M_X} \bm{M_Y}^\tau \bm{M'}$ must converge with exponential decay, as this implies that $I(X_0; X_{\tau})$ also decays exponentially (TODO: citation). Based on the contraposition of theorem~\ref{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior}, we then know that the model does not have weak power-law behavior. Note that if $\bm{M_Y}^\tau$ converges to any matrix with exponential decay, then $\bm{M_X} \bm{M_Y}^\tau \bm{M'}$ will be forced to converge (to $\bm{M_\mu}$) with exponential decay as well.
+        
+        We differentiate the following cases based on the properties of $\bm{M_Y}$:
 
-        The case that $P(X_{t + \tau} = b)$ does not converge is also not easy. But for now we are satisfied with the fact that natural languages should have this property, so we may assume convergence of $P(X_{t + \tau} = b)$.
+        \textbf{Case 1: Irreducible and Aperiodic} \\
+        If $\bm{M_Y}$ is irreducible and aperiodic, then we have based on theorem~\ref{theorem:data_processing_inequality} that
+        \[
+            I(X_0; X_\tau) \leq I(Y_0; Y_\tau) \quad .
+        \]
+        But we have already proven that $I(Y_0; Y_\tau)$ decays exponentially.
+
+        \textbf{Case 2: Multiple Closed Aperiodic Communication Classes} \\
+        In this case, we can order the states such that $\bm{M_Y}$ is block diagonal, i.e.
+        \[
+            \bm{M_Y} = 
+            \begin{bmatrix}
+            \bm{B_1} & \bm{0} & \cdots & \bm{0} \\
+            \bm{0} & \bm{B_2} & \cdots & \bm{0} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            \bm{0} & \bm{0} & \cdots & \bm{B_k}
+            \end{bmatrix}
+            \quad .
+        \]
+        It follows that
+        \[
+            \bm{M_Y}^\tau = 
+            \begin{bmatrix}
+            \bm{B_1}^\tau & \bm{0} & \cdots & \bm{0} \\
+            \bm{0} & \bm{B_2}^\tau & \cdots & \bm{0} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            \bm{0} & \bm{0} & \cdots & \bm{B_k}^\tau
+            \end{bmatrix}
+            \quad .
+        \]
+        Hence, $\bm{M_Y}^\tau$ converges to a certain block diagonal matrix with exponential decay since all the blocks $\bm{B_i}$ are irreducible and aperiodic.
+
+        \textbf{Case 3: Irreducible and Periodic} \\
+        Assume $\bm{M_Y}$ has periodicity $p$. Let's analyze $\bm{M_Y}^p$: Because of periodicity, it must decompose into $p$ independent blocks (when ordering the states accordingly):
+        \[
+            \bm{M_Y}^p = 
+            \begin{bmatrix}
+            \bm{B_1} & \bm{0} & \cdots & \bm{0} \\
+            \bm{0} & \bm{B_2} & \cdots & \bm{0} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            \bm{0} & \bm{0} & \cdots & \bm{B_p}
+            \end{bmatrix}
+            \quad .
+        \]
+        Because $\bm{M_Y}$ is irreducible, so must all blocks $\bm{B_i}$. Now there are two cases: Either all blocks are aperiodic, but then we are in case 2, hence $\bm{M_Y}^{p \tau}$ converges with exponential decay. But this means that $I(X_0; X_\tau)$ has exponential decay for $\tau = n \cdot p, \ n \in \mathbb{N}$, and hence it cannot be lower bounded by a power-law.
+
+        On the other hand, if there are blocks that are still are periodic, we recursively apply this procedure to arrive at a matrix $\bm{M_Y}^m$ for some $m \in \mathbb{N}$ with aperiodic blocks after finitely many iterations. Hence, by the same logic we arrive at a contradiction.
+
+        \textbf{Case 4: Multiple Closed Communication Classes} \\
+        Now assume $\bm{M_Y}$ consists of many closed communication classes that can be either periodic or aperiodic. But we know that all the aperiodic classes converge with exponential decay, and the periodic ones as well if we restrict $\tau \equiv_{m_i} 0$ for a specific $m_i$ associated with block $\bm{B_i}$. By calculating the smallest common multiple of all $m_i$ defined as $m_I$, we see that $\bm{M_Y}^\tau$ converges with exponential decay for $\tau = n \cdot m_I, \ n \in \mathbb{N}$.
+
+        \textbf{Case 5: The Generic Case} \\
+        Finally, we allow $\bm{M_Y}$ to consist of multiple closed and open communication classes. Let $S_C$ denote the set of all states that are in a closed communication class, and let $S_O$ denote the set of states in open communication classes. After ordering accordingly, we have:
+        \[
+            \bm{M_Y} = 
+            \begin{bmatrix}
+            S_C & S_O \\
+            \bf{0} & \downarrow \\
+            \end{bmatrix}
+            \quad ,
+        \]
+        where the block described by $S_C$ is a square. Hence:
+        \[
+            \bm{M_Y}^\tau = 
+            \begin{bmatrix}
+            S_C^\tau & S_O^{(\tau)} \\
+            \bf{0} & \downarrow \\
+            \end{bmatrix}
+            \quad .
+        \]
+        Thus, the block described by $S_C$ will converge with exponential decay for $\tau = n \cdot m, \ n \in \mathbb{N}$ for some $m \in \mathbb{N}$.
+
+        \textbf{Case 2: One Irreducible Aperiodic Closed Communication Class} \\
+        This case follows similarly based on the observations in theorem~\ref{theorem:no_markov_chain_with_power-law_behavior}.
+
+
     \end{proof}
+    % \begin{proof}
+    %     Set $t \coloneqq t_0$. First, note that $P(X_{t + \tau} = b \mid Y_t = c) = (\bm{M_X} \bm{M_Y}^\tau)_{bc}$. Furthermore,
+    %     \begin{align*}
+    %         P(Y_t = c \mid X_t = a) &= \dfrac{P(Y_t = c, X_t = a)}{P(X_t = a)} \\
+    %         &= \dfrac{P(X_t = a \mid Y_t = c) P(Y_t = c)}{P(X_t = a)} \\
+    %         &= (\bm{M_X})_{ac} \dfrac{P(Y_t = c)}{P(X_t = a)} \quad .
+    %     \end{align*}
+    %     We are interested in $P(X_{t + \tau} = b \mid X_t = a)$. Based on our observations, we have
+    %     \begin{align*}
+    %         P(X_{t + \tau} = b \mid X_t = a) &= \sum_{c \in S_Y} P(Y_t = c \mid X_t = a) P(X_{t + \tau} = b \mid Y_t = c) \\
+    %         &= \sum_{c \in S_Y} (\bm{M_X})_{ac} \dfrac{P(Y_t = c)}{P(X_t = a)} (\bm{M_X} \bm{M_Y}^\tau)_{bc} \\
+    %         &= \dfrac{1}{P(X_t = a)} \sum_{c \in S_Y} (\bm{M_X})_{ac} P(Y_t = c) (\bm{M_X} \bm{M_Y}^\tau)_{bc} \\
+    %         &= \dfrac{1}{P(X_t = a)} \sum_{c \in S_Y} (\bm{M_X})_{ac} P(Y_t = c) \sum_{d \in S_Y} (\bm{M_X})_{bd} (\bm{M_Y}^\tau)_{dc} \quad . \\
+    %     \end{align*}
+    %     For the case that $\bm{M_Y}^\tau$ converges to $\bm{M_{\mu_Y}}$, it must do so with exponential decay. So we get:
+    %     \begin{align*}
+    %         &= \dfrac{1}{P(X_t = a)} \sum_{c \in S_Y} (\bm{M_X})_{ac} P(Y_t = c) \sum_{d \in S_Y} (\bm{M_X})_{bd} ((\bm{\mu_Y})_{d} \pm \mathcal{O}(|\lambda_2^+|^\tau)) \\
+    %         &= \dfrac{1}{P(X_t = a)} \sum_{c \in S_Y} (\bm{M_X})_{ac} P(Y_t = c) \left[ (\bm{M_X}\bm{\mu_Y})_{b} \pm \mathcal{O}(|\lambda_2^+|^\tau) \right] \\
+    %         &= \dfrac{1}{P(X_t = a)} \sum_{c \in S_Y} \left[ (\bm{M_X})_{ac} P(Y_t = c) (\bm{M_X}\bm{\mu_Y})_{b} \pm \mathcal{O}(|\lambda_2^+|^\tau) \right] \\
+    %         &= \left[ \dfrac{1}{P(X_t = a)} \sum_{c \in S_Y} (\bm{M_X})_{ac} P(Y_t = c) (\bm{M_X}\bm{\mu_Y})_{b} \right] \pm \mathcal{O}(|\lambda_2^+|^\tau) \\
+    %         &= \left[ \dfrac{(\bm{M_X}\bm{\mu_Y})_{b}}{P(X_t = a)} \sum_{c \in S_Y} (\bm{M_X})_{ac} P(Y_t = c) \right] \pm \mathcal{O}(|\lambda_2^+|^\tau) \\
+    %         &= \left[ \dfrac{(\bm{M_X}\bm{\mu_Y})_{b}}{P(X_t = a)} P(X_t = a) \right] \pm \mathcal{O}(|\lambda_2^+|^\tau) \\
+    %         &= (\bm{M_X}\bm{\mu_Y})_{b} \pm \mathcal{O}(|\lambda_2^+|^\tau) \quad . \\
+    %     \end{align*}
+    %     Thus, we get:
+    %     \begin{align*}
+    %         I_R(X_t, X_{t + \tau}) + 1 &= \sum_{(a,b) \in {S_X}^2} \dfrac{P(X_t = a)}{P(X_{t + \tau} = b)} P(X_{t + \tau} = b \mid X_t = a)^2 \\
+    %         &= \sum_{(a,b) \in {S_X}^2} \dfrac{P(X_t = a)}{P(X_{t + \tau} = b)} \left[ (\bm{M_X}\bm{\mu_Y})_{b} \pm \mathcal{O}(|\lambda_2^+|^\tau) \right] ^2 \\
+    %         &= \sum_{(a,b) \in {S_X}^2} \dfrac{P(X_t = a)}{P(X_{t + \tau} = b)} \left[ (\bm{M_X}\bm{\mu_Y})_{b}^2 \pm \mathcal{O}(|\lambda_2^+|^\tau) \right] \\
+    %         &= \left[ \sum_{(a,b) \in {S_X}^2} \dfrac{P(X_t = a)}{P(X_{t + \tau} = b)} (\bm{M_X}\bm{\mu_Y})_{b}^2 \right] \pm \mathcal{O}(|\lambda_2^+|^\tau) \\
+    %         &= \left[ \sum_{(a,b) \in {S_X}^2} \dfrac{P(X_t = a)}{(\bm{M_X}\bm{\mu_Y})_{b} \pm \mathcal{O}(|\lambda_2^+|^{t + \tau})} (\bm{M_X}\bm{\mu_Y})_{b}^2 \right] \pm \mathcal{O}(|\lambda_2^+|^\tau) \\
+    %         &= \left[ \sum_{(a,b) \in {S_X}^2} P(X_t = a)(\bm{M_X}\bm{\mu_Y})_{b} \pm \mathcal{O}(|\lambda_2^+|^{t + \tau}) \right] \pm \mathcal{O}(|\lambda_2^+|^\tau) \\
+    %         &= 1 \pm \mathcal{O}(|\lambda_2^+|^\tau) \quad ,
+    %     \end{align*}
+    %     from which $I(X_t, X_{t + \tau}) \in \mathcal{O}(|\lambda_2^+|^\tau)$ follows.
+
+    %     Now assume $\bm{M_Y}^\tau$ does not converges to $\bm{M_{\mu_Y}}$. This case is much harder to prove, and we will only provide an intuition.
+        
+    %     Like before, we still must have $\lim_{\tau \to \infty} |P(X_{t + \tau} = b \mid X_t = a) - P(X_{t + \tau} = b)| = 0$ in order for $I(X_t, X_{t + \tau})$ to converge to $0$. Again, this means that $P(X_{t + \tau} = b \mid X_t = a)$ should become independent of $a$.
+    %     Let's analyze it further:
+    %     \begin{align*}
+    %         P(X_{t + \tau} = b \mid X_t = a) &= \sum_{c \in S_Y} P(Y_t = c \mid X_t = a) P(X_{t + \tau} = b \mid Y_t = c) \\
+    %         &= \sum_{c \in S_Y} P(Y_t = c \mid X_t = a) (\bm{M_X} \bm{M_Y}^\tau)_{bc} \quad .
+    %     \end{align*}
+    %     If we assume $P(X_{t + \tau} = b)$ to converge, then our expression must also be independent of $t$! But the coefficients $P(Y_t = c \mid X_t = a)$ vary a lot with $t$ and $a$, so $(\bm{M_X} \bm{M_Y}^\tau)_{bc}$ should become independent of $c$ (for every $b$). But since $\bm{M_Y}^\tau$ does not converge to $\bm{M_{\mu_Y}}$, $\bm{M_X}$ must correct it. But $\bm{M_X} \bm{M_Y}^\tau$ must also converge with exponential decay (why?).
+
+    %     The case that $P(X_{t + \tau} = b)$ does not converge is also not easy. But for now we are satisfied with the fact that natural languages should have this property, so we may assume convergence of $P(X_{t + \tau} = b)$.
+    % \end{proof}
 
     \smallskip
 \subsection{Conclusions for Model Selection}

@@ -236,7 +236,7 @@
     \end{align*}
     for some $c_{ij} \in \mathbb{C}, \ |c_{ij}| = 1$. The rest of the proof is identical to the one given.
 
-\subsection{No Markov Chain with Power-Law Decay}
+\subsection{No Markov Chain with Power-Law Behavior}
     We are interested in cases where $I(X; Y)$ decays to $0$, as this is implied by power-law behavior (see definition ~\ref{definition:strong_model_power_law_behavior} or definition~\ref{definition:weak_power_law_behavior}). This means that for increasing $\tau$, we get in the limit $\tau \to \infty$ that $P(a, b) = P(a) P(b \mid a) = P(a) (\bm{M}^\tau)_{ba} \overset{!}{=} P(a) P(b)$, and hence $(\bm{M}^\tau)_{ba} = P(b)$ for every $a \in S$. Clearly, this means that $\bm{M}^\tau$ must converge to a stationary matrix $\bm{M_\mu}$, where all columns are equal, at least given the case that $P(b)$ converges for all $b \in S$. But thanks to the following lemma, we can assume that this is the case:
 
     \begin{lemma}[Convergence of P(b) is Necessary for Power-Law Behavior]
@@ -251,6 +251,7 @@
     %     There is no Markov chain $\bm{M}$ with $I(X_{t_0}, X_{t_0 + \tau}) \in \mathcal{O}(\tau^{-\alpha})$ and $I(X_{t_0}, X_{t_0 + \tau}) \in \Omega (\tau^{-\beta})$ for some $\alpha, \beta \in \mathbb{R}_{>0}$.
     % \end{theorem}
     \begin{theorem}[No Markov Chain with Power-Law Behavior]
+        \label{theorem:no_markov_chain_with_power-law_behavior}
         There is no Markov chain with weak power-law behavior (and hence also strong power-law behavior).
     \end{theorem}
     \vspace{-2.5em}
@@ -289,7 +290,7 @@
 
         The only things left to do are, first, to verify that $|\lambda_2|$ of $\bm{M}_{S_C}$ is less than or equal to the absolute value of the second largest eigenvalue of $\bm{M}$; and second, to show the convergence of $\bm{M}_{S_O}$ and that it also exhibits exponential decay (with a base less than or equal to $|\lambda_2|$ of $\bm{M}$). Luckily, we achieve all our goals thanks to the following observation:
 
-        (Start of the actual proof.) Since $\bm{M}^t$ converges to $\bm{M_\mu}$, there must exist an $m \in \mathbb{N}_{>0}$ s.t. $\bm{M}^m$ and $\bm{M}^{m + 1}$ both have a positive row. Thus, thanks to corollary~\ref{corollary:perron_frobenius_extension} we can apply the Perron-Frobenius Theorem (with the exception that the eigenvector doesn't have to be positive) to $\bm{M}^m$ and $\bm{M}^{m + 1}$, and thanks to lemma~\ref{lemma:perron_frobenius_extension_A_to_the_m} also to $\bm{M}$ itself. Of course, $\lambda_{max} = 1$ with the associated eigenvector $\bm{\mu}$. (So we know that $|\lambda_2| < 1$ of $\bm{M}_{S_C}$ is less than or equal to the absolute value of the second largest eigenvalue of $\bm{M}$.)
+        (Start of the actual proof.) Since $\bm{M}^t$ converges to $\bm{M_\mu}$, there must exist an $m \in \mathbb{N}_{>0}$ s.t. $\bm{M}^m$ and $\bm{M}^{m + 1}$ both have a positive row. Thus, thanks to corollary~\ref{corollary:perron_frobenius_extension} we can apply the Perron-Frobenius Theorem (with the exception that the eigenvector is non-negative instead of positive) to $\bm{M}^m$ and $\bm{M}^{m + 1}$, and thanks to lemma~\ref{lemma:perron_frobenius_extension_A_to_the_m} also to $\bm{M}$ itself. Of course, $\lambda_{max} = 1$ with the associated eigenvector $\bm{\mu}$. (So we know that $|\lambda_2| < 1$ of $\bm{M}_{S_C}$ is less than or equal to the absolute value of the second largest eigenvalue of $\bm{M}$.)
 
         Furthermore, we of course have that $\lim_{\tau \to \infty} (\bm{M}^\tau)_{ba} = \bm{\mu}_b \ (\coloneqq \lim_{\tau \to \infty} P(b))$. But those were the only two assumptions made in section~\ref{section:the_defectvie_case}. Thus, by the same logic, we get $I(X_{t_0}; X_{t_0 + \tau}) \in \mathcal{O}(|\lambda_2^+|^\tau)$.
     \end{proof}
