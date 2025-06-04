@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.17)  31 MAY 2025 13:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.17)  4 JUN 2025 15:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -651,31 +651,46 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 
 [2]
 
-LaTeX Warning: Reference `theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior' on page 3 undefined on input line 92.
+LaTeX Warning: Reference `lemma:period_is_a_class_property' on page 3 undefined on input line 97.
 
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+LaTeX Warning: Reference `lemma:period_is_a_class_property' on page 3 undefined on input line 101.
+
+
+LaTeX Warning: Reference `theorem:positive_transition_matrix' on page 3 undefined on input line 119.
+
+
+LaTeX Warning: Reference `corollary:converse_positive_transition_matrix' on page 3 undefined on input line 119.
 
 
 
 [3]
-
-LaTeX Warning: Reference `theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior' on page 4 undefined on input line 131.
-
-
-LaTeX Warning: Reference `theorem:data_processing_inequality' on page 4 undefined on input line 136.
+Overfull \hbox (98.6819pt too wide) detected at line 174
+[]
+ []
 
 
 
 [4]
 
-LaTeX Warning: Reference `theorem:no_markov_chain_with_power-law_behavior' on page 5 undefined on input line 208.
+LaTeX Warning: Reference `theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior' on page 5 undefined on input line 192.
+
+
+LaTeX Warning: Reference `theorem:data_processing_inequality' on page 5 undefined on input line 236.
 
 
 
 [5]
 
-[6] (chapters/regular_grammar/sub.aux)
+[6]
+
+LaTeX Warning: Reference `theorem:perron_frobenius' on page 7 undefined on input line 306.
+
+
+
+[7]
+
+[8] (chapters/regular_grammar/sub.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-11-02>
@@ -688,18 +703,18 @@ Package rerunfilecheck Info: File `sub.out' has not changed.
 (rerunfilecheck)             Checksum: 8F54BA2574CB7E8E4A7B4E1781540C5E;459.
  ) 
 Here is how much of TeX's memory you used:
- 33289 strings out of 473330
- 768961 string characters out of 5719768
- 1423921 words of memory out of 5000000
- 55879 multiletter control sequences out of 15000+600000
+ 33300 strings out of 473330
+ 769233 string characters out of 5719768
+ 1422921 words of memory out of 5000000
+ 55885 multiletter control sequences out of 15000+600000
  564576 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  104i,15n,110p,816b,810s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on chapters/regular_grammar/sub.pdf (6 pages, 207662 bytes).
+Output written on chapters/regular_grammar/sub.pdf (8 pages, 224558 bytes).
 PDF statistics:
- 147 PDF objects out of 1000 (max. 8388607)
- 101 compressed objects within 2 object streams
- 14 named destinations out of 1000 (max. 500000)
+ 164 PDF objects out of 1000 (max. 8388607)
+ 116 compressed objects within 2 object streams
+ 19 named destinations out of 1000 (max. 500000)
  29 words of extra memory for PDF output out of 10000 (max. 10000000)
 

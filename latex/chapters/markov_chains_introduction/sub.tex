@@ -246,7 +246,7 @@ We notice that the behavior of this chain is periodic with a period of length $3
 
 \begin{definition}[Period and Aperiodicity]
     The \emph{period} of state $i \in S$ is defined as
-    \[ \gcd \{ n \in \mathbb{N}_{>0} : (\bm{P}^n)_{ii} > 0 \} \quad . \]
+    \[ \operatorname{period}(i) \coloneqq \gcd \{ n \in \mathbb{N}_{>0} : (\bm{P}^n)_{ii} > 0 \} \quad . \]
     Here, $\gcd$ stands for the greatest common divisor. A state $i \in S$ is called aperiodic iff its period is equal to $1$. Otherwise, the state $i$ is called periodic.
 \end{definition}
 
@@ -254,16 +254,54 @@ We notice that the behavior of this chain is periodic with a period of length $3
     This definition is not well defined in all cases, as it could happen that $\{ n \in \mathbb{N}_{>0} : (\bm{P}^n)_{ii} > 0 \} = \emptyset$. However, we mostly care about Markov chains being aperiodic in closed communication classes, especially in irreducible Markov chains. And for closed communication classes, this set can never be empty. In fact, for the set to be empty, we must have a communication class consisting of only one state $i \in S$ with $\bm{P}_{ii} = 0$. This communication class is obviously open.
 \end{remark}
 
-\begin{lemma}[Periodicity and Aperiodicity are Class Properties]
-    If state $i \in S$ is aperiodic and $i \leftrightsquigarrow j$, then $j$ is also aperiodic.
+\begin{lemma}
+    Let $i \in S$ be an aperiodic state. Then there exists an $L \in \mathbb{N}$ s.t. for all $n > L: (\bm{P}^n)_{ii} > 0$.
+    \label{lemma:aux}
 \end{lemma}
 \vspace{-2.5em}
 \begin{proof}
-    Since $i$ is aperiodic, we can find an $n \in \mathbb{N}$ s.t. both $(\bm{P}^n)_{ii} > 0$ and $(\bm{P}^{n+1})_{ii} > 0$ due to results from number theory. Since $j \leadsto i$, we can go from $j$ to $i$ in $t_{ji}$ steps, and from $i$ to $j$ in $t_{ij}$ steps since $i \leadsto j$. Thus:
+    Since state $i$ is aperiodic, we can find $n_1, \dots, n_r \in \mathbb{N}$ s.t. $(\bm{P}^{n_1})_{ii} > 0, \dots, (\bm{P}^{n_r})_{ii} > 0$ and $\gcd \{ n_1, \dots , n_r \} = 1$. From number theory, we know that for $L \coloneqq \prod_{k=1}^{r} n_k$ we can write every natural number $n > L$ in the form $n = l_1 n_1 + \dots + l_r n_r$ for suitable $l_1, \dots, l_r \in \mathbb{N}$. Hence:
     \[
-        \{ t_{ji} + n + t_{ij}, t_{ji} + n + 1 + t_{ij} \} \subseteq \{ n \in \mathbb{N}_{>0} : (\bm{P}^n)_{jj} > 0 \} \quad .
+        (\bm{P}^{l_1 n_1 + \dots + l_r n_r})_{ii} \geq ((\bm{P}^{n_1})^{l_1})_{ii} \cdot \dots \cdot ((\bm{P}^{n_r})^{l_r})_{ii} > 0 \quad .
     \]
-    Since $\gcd \{ t_{ji} + n + t_{ij}, t_{ji} + n + 1 + t_{ij} \} = 1$, we conclude that $\gcd \{ n \in \mathbb{N}_{>0} : (\bm{P}^n)_{jj} > 0 \} = 1$, and hence $j$ is aperiodic.
+\end{proof}
+
+\begin{remark}
+    \label{remark:converse_lemma_aux}
+    The converse of lemma~\ref{lemma:aux} is also true for obvious reasons.
+\end{remark}
+
+% \begin{lemma}[Periodicity and Aperiodicity are Class Properties]
+%     If state $i \in S$ is aperiodic and $i \leftrightsquigarrow j$, then $j$ is also aperiodic.
+% \end{lemma}
+% \vspace{-2.5em}
+% \begin{proof}
+%     Since $i$ is aperiodic, we can find an $n \in \mathbb{N}$ s.t. both $(\bm{P}^n)_{ii} > 0$ and $(\bm{P}^{n+1})_{ii} > 0$ based on lemma~\ref{lemma:aux}. Since $j \leadsto i$, we can go from $j$ to $i$ in $t_{ji}$ steps, and from $i$ to $j$ in $t_{ij}$ steps since $i \leadsto j$. Thus:
+%     \[
+%         \{ t_{ji} + n + t_{ij}, t_{ji} + n + 1 + t_{ij} \} \subseteq \{ n \in \mathbb{N}_{>0} : (\bm{P}^n)_{jj} > 0 \} \quad .
+%     \]
+%     Since $\gcd \{ t_{ji} + n + t_{ij}, t_{ji} + n + 1 + t_{ij} \} = 1$, we conclude that $\gcd \{ n \in \mathbb{N}_{>0} : (\bm{P}^n)_{jj} > 0 \} = 1$, and hence $j$ is aperiodic.
+% \end{proof}
+
+\begin{lemma}[Period is a Class Property]
+    \label{lemma:period_is_a_class_property}
+    Let $i, j$ be two states in a Markov chain such that $i \leftrightsquigarrow j$. Then $\operatorname{period}(i) = \operatorname{period}(j)$.
+\end{lemma}
+\vspace{-2.5em}
+\begin{proof}
+    Since $i \leftrightsquigarrow j$, there exist integers $m, n > 0$ such that $(\bm{P}^m)_{ij} > 0$ and $(\bm{P}^n)_{ji} > 0$. Consider any time $t$ such that $(\bm{P}^t)_{ii} > 0$. By combining paths it follows that
+    \[
+        (\bm{P}^{n + t + m})_{jj} \geq (\bm{P}^n)_{ji} \cdot (\bm{P}^t)_{ii} \cdot (\bm{P}^m)_{ij} > 0 \quad .
+    \]
+    Define $\mathcal{T}_i := \{ t : (\bm{P}^t)_{ii} > 0 \}$, $\mathcal{T}_j := \{ t : (\bm{P}^t)_{jj} > 0 \}$. Consider $\mathcal{T}' \coloneqq \dfrac{\mathcal{T}_i}{\operatorname{period}(i)}$.
+    
+    Clearly, $\gcd \mathcal{T}' = 1$. Hence, there exists $\ell \in \mathcal{T}'$ s.t. $(\ell + 1) \in \mathcal{T}'$ (as $\mathcal{T}'$ can be thought of as arising from an irreducible aperiodic Markov chain and hence lemma~\ref{lemma:aux} is applicable). Thus, $(\operatorname{period}(i)\ell) \in \mathcal{T}_i$ and $(\operatorname{period}(i)\ell + \operatorname{period}(i)) \in \mathcal{T}_i$.
+
+    It follows that
+    \[
+        \{m + n + \operatorname{period}(i) \ell, \ m + n + \operatorname{period}(i) \ell + \operatorname{period}(i)\} \subset \mathcal{T}_j \quad .
+    \]
+    Thus, $\operatorname{period}(j) = \gcd \mathcal{T}_j \leq \operatorname{period}(i)$. Because of symmetry, we also have $\operatorname{period}(i) \leq \operatorname{period}(j)$. Ultimately, we have $\operatorname{period}(i) = \operatorname{period}(j)$.
 \end{proof}
 
 This result leads to the following definitions:
@@ -271,8 +309,6 @@ This result leads to the following definitions:
 \begin{definition}[Aperiodic Markov Chain]
     An irreducible Markov chain is called aperiodic iff some (and hence, all) states in this chain are aperiodic.   
 \end{definition}
-
-With these basics covered, we can now focus on establishing important results we will need later.
 
 \subsection{Irreducible Aperiodic Markov Chains}
 We are interested in $stationary$ probability distributions $\bm{\mu}$ satisfying $\bm{P \mu} = \bm{\mu}$.
@@ -314,27 +350,8 @@ Now it's time to specify our intuitions precisely. The following result regardin
     For every irreducible aperiodic Markov chain specified by $\bm{P}$, there exists an $m \in \mathbb{N}_{>0}$ s.t. $\bm{P}^m > \bm{0}$, where the comparison is element-wise.
     \label{theorem:positive_transition_matrix}
 \end{theorem}
-
-We first prove the following auxiliary lemma:
-
-\begin{lemma}
-    Let $i \in S$ be an aperiodic state. Then there exists an $L \in \mathbb{N}$ s.t. for all $n > L: (\bm{P}^n)_{ii} > 0$.
-    \label{lemma:aux}
-\end{lemma}
 \vspace{-2.5em}
 \begin{proof}
-    Since state $i$ is aperiodic, we can find $n_1, \dots, n_r \in \mathbb{N}$ s.t. $(\bm{P}^{n_1})_{ii} > 0, \dots, (\bm{P}^{n_r})_{ii} > 0$ and $\gcd \{ n_1, \dots , n_r \} = 1$. From number theory, we know that for $L \coloneqq \prod_{k=1}^{r} n_k$ we can write every natural number $n > L$ in the form $n = l_1 n_1 + \dots + l_r n_r$ for suitable $l_1, \dots, l_r \in \mathbb{N}$. Hence:
-    \[
-        (\bm{P}^{l_1 n_1 + \dots + l_r n_r})_{ii} \geq ((\bm{P}^{n_1})^{l_1})_{ii} \cdot \dots \cdot ((\bm{P}^{n_r})^{l_r})_{ii} > 0 \quad .
-    \]
-\end{proof}
-
-\begin{remark}
-    \label{remark:converse_lemma_aux}
-    The converse of lemma~\ref{lemma:aux} is also true for obvious reasons.
-\end{remark}
-
-\begin{proof}[Proof of Theorem~\ref{theorem:positive_transition_matrix}]
     Let $L'$ be defined as the maximum of all $L$ defined like in Lemma~\ref{lemma:aux} when looping over all $i \in S$. Then for every $n > L'$, we have that $\bm{P}^n$ has positive entries along its diagonal. It follows that if $(\bm{P}^{t_{ji}})_{ij} > 0$ for some $t_{ji} \in \mathbb{N}_{>0}$, then we have $(\bm{P}^{n + t_{ji} + \tau})_{ij} > 0$ as well for every $\tau \in \mathbb{N}$. Furthermore, for every $i,j \in S$ we have $(\bm{P}^{t_{ji}})_{ij} > 0$ at some point $t_{ji} \in \mathbb{N}_{>0}$ since $\bm{P}$ is irreducible. Hence, at some point all the zeros must have vanished.
 \end{proof}
 
@@ -344,7 +361,7 @@ We first prove the following auxiliary lemma:
 
 \begin{corollary}
     \label{corollary:converse_positive_transition_matrix}
-    The Converse of Theorem~\ref{theorem:positive_transition_matrix} is also true, that is if $\bm{P}^m > \bm{0}$ for some $m \in \mathbb{N}$, then $P$ is irreducible and aperiodic. Irreducibility directly follows from $\bm{P}^m > \bm{0}$, and since $\bm{P}^{m + 1} > \bm{0}$ as well, $\bm{P}$ must also be aperiodic.
+    The Converse of Theorem~\ref{theorem:positive_transition_matrix} is also true, that is if $\bm{P}^m > \bm{0}$ for some $m \in \mathbb{N}$, then $\bm{P}$ is irreducible and aperiodic. Irreducibility directly follows from $\bm{P}^m > \bm{0}$, and since $\bm{P}^{m + 1} > \bm{0}$ as well, $\bm{P}$ must also be aperiodic.
 \end{corollary}
 
 The reader might question the importance of Theorem~\ref{theorem:positive_transition_matrix}. Clearly, we can see the interplay of the two properties of the Markov chain being irreducible and aperiodic in the proofs. But how does it help us finding a stationary probability distribution? Well, to answer this, we need another fundamental result, which we will cover next.

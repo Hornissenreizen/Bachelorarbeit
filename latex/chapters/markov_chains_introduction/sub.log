@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.17)  31 MAY 2025 10:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.17)  4 JUN 2025 13:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -665,10 +665,6 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 [5]
 
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-
 [6]
 
 [7]
@@ -676,7 +672,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 [8]
 
 [9]
-Overfull \hbox (2.88866pt too wide) in paragraph at lines 408--409
+Overfull \hbox (2.88866pt too wide) in paragraph at lines 425--426
 [][]\OT1/cmr/bx/n/10 Corollary 1.4. []\OT1/cmr/m/it/10 Based on the proof, we see that for ev-ery $\OML/cmm/b/it/10 v \OMS/cmsy/m/n/10 2 \OT1/cmr/m/n/10 ^^A : [][] \OML/cmm/b/it/10 P[]v \OT1/cmr/m/n/10 =
  []
 
@@ -693,15 +689,15 @@ Package rerunfilecheck Info: File `sub.out' has not changed.
 (rerunfilecheck)             Checksum: 4EA780063BD8A347E0067F1F2820D87F;903.
  ) 
 Here is how much of TeX's memory you used:
- 33343 strings out of 473330
- 770209 string characters out of 5719768
+ 33344 strings out of 473330
+ 770243 string characters out of 5719768
  1418921 words of memory out of 5000000
- 55889 multiletter control sequences out of 15000+600000
+ 55890 multiletter control sequences out of 15000+600000
  564877 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  104i,10n,110p,1032b,936s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on chapters/markov_chains_introduction/sub.pdf (11 pages, 263429 bytes).
+Output written on chapters/markov_chains_introduction/sub.pdf (11 pages, 264284 bytes).
 PDF statistics:
  254 PDF objects out of 1000 (max. 8388607)
  197 compressed objects within 2 object streams

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.17)  31 MAY 2025 12:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.17)  3 JUN 2025 15:40
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -651,7 +651,7 @@ LaTeX Warning: Reference `section:markov_chains' on page 1 undefined on input li
 LaTeX Warning: Reference `section:information_theory' on page 1 undefined on input line 20.
 
 
-LaTeX Warning: Reference `theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior' on page 1 undefined on input line 34.
+LaTeX Warning: Reference `theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior' on page 1 undefined on input line 35.
 
 
 
@@ -665,25 +665,25 @@ LaTeX Warning: Reference `theorem:power_law_decay_in_well-behaved_models_with_we
 
 [4]
 
-LaTeX Warning: Reference `remark:exponential_decay' on page 5 undefined on input line 150.
+LaTeX Warning: Reference `remark:exponential_decay' on page 5 undefined on input line 151.
 
 
 
 [5]
 
 [6]
-Overfull \hbox (27.40463pt too wide) detected at line 236
+Overfull \hbox (27.40463pt too wide) detected at line 237
 []
  []
 
 
-LaTeX Warning: Reference `definition:strong_model_power_law_behavior' on page 7 undefined on input line 240.
+LaTeX Warning: Reference `definition:strong_model_power_law_behavior' on page 7 undefined on input line 241.
 
 
-LaTeX Warning: Reference `definition:weak_power_law_behavior' on page 7 undefined on input line 240.
+LaTeX Warning: Reference `definition:weak_power_law_behavior' on page 7 undefined on input line 241.
 
 
-Overfull \hbox (15.77794pt too wide) in paragraph at lines 243--244
+Overfull \hbox (15.77794pt too wide) in paragraph at lines 244--245
 \OT1/cmr/m/it/10 der for $\OML/cmm/m/it/10 I\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 Y\OT1/cmr/m/n/10 )$ \OT1/cmr/m/it/10 to con-verge to $\OT1/cmr/m/n/10 0$ \OT1/cmr/m/it/10 for in-creas-ing $\OML/cmm/m/it/10 ^^\$\OT1/cmr/m/it/10 , we must have that $[][] \OML/cmm/b/it/10 M[]p[] \OT1/cmr/m/n/10 =
  []
 
@@ -691,24 +691,24 @@ Overfull \hbox (15.77794pt too wide) in paragraph at lines 243--244
 
 [7]
 
-LaTeX Warning: Reference `corollary:converse_positive_transition_matrix' on page 8 undefined on input line 259.
+LaTeX Warning: Reference `corollary:converse_positive_transition_matrix' on page 8 undefined on input line 260.
 
 
-Overfull \hbox (7.72157pt too wide) in paragraph at lines 263--265
+Overfull \hbox (7.72157pt too wide) in paragraph at lines 264--266
 []\OT1/cmr/m/n/10 For in-dex-ing rea-sons, we as-sume with-out loss of gen-er-al-ity that $\OML/cmm/m/it/10 S[] \OT1/cmr/m/n/10 = \OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 1\OML/cmm/m/it/10 ; [] ; n[]\OMS/cmsy/m/n/10 g ^^R
  []
 
 
-LaTeX Warning: Reference `corollary:converse_positive_transition_matrix' on page 8 undefined on input line 272.
+LaTeX Warning: Reference `corollary:converse_positive_transition_matrix' on page 8 undefined on input line 273.
 
 
 
 [8]
 
-LaTeX Warning: Reference `corollary:perron_frobenius_extension' on page 9 undefined on input line 293.
+LaTeX Warning: Reference `corollary:perron_frobenius_extension' on page 9 undefined on input line 294.
 
 
-LaTeX Warning: Reference `lemma:perron_frobenius_extension_A_to_the_m' on page 9 undefined on input line 293.
+LaTeX Warning: Reference `lemma:perron_frobenius_extension_A_to_the_m' on page 9 undefined on input line 294.
 
 
 
@@ -725,15 +725,15 @@ Package rerunfilecheck Info: File `sub.out' has not changed.
 (rerunfilecheck)             Checksum: 228D775CEB8604D4DF6E9342FF305001;1015.
  ) 
 Here is how much of TeX's memory you used:
- 33282 strings out of 473330
- 769423 string characters out of 5719768
+ 33283 strings out of 473330
+ 769483 string characters out of 5719768
  1426921 words of memory out of 5000000
- 55863 multiletter control sequences out of 15000+600000
+ 55864 multiletter control sequences out of 15000+600000
  564911 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  104i,18n,110p,1008b,854s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on chapters/markov_chains_exponential_decay/sub.pdf (9 pages, 229389 bytes).
+Output written on chapters/markov_chains_exponential_decay/sub.pdf (9 pages, 229387 bytes).
 PDF statistics:
  173 PDF objects out of 1000 (max. 8388607)
  124 compressed objects within 2 object streams

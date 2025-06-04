@@ -1,2 +1,4 @@
 - prove: I(X;Y) approaches 0 if and only if X and Y approach to be independent?
 - model framework I(X,Y) -> I(X;Y)
+- time-homogeneous Markov chain
+- period of a class! reference it in lemma for regular grammars

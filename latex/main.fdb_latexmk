@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1748691714.11145 "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/main.tex" "main.pdf" "main" 1748691715.31215 0
-  "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/main.tex" 1748691713.90257 2362 91aae5505701d965a97dfb804f49b408 ""
+["pdflatex"] 1749043898.69701 "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/main.tex" "main.pdf" "main" 1749043900.00588 0
+  "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/main.tex" 1749043897.18867 2362 91aae5505701d965a97dfb804f49b408 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1734431872.38973 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1734431873.45473 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1734431879.03568 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -252,16 +252,16 @@
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1734431864.3988 3343776 2b14423543ae36c58e6a97232fe20f3b ""
   "/usr/local/texlive/2024/texmf.cnf" 1734431864.4218 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
   "chapters/information_theory/sub.tex" 1748262894.35684 20445 bc14381820372ead11b170b13d3283e0 ""
-  "chapters/markov_chains_exponential_decay/sub.tex" 1748687413.06786 24516 142d3045e7ca7a9c11cd5da4290926bb ""
-  "chapters/markov_chains_introduction/sub.tex" 1748681909.64046 28695 1b98a8ff6833f64905df7297b63c36ce ""
-  "chapters/model_framework/sub.tex" 1748261658.78938 14710 2a183059e236c4e1aff0747b9ae66478 ""
-  "chapters/regular_grammar/sub.tex" 1748691559.04475 20182 9d9e38c9e8ee82556ed09c763a854be2 ""
+  "chapters/markov_chains_exponential_decay/sub.tex" 1748958008.36242 24613 6a42d95f71e0db6688052b16b8223b4f ""
+  "chapters/markov_chains_introduction/sub.tex" 1749038245.29635 30229 9af9dbae914710bef7af0a8ac152a4f8 ""
+  "chapters/model_framework/sub.tex" 1749043891.23372 14726 a2a2de526b802d8b90490bf98d7009b6 ""
+  "chapters/regular_grammar/sub.tex" 1749042280.3907 29240 df602d2e6bca41117a2e93f1c2996027 ""
   "chapters/tensor_networks/sub.tex" 1747135556.3626 13831 393dc3e021b1ae7b09d09f2267c85774 ""
   "chapters/tree_tensor_networks/sub.tex" 1747136315.93442 17396 89a5f59c4cbb745e52d45760a14e5c4d ""
-  "main.aux" 1748691715.22756 10840 38c67f923b3cd8dc11f0ad1a9fcdefed "pdflatex"
-  "main.out" 1748691715.22856 5172 3e38f7896453e491908900c430f0c95e "pdflatex"
-  "main.tex" 1748691713.90257 2362 91aae5505701d965a97dfb804f49b408 ""
-  "main.toc" 1748691715.22856 2433 335aa2115b31222ef5820af2c36c7e2e "pdflatex"
+  "main.aux" 1749043899.91865 11251 c0f9b8a57a9129af094fd7f59fca2d93 "pdflatex"
+  "main.out" 1749043899.91965 5172 3e38f7896453e491908900c430f0c95e "pdflatex"
+  "main.tex" 1749043897.18867 2362 91aae5505701d965a97dfb804f49b408 ""
+  "main.toc" 1749043899.91965 2433 cbe51c0c6d4f8273b8bb192ea4cbbf26 "pdflatex"
   (generated)
   "main.aux"
   "main.log"

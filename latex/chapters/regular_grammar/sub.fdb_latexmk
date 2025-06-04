@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1748692618.11265 "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/chapters/regular_grammar/sub.tex" "chapters/regular_grammar/sub.pdf" "sub" 1748692619.07997 0
-  "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/chapters/regular_grammar/sub.tex" 1748692617.88369 20968 9fcc62bc53f86af17f86815828ec8310 ""
+["pdflatex"] 1749042280.62409 "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/chapters/regular_grammar/sub.tex" "chapters/regular_grammar/sub.pdf" "sub" 1749042281.5109 0
+  "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/chapters/regular_grammar/sub.tex" 1749042280.3907 29240 df602d2e6bca41117a2e93f1c2996027 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1734431873.45473 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1734431874.71172 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm" 1734431874.71172 1120 7f9f170e8aa57527ad6c49feafd45d54 ""
@@ -222,10 +222,10 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1734431864.2608 5485709 8129e419010b46b234085a26866cdb87 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1734431864.3988 3343776 2b14423543ae36c58e6a97232fe20f3b ""
   "/usr/local/texlive/2024/texmf.cnf" 1734431864.4218 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
-  "chapters/regular_grammar/../../main.tex" 1748691713.90257 2362 91aae5505701d965a97dfb804f49b408 ""
-  "chapters/regular_grammar/sub.aux" 1748692618.98369 1335 93fc1af4d1c4cb71dd33b51a04bb019e "pdflatex"
-  "chapters/regular_grammar/sub.out" 1748692618.98369 459 8f54ba2574cb7e8e4a7b4e1781540c5e "pdflatex"
-  "chapters/regular_grammar/sub.tex" 1748692617.88369 20968 9fcc62bc53f86af17f86815828ec8310 ""
+  "chapters/regular_grammar/../../main.tex" 1749041109.36366 2362 91aae5505701d965a97dfb804f49b408 ""
+  "chapters/regular_grammar/sub.aux" 1749042281.3967 1579 74e51a903e1a6ecbab228165fc50182c "pdflatex"
+  "chapters/regular_grammar/sub.out" 1749042281.3967 459 8f54ba2574cb7e8e4a7b4e1781540c5e "pdflatex"
+  "chapters/regular_grammar/sub.tex" 1749042280.3907 29240 df602d2e6bca41117a2e93f1c2996027 ""
   (generated)
   "chapters/regular_grammar/sub.aux"
   "chapters/regular_grammar/sub.log"

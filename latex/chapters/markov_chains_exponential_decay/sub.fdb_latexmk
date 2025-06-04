@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1748687414.26921 "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/chapters/markov_chains_exponential_decay/sub.tex" "chapters/markov_chains_exponential_decay/sub.pdf" "sub" 1748687415.09298 0
-  "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/chapters/markov_chains_exponential_decay/sub.tex" 1748687413.06786 24516 142d3045e7ca7a9c11cd5da4290926bb ""
+["pdflatex"] 1748958009.56303 "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/chapters/markov_chains_exponential_decay/sub.tex" "chapters/markov_chains_exponential_decay/sub.pdf" "sub" 1748958010.39321 0
+  "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/chapters/markov_chains_exponential_decay/sub.tex" 1748958008.36242 24613 6a42d95f71e0db6688052b16b8223b4f ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1734431872.38973 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1734431873.45473 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1734431879.03568 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -224,10 +224,10 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1734431864.2608 5485709 8129e419010b46b234085a26866cdb87 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1734431864.3988 3343776 2b14423543ae36c58e6a97232fe20f3b ""
   "/usr/local/texlive/2024/texmf.cnf" 1734431864.4218 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
-  "chapters/markov_chains_exponential_decay/../../main.tex" 1748685228.74087 2362 91aae5505701d965a97dfb804f49b408 ""
-  "chapters/markov_chains_exponential_decay/sub.aux" 1748687415.01684 1332 8d582eec8d7eab011088fcc9ccad4fca "pdflatex"
-  "chapters/markov_chains_exponential_decay/sub.out" 1748687415.01784 1015 228d775ceb8604d4df6e9342ff305001 "pdflatex"
-  "chapters/markov_chains_exponential_decay/sub.tex" 1748687413.06786 24516 142d3045e7ca7a9c11cd5da4290926bb ""
+  "chapters/markov_chains_exponential_decay/../../main.tex" 1748957487.34081 2362 91aae5505701d965a97dfb804f49b408 ""
+  "chapters/markov_chains_exponential_decay/sub.aux" 1748958010.31741 1480 41daef962eab5bbb18e5ce893b0997ff "pdflatex"
+  "chapters/markov_chains_exponential_decay/sub.out" 1748958010.31841 1015 228d775ceb8604d4df6e9342ff305001 "pdflatex"
+  "chapters/markov_chains_exponential_decay/sub.tex" 1748958008.36242 24613 6a42d95f71e0db6688052b16b8223b4f ""
   (generated)
   "chapters/markov_chains_exponential_decay/sub.aux"
   "chapters/markov_chains_exponential_decay/sub.log"
