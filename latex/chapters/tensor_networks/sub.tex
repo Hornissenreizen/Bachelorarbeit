@@ -264,4 +264,161 @@
         \end{tikzpicture}
         \caption{Contracting multiple tensors over one shared index is equivalent to contracting them individually with a single copy tensor.}
     \end{figure}
+
+    \subsection{Reshaping a Tensor by a Partition (Matricization)}
+    A tensor network defines a probability tensor with $|\Sigma|^n$ entries. However, we can reshape this tensor by grouping together some axes. To this end, we first define a \emph{partition}:
+
+    \begin{definition}
+        Let $I = \{1, 2, \dots, n\}$ be a set of indices. A \emph{partition} of $I$ is a collection of non-empty, pairwise disjoint subsets $\{I_1, I_2, \dots, I_k\}$ of $I$ whose union is $I$. That is:
+        \begin{enumerate}
+            \item $I_j \neq \emptyset$ for all $j \in \{1, \dots, k\}$
+            \item $I_j \cap I_l = \emptyset$ for all $j \neq l$
+            \item $\bigcup_{j=1}^k I_j = I$
+        \end{enumerate}
+        The subsets $I_j$ are called the \emph{parts} of the partition.
+    \end{definition}
+
+    In the context of a tensor with $n$ axes, a partition of its indices allows for grouping these axes together, effectively reshaping the tensor. Partitions with two parts allows us to represent a tensor by a matrix. To this end, we use the notation
+    % $\llbracket T \rrbracket_{A,B}$
+    $[[T]]_{A,B}$
+    to represent the reshaping of a tensor $T$ into a matrix based on the partition $\{A,B\}$. This operation, also known as \emph{matricization}, \emph{unfolding}, or \emph{flattening}, relies on partitioning the tensor's indices into two distinct sets, one for the rows and one for the columns of the new matrix. Formally:
+
+    \begin{definition}[Tensor Matricization]
+    Let $T$ be an order-$k$ tensor with indices in the set $I = \{1, 2, \dots, k\}$, and corresponding dimensions $d_1, d_2, \dots, d_k$. Let $\{A, B\}$ be a bipartition of $I$, such that $A \cup B = I$ and $A \cap B = \emptyset$. Let $A = \{a_1, \dots, a_{|A|}\}$ and $B = \{b_1, \dots, b_{|B|}\}$ be ordered sets of indices.
+
+    The matricization of $T$ with respect to the partition $\{A, B\}$ is the matrix $M = $ of size $D_A \times D_B$, where:
+    \begin{itemize}
+        \item The number of rows is $D_A = \prod_{j \in A} d_j$.
+        \item The number of columns is $D_B = \prod_{j \in B} d_j$.
+    \end{itemize}
+    An element $T_{i_1, i_2, \dots, i_k}$ of the tensor is mapped to an element $M_{\alpha, \beta}$ of the matrix, where the row index $\alpha$ and column index $\beta$ are "super-indices" formed from the indices in $A$ and $B$, respectively. Assuming a lexicographical ordering, the mapping is given by:
+    \begin{align*}
+        \alpha &= 1 + \sum_{j=1}^{|A|} (i_{a_j} - 1) \left( \prod_{l=j+1}^{|A|} d_{a_l} \right) \\
+        \beta &= 1 + \sum_{j=1}^{|B|} (i_{b_j} - 1) \left( \prod_{l=j+1}^{|B|} d_{b_l} \right)
+    \end{align*}
+    \end{definition}
+
+    \subsubsection{An Upper Bound for the Rank of Matrices in Tensor Networks}
+    We can analyze these matrices, which depend on the partition $\{A, B\}$, of our tensor network. When picturing it as a graph, we can separate the states in $A$ from the states in $B$ with a cut. Metaphorically, we see that $A$ and $B$ \emph{communicate} over this cut. Hence, we might assume that if the associated bond dimensions are small, so is the mutual information between the two sets. In fact, this intuition is backed up by mathematical evidence:
+
+    \begin{theorem}
+    \label{theorem:min_cut_caps_rank}
+Let $\mathcal{T}$ be a tensor represented by a tensor network over a set of physical indices $\mathcal{I} = \{i_1, \dots, i_N\}$. For any bipartition of these indices into sets $\mathcal{I}_A$ and $\mathcal{I}_B$, which induces a cut through a set of internal bonds $E_{cut} = \{e_1, \dots, e_c\}$ with dimensions $\{D_1, \dots, D_c\}$, the rank of the reshaped matrix $M$ corresponding to this partition is bounded by:
+$$
+\text{rank}(M) \le \prod_{k=1}^{c} D_k
+$$
+\end{theorem}
+
+\begin{proof}
+A tensor network represents a tensor $\mathcal{T}$ by contracting a set of smaller tensors. Let's visualize a generic tensor network. A bipartition of the physical indices $(\mathcal{I}_A, \mathcal{I}_B)$ divides the graph of the network into two subgraphs.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[scale=0.8, every node/.style={transform shape}]
+    % Nodes (tensors)
+    \node[circle, draw, fill=blue!20] (T1) at (0,2) {$T_1$};
+    \node[circle, draw, fill=blue!20] (T2) at (1.5,3) {$T_2$};
+    \node[circle, draw, fill=blue!20] (T3) at (2.5,1) {$T_3$};
+    \node[circle, draw, fill=red!20] (T4) at (4.5,2.5) {$T_4$};
+    \node[circle, draw, fill=red!20] (T5) at (4,0.5) {$T_5$};
+
+    % Physical indices
+    \draw (T1) -- ++(0,1) node[above] {$i_1 \in \mathcal{I}_A$};
+    \draw (T1) -- ++(-1,0) node[left] {$i_2 \in \mathcal{I}_A$};
+    \draw (T3) -- ++(0,-1) node[below] {$i_3 \in \mathcal{I}_A$};
+    \draw (T4) -- ++(1,0.5) node[right] {$i_4 \in \mathcal{I}_B$};
+    \draw (T5) -- ++(0,-1) node[below] {$i_5 \in \mathcal{I}_B$};
+    \draw (T5) -- ++(1,-0.5) node[right] {$i_6 \in \mathcal{I}_B$};
+
+    % Internal bonds
+    \draw (T1) -- (T2);
+    \draw (T1) -- (T3);
+    \draw (T3) -- (T2);
+    \draw (T4) -- (T5);
+    
+    % Cut bonds
+    \draw[thick] (T2) -- (T4) node[midway, above, sloped] {$e_1 (D_1)$};
+    \draw[thick] (T3) -- (T4) node[midway, below, sloped] {$e_2 (D_2)$};
+    \draw[thick] (T3) -- (T5) node[midway, below, sloped] {$e_3 (D_3)$};
+
+    % The cut
+    \draw[dashed, red, thick, rounded corners] (3.2, 4) -- (3.2, -1) node[below] {Cut};
+    
+    \node at (1.25, 0) {Partition A};
+    \node at (5.25, 3.5) {Partition B};
+\end{tikzpicture}
+\caption{A generic tensor network with a cut partitioning the physical indices into $\mathcal{I}_A$ (blue) and $\mathcal{I}_B$ (red). The cut crosses bonds $e_1, e_2, e_3$.}
+\end{figure}
+
+We can group all tensors on the left of the cut (Partition A) and contract their internal bonds among themselves. This results in a single, large tensor, which we call $U$. The indices of $U$ are the physical indices in $\mathcal{I}_A$ and the cut bond indices $\{e_1, \dots, e_c\}$. Likewise, we contract all tensors in Partition B to form a tensor $V$, with indices from $\mathcal{I}_B$ and $\{e_1, \dots, e_c\}$.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[scale=0.9, every node/.style={transform shape}]
+    % Grouped tensor U
+    \node[draw, rounded corners, fill=blue!20, minimum height=2cm, minimum width=2cm] (U) at (0,0) {$U$};
+    \draw (U) -- ++(-1, 0.5) node[left] {$i_1, \dots \in \mathcal{I}_A$};
+    \draw (U) -- ++(-1, -0.5);
+
+    % Grouped tensor V
+    \node[draw, rounded corners, fill=red!20, minimum height=2cm, minimum width=2cm] (V) at (4,0) {$V$};
+    \draw (V) -- ++(1, 0.5) node[right] {$j_1, \dots \in \mathcal{I}_B$};
+    \draw (V) -- ++(1, -0.5);
+
+    % Cut bonds connecting U and V
+    \draw[thick] (U) -- (V) node[midway, above] {$e_1, \dots, e_c$};
+\end{tikzpicture}
+\caption{Contracting the subgraphs results in two tensors, $U$ and $V$, connected by the cut bonds.}
+\end{figure}
+
+The original tensor $\mathcal{T}$ is recovered by contracting $U$ and $V$ over the cut indices. Now, we reshape $U$ and $V$ into matrices. Let $\alpha$ be a multi-index that combines all cut indices $\{e_1, \dots, e_c\}$. The dimension of this multi-index is $D_{cut} = \prod_{k=1}^{c} D_k$.
+Let $I_A$ be the multi-index for all physical indices in $\mathcal{I}_A$.
+Let $I_B$ be the multi-index for all physical indices in $\mathcal{I}_B$.
+
+We reshape the tensor $U$ into a matrix $\mathbf{U}$ of size $(\dim(I_A) \times D_{cut})$ where the rows are indexed by $I_A$ and the columns by $\alpha$.
+We reshape the tensor $V$ into a matrix $\mathbf{V}$ of size $(D_{cut} \times \dim(I_B))$ where the rows are indexed by $\alpha$ and the columns by $I_B$.
+
+The reshaped tensor matrix $M$ (with rows $I_A$ and columns $I_B$) is exactly the matrix product of $\mathbf{U}$ and $\mathbf{V}$:
+$$ M = \mathbf{U} \cdot \mathbf{V} $$
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+    % Matrix U
+    \node[draw, fill=blue!20, minimum width=1.5cm, minimum height=2.5cm, label=below:$\mathbf{U}$] (U_mat) at (0,0) {};
+    \node[left=0.1 of U_mat] (IA) {$\dim(I_A)$};
+    \node[above=0.1 of U_mat] (Dcut_U) {$D_{cut}$};
+    
+    % Equals sign
+    \node (=) at (3,0) {$=$};
+    
+    % Matrix multiplication
+    \node[draw, fill=blue!20, minimum width=1.5cm, minimum height=2.5cm, label=below:$\mathbf{U}$] (U_prod) at (1.5,0) {};
+    \node[left=0.1 of U_prod] {$\dim(I_A)$};
+    \node[above=0.1 of U_prod] {$D_{cut}$};
+    
+    \node[draw, fill=red!20, minimum width=2.5cm, minimum height=1.5cm, label=below:$\mathbf{V}$] (V_prod) at (4.25, 0) {};
+    \node[left=0.1 of V_prod] {$D_{cut}$};
+    \node[above=0.1 of V_prod] {$\dim(I_B)$};
+    
+    % Matrix M
+    \node[draw, minimum width=2.5cm, minimum height=2.5cm, label=below:$M$] (M_mat) at (-2,0) {};
+    \node[left=0.1 of M_mat] {$\dim(I_A)$};
+    \node[above=0.1 of M_mat] {$\dim(I_B)$};
+
+    % Arrows
+    \draw[->, thick] (U_prod.east) -- (V_prod.west) node[midway, below, yshift=-2mm] {Contraction over $D_{cut}$};
+\end{tikzpicture}
+\caption{The matrix $M$ is a product of matrices $\mathbf{U}$ and $\mathbf{V}$, with inner dimension $D_{cut}$.}
+\end{figure}
+
+A fundamental property of linear algebra states that the rank of a product of matrices is at most the minimum of their individual ranks:
+$$ \text{rank}(M) = \text{rank}(\mathbf{U} \cdot \mathbf{V}) \le \min(\text{rank}(\mathbf{U}), \text{rank}(\mathbf{V})) $$
+The rank of a matrix is also bounded by its dimensions. For $\mathbf{U}$ and $\mathbf{V}$, we have:
+$$ \text{rank}(\mathbf{U}) \le \min(\dim(I_A), D_{cut}) \le D_{cut} $$
+$$ \text{rank}(\mathbf{V}) \le \min(D_{cut}, \dim(I_B)) \le D_{cut} $$
+Therefore, the rank of $M$ is bounded by the total dimension of the cut:
+$$ \text{rank}(M) \le D_{cut} = \prod_{k=1}^{c} D_k $$
+This completes the proof.
+\end{proof}
 \end{document}
