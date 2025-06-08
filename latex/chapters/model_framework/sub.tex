@@ -6,9 +6,9 @@
 
     The tokens, represented by random variables $X_t$, are elements of a finite alphabet $\Sigma$. The distance between $X_t$ and $X_{t + \tau}$ is $\tau$, and for every $t$ and every $\tau > 0$ we want to bound
     \[
-        I(X_t, X_{t + \tau}) \in \Omega(\tau^{-\alpha}), \ I(X_t, X_{t + \tau}) \in \mathcal{O}(\tau^{-\beta}) \quad ,
+        I(X_t; X_{t + \tau}) \in \Omega(\tau^{-\alpha}), \ I(X_t; X_{t + \tau}) \in \mathcal{O}(\tau^{-\beta}) \quad ,
     \]
-    for some fixed $\alpha, \beta \in \mathbb{R}_{>0}$. The first condition is the important one, while the latter ensures that $I(X_t, X_{t + \tau}) \xrightarrow{\tau \to \infty} 0$. We also may replace the latter condition by this one.
+    for some fixed $\alpha, \beta \in \mathbb{R}_{>0}$. The first condition is the important one, while the latter ensures that $I(X_t; X_{t + \tau}) \xrightarrow{\tau \to \infty} 0$. We also may replace the latter condition by this one.
 
     This was straight forward. The challenging part is to define what a  model is. In the case of Markov chains this seems trivial: We define a finite set of parameters (the transition probabilities), and we get a model over $\Sigma^*$, that is for every $n \in \mathbb{N}$ the model defines a probability measure over $\Sigma^n$. Thus:
 
@@ -94,11 +94,11 @@
     For our model $S$, we want power-law decay in the mutual information with respect to $\tau$ between \emph{any} two variables $X_t$, $X_{t + \tau}$, i.e. it has to hold for every $t$ and \emph{every} $S_n$. But what does this actually mean?
 
     \begin{definition}
-        We define $i_{S_n}(\tau)$ and $I_{S_n}(\tau)$ to be the minimal and maximal mutual information between any two variables of $S_n$ with distance $\tau$. Formally, let $X_t, X_{t + \tau}$ ($t + \tau \leq n$) be random variables with distributions defined by $S_n$. Then:
+        We define $i_{S_n}(\tau)$ and $I_{S_n}(\tau)$ to be the minimal and maximal mutual information between any two variables of $S_n$ with distance $\tau$. Formally, let $X_t; X_{t + \tau}$ ($t + \tau \leq n$) be random variables with distributions defined by $S_n$. Then:
         \vspace{-1em}
         \begin{itemize}
-            \item $i_{S_n}(\tau) \coloneqq \min_{t \in [n - \tau]} I(X_t, X_{t + \tau}) \quad ,$
-            \item $I_{S_n}(\tau) \coloneqq \max_{t \in [n - \tau]} I(X_t, X_{t + \tau}) \quad .$
+            \item $i_{S_n}(\tau) \coloneqq \min_{t \in [n - \tau]} I(X_t; X_{t + \tau}) \quad ,$
+            \item $I_{S_n}(\tau) \coloneqq \max_{t \in [n - \tau]} I(X_t; X_{t + \tau}) \quad .$
         \end{itemize}
     \end{definition}
 
@@ -126,7 +126,7 @@
     \begin{definition}
         We define $\overline{i_{S_n}}$ to be the minimal mutual information between any two variables over $S_n$ with arbitrary distance $\tau$. Formally, let $X_i, X_j$ ($1 \leq i < j \leq n$) be random variables with distributions defined by $S_n$. Then:
         \[
-            \overline{i_{S_n}} \coloneqq \min_{(i, j) \in [n]^2, i < j} I(X_i, X_j) = \min_{\tau \in [n - 1]} i_{S_n}(\tau) \quad .
+            \overline{i_{S_n}} \coloneqq \min_{(i, j) \in [n]^2, i < j} I(X_i; X_j) = \min_{\tau \in [n - 1]} i_{S_n}(\tau) \quad .
         \]
     \end{definition}
 
@@ -137,22 +137,22 @@
 
     \begin{theorem}[Every Token has Power-Law Decay in Models with the Bulk Marginal Property and Weak Power-Law Behavior]
         \label{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior}
-        Let $S$ be a model that satisfies the bulk marginal property and exhibits weak lower bound power-law behavior. Then, there exists an $\alpha \in \mathbb{R}_{>0}$ s.t. for every $X_t$, $I(X_{t}, X_{t + \tau}) \in \Omega(\tau^{-\alpha})$ (where $X_t$ and $X_{t + \tau}$ are sampled over $S_{t + \tau}$, or, equivalently, any $S_{t + \tau + k}$).
+        Let $S$ be a model that satisfies the bulk marginal property and exhibits weak lower bound power-law behavior. Then, there exists an $\alpha \in \mathbb{R}_{>0}$ s.t. for every $X_t$, $I(X_{t}; X_{t + \tau}) \in \Omega(\tau^{-\alpha})$ (where $X_t$ and $X_{t + \tau}$ are sampled over $S_{t + \tau}$, or, equivalently, any $S_{t + \tau + k}$).
     \end{theorem}
     \vspace{-2.5em}
     \begin{proof}
         Since $S$ has weak lower bound power-law behavior, there exist $\alpha', c' \in \mathbb{R}_{>0}$ s.t. $\overline{i_{S_n}} \geq c' n^{-\alpha'}$. Then, for every $t \in \mathbb{N}$, we have for $n \coloneqq t + \tau$ by the definition of $\overline{i_{S_n}}$:
         \begin{align*}
-            I(X_{t}, X_{t + \tau}) &\geq \overline{i_{S_{t + \tau}}} \\
+            I(X_{t}; X_{t + \tau}) &\geq \overline{i_{S_{t + \tau}}} \\
             &\geq c' (t + \tau)^{-\alpha'} \\
             &= c' \tau^{-\alpha'} (\frac{t}{\tau} + 1)^{-\alpha'} \\
             &\geq c' \tau^{-\alpha'} (t + 1)^{-\alpha'} \quad .
         \end{align*}
-        Since $S$ is has the bulk marginal property, this inequality holds when sampling over any $S_{t + \tau + k}, \ k \in \mathbb{N}$. Now, set $\alpha \coloneqq \alpha'$ and $c \coloneqq c' (t + 1)^{-\alpha'}$. Note that $\alpha$ does not depend on $t$. Finally, we see that $I(X_{t}, X_{t + \tau}) \geq c \tau^{-\alpha}$. Thus, we get $I(X_{t}, X_{t + \tau}) \in \Omega(\tau^{-\alpha})$.
+        Since $S$ is has the bulk marginal property, this inequality holds when sampling over any $S_{t + \tau + k}, \ k \in \mathbb{N}$. Now, set $\alpha \coloneqq \alpha'$ and $c \coloneqq c' (t + 1)^{-\alpha'}$. Note that $\alpha$ does not depend on $t$. Finally, we see that $I(X_{t}; X_{t + \tau}) \geq c \tau^{-\alpha}$. Thus, we get $I(X_{t}; X_{t + \tau}) \in \Omega(\tau^{-\alpha})$.
     \end{proof}
 
     \begin{remark}
-        If additionally $S$ had decaying behavior, then of course we would also have $I(X_{t}, X_{t + \tau}) \xrightarrow{\tau \to \infty} 0$.
+        If additionally $S$ had decaying behavior, then of course we would also have $I(X_{t}; X_{t + \tau}) \xrightarrow{\tau \to \infty} 0$.
     \end{remark}
 
     \begin{remark}
@@ -160,7 +160,7 @@
     \end{remark}
 
     \begin{remark}
-        It is crucial for $S$ to have the bulk marginal property in theorem~\ref{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior}, or else $I(X_{t}, X_{t + \tau})$ might depend on $S_n$, and we cannot exclude $I(X_{t}, X_{t + \tau}) \xrightarrow{n \to \infty} 0$.
+        It is crucial for $S$ to have the bulk marginal property in theorem~\ref{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior}, or else $I(X_{t}; X_{t + \tau})$ might depend on $S_n$, and we cannot exclude $I(X_{t}; X_{t + \tau}) \xrightarrow{n \to \infty} 0$.
     \end{remark}
 
 % \pagebreak

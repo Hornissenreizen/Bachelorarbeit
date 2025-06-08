@@ -2,7 +2,7 @@
 
 \begin{document}
 \section{Binary Tree Tensor Networks}
-    We are interested in the model space of binary tree tensor networks as shown in figure~\ref{fig:binary_tree_tensor_network}. We assume that every network is non-negative and normalized, and we set $f \equiv \text{id}$.
+    We are interested in the model space of binary tree tensor networks as shown in figure~\ref{fig:binary_tree_tensor_network}. We assume that every network is non-negative and normalized, and we set $f \equiv \text{id}$ (see appendix~\ref{section:tensor_networks}).
 
     \begin{figure}[h]
         \centering
@@ -55,7 +55,7 @@
 
     Alternatively, if we wanted a model with bulk marginal property that itself is also an element of our specified model space, we might ask ourselves, how we can construct a bigger tensor network while preserving the distribution in its leading random variables.
 
-    Let's analyze the following example: Say we wanted to integrate the tree tensor network for $n = 2$ in figure~\ref{fig:binary_tree_tensor_network} into a bigger tree tensor network with $n = 4$. Note that by assumptions the tensor networks are non-negative and normalized, and $f \equiv \text{id}$. Thus, in order for our new tensor network to have the bulk marginal property, contracting the smaller network must be equivalent to contracting the bigger one, where the new nodes (in this case $T'_{1,3}$ and $T'_{1,4}$) are contracted with all-ones vectors, see figure~\ref{fig:bmp_model_equiv}.
+    Let's analyze the following example: Say we wanted to integrate the tree tensor network for $n = 2$ in figure~\ref{fig:binary_tree_tensor_network} into a bigger tree tensor network with $n = 4$. Note that by assumptions the tensor networks are non-negative and normalized, and $f \equiv \text{id}$. Based on proposition~\ref{proposition:marginalized_tensor_network}, it follows that in order for our new tensor network to have the bulk marginal property, contracting the smaller network must be equivalent to contracting the bigger one, where the new nodes (in this case $T'_{1,3}$ and $T'_{1,4}$) are contracted with all-ones vectors, see figure~\ref{fig:bmp_model_equiv}.
 
     \begin{figure}[h]
         \centering
@@ -195,7 +195,7 @@
 
     Finally, $T_{3, 1}$ stores the entire probability distribution:
     \[
-        T_{3, 1}: |\Sigma|^2 \times |\Sigma|^2 \mapsto [0, 1], ((X'_1, X'_2), (X'_3, X'_4)) \mapsto p(X'_1, X'_2, X'_3, X'_4) \quad .
+        T_{3, 1}: \mathbb{R}^{|\Sigma|^2} \times \mathbb{R}^{|\Sigma|^2} \mapsto [0, 1], ((X'_1, X'_2), (X'_3, X'_4)) \mapsto p(X'_1, X'_2, X'_3, X'_4) \quad .
     \]
     Thus, based on the construction we see that upon contracting the network with an initialization defined by $w \in \Sigma^4$, we get $S_{4, \mathcal{T}}(w) = p(w)$ as desired.
 
@@ -209,7 +209,7 @@
     One natural question is what happens if we restrict the number of parameters. Intuitively, if we don't have exponentially many parameters with respect to the word length, we won't be able to construct \emph{every} probability distribution.
 
     However, when modelling natural language for example, we really aren't interested in the most general case of probability distributions.
-    For example, we are interested in models with power-law behavior.
+    For example, we are interested in specific subset of models with power-law behavior.
     % For example, for a fixed word length $n$, we might want behavior similar to large scale time invariance (see definition~\ref{definition:large_scale_time_invariance}).
     Moreover, note that for a fixed $n$, the constraint of the bulk marginal property has no restrictive effect on the space of possible probability distributions.
 
@@ -228,7 +228,7 @@
     As we might expect, PCBTTN are not able to model every possible probability distribution, as generally we would need exponentially many parameters. To give precise evidence for this fact, we will show that certain distributions simply cannot be modeled.
 
     \begin{theorem}
-        PCBTTN are not universal approximators.
+        PCBTTN aren't universal approximators.
     \end{theorem}
     \begin{proof}
         Let's analyze the graph of a tree tensor network of size $n = 2^k$ defining a tensor $T$ of order $n$. We partition the random variables into two parts: The first $\frac{n}{2}$ ones, and the final $\frac{n}{2}$ ones. Hence, we have the partition $\{\textcolor{blue}{A}, \textcolor{red}{B}\}$ with $\textcolor{blue}{A} = \{X_1, \dots, X_{\frac{n}{2}}\}$ and $\textcolor{red}{B} = \{X_{\frac{n}{2} + 1}, \dots, X_n\}$. Let's analyze the matrix
@@ -280,7 +280,90 @@
     \end{proof}
 
     \subsection{Power-Law Behavior in PCBTTN}
-    % from below
-    % from above
+    Now, the question is whether PCBTTN are still capable of modelling some probability distributions with power-law behavior. As it turns out, we can easily construct families of PCBTTN that satisfy either strong lower bound power-law behavior or upper bound power-law behavior.
 
+    \begin{theorem}
+        PCBTTN are capable of strong lower bound power-law behavior.
+    \end{theorem}
+    \begin{proof}
+        Again, we show an explicit construction for the case $n = 4$ which can easily be generalized to arbitrary sizes. We aim to model the probability distribution
+        \[
+            p(X_1, \dots, X_n) =
+            \begin{cases}
+                \frac{1}{|\Sigma|} & \text{if } X_1 = \cdots = X_n \\
+                0 & \text{otherwise}
+            \end{cases}
+            \quad .
+        \]
+        Clearly, this distributions implies a constant mutual information $I(X_i; X_j)$ for any pair $X_i, X_j$.
+
+        So, how do we implement it? The graph of our network is depicted in figure~\ref{fig:binary_tree_tensor_network_n_equals_four_2}.
+        \begin{figure}[h]
+            \centering
+            \begin{tikzpicture}[
+                every node/.style={circle, draw, minimum size=8mm, inner sep=0pt},
+                level distance=10mm,
+                sibling distance=10mm,
+                edge from parent/.style={draw},
+                level 1/.style={sibling distance=20mm},
+                level 2/.style={sibling distance=10mm}
+            ]
+
+            % Tree with 4 leaves
+            \node[draw=none] at (1,0) {$n=4$};
+            \node (t31) at (1, -1) {$T_{3,1}$} [grow=down]
+            child {node (t21a) {$T_{2,1}$}
+                child {node (t11c) {$T_{1,1}$}}
+                child {node (t13) {$T_{1,2}$}}}
+            child {node (t22) {$T_{2,2}$}
+                child {node (t14) {$T_{1,3}$}}
+                child {node (t15) {$T_{1,4}$}}};
+            \draw (t11c) -- ++(0,-0.7);
+            \draw (t13) -- ++(0,-0.7);
+            \draw (t14) -- ++(0,-0.7);
+            \draw (t15) -- ++(0,-0.7);
+
+            \end{tikzpicture}
+            \caption{Model structure of binary tree tensor networks for $n = 2^k = 4$.}
+            \label{fig:binary_tree_tensor_network_n_equals_four_2}
+        \end{figure}
+        
+        We start by initializing the bottom matrices $T_{1,k}$. We set them to identity matrices.
+
+        Next, the tensors $T_{2,k}$ check for equality of their child tensor outputs and in case of equality return the one-hot encoded vector representing the shared random variable. Hence, they define the map
+        \[
+            T_{2,1}: \mathbb{R}^{|\Sigma|} \times \mathbb{R}^{|\Sigma|} \mapsto \mathbb{R}^{|\Sigma|}, (X_1, X_2) \mapsto
+            \begin{cases}
+                \bm{e_i} & \text{if } X_1 = X_2 = c_i \\
+                \bm{0} & \text{otherwise}
+            \end{cases}
+            \quad ,
+        \]
+        where $c_i$ is the i-th character in $\Sigma$, and $\bm{e_i}$ is the i-th standard basis vector. $T_{2,2}$ is defined similarly.
+
+        The matrix $T_{3,1}$ then does the final equality check of its child tensor outputs, i.e.
+        \[
+            T_{3,1}: \mathbb{R}^{|\Sigma|} \times \mathbb{R}^{|\Sigma|} \mapsto [0, 1], (X_1 = X_2, X_3 = X_4) \mapsto \bm{1}[X_1 = X_2 = X_3 = X_4] \cdot \frac{1}{|\Sigma|} \quad .
+        \]
+        Based on our construction, it is apparent that the tensor network implements the desired probability distributions $p$ with strong lower bound power-law behavior. Note that we only used a maximum axis-size of $|\Sigma|$ which stays constant for growing $n$.
+    \end{proof}
+
+    \begin{theorem}
+        PCBTTN are capable of upper bound power-law behavior.
+    \end{theorem}
+    \begin{proof}
+        We aim to implement the uniform probability distribution
+        \[
+            p(X_1, \dots, X_n) \equiv \frac{1}{|\Sigma|^n} \quad .
+        \]
+        Of course, this implies a uniform probability distribution between any pair $X_i, X_j$ when marginalizing over the other variables. This implies that $I(X_i;X_j) = 0$, as they are independent.
+
+        What we need to to is simply initialize the tensors $T_{1,k}$ to all-ones vectors, as it's a matrix with only one column so to speak.
+
+        All the other tensors are then just scalars with the scalar value of $1$. The top most matrix in the network is also a scalar, but is set to $\frac{1}{|\Sigma|^n}$ instead.
+
+        Apparently, this network implements the probability distribution $p$. Note that we only used axes-sizes of $1$.
+    \end{proof}
+
+    These theorems were relatively straightforward. However, it remains to be determined whether we can combine upper bound and strong lower bound power-law behavior in a single PCBTTN, i.e. whether PCBTTN are capable of strong power-law behavior.
 \end{document}

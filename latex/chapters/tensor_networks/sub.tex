@@ -1,53 +1,97 @@
 \documentclass[../../main.tex]{subfiles}
 
 \begin{document}
+% \section{Tensor Networks}
+%     \label{section:tensor_networks}
+%     Our goal now is to focus on a subclass of models over $\Sigma^*$. To this end, we analyze \emph{tensor networks}.
+
+%     \bigskip
+%     We denote a tensor \( T_v \) with \( k \) axes of sizes \( D_v = \{d_1, \dots, d_k\} \) as a function
+%     \[
+%     T_v : [d_1] \times \dots \times [d_k] \mapsto \mathbb{R} \quad .
+%     \]
+%     As a shorthand, we write
+%     \[
+%         [D_v] \coloneqq [d_1] \times \dots \times [d_k] \quad .
+%     \]
+%     Since indexing is usually clear from context, we treat \( D_v \) as a multiset of axis sizes.
+
+%     Given two tensors \( T_u \) and \( T_v \) that share a common axis of size \( d_e \), their contraction over this axis produces a new tensor \( T_C \) with dimension set
+%     \[
+%     D_C = (D_u \setminus \{d_e\}) \cup (D_v \setminus \{d_e\}) \quad ,
+%     \]
+%     defined as
+%     \[
+%     T_C(i) = \sum_{i_e \in [d_e]} T_u(i_{D_u}, i_{e}) \cdot T_v(i_{D_v}, i_{e}) \quad ,
+%     \]
+%     where \( i \in [D_C] \). Note that $d_e \not \in D_C$, which is why we explicitly included index $i_{e}$ in the summation.
+
+%     \begin{definition}[Tensor Network over \( \Sigma^n \)]
+%     A \emph{tensor network} \( \mathcal{T} \) over \( \Sigma^n \) is defined by a graph \( G = (V, E) \) with the following structure:
+%     \begin{itemize}
+%         \item \( V \) is the set of vertices, where each vertex \( v = (\text{layer}, \text{index}) \in V \) corresponds to a tensor \( T_v \) with axis sizes \( D_v = \{d_1, \dots, d_k\} \). Let \( V_{\text{layer}} \subseteq V \) denote the set of all vertices at a given layer.
+        
+%         \item The input set \( I = (T_{0,1}, \dots, T_{0,n}) \subset V \) consists of tensors each having a single axis of size \( |\Sigma| \). These serve as the one-hot-encoded inputs corresponding to a string \( w \in \Sigma^n \).
+        
+%         \item \( E \subseteq \{\{u, v\} \mid u \in V_l,\, v \in V_{l+1}\} \) is the set of edges. Each edge \( e = \{u, v\} \) represents a shared index of size \( d_e \) between tensors \( T_u \) and \( T_v \), which is summed over during contraction.
+        
+%         \item The usual tensor network constrains: For each vertex \( v \in V \), the degree \( \deg(v) \) must match the number of axes \( |D_v| \), and shared indices must correspond to same axis sizes.
+%     \end{itemize}
+
+%     Once the input tensors are initialized with one-hot encodings derived from a string \( w \in \Sigma^n \), the network computes a scalar output \( \mathcal{T}(w) \). This induces a probability distribution over \( \Sigma^n \) defined by:
+%     \[
+%     S_{n, \mathcal{T}}(w) \coloneqq \frac{f(\mathcal{T}(w))}{\sum_{w' \in \Sigma^n} f(\mathcal{T}(w'))} \quad ,
+%     \]
+%     where $f: \mathbb{R} \mapsto \mathbb{R}_{\geq 0}$ is any arbitrary function like $f \equiv \exp$.
+%     \end{definition}
+
+
+
+
 \section{Tensor Networks}
-    Our goal now is to focus on a subclass of models over $\Sigma^*$. To this end, we analyze \emph{tensor networks}.
+\label{section:tensor_networks}
+Our goal is to define a class of models over strings. We begin by constructing a model for strings of a fixed length \( n \), i.e., over \( \Sigma^n \), using the formalism of \emph{tensor networks}.
 
-    \bigskip
-    We denote a tensor \( T_v \) with \( k \) axes of sizes \( D_v = \{d_1, \dots, d_k\} \) as a function
-    \[
-    T_v : [d_1] \times \dots \times [d_k] \mapsto \mathbb{R} \quad .
-    \]
-    As a shorthand, we write
-    \[
-        [D_v] \coloneqq [d_1] \times \dots \times [d_k] \quad .
-    \]
-    Since indexing is usually clear from context, we treat \( D_v \) as a multiset of axis sizes.
+\bigskip
+A tensor \( T \) is a multi-dimensional array of real numbers. We denote a tensor \( T_v \) with \( k \) axes and a corresponding tuple of dimensions \( D_v = (d_1, \dots, d_k) \) as a map:
+\[
+T_v : [d_1] \times \dots \times [d_k] \to \mathbb{R} \quad .
+\]
+As a shorthand, we write \( [D_v] \coloneqq [d_1] \times \dots \times [d_k] \).
 
-    Given two tensors \( T_u \) and \( T_v \) that share a common axis of size \( d_e \), their contraction over this axis produces a new tensor \( T_C \) with dimension set
-    \[
-    D_C = (D_u \setminus \{d_e\}) \cup (D_v \setminus \{d_e\}) \quad ,
-    \]
-    defined as
-    \[
-    T_C(i) = \sum_{i_e \in [d_e]} T_u(i_{D_u}, i_{e}) \cdot T_v(i_{D_v}, i_{e}) \quad ,
-    \]
-    where \( i \in [D_C] \). Note that $d_e \not \in D_C$, which is why we explicitly included index $i_{e}$ in the summation.
+The fundamental operation on tensors is \emph{contraction}, which generalizes matrix multiplication. Given two tensors, say \( T_u \) with indices \( (j_1, \dots, j_m, i_e) \) and \( T_v \) with indices \( (i_e, l_1, \dots, l_p) \), their contraction over the shared index \( i_e \) of size \( d_e \) produces a new tensor \( T_C \). The new tensor's indices are the union of the uncontracted indices from \( T_u \) and \( T_v \):
+\[
+T_C(j_1, \dots, j_m, l_1, \dots, l_p) = \sum_{i_e=1}^{d_e} T_u(j_1, \dots, j_m, i_e) \cdot T_v(i_e, l_1, \dots, l_p) \quad .
+\]
 
-    \begin{definition}[Tensor Network over \( \Sigma^n \)]
-    A \emph{tensor network} \( \mathcal{T} \) over \( \Sigma^n \) is defined by a graph \( G = (V, E) \) with the following structure:
-    \begin{itemize}
-        \item \( V \) is the set of vertices, where each vertex \( v = (\text{layer}, \text{index}) \in V \) corresponds to a tensor \( T_v \) with axis sizes \( D_v = \{d_1, \dots, d_k\} \). Let \( V_{\text{layer}} \subseteq V \) denote the set of all vertices at a given layer.
-        
-        \item The input set \( I = (T_{0,1}, \dots, T_{0,n}) \subset V \) consists of tensors each having a single axis of size \( |\Sigma| \). These serve as the one-hot-encoded inputs corresponding to a string \( w \in \Sigma^n \).
-        
-        \item \( E \subseteq \{\{u, v\} \mid u \in V_l,\, v \in V_{l+1}\} \) is the set of edges. Each edge \( e = \{u, v\} \) represents a shared index of size \( d_e \) between tensors \( T_u \) and \( T_v \), which is summed over during contraction.
-        
-        \item The usual tensor network constrains: For each vertex \( v \in V \), the degree \( \deg(v) \) must match the number of axes \( |D_v| \), and shared indices must correspond to same axis sizes.
-    \end{itemize}
+We now define a specific architecture relevant to our work.
 
-    Once the input tensors are initialized with one-hot encodings derived from a string \( w \in \Sigma^n \), the network computes a scalar output \( \mathcal{T}(w) \). This induces a probability distribution over \( \Sigma^n \) defined by:
-    \[
-    S_{n, \mathcal{T}}(w) \coloneqq \frac{f(\mathcal{T}(w))}{\sum_{w' \in \Sigma^n} f(\mathcal{T}(w'))} \quad ,
-    \]
-    where $f: \mathbb{R} \mapsto \mathbb{R}_{\geq 0}$ is any arbitrary function like $f \equiv \exp$.
-    \end{definition}
+\begin{definition}[Layered Tensor Network over \( \Sigma^n \)]
+A \emph{layered tensor network} \( \mathcal{T} \) over \( \Sigma^n \) is defined by a graph \( G = (V, E) \) with the following structure:
+\begin{itemize}
+    \item \( V \) is a set of vertices, partitioned into layers \( V_0, V_1, \dots, V_L \). Each vertex \( v \in V \) corresponds to a tensor \( T_v \).
+
+    \item The input layer \( V_0 = \{v_{0,1}, \dots, v_{0,n}\} \) consists of \( n \) vertices. The corresponding tensors \( \{T_{v_{0,1}}, \dots, T_{v_{0,n}}\} \) are vectors (tensors with one axis) of size \( |\Sigma| \). These are initialized with a one-hot encoding of a string \( w \in \Sigma^n \).
+
+    \item \( E \) is the set of edges, representing contractions. Edges only connect vertices in adjacent layers, i.e., \( E \subseteq \bigcup_{l=0}^{L-1} \{\{u, v\} \mid u \in V_l, v \in V_{l+1}\} \).
+
+    \item For any tensor \( T_v \), its number of axes must equal the degree of its corresponding vertex \( v \), i.e., \( |D_v| = \deg(v) \). For any edge \( e = \{u, v\} \in E \), the corresponding axes in \( T_u \) and \( T_v \) must have the same dimension.
+\end{itemize}
+
+The full contraction of the network, after initializing the input tensors with a string \( w \), yields a scalar output \( \mathcal{T}(w) \). This scalar induces a probability distribution over \( \Sigma^n \) via:
+\[
+S_{n, \mathcal{T}}(w) \coloneqq \frac{f(\mathcal{T}(w))}{\sum_{w' \in \Sigma^n} f(\mathcal{T}(w'))} \quad ,
+\]
+where \( f: \mathbb{R} \to \mathbb{R}_{\ge 0} \) is a suitable non-negative function, such as the exponential function \( f(x) = \exp(x) \).
+\end{definition}
+
+
 
     \begin{figure}[h]
     \center
     \begin{tikzpicture}[
-        node distance=1.8cm and 2.5cm,
+        % node distance=1.8cm and 2.5cm,
+        node distance=1cm and 1.5cm,
         every node/.style={draw, circle, minimum size=1.2cm}
     ]
 
@@ -74,6 +118,9 @@
     \draw (h2) -- (o1);
     \draw (h3) -- (o1);
 
+    \draw (i1) -- +(0, -1);
+    \draw (i2) -- +(0, -1);
+    \draw (i3) -- +(0, -1);
     % Layer labels
     \node[draw=none, below=0.2cm of i2] {Input Layer};
     \end{tikzpicture}
@@ -101,47 +148,64 @@
     \end{definition}
 
 
-    \begin{lemma}
-        \label{lemma:normalized_tensor_networks}
+    \begin{proposition}
+        \label{proposition:marginalized_tensor_network}
         Let $J \subseteq [n]$ and let $\mathcal{T}$ be a tensor network over $\Sigma^n$. Define a modified network $\mathcal{T}_J$ where for all $j \in J$, the input tensor $T_{0,j}$ is initialized to the all-ones vector (i.e., $\mathbf{1} \in \mathbb{R}^{|\Sigma|}$). Then for any $w \in \Sigma^{[n] \setminus J}$:
         \[
             \sum_{w_J \in \Sigma^{|J|}} \mathcal{T}(w_J, w) = \mathcal{T}_J(w) \quad .
         \]
-    \end{lemma}
+    \end{proposition}
+    % \begin{proof}
+    % We proceed by induction on the size of the subset \( J \subseteq [n] \).
+
+    % \textbf{Base case:} \( |J| = 0 \).  
+    % Then \( J = \emptyset \), so \( \mathcal{T}_J = \mathcal{T} \), and the sum over \( w_J \in \Sigma^{|J|} \) is a sum over a singleton (the empty word), yielding:
+    % \[
+    %     \sum_{w_J \in \Sigma^0} \mathcal{T}(w_J, w) = \mathcal{T}(w),
+    % \]
+    % and since \( \mathcal{T}_J(w) = \mathcal{T}(w) \), the base case holds.
+
+    % \textbf{Inductive step:}  
+    % Assume the lemma holds for all subsets of size \( k \), and let \( J \subseteq [n] \) with \( |J| = k+1 \). Pick any \( j_0 \in J \), and define \( J' = J \setminus \{j_0\} \), which has size \( k \). By the inductive hypothesis, for any \( w \in \Sigma^{[n] \setminus J} \), we have:
+    % \[
+    %     \sum_{w_{J'} \in \Sigma^{k}} \mathcal{T}(w_{J'}, w, w_{j_0}) = \mathcal{T}_{J'}(w, w_{j_0}) \quad ,
+    % \]
+    % where \( w_{j_0} \in \Sigma \) varies over its values.
+
+    % Now consider the sum over all \( w_J \in \Sigma^{k+1} \), which we write as:
+    % \[
+    %     \sum_{w_{J'} \in \Sigma^k} \sum_{w_{j_0} \in \Sigma} \mathcal{T}(w_{J'}, w_{j_0}, w) \quad .
+    % \]
+    % By the inductive hypothesis, this equals:
+    % \[
+    %     \sum_{w_{j_0} \in \Sigma} \mathcal{T}_{J'}(w_{j_0}, w) \quad .
+    % \]
+    % Observe that in \( \mathcal{T}_{J'} \), the input tensor at position \( j_0 \) is still initialized to a one-hot vector, while the inputs at \( J' \) have been replaced with the all-ones vector.
+
+    % Now, note that the inner sum over \( w_{j_0} \) is equivalent to replacing the input at \( j_0 \) with the all-ones vector, since the sum represents a sum over vector dot products of vector $\bm{v}_{w_{j_0}} \coloneqq \mathcal{T}_{J'}(w_{j_0}, w)$ with one-hot encoded vectors. It follows from linearity that we can factor out $\bm{v}$, and the sum of the one-hot encoded vector yields the all-ones vector. Thus:
+    % \[
+    %     \sum_{w_{j_0} \in \Sigma} \mathcal{T}_{J'}(w_{j_0}, w) = \mathcal{T}_J(w) \quad .
+    % \]
+    % Hence, by induction, the lemma holds for all subsets \( J \subseteq [n] \).
+
+    % \end{proof}
     \begin{proof}
-    We proceed by induction on the size of the subset \( J \subseteq [n] \).
+The output $\mathcal{T}(w)$ is a multilinear function of its input tensors. Let's focus on the input tensor $T_{0,j}$ for some $j \in [n]$. We can express the network's output as a linear function of this input vector:
+\[
+    \mathcal{T}(w) = \langle A_j(w_{\setminus j}), T_{0,j} \rangle
+\]
+where $T_{0,j}$ is the one-hot vector for the symbol $w_j$, and $A_j(w_{\setminus j})$ is a tensor representing the contraction of the entire network *except* for $T_{0,j}$. The value of $A_j$ depends on all other inputs, denoted $w_{\setminus j}$.
 
-    \textbf{Base case:} \( |J| = 0 \).  
-    Then \( J = \emptyset \), so \( \mathcal{T}_J = \mathcal{T} \), and the sum over \( w_J \in \Sigma^{|J|} \) is a sum over a singleton (the empty word), yielding:
-    \[
-        \sum_{w_J \in \Sigma^0} \mathcal{T}(w_J, w) = \mathcal{T}(w),
-    \]
-    and since \( \mathcal{T}_J(w) = \mathcal{T}(w) \), the base case holds.
+Now, let's compute the marginal sum over all possible symbols for position $j$:
+\begin{align*}
+    \sum_{c \in \Sigma} \mathcal{T}(w_{\setminus j}, w_j=c) &= \sum_{c \in \Sigma} \langle A_j(w_{\setminus j}), \mathbf{e}_c \rangle \\
+    &= \langle A_j(w_{\setminus j}), \sum_{c \in \Sigma} \mathbf{e}_c \rangle \quad \text{(by linearity of the inner product)} \\
+    &= \langle A_j(w_{\setminus j}), \mathbf{1} \rangle
+\end{align*}
+where $\mathbf{e}_c$ is the one-hot vector for symbol $c$ and $\mathbf{1}$ is the all-ones vector. This last expression is precisely the definition of $\mathcal{T}_{\{j\}}(w_{\setminus j})$, where the input at position $j$ has been replaced by the all-ones vector.
 
-    \textbf{Inductive step:}  
-    Assume the lemma holds for all subsets of size \( k \), and let \( J \subseteq [n] \) with \( |J| = k+1 \). Pick any \( j_0 \in J \), and define \( J' = J \setminus \{j_0\} \), which has size \( k \). By the inductive hypothesis, for any \( w \in \Sigma^{[n] \setminus J} \), we have:
-    \[
-        \sum_{w_{J'} \in \Sigma^{k}} \mathcal{T}(w_{J'}, w, w_{j_0}) = \mathcal{T}_{J'}(w, w_{j_0}) \quad ,
-    \]
-    where \( w_{j_0} \in \Sigma \) varies over its values.
-
-    Now consider the sum over all \( w_J \in \Sigma^{k+1} \), which we write as:
-    \[
-        \sum_{w_{J'} \in \Sigma^k} \sum_{w_{j_0} \in \Sigma} \mathcal{T}(w_{J'}, w_{j_0}, w) \quad .
-    \]
-    By the inductive hypothesis, this equals:
-    \[
-        \sum_{w_{j_0} \in \Sigma} \mathcal{T}_{J'}(w_{j_0}, w) \quad .
-    \]
-    Observe that in \( \mathcal{T}_{J'} \), the input tensor at position \( j_0 \) is still initialized to a one-hot vector, while the inputs at \( J' \) have been replaced with the all-ones vector.
-
-    Now, note that the inner sum over \( w_{j_0} \) is equivalent to replacing the input at \( j_0 \) with the all-ones vector, since the sum represents a sum over vector dot products of vector $\bm{v}_{w_{j_0}} \coloneqq \mathcal{T}_{J'}(w_{j_0}, w)$ with one-hot encoded vectors. It follows from linearity that we can factor out $\bm{v}$, and the sum of the one-hot encoded vector yields the all-ones vector. Thus:
-    \[
-        \sum_{w_{j_0} \in \Sigma} \mathcal{T}_{J'}(w_{j_0}, w) = \mathcal{T}_J(w) \quad .
-    \]
-    Hence, by induction, the lemma holds for all subsets \( J \subseteq [n] \).
-
-    \end{proof}
+The proposition follows by applying this argument repeatedly for each $j \in J$.
+\end{proof}
 
     \begin{corollary}
         Let $\mathcal{T}$ be a tensor network over $\Sigma^n$, and let $\mathcal{T}_{[n]}$ be the network where all input tensors are initialized to the all-ones vector. Then:

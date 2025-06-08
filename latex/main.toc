@@ -11,20 +11,20 @@
 \contentsline {subsection}{\numberline {4.3}Restricting Parameters}{28}{subsection.4.3}%
 \contentsline {subsubsection}{\numberline {4.3.1}PCBTTN Aren't Universal Approximators}{29}{subsubsection.4.3.1}%
 \contentsline {subsection}{\numberline {4.4}Power-Law Behavior in PCBTTN}{30}{subsection.4.4}%
-\contentsline {section}{\numberline {A}Markov Chains}{31}{appendix.A}%
-\contentsline {subsection}{\numberline {A.1}Properties}{32}{subsection.A.1}%
-\contentsline {subsubsection}{\numberline {A.1.1}Irreducibility}{33}{subsubsection.A.1.1}%
-\contentsline {subsubsection}{\numberline {A.1.2}Aperiodicity}{35}{subsubsection.A.1.2}%
-\contentsline {subsection}{\numberline {A.2}Irreducible Aperiodic Markov Chains}{37}{subsection.A.2}%
-\contentsline {subsection}{\numberline {A.3}Perron-Frobenius Theorem}{38}{subsection.A.3}%
-\contentsline {section}{\numberline {B}Information Theory}{42}{appendix.B}%
-\contentsline {subsection}{\numberline {B.1}Entropy}{42}{subsection.B.1}%
-\contentsline {subsubsection}{\numberline {B.1.1}Joint, Conditional, and Cross Entropy}{44}{subsubsection.B.1.1}%
-\contentsline {subsubsection}{\numberline {B.1.2}Properties of Entropy}{45}{subsubsection.B.1.2}%
-\contentsline {subsection}{\numberline {B.2}Kullback-Leibler Divergence}{47}{subsection.B.2}%
-\contentsline {subsection}{\numberline {B.3}Mutual Information}{49}{subsection.B.3}%
-\contentsline {subsubsection}{\numberline {B.3.1}Data Processing Inequality}{52}{subsubsection.B.3.1}%
-\contentsline {subsection}{\numberline {B.4}Bounding Mutual Information via Matrix Rank of the Joint Distribution}{53}{subsection.B.4}%
-\contentsline {section}{\numberline {C}Tensor Networks}{54}{appendix.C}%
-\contentsline {subsection}{\numberline {C.1}Reshaping a Tensor by a Partition (Matricization)}{59}{subsection.C.1}%
-\contentsline {subsubsection}{\numberline {C.1.1}An Upper Bound for the Rank of Matrices in Tensor Networks}{60}{subsubsection.C.1.1}%
+\contentsline {section}{\numberline {A}Markov Chains}{33}{appendix.A}%
+\contentsline {subsection}{\numberline {A.1}Properties}{34}{subsection.A.1}%
+\contentsline {subsubsection}{\numberline {A.1.1}Irreducibility}{35}{subsubsection.A.1.1}%
+\contentsline {subsubsection}{\numberline {A.1.2}Aperiodicity}{37}{subsubsection.A.1.2}%
+\contentsline {subsection}{\numberline {A.2}Irreducible Aperiodic Markov Chains}{39}{subsection.A.2}%
+\contentsline {subsection}{\numberline {A.3}Perron-Frobenius Theorem}{40}{subsection.A.3}%
+\contentsline {section}{\numberline {B}Information Theory}{44}{appendix.B}%
+\contentsline {subsection}{\numberline {B.1}Entropy}{44}{subsection.B.1}%
+\contentsline {subsubsection}{\numberline {B.1.1}Joint, Conditional, and Cross Entropy}{46}{subsubsection.B.1.1}%
+\contentsline {subsubsection}{\numberline {B.1.2}Properties of Entropy}{47}{subsubsection.B.1.2}%
+\contentsline {subsection}{\numberline {B.2}Kullback-Leibler Divergence}{49}{subsection.B.2}%
+\contentsline {subsection}{\numberline {B.3}Mutual Information}{51}{subsection.B.3}%
+\contentsline {subsubsection}{\numberline {B.3.1}Data Processing Inequality}{54}{subsubsection.B.3.1}%
+\contentsline {subsection}{\numberline {B.4}Bounding Mutual Information via Matrix Rank of the Joint Distribution}{55}{subsection.B.4}%
+\contentsline {section}{\numberline {C}Tensor Networks}{56}{appendix.C}%
+\contentsline {subsection}{\numberline {C.1}Reshaping a Tensor by a Partition (Matricization)}{61}{subsection.C.1}%
+\contentsline {subsubsection}{\numberline {C.1.1}An Upper Bound for the Rank of Matrices in Tensor Networks}{62}{subsubsection.C.1.1}%
