@@ -55,7 +55,7 @@ Our goal is to define a class of models over strings. We begin by constructing a
 \bigskip
 A tensor \( T \) is a multi-dimensional array of real numbers. We denote a tensor \( T_v \) with \( k \) axes and a corresponding tuple of dimensions \( D_v = (d_1, \dots, d_k) \) as a map:
 \[
-T_v : [d_1] \times \dots \times [d_k] \to \mathbb{R} \quad .
+T_v : [d_1] \times \dots \times [d_k] \mapsto \mathbb{R} \quad .
 \]
 As a shorthand, we write \( [D_v] \coloneqq [d_1] \times \dots \times [d_k] \).
 
@@ -394,7 +394,7 @@ To define this mapping explicitly, let us fix an ordering for the indices within
     
 
     \subsubsection{An Upper Bound for the Rank of Matrices in Tensor Networks}
-    We can analyze these matrices, which depend on the partition $\{A, B\}$, of our tensor network. When picturing it as a graph, we can separate the states in $A$ from the states in $B$ with a cut. Metaphorically, we see that $A$ and $B$ \emph{communicate} over this cut. Hence, we might assume that if the associated bond dimensions are small, so is the mutual information between the two sets. In fact, this intuition is backed up by mathematical evidence:
+    We can analyze these matrices $[[T]]_{\mathcal{I}_A, \mathcal{I}_B}$ which depend on the partition $\{\mathcal{I}_A, \mathcal{I}_B\}$ of the indices of our tensor network. When picturing the network as a graph, we can separate the indices in $\mathcal{I}_A$ from the ones in $\mathcal{I}_B$ with a cut. Metaphorically, we see that $\mathcal{I}_A$ and $\mathcal{I}_B$ \emph{communicate} over this cut. Hence, we might assume that if the bond dimensions of the cut are small, so is the mutual information between the two associated sets of random variables. In fact, this intuition is backed up by mathematical evidence:
 
     \begin{theorem}
     \label{theorem:min_cut_caps_rank}
@@ -482,5 +482,13 @@ Furthermore, since $\operatorname{rank}\mathbf{U} \leq D_{\text{cut}}$ and $\ope
     \operatorname{rank}\bm{M} \le D_{\text{cut}} = \prod_{k=1}^{c} d_k \quad .
     $$
 \end{proof}
+
+    \begin{remark}
+        Such a cut that minimizes the product of the bond dimensions can be found by a standard min-cut algorithm using the logarithms of the axes sizes.
+    \end{remark}
+
+    \begin{remark}
+        Combining this theorem with theorem~\ref{theorem:mutual_information_is_bounded_by_log_rank}, we see that the mutual information between two blocks of random variables is upper bounded by the weight of the min-cut, where the values of the edges are set to the logarithm of the associated axes sizes.
+    \end{remark}
 
 \end{document}

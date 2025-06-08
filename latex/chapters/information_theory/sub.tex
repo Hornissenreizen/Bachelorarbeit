@@ -499,6 +499,7 @@ By definition of conditional mutual information:
 
 \subsection{Bounding Mutual Information via Matrix Rank of the Joint Distribution}
 \begin{theorem}
+    \label{theorem:mutual_information_is_bounded_by_log_rank}
     Let $X, Y$ be random variables from finite sets $\mathcal{X, Y}$, and let matrix $\bm{P}$ denote their joint probability distribution, i.e. $\bm{P}_{ij} = p(x_i, y_j)$. Let $r \coloneqq \operatorname{rank} \bm{P}$ denote the rank of matrix $\bm{P}$. Then we have
     \[
         I(X; Y) \leq \log r \quad .
@@ -523,5 +524,65 @@ By definition of conditional mutual information:
     \[
         I(X; Y) \leq I(X; Z) = H(Z) - H(Z \mid X) \leq H(Z) \leq \log r \quad .
     \]
+\end{proof}
+
+\pagebreak
+\subsection{Convergence of Mutual Information}
+\begin{theorem}
+Let $f$ be a function defined on a domain containing the sequence $\{x_n\}_{n=1}^\infty$ and its limit point $x_0$. Suppose there exist constants $C > 0$ and $p \in \mathbb{R}$ such that for all sufficiently large $n$:
+\[
+    |f(x_0) - f(x_n)| \le C n^p |x_0 - x_n|
+\]
+If the sequence $x_n$ converges to $x_0$ exponentially fast, then the sequence $f(x_n)$ converges to $f(x_0)$ exponentially fast.
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+    \item \textbf{Formalize the given conditions.} \\
+    The condition $|f(x_0) - f(x_n)| \le O(n^p)|x_0 - x_n|$ means that for some constant $K > 0$ and for all $n$ greater than some integer $N_1$:
+    \begin{equation}
+        |f(x_0) - f(x_n)| \le K n^p |x_0 - x_n| \label{eq:1}
+    \end{equation}
+    The exponential convergence of $x_n$ to $x_0$ means there exist a constant $D > 0$ and a rate $\rho \in (0, 1)$ such that for all $n$ greater than some integer $N_2$:
+    \begin{equation}
+        |x_0 - x_n| \le D \rho^n \label{eq:2}
+    \end{equation}
+
+    \item \textbf{Combine the inequalities.} \\
+    For any $n > \max(N_1, N_2)$, we can substitute the bound from \eqref{eq:2} into \eqref{eq:1}:
+    \begin{align*}
+        |f(x_0) - f(x_n)| &\le K n^p \left( D \rho^n \right) \\
+        &= (KD) n^p \rho^n
+    \end{align*}
+
+    \item \textbf{Show that the new bound is also exponential.} \\
+    The core of the proof is to show that the term $n^p \rho^n$ is itself bounded by an exponential decay. We know that for any polynomial term $n^p$ and any exponential term $r^n$ with $|r| < 1$, the exponential term dominates.
+
+    Let's choose a new rate $\sigma$ such that $\rho < \sigma < 1$. A convenient choice is $\sigma = \sqrt{\rho}$. Since $\rho \in (0,1)$, we have $\rho < \sqrt{\rho} < 1$.
+
+    Now consider the term $n^p \rho^n$. We want to show it can be bounded by $M \sigma^n$ for some constant $M$. Let's examine the sequence:
+    \[
+        a_n = \frac{n^p \rho^n}{\sigma^n} = n^p \left(\frac{\rho}{\sigma}\right)^n
+    \]
+    Let $r = \frac{\rho}{\sigma}$. Since $\sigma > \rho$, we have $r \in (0, 1)$. The limit of the sequence $a_n = n^p r^n$ as $n \to \infty$ is zero:
+    \[
+        \lim_{n \to \infty} a_n = \lim_{n \to \infty} n^p r^n = 0
+    \]
+    Since the sequence $\{a_n\}$ converges, it is bounded. Therefore, there exists a constant $M > 0$ such that $a_n \le M$ for all $n$. This gives us the bound:
+    \[
+        n^p \rho^n = a_n \sigma^n \le M \sigma^n
+    \]
+
+    \item \textbf{Final Conclusion.} \\
+    Substitute this result back into our main inequality:
+    \[
+        |f(x_0) - f(x_n)| \le (KD) (n^p \rho^n) \le (KD)(M \sigma^n)
+    \]
+    Let $C' = KDM$. Then we have:
+    \[
+        |f(x_0) - f(x_n)| \le C' \sigma^n
+    \]
+    Since $C'$ is a positive constant and $\sigma \in (0, 1)$, this is the definition of exponential convergence for the sequence $f(x_n)$ to the limit $f(x_0)$.
+\end{enumerate}
 \end{proof}
 \end{document}

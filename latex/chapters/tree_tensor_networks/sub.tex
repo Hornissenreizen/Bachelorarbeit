@@ -130,7 +130,7 @@
     It is apparent that this initialization ensures the equivalence of the models as depicted in figure~\ref{fig:bmp_model_equiv}. It is also clear that this method works when transitioning from any $n = 2^k$ to $n' = 2^{k+1}$. Note that we also didn't increase the sizes of the tensors (except for $T'_{2, 1}$, as it got another axis). Furthermore, when assuming all tensor entries are non-negative, then the new tensor network $\mathcal{T}'$ is also non-negative. This leads to the following observation:
 
     \begin{corollary}
-        Let $\mathcal{T}$ be a binary tree tensor network over $\Sigma^n, n = 2^k$. Then, there exists a binary tree tensor network $\mathcal{T}'$ over $\Sigma^{n'}, n' = 2^{k+1}$ s.t. the transition from $\mathcal{T}$ to $\mathcal{T}'$ complies with the bulk marginal property. Furthermore, $\mathcal{T}'$ complies with axes-sizes constrains (under the assumption of a maximum axis-size constrain which is increasing in $n$).
+        Let $\mathcal{T}$ be a binary tree tensor network over $\Sigma^n, n = 2^k$. Then, there exists a binary tree tensor network $\mathcal{T}'$ over $\Sigma^{n'}, n' = 2^{k+1}$ s.t. the transition from $\mathcal{T}$ to $\mathcal{T}'$ complies with the bulk marginal property. Furthermore, $\mathcal{T}'$ complies with axes sizes constrains (under the assumption of a maximum axis size constrain which is increasing in $n$).
     \end{corollary}
 
 \subsection{Binary Tree Tensor Networks are Universal Approximators}
@@ -140,7 +140,7 @@
 
     \begin{theorem}
         \label{theorem:bttn_are_universal_approximators}
-        Given any probability distribution $p: \Sigma^{2^k} \mapsto [0,1]$, we can always construct a binary tree tensor network $\mathcal{T}$ over $\Sigma^{2^k}$ s.t. $p \equiv S_{2^k, \mathcal{T}}$. (Where $\mathcal{T}$ has the properties mentioned in the beginning and axes-sizes of $|\Sigma|^{\frac{n}{2}}$ are allowed.)
+        Given any probability distribution $p: \Sigma^{2^k} \mapsto [0,1]$, we can always construct a binary tree tensor network $\mathcal{T}$ over $\Sigma^{2^k}$ s.t. $p \equiv S_{2^k, \mathcal{T}}$. (Where $\mathcal{T}$ has the properties mentioned in the beginning and axes sizes of $|\Sigma|^{\frac{n}{2}}$ are allowed.)
     \end{theorem}
     \vspace{-2.5em}
     \begin{proof}
@@ -215,14 +215,14 @@
 
     % Most decisively,  Our goal is to show that binary tree tensor networks are incapable of this when we cap the number of parameters (i.e. the tensor sizes).
 
-    Let's formalize what it means to cap the parameters. There are two approaches that come to my mind: Either cap the total number of parameters (the entries of \emph{all} tensors), or cap the axes-sizes and hence the size of each tensor individually. Of course, the latter approach implies that the total number of parameters are capped by $2n$ times the maximal number of parameters per tensor, as there are $2n-1$ many tensors in the network. Thus, it seems natural to cap the individual tensor sizes to ensure a \emph{good} distribution of parameters over the tensors (which means that there shouldn't be one very large tensor and many small tensors). We might do this by capping the axes-sizes, as this allows the tensors to be more "cube-like" and to not have one big axis and two smaller ones for example (note that most tensors have three axes).
+    Let's formalize what it means to cap the parameters. There are two approaches that come to my mind: Either cap the total number of parameters (the entries of \emph{all} tensors), or cap the axes sizes and hence the size of each tensor individually. Of course, the latter approach implies that the total number of parameters are capped by $2n$ times the maximal number of parameters per tensor, as there are $2n-1$ many tensors in the network. Thus, it seems natural to cap the individual tensor sizes to ensure a \emph{good} distribution of parameters over the tensors (which means that there shouldn't be one very large tensor and many small tensors). We might do this by capping the axes sizes, as this allows the tensors to be more "cube-like" and to not have one big axis and two smaller ones for example (note that most tensors have three axes).
 
-    Thus, let us assume we cap the axes-sizes. We could define an upper bound for every tensor individually in the network, or, for every layer, but for simplicity's sake we define an upper bound on the axes-sizes in the entire network. As it turns out, it also doesn't really matter which approach we choose when arguing with complexity bounds.
+    Thus, let us assume we cap the axes sizes. We could define an upper bound for every tensor individually in the network, or, for every layer, but for simplicity's sake we define an upper bound on the axes sizes in the entire network. As it turns out, it also doesn't really matter which approach we choose when arguing with complexity bounds.
 
-    So, we choose to cap the axes-sizes globally. To this end, let $d$ denote the biggest axis-size allowed. Now, there are multiple options again: First, $d$ could stay constant for every network of size $n = 2^k$. In this case, the parameters grow linearly in $n$ (since the number of tensors grows linearly). This, however, is probably too restrictive. The second approach is to let $d$ grow with $n$. Of course, if $d \coloneqq |\Sigma|^n$ (or even $d \coloneqq |\Sigma|^{\frac{n}{2}} = \left(\sqrt{|\Sigma|}\right)^n$ based on theorem~\ref{theorem:bttn_are_universal_approximators}), we won't have any restrictions and way too many parameters. Alternatively, we could try to find a smaller base $b$ for $d = b^n$. Another approach is to define $d(n) \in \mathcal{O}(n^p)$ for some $p \in \mathbb{N}$. This means that axes-sizes grow polynomially with respect to the word length $n$. Of course, this implies that every tensor grows polynomial in $n$ with $\mathcal{O}((n^p)^3) = \mathcal{O}(n^{3p})$, and hence the parameter complexity of the entire network grows with $\mathcal{O}(n^{3p+1})$.
+    So, we choose to cap the axes sizes globally. To this end, let $d$ denote the biggest axis size allowed. Now, there are multiple options again: First, $d$ could stay constant for every network of size $n = 2^k$. In this case, the parameters grow linearly in $n$ (since the number of tensors grows linearly). This, however, is probably too restrictive. The second approach is to let $d$ grow with $n$. Of course, if $d \coloneqq |\Sigma|^n$ (or even $d \coloneqq |\Sigma|^{\frac{n}{2}} = \left(\sqrt{|\Sigma|}\right)^n$ based on theorem~\ref{theorem:bttn_are_universal_approximators}), we won't have any restrictions and way too many parameters. Alternatively, we could try to find a smaller base $b$ for $d = b^n$. Another approach is to define $d(n) \in \mathcal{O}(n^p)$ for some $p \in \mathbb{N}$. This means that axes sizes grow polynomially with respect to the word length $n$. Of course, this implies that every tensor grows polynomial in $n$ with $\mathcal{O}((n^p)^3) = \mathcal{O}(n^{3p})$, and hence the parameter complexity of the entire network grows with $\mathcal{O}(n^{3p+1})$.
 
     % \bigskip
-    We see that polynomially growing parameters of the entire network with respect to $n$ is equivalent to polynomially growing axes-sizes. Hence, we may call such networks \emph{polynomially capped binary tree tensor networks}, or \emph{PCBTTN} for short.
+    We see that polynomially growing parameters of the entire network with respect to $n$ is equivalent to polynomially growing axes sizes. Hence, we may call such networks \emph{polynomially capped binary tree tensor networks}, or \emph{PCBTTN} for short.
 
     \subsubsection{PCBTTN Aren't Universal Approximators}
     As we might expect, PCBTTN are not able to model every possible probability distribution, as generally we would need exponentially many parameters. To give precise evidence for this fact, we will show that certain distributions simply cannot be modeled.
@@ -345,7 +345,7 @@
         \[
             T_{3,1}: \mathbb{R}^{|\Sigma|} \times \mathbb{R}^{|\Sigma|} \mapsto [0, 1], (X_1 = X_2, X_3 = X_4) \mapsto \bm{1}[X_1 = X_2 = X_3 = X_4] \cdot \frac{1}{|\Sigma|} \quad .
         \]
-        Based on our construction, it is apparent that the tensor network implements the desired probability distributions $p$ with strong lower bound power-law behavior. Note that we only used a maximum axis-size of $|\Sigma|$ which stays constant for growing $n$.
+        Based on our construction, it is apparent that the tensor network implements the desired probability distributions $p$ with strong lower bound power-law behavior. Note that we only used a maximum axis size of $|\Sigma|$ which stays constant for growing $n$.
     \end{proof}
 
     \begin{theorem}
@@ -362,7 +362,7 @@
 
         All the other tensors are then just scalars with the scalar value of $1$. The top most matrix in the network is also a scalar, but is set to $\frac{1}{|\Sigma|^n}$ instead.
 
-        Apparently, this network implements the probability distribution $p$. Note that we only used axes-sizes of $1$.
+        Apparently, this network implements the probability distribution $p$. Note that we only used axes sizes of $1$.
     \end{proof}
 
     These theorems were relatively straightforward. However, it remains to be determined whether we can combine upper bound and strong lower bound power-law behavior in a single PCBTTN, i.e. whether PCBTTN are capable of strong power-law behavior.
