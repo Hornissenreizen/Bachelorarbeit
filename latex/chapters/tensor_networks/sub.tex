@@ -192,15 +192,15 @@ where \( f: \mathbb{R} \to \mathbb{R}_{\ge 0} \) is a suitable non-negative func
     \begin{proof}
 The output $\mathcal{T}(w)$ is a multilinear function of its input tensors. Let's focus on the input tensor $T_{0,j}$ for some $j \in [n]$. We can express the network's output as a linear function of this input vector:
 \[
-    \mathcal{T}(w) = \langle A_j(w_{\setminus j}), T_{0,j} \rangle
+    \mathcal{T}(w) = \langle A_j(w_{\setminus j}), T_{0,j} \rangle \quad ,
 \]
-where $T_{0,j}$ is the one-hot vector for the symbol $w_j$, and $A_j(w_{\setminus j})$ is a tensor representing the contraction of the entire network *except* for $T_{0,j}$. The value of $A_j$ depends on all other inputs, denoted $w_{\setminus j}$.
+where $T_{0,j}$ is the one-hot vector for the symbol $w_j$, and $A_j(w_{\setminus j})$ is a tensor representing the contraction of the entire network \emph{except} for $T_{0,j}$. The value of $A_j$ depends on all other inputs, denoted $w_{\setminus j}$.
 
 Now, let's compute the marginal sum over all possible symbols for position $j$:
 \begin{align*}
     \sum_{c \in \Sigma} \mathcal{T}(w_{\setminus j}, w_j=c) &= \sum_{c \in \Sigma} \langle A_j(w_{\setminus j}), \mathbf{e}_c \rangle \\
     &= \langle A_j(w_{\setminus j}), \sum_{c \in \Sigma} \mathbf{e}_c \rangle \quad \text{(by linearity of the inner product)} \\
-    &= \langle A_j(w_{\setminus j}), \mathbf{1} \rangle
+    &= \langle A_j(w_{\setminus j}), \mathbf{1} \rangle \quad ,
 \end{align*}
 where $\mathbf{e}_c$ is the one-hot vector for symbol $c$ and $\mathbf{1}$ is the all-ones vector. This last expression is precisely the definition of $\mathcal{T}_{\{j\}}(w_{\setminus j})$, where the input at position $j$ has been replaced by the all-ones vector.
 
@@ -221,6 +221,7 @@ The proposition follows by applying this argument repeatedly for each $j \in J$.
             S_{n, \mathcal{T}}(w) = S_{n, \frac{\mathcal{T}}{|\mathcal{T}|}}(w) \quad .
         \]
     \end{lemma}
+    \pagebreak
     \begin{proof}
         Let $H$ be the set of non-input tensors in $\mathcal{T}$, and let $|H| = m$. In the induced normalized network, every tensor in $H$ is scaled by a factor $\alpha = \dfrac{1}{\sqrt[m]{|\mathcal{T}|}}$. Since the final output $\mathcal{T}(w)$ is a multilinear contraction over the tensors, this means the scalar output for any $w \in \Sigma^n$ becomes:
         \[
@@ -329,52 +330,82 @@ The proposition follows by applying this argument repeatedly for each $j \in J$.
         \caption{Contracting multiple tensors over one shared index is equivalent to contracting them individually with a single copy tensor.}
     \end{figure}
 
-    \subsection{Reshaping a Tensor by a Partition (Matricization)}
-    A tensor network defines a probability tensor with $|\Sigma|^n$ entries. However, we can reshape this tensor by grouping together some axes. To this end, we first define a \emph{partition}:
 
-    \begin{definition}
-        Let $I = \{1, 2, \dots, n\}$ be a set of indices. A \emph{partition} of $I$ is a collection of non-empty, pairwise disjoint subsets $\{I_1, I_2, \dots, I_k\}$ of $I$ whose union is $I$. That is:
-        \begin{enumerate}
-            \item $I_j \neq \emptyset$ for all $j \in \{1, \dots, k\}$
-            \item $I_j \cap I_l = \emptyset$ for all $j \neq l$
-            \item $\bigcup_{j=1}^k I_j = I$
-        \end{enumerate}
-        The subsets $I_j$ are called the \emph{parts} of the partition.
-    \end{definition}
 
-    In the context of a tensor with $n$ axes, a partition of its indices allows for grouping these axes together, effectively reshaping the tensor. Partitions with two parts allows us to represent a tensor by a matrix. To this end, we use the notation
-    % $\llbracket T \rrbracket_{A,B}$
-    $[[T]]_{A,B}$
-    to represent the reshaping of a tensor $T$ into a matrix based on the partition $\{A,B\}$. This operation, also known as \emph{matricization}, \emph{unfolding}, or \emph{flattening}, relies on partitioning the tensor's indices into two distinct sets, one for the rows and one for the columns of the new matrix. Formally:
 
-    \begin{definition}[Tensor Matricization]
-    Let $T$ be an order-$k$ tensor with indices in the set $I = \{1, 2, \dots, k\}$, and corresponding dimensions $d_1, d_2, \dots, d_k$. Let $\{A, B\}$ be a bipartition of $I$, such that $A \cup B = I$ and $A \cap B = \emptyset$. Let $A = \{a_1, \dots, a_{|A|}\}$ and $B = \{b_1, \dots, b_{|B|}\}$ be ordered sets of indices.
+    \pagebreak
+    \subsection{Reshaping a Tensor (Matricization)}
 
-    The matricization of $T$ with respect to the partition $\{A, B\}$ is the matrix $M = $ of size $D_A \times D_B$, where:
-    \begin{itemize}
-        \item The number of rows is $D_A = \prod_{j \in A} d_j$.
-        \item The number of columns is $D_B = \prod_{j \in B} d_j$.
-    \end{itemize}
-    An element $T_{i_1, i_2, \dots, i_k}$ of the tensor is mapped to an element $M_{\alpha, \beta}$ of the matrix, where the row index $\alpha$ and column index $\beta$ are "super-indices" formed from the indices in $A$ and $B$, respectively. Assuming a lexicographical ordering, the mapping is given by:
-    \begin{align*}
-        \alpha &= 1 + \sum_{j=1}^{|A|} (i_{a_j} - 1) \left( \prod_{l=j+1}^{|A|} d_{a_l} \right) \\
-        \beta &= 1 + \sum_{j=1}^{|B|} (i_{b_j} - 1) \left( \prod_{l=j+1}^{|B|} d_{b_l} \right)
-    \end{align*}
-    \end{definition}
+An order-$n$ tensor can be rearranged into a matrix by partitioning its indices into two disjoint sets. This operation, commonly known as \emph{matricization}, \emph{unfolding}, or \emph{flattening}, is fundamental for applying linear algebra tools to higher-order tensors. We denote the matricization of a tensor $T$ with respect to an index partition $(\mathcal{I}_A, \mathcal{I}_B)$ as $[[T]]_{\mathcal{I}_A, \mathcal{I}_B}$.
+
+\begin{definition}[Tensor Matricization]
+Let $T \in \mathbb{R}^{d_1 \times d_2 \times \dots \times d_n}$ be an order-$n$ tensor with index set $\mathcal{I} = \{1, 2, \dots, n\}$. Let $(\mathcal{I}_A, \mathcal{I}_B)$ be a bipartition of $\mathcal{I}$, such that $\mathcal{I}_A \cup \mathcal{I}_B = \mathcal{I}$ and $\mathcal{I}_A \cap \mathcal{I}_B = \emptyset$.
+
+The matricization of $T$ with respect to this partition is the matrix $\bm{M} = [[T]]_{\mathcal{I}_A, \mathcal{I}_B}$, of size $D_A \times D_B$, where:
+\begin{itemize}
+    \item The number of rows is $D_A = \prod_{i \in \mathcal{I}_A} d_i$.
+    \item The number of columns is $D_B = \prod_{j \in \mathcal{I}_B} d_j$.
+\end{itemize}
+The elements of $\bm{M}$ are obtained by mapping the elements of $T$. Specifically, an element $T_{i_1, i_2, \dots, i_n}$ is mapped to an element $\bm{M}_{\alpha, \beta}$, where the row index $\alpha$ is determined by the indices $\{i_k\}_{k \in \mathcal{I}_A}$ and the column index $\beta$ is determined by $\{i_k\}_{k \in \mathcal{I}_B}$.
+
+To define this mapping explicitly, let us fix an ordering for the indices within the partitions, such that $\mathcal{I}_A = \{a_1, \dots, a_{|\mathcal{I}_A|}\}$ and $\mathcal{I}_B = \{b_1, \dots, b_{|\mathcal{I}_B|}\}$. The multi-indices are then mapped to scalar indices, typically in lexicographical order, as follows:
+\begin{align*}
+    \alpha &= 1 + \sum_{j=1}^{|\mathcal{I}_A|} (i_{a_j} - 1) \left( \prod_{l=j+1}^{|\mathcal{I}_A|} d_{a_l} \right) \\
+    \beta  &= 1 + \sum_{j=1}^{|\mathcal{I}_B|} (i_{b_j} - 1) \left( \prod_{l=j+1}^{|\mathcal{I}_B|} d_{b_l} \right)
+\end{align*}
+\end{definition}
+
+
+
+    % \pagebreak
+    % \subsection{Reshaping a Tensor by a Partition (Matricization)}
+    % A tensor network defines a probability tensor with $|\Sigma|^n$ entries. However, we can reshape this tensor by grouping together some axes. To this end, we first define a \emph{partition}:
+
+    % \begin{definition}
+    %     Let $I = \{1, 2, \dots, n\}$ be a set of indices. A \emph{partition} of $I$ is a collection of non-empty, pairwise disjoint subsets $\{I_1, I_2, \dots, I_k\}$ of $I$ whose union is $I$. That is:
+    %     \begin{enumerate}
+    %         \item $I_j \neq \emptyset$ for all $j \in \{1, \dots, k\}$
+    %         \item $I_j \cap I_l = \emptyset$ for all $j \neq l$
+    %         \item $\bigcup_{j=1}^k I_j = I$
+    %     \end{enumerate}
+    %     The subsets $I_j$ are called the \emph{parts} of the partition.
+    % \end{definition}
+
+    % In the context of a tensor with $n$ axes, a partition of its indices allows for grouping these axes together, effectively reshaping the tensor. Partitions with two parts allows us to represent a tensor by a matrix. To this end, we use the notation
+    % % $\llbracket T \rrbracket_{A,B}$
+    % $[[T]]_{A,B}$
+    % to represent the reshaping of a tensor $T$ into a matrix based on the partition $\{A,B\}$. This operation, also known as \emph{matricization}, \emph{unfolding}, or \emph{flattening}, relies on partitioning the tensor's indices into two distinct sets, one for the rows and one for the columns of the new matrix. Formally:
+
+    % \begin{definition}[Tensor Matricization]
+    % Let $T$ be an order-$k$ tensor with indices in the set $I = \{1, 2, \dots, k\}$, and corresponding dimensions $d_1, d_2, \dots, d_k$. Let $\{A, B\}$ be a bipartition of $I$, such that $A \cup B = I$ and $A \cap B = \emptyset$. Let $A = \{a_1, \dots, a_{|A|}\}$ and $B = \{b_1, \dots, b_{|B|}\}$ be ordered sets of indices.
+
+    % The matricization of $T$ with respect to the partition $\{A, B\}$ is the matrix $M = $ of size $D_A \times D_B$, where:
+    % \begin{itemize}
+    %     \item The number of rows is $D_A = \prod_{j \in A} d_j$.
+    %     \item The number of columns is $D_B = \prod_{j \in B} d_j$.
+    % \end{itemize}
+    % An element $T_{i_1, i_2, \dots, i_k}$ of the tensor is mapped to an element $M_{\alpha, \beta}$ of the matrix, where the row index $\alpha$ and column index $\beta$ are "super-indices" formed from the indices in $A$ and $B$, respectively. Assuming a lexicographical ordering, the mapping is given by:
+    % \begin{align*}
+    %     \alpha &= 1 + \sum_{j=1}^{|A|} (i_{a_j} - 1) \left( \prod_{l=j+1}^{|A|} d_{a_l} \right) \\
+    %     \beta &= 1 + \sum_{j=1}^{|B|} (i_{b_j} - 1) \left( \prod_{l=j+1}^{|B|} d_{b_l} \right)
+    % \end{align*}
+    % \end{definition}
+
+    
 
     \subsubsection{An Upper Bound for the Rank of Matrices in Tensor Networks}
     We can analyze these matrices, which depend on the partition $\{A, B\}$, of our tensor network. When picturing it as a graph, we can separate the states in $A$ from the states in $B$ with a cut. Metaphorically, we see that $A$ and $B$ \emph{communicate} over this cut. Hence, we might assume that if the associated bond dimensions are small, so is the mutual information between the two sets. In fact, this intuition is backed up by mathematical evidence:
 
     \begin{theorem}
     \label{theorem:min_cut_caps_rank}
-Let $\mathcal{T}$ be a tensor represented by a tensor network over a set of physical indices $\mathcal{I} = \{i_1, \dots, i_N\}$. For any bipartition of these indices into sets $\mathcal{I}_A$ and $\mathcal{I}_B$, which induces a cut through a set of internal bonds $E_{cut} = \{e_1, \dots, e_c\}$ with dimensions $\{D_1, \dots, D_c\}$, the rank of the reshaped matrix $M$ corresponding to this partition is bounded by:
+Let $T$ be a tensor represented by a tensor network over a set of physical indices $\mathcal{I} = \{i_1, \dots, i_N\}$. For any bipartition of these indices into sets $\mathcal{I}_A$ and $\mathcal{I}_B$, which induces a cut through a set of internal bonds $E_{cut} = \{e_1, \dots, e_c\}$ with dimensions $\{d_1, \dots, d_c\}$, the rank of the reshaped matrix $\bm{M} \coloneqq [[T]]_{A,B}$ corresponding to this partition is bounded by:
 $$
-\text{rank}(M) \le \prod_{k=1}^{c} D_k
+\operatorname{rank} \bm{M} \leq \prod_{k=1}^{c} d_k \quad .
 $$
 \end{theorem}
 
 \begin{proof}
-A tensor network represents a tensor $\mathcal{T}$ by contracting a set of smaller tensors. Let's visualize a generic tensor network. A bipartition of the physical indices $(\mathcal{I}_A, \mathcal{I}_B)$ divides the graph of the network into two subgraphs.
+A tensor network represents a tensor $T$ by contracting a set of smaller tensors. Let's visualize a generic tensor network. A bipartition of the physical indices $(\mathcal{I}_A, \mathcal{I}_B)$ divides the graph of the network into two subgraphs.
 
 \begin{figure}[h!]
 \centering
@@ -401,14 +432,14 @@ A tensor network represents a tensor $\mathcal{T}$ by contracting a set of small
     \draw (T4) -- (T5);
     
     % Cut bonds
-    \draw[thick] (T2) -- (T4) node[midway, above, sloped] {$e_1 (D_1)$};
-    \draw[thick] (T3) -- (T4) node[midway, below, sloped] {$e_2 (D_2)$};
-    \draw[thick] (T3) -- (T5) node[midway, below, sloped] {$e_3 (D_3)$};
+    \draw[thick] (T2) -- (T4) node[midway, above, sloped] {$e_1 (d_1)$};
+    \draw[thick] (T3) -- (T4) node[midway, below, sloped] {$e_2 (d_2)$};
+    \draw[thick] (T3) -- (T5) node[midway, below, sloped] {$e_3 (d_3)$};
 
     % The cut
     \draw[dashed, red, thick, rounded corners] (3.2, 4) -- (3.2, -1) node[below] {Cut};
     
-    \node at (1.25, 0) {Partition A};
+    \node at (0, 0) {Partition A};
     \node at (5.25, 3.5) {Partition B};
 \end{tikzpicture}
 \caption{A generic tensor network with a cut partitioning the physical indices into $\mathcal{I}_A$ (blue) and $\mathcal{I}_B$ (red). The cut crosses bonds $e_1, e_2, e_3$.}
@@ -421,13 +452,13 @@ We can group all tensors on the left of the cut (Partition A) and contract their
 \begin{tikzpicture}[scale=0.9, every node/.style={transform shape}]
     % Grouped tensor U
     \node[draw, rounded corners, fill=blue!20, minimum height=2cm, minimum width=2cm] (U) at (0,0) {$U$};
-    \draw (U) -- ++(-1, 0.5) node[left] {$i_1, \dots \in \mathcal{I}_A$};
-    \draw (U) -- ++(-1, -0.5);
+    \draw (U) -- ++(-1, 0.3) node[left] {$i_1, \dots \in \mathcal{I}_A$};
+    \draw (U) -- ++(-2, 0);
 
     % Grouped tensor V
     \node[draw, rounded corners, fill=red!20, minimum height=2cm, minimum width=2cm] (V) at (4,0) {$V$};
-    \draw (V) -- ++(1, 0.5) node[right] {$j_1, \dots \in \mathcal{I}_B$};
-    \draw (V) -- ++(1, -0.5);
+    \draw (V) -- ++(1, 0.3) node[right] {$j_1, \dots \in \mathcal{I}_B$};
+    \draw (V) -- ++(2, 0);
 
     % Cut bonds connecting U and V
     \draw[thick] (U) -- (V) node[midway, above] {$e_1, \dots, e_c$};
@@ -435,54 +466,21 @@ We can group all tensors on the left of the cut (Partition A) and contract their
 \caption{Contracting the subgraphs results in two tensors, $U$ and $V$, connected by the cut bonds.}
 \end{figure}
 
-The original tensor $\mathcal{T}$ is recovered by contracting $U$ and $V$ over the cut indices. Now, we reshape $U$ and $V$ into matrices. Let $\alpha$ be a multi-index that combines all cut indices $\{e_1, \dots, e_c\}$. The dimension of this multi-index is $D_{cut} = \prod_{k=1}^{c} D_k$.
+The original tensor $\mathcal{T}$ is recovered by contracting $U$ and $V$ over the cut indices. Now, we reshape $U$ and $V$ into matrices. Let $\alpha$ be a multi-index that combines all cut indices $\{e_1, \dots, e_c\}$. The dimension of this multi-index is $D_{cut} = \prod_{k=1}^{c} d_k$.
 Let $I_A$ be the multi-index for all physical indices in $\mathcal{I}_A$.
 Let $I_B$ be the multi-index for all physical indices in $\mathcal{I}_B$.
 
 We reshape the tensor $U$ into a matrix $\mathbf{U}$ of size $(\dim(I_A) \times D_{cut})$ where the rows are indexed by $I_A$ and the columns by $\alpha$.
 We reshape the tensor $V$ into a matrix $\mathbf{V}$ of size $(D_{cut} \times \dim(I_B))$ where the rows are indexed by $\alpha$ and the columns by $I_B$.
 
-The reshaped tensor matrix $M$ (with rows $I_A$ and columns $I_B$) is exactly the matrix product of $\mathbf{U}$ and $\mathbf{V}$:
-$$ M = \mathbf{U} \cdot \mathbf{V} $$
-
-\begin{figure}[h!]
-\centering
-\begin{tikzpicture}
-    % Matrix U
-    \node[draw, fill=blue!20, minimum width=1.5cm, minimum height=2.5cm, label=below:$\mathbf{U}$] (U_mat) at (0,0) {};
-    \node[left=0.1 of U_mat] (IA) {$\dim(I_A)$};
-    \node[above=0.1 of U_mat] (Dcut_U) {$D_{cut}$};
-    
-    % Equals sign
-    \node (=) at (3,0) {$=$};
-    
-    % Matrix multiplication
-    \node[draw, fill=blue!20, minimum width=1.5cm, minimum height=2.5cm, label=below:$\mathbf{U}$] (U_prod) at (1.5,0) {};
-    \node[left=0.1 of U_prod] {$\dim(I_A)$};
-    \node[above=0.1 of U_prod] {$D_{cut}$};
-    
-    \node[draw, fill=red!20, minimum width=2.5cm, minimum height=1.5cm, label=below:$\mathbf{V}$] (V_prod) at (4.25, 0) {};
-    \node[left=0.1 of V_prod] {$D_{cut}$};
-    \node[above=0.1 of V_prod] {$\dim(I_B)$};
-    
-    % Matrix M
-    \node[draw, minimum width=2.5cm, minimum height=2.5cm, label=below:$M$] (M_mat) at (-2,0) {};
-    \node[left=0.1 of M_mat] {$\dim(I_A)$};
-    \node[above=0.1 of M_mat] {$\dim(I_B)$};
-
-    % Arrows
-    \draw[->, thick] (U_prod.east) -- (V_prod.west) node[midway, below, yshift=-2mm] {Contraction over $D_{cut}$};
-\end{tikzpicture}
-\caption{The matrix $M$ is a product of matrices $\mathbf{U}$ and $\mathbf{V}$, with inner dimension $D_{cut}$.}
-\end{figure}
-
-A fundamental property of linear algebra states that the rank of a product of matrices is at most the minimum of their individual ranks:
-$$ \text{rank}(M) = \text{rank}(\mathbf{U} \cdot \mathbf{V}) \le \min(\text{rank}(\mathbf{U}), \text{rank}(\mathbf{V})) $$
-The rank of a matrix is also bounded by its dimensions. For $\mathbf{U}$ and $\mathbf{V}$, we have:
-$$ \text{rank}(\mathbf{U}) \le \min(\dim(I_A), D_{cut}) \le D_{cut} $$
-$$ \text{rank}(\mathbf{V}) \le \min(D_{cut}, \dim(I_B)) \le D_{cut} $$
-Therefore, the rank of $M$ is bounded by the total dimension of the cut:
-$$ \text{rank}(M) \le D_{cut} = \prod_{k=1}^{c} D_k $$
-This completes the proof.
+The reshaped tensor matrix $\bm{M}$ (with rows $I_A$ and columns $I_B$) is exactly the matrix product of $\mathbf{U}$ and $\mathbf{V}$:
+$$ \bm{M} = \mathbf{U} \cdot \mathbf{V} \quad . $$
+Note that the rank of a product of matrices is at most the minimum of their individual ranks:
+$$ \operatorname{rank}\bm{M} = \operatorname{rank}(\mathbf{U} \cdot \mathbf{V}) \le \min\{\operatorname{rank}\mathbf{U}, \operatorname{rank}\mathbf{V} \} $$
+Furthermore, since $\operatorname{rank}\mathbf{U} \leq D_{\text{cut}}$ and $\operatorname{rank}\mathbf{V} \leq D_{\text{cut}}$, it directly follows that:
+    $$
+    \operatorname{rank}\bm{M} \le D_{\text{cut}} = \prod_{k=1}^{c} d_k \quad .
+    $$
 \end{proof}
+
 \end{document}
