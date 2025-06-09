@@ -26,6 +26,6 @@
 \contentsline {subsubsection}{\numberline {B.3.1}Data Processing Inequality}{54}{subsubsection.B.3.1}%
 \contentsline {subsection}{\numberline {B.4}Bounding Mutual Information via Matrix Rank of the Joint Distribution}{55}{subsection.B.4}%
 \contentsline {subsection}{\numberline {B.5}Convergence of Mutual Information}{56}{subsection.B.5}%
-\contentsline {section}{\numberline {C}Tensor Networks}{61}{appendix.C}%
-\contentsline {subsection}{\numberline {C.1}Reshaping a Tensor (Matricization)}{66}{subsection.C.1}%
-\contentsline {subsubsection}{\numberline {C.1.1}An Upper Bound for the Rank of Matrices in Tensor Networks}{66}{subsubsection.C.1.1}%
+\contentsline {section}{\numberline {C}Tensor Networks}{60}{appendix.C}%
+\contentsline {subsection}{\numberline {C.1}Reshaping a Tensor (Matricization)}{65}{subsection.C.1}%
+\contentsline {subsubsection}{\numberline {C.1.1}An Upper Bound for the Rank of Matrices in Tensor Networks}{65}{subsubsection.C.1.1}%
