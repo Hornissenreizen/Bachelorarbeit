@@ -526,19 +526,22 @@ By definition of conditional mutual information:
     \]
 \end{proof}
 
+
+
+
 \pagebreak
 \subsection{Convergence of Mutual Information}
 \begin{theorem}[Element-Wise Exponential Convergence Implies Exponential Convergence]
     \label{theorem:element-wise_exponential_convergence_implies_exponential_convergence}
 Let $f: \mathcal{D} \to \mathbb{R}^m$ be a function defined on a convex domain $\mathcal{D} \subseteq \mathbb{R}^n$ that is a Cartesian product of real intervals, i.e., $\mathcal{D} = \mathcal{D}_1 \times \mathcal{D}_2 \times \dots \times \mathcal{D}_n$ where each $\mathcal{D}_i \subseteq \mathbb{R}$ is an interval. Let $\{\bm{x}_k\}_{k=1}^\infty \subset \mathcal{D}$ be a sequence converging exponentially fast to $\bm{x}_0 \in \mathcal{D}$.
 
-Let $\bm{e}_j$ denote the $j$-th standard basis vector in $\mathbb{R}^n$. Suppose that for each input coordinate $j \in \{1, 2, \dots, n\}$ there exists functions $K^j(C_j, \rho_j)$, $C^j(C_j, \rho_j)$, $P^j(C_j, \rho_j)$ s.t. for every sequence $\{\bm{u}_k\}_{k=1}^\infty \subset \mathcal{D}$ converging to $\bm{u}_0$ where the difference $\bm{u}_\ell-\bm{u}_{\ell'}$ is parallel to $\bm{e}_j$ (i.e., they only differ in the $j$-th coordinate) that satisfies $|\bm{u}_0 - \bm{u}_k| \leq C_j \rho_j^k$ for all $k$ and some $\rho_j \in [0, 1), \ C_j > 0$, we have for all $k \geq K^j(C_j, \rho_j)$:
+Let $\bm{e}_j$ denote the $j$-th standard basis vector in $\mathbb{R}^n$. Suppose that for each input coordinate $j \in \{1, 2, \dots, n\}$ there exist functions $K_j(C', \rho)$, $C_j(C', \rho)$, $P_j(C', \rho)$ s.t. for every sequence $\{\bm{u}_k\}_{k=1}^\infty \subset \mathcal{D}$ converging to $\bm{u}_0$ where the difference $\bm{u}_\ell-\bm{u}_{\ell'}$ is parallel to $\bm{e}_j$ (i.e., they only differ in the $j$-th coordinate) that satisfies $|\bm{u}_0 - \bm{u}_k| \leq C' \rho^k$ for all $k$ and some $\rho \in [0, 1), \ C' > 0$, we have for all $k \geq K_j(C', \rho)$:
 \[
-    \|f(\bm{u}_0) - f(\bm{u}_k)\| \le C^j(C_j, \rho_j) \rho_j^k k^{P^j(C_j, \rho_j)} \quad .
+    \|f(\bm{u}_0) - f(\bm{u}_k)\| \le C_j(C', \rho) \rho^k k^{P_j(C', \rho)} \quad .
 \]
-Then, there exist constants $C > 0$ and $\rho \in [0, 1)$ such that for all sufficiently large $k$:
+Then, there exist constants $C > 0$ and $\sigma \in [0, 1)$ such that for all sufficiently large $k$:
 \[
-    \|f(\bm{x}_0) - f(\bm{x}_k)\| \le C \rho^k \quad .
+    \|f(\bm{x}_0) - f(\bm{x}_k)\| \le C \sigma^k \quad .
 \]
 \end{theorem}
 
@@ -582,20 +585,20 @@ The sequence $\{\bm{u}_m\}$ lies on a line parallel to the $j$-th coordinate axi
 \[
     \|\bm{u}_m - \bm{u}_0\| = |x_{m,j} - x_{0,j}| \le C_x \rho^m \quad .
 \]
-The hypothesis states that for any such sequence, there exist constants $K^j(C_x, \rho)$, $C^j(C_x, \rho)$, $P^j(C_x, \rho)$ which are independent of the specific line, such that for all $k \geq K^j(C_x, \rho)$ we have $\|f(\bm{u}_0) - f(\bm{u}_m)\| \le C^j(C_x, \rho) \rho^m m^{P^j(C_x, \rho)}$. Applying this for $m=k$:
+The hypothesis states that for any such sequence, there exist constants $K_j(C_x, \rho)$, $C_j(C_x, \rho)$, $P_j(C_x, \rho)$ which are independent of the specific line, such that for all $k \geq K_j(C_x, \rho)$ we have $\|f(\bm{u}_0) - f(\bm{u}_m)\| \le C_j(C_x, \rho) \rho^m m^{P_j(C_x, \rho)}$. Applying this for $m=k$:
 \[
-    \|f(\bm{z}_{k,j}) - f(\bm{z}_{k,j-1})\| = \|f(\bm{u}_0) - f(\bm{u}_k)\| \leq C^j(C_x, \rho) \rho^k k^{P^j(C_x, \rho)} \quad .
+    \|f(\bm{z}_{k,j}) - f(\bm{z}_{k,j-1})\| = \|f(\bm{u}_0) - f(\bm{u}_k)\| \leq C_j(C_x, \rho) \rho^k k^{P_j(C_x, \rho)} \quad .
 \]
 This inequality holds for each $j=1, \dots, n$. Substituting these bounds back into the sum:
 \[
-    \|f(\bm{x}_0) - f(\bm{x}_k)\| \le \sum_{j=1}^{n} C^j(C_x, \rho) \rho^k k^{P^j(C_x, \rho)} \quad .
+    \|f(\bm{x}_0) - f(\bm{x}_k)\| \le \sum_{j=1}^{n} C_j(C_x, \rho) \rho^k k^{P_j(C_x, \rho)} \quad .
 \]
-Let $K \coloneqq \max_{j \in \{1, \dots, n\}} \{K^j(C_x, \rho)\}$, $C \coloneqq \sum_{j=1}^{n} C^j(C_x, \rho)$ and \\
-$P \coloneqq \max_{j \in \{1, \dots, n\}} \{P^j(C_x, \rho)\}$. Hence, for all $k \geq K$:
+Let $K \coloneqq \max_{j \in \{1, \dots, n\}} \{K_j(C_x, \rho)\}$, $C \coloneqq \sum_{j=1}^{n} C_j(C_x, \rho)$ and \\
+$P \coloneqq \max_{j \in \{1, \dots, n\}} \{P_j(C_x, \rho)\}$. Hence, for all $k \geq K$:
 \[
-    \|f(\bm{x}_0) - f(\bm{x}_k)\| \le \sum_{j=1}^{n} C^j(C_x, \rho) \rho^k k^P = \left( \sum_{j=1}^{n} C^j(C_x, \rho) \right) \rho^k k^P = C \rho^k k^P \quad .
+    \|f(\bm{x}_0) - f(\bm{x}_k)\| \le \sum_{j=1}^{n} C_j(C_x, \rho) \rho^k k^P = \left( \sum_{j=1}^{n} C_j(C_x, \rho) \right) \rho^k k^P = C \rho^k k^P \quad .
 \]
-This shows that $\{f(\bm{x}_k)\}$ converges exponentially to $f(\bm{x}_0)$, which completes the proof.
+This shows that $\{f(\bm{x}_k)\}$ converges exponentially to $f(\bm{x}_0)$ with a rate of $\sigma$ s.t. $\rho < \sigma < 1$ (like $\sigma \coloneqq \sqrt{\rho}$). This completes the proof.
 \end{proof}
 
 \begin{lemma}
@@ -614,7 +617,7 @@ Note that $|x \log x|$ is monotonically increasing on $[0, e^{-1}]$. For $k \geq
 \]
 
 \textbf{Case 2: $x_\infty > 0$} \\
-Similarly, for $k \geq K$ we have $|x_k - x_\infty| \leq C \rho^k \leq e^{-1}$. For $k \geq K$ it follows that:
+Similarly, for $k \geq K$ we have $|x_k - x_\infty| \leq C \rho^k \leq e^{-1}$. Based on the function graph, it follows that for $k \geq K$ we have:
 \[
     |f(x_k) - f(x_\infty)| \leq |f(C \rho^k) - f(0)| = |f(C \rho^k)| = C \rho^k \ |\log C + k \log \rho| \quad .
 \]
@@ -625,7 +628,7 @@ Let the function $f: [0, 1] \to \mathbb{R}$ be defined as $f(x) = x \log x$, wit
 \begin{align*}
     I(\bm{M}) &= \sum_{i=1}^m \sum_{j=1}^n f(M_{ij}) - \sum_{i=1}^m f\left(\sum_{j=1}^n M_{ij}\right) - \sum_{j=1}^n f\left(\sum_{i=1}^m M_{ij}\right) \quad .
 \end{align*}
-This function exhibits element-wise exponential convergence. That is, for any single component $(i_0, j_0)$, if a sequence of matrices $\{\bm{U}_k\}_{k=1}^\infty \subset [0, 1]^{mn}$ converges to a limit $\bm{U}_\infty$, varies only in the $(i_0, j_0)$-th component and satisfies $\|\bm{U}_k - \bm{U}_\infty\| \leq C \rho^k$ for some $C > 0$, $\rho \in [0, 1)$ and all $k$, then the sequence of values $\{I(\bm{U}_k)\}$ converges to $I(\bm{U}_\infty)$ with $|I(\bm{U}_k) - I(\bm{U}_\infty)| \leq C'(C, \rho) \rho^k n^{P(C, \rho)}$ for all $k \geq K(C, \rho)$.
+This function exhibits element-wise exponential convergence. That is, for any single component $(i_0, j_0)$, if a sequence of matrices $\{\bm{U}_k\}_{k=1}^\infty \subset [0, 1]^{mn}$ converges to a limit $\bm{U}_\infty$, varies only in the $(i_0, j_0)$-th component and satisfies $\|\bm{U}_k - \bm{U}_\infty\| \leq C \rho^k$ for some $C > 0$, $\rho \in [0, 1)$ and all $k$, then the sequence of values $\{I(\bm{U}_k)\}$ converges to $I(\bm{U}_\infty)$ with $|I(\bm{U}_k) - I(\bm{U}_\infty)| \leq C'(C, \rho) \rho^k k^{P(C, \rho)}$ for all $k \geq K(C, \rho)$.
 \end{theorem}
 % \vspace{-2.5em}
 \pagebreak

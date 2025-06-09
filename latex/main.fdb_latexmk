@@ -1,8 +1,8 @@
 # Fdb version 3
-["pdflatex"] 1749462926 "/home/jonas/Desktop/Desktop/Bachelorarbeit/latex/main.tex" "main.pdf" "main" 1749462931
+["pdflatex"] 1749480478 "/home/jonas/Desktop/Desktop/Bachelorarbeit/latex/main.tex" "main.pdf" "main" 1749480482
   "/etc/texmf/web2c/texmf.cnf" 1667832238 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/jonas/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk" 1668783672 11524 a6eadddd8fcac2b1c738bb595cebd854 ""
-  "/home/jonas/Desktop/Desktop/Bachelorarbeit/latex/main.tex" 1749462919 2386 6eb610a850b614ca09dbdf5358902427 ""
+  "/home/jonas/Desktop/Desktop/Bachelorarbeit/latex/main.tex" 1749480478 2386 6eb610a850b614ca09dbdf5358902427 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1136768653 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1246382020 1120 1e8878807317373affa7f7bba4cf2f6a ""
@@ -251,17 +251,17 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1697878699 128028 f533b797fba58d231669ea19e894e23e ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1712737265 1405647 f966d3218063cabc8be94f5b4e8cfbea ""
-  "chapters/information_theory/sub.tex" 1749462751 30410 88799b50632288b6b9acd04c122ae4bb ""
+  "chapters/information_theory/sub.tex" 1749480470 31220 fdddc41ca10acf761826a9e268ebe23d ""
   "chapters/markov_chains_exponential_decay/sub.tex" 1749295401 24613 6a42d95f71e0db6688052b16b8223b4f ""
   "chapters/markov_chains_introduction/sub.tex" 1749295401 30229 9af9dbae914710bef7af0a8ac152a4f8 ""
   "chapters/model_framework/sub.tex" 1749371460 14726 9806c5629dcc4877d5035a5150a9db40 ""
   "chapters/regular_grammar/sub.tex" 1749394371 35005 c37aa8703ca7e2c9b291c145b74fa8f0 ""
   "chapters/tensor_networks/sub.tex" 1749393281 29641 718c1b0bbd41e840236986ca7badbe75 ""
   "chapters/tree_tensor_networks/sub.tex" 1749404932 23770 2ff6adf4c59dc055cf4301ffdaa774cc ""
-  "main.aux" 1749462930 13926 d13ebd3928e688b93a0a4a97e7827860 "pdflatex"
-  "main.out" 1749462930 6507 ad81337bce8f1e16a403bf4566fa0189 "pdflatex"
-  "main.tex" 1749462919 2386 6eb610a850b614ca09dbdf5358902427 ""
-  "main.toc" 1749462930 2979 c469e5238d18fb4163fe2113e6f7c5f9 "pdflatex"
+  "main.aux" 1749480482 14346 b4c853abcf67d9de1bbc093be190dc07 "pdflatex"
+  "main.out" 1749480482 6507 ad81337bce8f1e16a403bf4566fa0189 "pdflatex"
+  "main.tex" 1749480478 2386 6eb610a850b614ca09dbdf5358902427 ""
+  "main.toc" 1749480482 2979 c469e5238d18fb4163fe2113e6f7c5f9 "pdflatex"
   (generated)
   "main.aux"
   "main.log"
