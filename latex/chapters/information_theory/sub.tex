@@ -528,61 +528,138 @@ By definition of conditional mutual information:
 
 \pagebreak
 \subsection{Convergence of Mutual Information}
-\begin{theorem}
-Let $f$ be a function defined on a domain containing the sequence $\{x_n\}_{n=1}^\infty$ and its limit point $x_0$. Suppose there exist constants $C > 0$ and $p \in \mathbb{R}$ such that for all sufficiently large $n$:
+\begin{theorem}[Element-Wise Exponential Convergence Implies Exponential Convergence]
+Let $f: \mathcal{D} \to \mathbb{R}^m$ be a function defined on a convex domain $\mathcal{D} \subseteq \mathbb{R}^n$ that is a Cartesian product of real intervals, i.e., $\mathcal{D} = \mathcal{D}_1 \times \mathcal{D}_2 \times \dots \times \mathcal{D}_n$ where each $\mathcal{D}_i \subseteq \mathbb{R}$ is an interval. Let $\{\bm{x}_k\}_{k=1}^\infty \subset \mathcal{D}$ be a sequence converging exponentially fast to $\bm{x}_0 \in \mathcal{D}$.
+
+Let $\bm{e}_j$ denote the $j$-th standard basis vector in $\mathbb{R}^n$. Suppose that for each input coordinate $j \in \{1, 2, \dots, n\}$ and for any sequence $\{\bm{u}_k\}_{k=1}^\infty \subset \mathcal{D}$ converging to $\bm{u}_0$ exponentially fast where the difference $\bm{u}_\ell-\bm{u}_{\ell'}$ is parallel to $\bm{e}_j$ (i.e., they only differ in the $j$-th coordinate), the following inequality holds for some $\rho_j \in [0, 1), \ C_j > 0$ and all sufficiently large $k$:
 \[
-    |f(x_0) - f(x_n)| \le C n^p |x_0 - x_n|
+    \|f(\bm{u}_0) - f(\bm{u}_k)\| \le C_j \rho_j^k \quad .
 \]
-If the sequence $x_n$ converges to $x_0$ exponentially fast, then the sequence $f(x_n)$ converges to $f(x_0)$ exponentially fast.
+Then, there exist constants $C > 0$ and $\rho \in [0, 1)$ such that for all sufficiently large $k$:
+\[
+    \|f(\bm{x}_0) - f(\bm{x}_k)\| \le C \rho^k \quad .
+\]
 \end{theorem}
 
 \begin{proof}
-\begin{enumerate}
-    \item \textbf{Formalize the given conditions.} \\
-    The condition $|f(x_0) - f(x_n)| \le O(n^p)|x_0 - x_n|$ means that for some constant $K > 0$ and for all $n$ greater than some integer $N_1$:
-    \begin{equation}
-        |f(x_0) - f(x_n)| \le K n^p |x_0 - x_n| \label{eq:1}
-    \end{equation}
-    The exponential convergence of $x_n$ to $x_0$ means there exist a constant $D > 0$ and a rate $\rho \in (0, 1)$ such that for all $n$ greater than some integer $N_2$:
-    \begin{equation}
-        |x_0 - x_n| \le D \rho^n \label{eq:2}
-    \end{equation}
+Let the sequence $\{\bm{x}_k\}_{k=1}^\infty \subset \mathcal{D}$ converge exponentially to $\bm{x}_0 \in \mathcal{D}$. By definition, there exist constants $C_x > 0$ and $\rho_x \in [0, 1)$ such that for all sufficiently large $k$,
+\[
+    \|\bm{x}_k - \bm{x}_0\| \le C_x \rho_x^k \quad .
+\]
+Let $\bm{x}_k = (x_{k,1}, \dots, x_{k,n})^T$ and $\bm{x}_0 = (x_{0,1}, \dots, x_{0,n})^T$. An immediate consequence is that each coordinate also converges exponentially, i.e., for each $j \in \{1, \dots, n\}$:
+\[
+    |x_{k,j} - x_{0,j}| \le \|\bm{x}_k - \bm{x}_0\|_{\infty} \le \|\bm{x}_k - \bm{x}_0\| \le C_x \rho_x^k \quad ,
+\]
+where we use the equivalence of norms in $\mathbb{R}^n$.
 
-    \item \textbf{Combine the inequalities.} \\
-    For any $n > \max(N_1, N_2)$, we can substitute the bound from \eqref{eq:2} into \eqref{eq:1}:
-    \begin{align*}
-        |f(x_0) - f(x_n)| &\le K n^p \left( D \rho^n \right) \\
-        &= (KD) n^p \rho^n
-    \end{align*}
+To bound $\|f(\bm{x}_0) - f(\bm{x}_k)\|$, we define a sequence of $n+1$ intermediate points that form a path from $\bm{x}_k$ to $\bm{x}_0$ by changing one coordinate at a time. For each $k$, let:
+\begin{align*}
+    \bm{z}_{k,0} &:= \bm{x}_k = (x_{k,1}, x_{k,2}, \dots, x_{k,n}) \\
+    \bm{z}_{k,1} &:= (x_{0,1}, x_{k,2}, \dots, x_{k,n}) \\
+    & \vdots \\
+    \bm{z}_{k,j} &:= (x_{0,1}, \dots, x_{0,j}, x_{k,j+1}, \dots, x_{k,n}) \\
+    & \vdots \\
+    \bm{z}_{k,n} &:= (x_{0,1}, \dots, x_{0,n}) = \bm{x}_0 \quad .
+\end{align*}
+Since $\mathcal{D}$ is a cartesian product intervals and both $\bm{x}_k$ and $\bm{x}_0$ are in $\mathcal{D}$, all intermediate points $\bm{z}_{k,j}$ are also contained in $\mathcal{D}$. We can express the total difference $f(\bm{x}_0) - f(\bm{x}_k)$ as a telescoping sum:
+\[
+    f(\bm{x}_0) - f(\bm{x}_k) = f(\bm{z}_{k,n}) - f(\bm{z}_{k,0}) = \sum_{j=1}^{n} \left( f(\bm{z}_{k,j}) - f(\bm{z}_{k,j-1}) \right) \quad .
+\]
+By the triangle inequality, we have:
+\[
+    \|f(\bm{x}_0) - f(\bm{x}_k)\| \le \sum_{j=1}^{n} \|f(\bm{z}_{k,j}) - f(\bm{z}_{k,j-1})\| \quad .
+\]
+Now, we analyze each term $\|f(\bm{z}_{k,j}) - f(\bm{z}_{k,j-1})\|$ for a fixed $j \in \{1, \dots, n\}$. The points $\bm{z}_{k,j}$ and $\bm{z}_{k,j-1}$ differ only in their $j$-th coordinate.
 
-    \item \textbf{Show that the new bound is also exponential.} \\
-    The core of the proof is to show that the term $n^p \rho^n$ is itself bounded by an exponential decay. We know that for any polynomial term $n^p$ and any exponential term $r^n$ with $|r| < 1$, the exponential term dominates.
-
-    Let's choose a new rate $\sigma$ such that $\rho < \sigma < 1$. A convenient choice is $\sigma = \sqrt{\rho}$. Since $\rho \in (0,1)$, we have $\rho < \sqrt{\rho} < 1$.
-
-    Now consider the term $n^p \rho^n$. We want to show it can be bounded by $M \sigma^n$ for some constant $M$. Let's examine the sequence:
-    \[
-        a_n = \frac{n^p \rho^n}{\sigma^n} = n^p \left(\frac{\rho}{\sigma}\right)^n
-    \]
-    Let $r = \frac{\rho}{\sigma}$. Since $\sigma > \rho$, we have $r \in (0, 1)$. The limit of the sequence $a_n = n^p r^n$ as $n \to \infty$ is zero:
-    \[
-        \lim_{n \to \infty} a_n = \lim_{n \to \infty} n^p r^n = 0
-    \]
-    Since the sequence $\{a_n\}$ converges, it is bounded. Therefore, there exists a constant $M > 0$ such that $a_n \le M$ for all $n$. This gives us the bound:
-    \[
-        n^p \rho^n = a_n \sigma^n \le M \sigma^n
-    \]
-
-    \item \textbf{Final Conclusion.} \\
-    Substitute this result back into our main inequality:
-    \[
-        |f(x_0) - f(x_n)| \le (KD) (n^p \rho^n) \le (KD)(M \sigma^n)
-    \]
-    Let $C' = KDM$. Then we have:
-    \[
-        |f(x_0) - f(x_n)| \le C' \sigma^n
-    \]
-    Since $C'$ is a positive constant and $\sigma \in (0, 1)$, this is the definition of exponential convergence for the sequence $f(x_n)$ to the limit $f(x_0)$.
-\end{enumerate}
+Let us define a sequence $\{\bm{u}_m\}_{m=1}^\infty$ and a limit point $\bm{u}_0$ that fit the condition in the theorem's hypothesis. For the given $j$ and $k$, let
+\begin{align*}
+    \bm{u}_m &:= (x_{0,1}, \dots, x_{0,j-1}, x_{m,j}, x_{k,j+1}, \dots, x_{k,n}) \\
+    \bm{u}_0 &:= (x_{0,1}, \dots, x_{0,j-1}, x_{0,j}, x_{k,j+1}, \dots, x_{k,n}) \quad .
+\end{align*}
+Note that $\bm{u}_0 = \bm{z}_{k,j}$ and by setting $m=k$, we get $\bm{u}_k = \bm{z}_{k,j-1}$.
+The sequence $\{\bm{u}_m\}$ lies on a line parallel to the $j$-th coordinate axis. As $m \to \infty$, $\bm{u}_m \to \bm{u}_0$ because $x_{m,j} \to x_{0,j}$. The convergence is exponential:
+\[
+    \|\bm{u}_m - \bm{u}_0\| = |x_{m,j} - x_{0,j}| \le C_x \rho_x^m \quad .
+\]
+The hypothesis states that for any such sequence, there exist constants $C_j > 0$ and $\rho_j \in [0, 1)$, which are independent of the specific line, such that $\|f(\bm{u}_0) - f(\bm{u}_m)\| \le C_j \rho_j^m$. Applying this for $m=k$:
+\[
+    \|f(\bm{z}_{k,j}) - f(\bm{z}_{k,j-1})\| = \|f(\bm{u}_0) - f(\bm{u}_k)\| \le C_j \rho_j^k \quad .
+\]
+This inequality holds for each $j=1, \dots, n$. Substituting these bounds back into the sum:
+\[
+    \|f(\bm{x}_0) - f(\bm{x}_k)\| \le \sum_{j=1}^{n} C_j \rho_j^k \quad .
+\]
+Let $C = \sum_{j=1}^{n} C_j$ and $\rho = \max_{j \in \{1, \dots, n\}} \{\rho_j\}$. Since all $\rho_j \in [0, 1)$, it follows that $\rho \in [0, 1)$. For sufficiently large $k$, we have $\rho_j^k \le \rho^k$ for all $j$. Therefore,
+\[
+    \|f(\bm{x}_0) - f(\bm{x}_k)\| \le \sum_{j=1}^{n} C_j \rho^k = \left( \sum_{j=1}^{n} C_j \right) \rho^k = C \rho^k \quad .
+\]
+This shows that $\{f(\bm{x}_k)\}$ converges exponentially to $f(\bm{x}_0)$, which completes the proof.
 \end{proof}
+
+\begin{lemma}[Preservation of Exponential Convergence]
+Let the function $f: [0, 1] \to \mathbb{R}$ be defined as $f(x) = x \log x$, with the convention $f(0) = 0$. If a sequence $\{x_k\}_{k=1}^\infty \subset [0,1]$ converges exponentially to a limit $x_\infty \in [0,1]$, then the sequence $\{f(x_k)\}$ also converges exponentially to $f(x_\infty)$.
+\end{lemma}
+\vspace{-2.5em}
+\begin{proof}
+We are given that there exist constants $C > 0$ and $\rho \in [0, 1)$ such that for all sufficiently large $k$, $|x_k - x_\infty| \le C \rho^k$. We need to show that $|f(x_k) - f(x_\infty)|$ is also bounded by an exponentially decaying sequence. We consider two cases for the limit $x_\infty$.
+
+\textbf{Case 1: $x_\infty > 0$}
+Since $x_k \to x_\infty > 0$, for sufficiently large $k$, the sequence $\{x_k\}$ is bounded away from zero by some $\epsilon > 0$ (e.g., $x_k \ge x_\infty/2$). The function $f(x)$ is continuously differentiable on any interval $[\epsilon, 1]$, which implies it is Lipschitz continuous on that interval. That is, there exists a constant $L$ such that $|f(x_k) - f(x_\infty)| \le L |x_k - x_\infty|$.
+Substituting the given exponential bound:
+\[
+|f(x_k) - f(x_\infty)| \le L (C \rho^k) = (LC) \rho^k \quad .
+\]
+This is an exponential decay with rate $\rho$.
+
+\textbf{Case 2: $x_\infty = 0$}
+In this case, $|x_k - 0| = x_k \le C \rho^k$. We want to bound the difference $|f(x_k) - f(0)| = |x_k \log x_k|$.
+Note that $|x \log x|$ is monotonically increasing on $[0, e^{-1}]$. Since $x_k \to 0$, there exists a $K \in \mathbb{N}$ s.t. $x_k \leq e^{-1}$ for all $k > K$. Thus, for all $k > K$:
+\[
+    |x_k \log x_k| \leq |C \rho^k \log (C \rho^k)| = C \rho^k \ |\log C + k \log \rho| \in \mathcal{O}(\sigma^k) \quad ,
+\]
+for any $\rho < \sigma < 1$ (e.g. $\sigma \coloneqq \sqrt{\rho}$).
+
+In both cases, exponential convergence of $\{x_k\}$ implies exponential convergence of $\{f(x_k)\}$.
+\end{proof}
+
+\begin{theorem}[Element-Wise Exponential Convergence Property]
+Let a function $I: [0, 1]^{mn} \to \mathbb{R}$ be defined for a matrix $\bm{M}$ as:
+\[
+    I(\bm{M}) = \sum_{i=1}^m \sum_{j=1}^n M_{ij}\log M_{ij} - \sum_{i=1}^m \left(\sum_{j=1}^n M_{ij}\right)\log\left(\sum_{j=1}^n M_{ij}\right) - \sum_{j=1}^n \left(\sum_{i=1}^m M_{ij}\right)\log\left(\sum_{i=1}^m M_{ij}\right)
+\]
+using the convention $x \log x \to 0$ as $x \to 0^+$. This function exhibits element-wise exponential convergence. That is, for any single component $(i_0, j_0)$, if a sequence of matrices $\{\bm{U}_k\}_{k=1}^\infty \subset [0, 1]^{mn}$ converges exponentially to a limit $\bm{U}_\infty$ and varies only in the $(i_0, j_0)$-th component, then the sequence of values $\{I(\bm{U}_k)\}$ converges exponentially to $I(\bm{U}_\infty)$.
+\end{theorem}
+
+\begin{proof}
+Let $f(x) \coloneqq x \log x$. The function $I(\bm{M})$ is a sum of terms involving $f$ applied to the matrix entries and their row and column sums. Let $m_i(\bm{M}) = \sum_j M_{ij}$ and $m'_j(\bm{M}) = \sum_i M_{ij}$.
+\[
+    I(\bm{M}) = \sum_{i,j} f(M_{ij}) - \sum_i f(m_i(\bm{M})) - \sum_j f(m'_j(\bm{M}))
+\]
+We are given a sequence $\{\bm{U}_k\}$ that varies only in the $(i_0, j_0)$-th component, $u_k = U_k(i_0, j_0)$. All other components are constant. The exponential convergence of $\{\bm{U}_k\}$ means $|u_k - u_\infty| \le C \rho^k$.
+
+The difference $I(\bm{U}_k) - I(\bm{U}_\infty)$ consists only of terms whose arguments change with $k$. These are:
+\begin{enumerate}
+    \item The entry term: $f(u_k)$.
+    \item The row-sum term: $f(m_{i_0}(\bm{U}_k))$, where $m_{i_0}(\bm{U}_k) = u_k + \text{const}$.
+    \item The column-sum term: $f(m'_{j_0}(\bm{U}_k))$, where $m'_{j_0}(\bm{U}_k) = u_k + \text{const}$.
+\end{enumerate}
+By the triangle inequality, the total error is bounded by the sum of the absolute errors of these three terms:
+\begin{align*}
+|I(\bm{U}_k) - I(\bm{U}_\infty)| \le & |f(u_k) - f(u_\infty)| \\
+& + |f(m_{i_0}(\bm{U}_k)) - f(m_{i_0}(\bm{U}_\infty))| \\
+& + |f(m'_{j_0}(\bm{U}_k)) - f(m'_{j_0}(\bm{U}_\infty))|
+\end{align*}
+The arguments to the function $f$ in each of these three terms converge exponentially to their limits with rate $\rho$, since $|m_{i_0}(\bm{U}_k) - m_{i_0}(\bm{U}_\infty)| = |u_k - u_\infty|$ and $|m'_{j_0}(\bm{U}_k) - m'_{j_0}(\bm{U}_\infty)| = |u_k - u_\infty|$.
+
+By \textbf{Lemma 1}, since the argument of $f(x)$ in each term converges exponentially, the value of $f(x)$ for each term also converges exponentially. Thus, each of the three absolute difference terms on the right-hand side is bounded by an exponentially decaying sequence.
+
+A finite sum of exponentially decaying sequences also decays exponentially. Therefore, there exist constants $C_I > 0$ and $\rho' \in [0, 1)$ such that
+\[
+|I(\bm{U}_k) - I(\bm{U}_\infty)| \le C_I (\rho')^k
+\]
+This shows that $\{I(\bm{U}_k)\}$ converges exponentially to $I(\bm{U}_\infty)$, which completes the proof.
+\end{proof}
+
+
+
 \end{document}

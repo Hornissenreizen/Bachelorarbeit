@@ -4,7 +4,7 @@
 \contentsline {subsubsection}{\numberline {2.1.1}The Defective Case}{13}{subsubsection.2.1.1}%
 \contentsline {subsection}{\numberline {2.2}No Markov Chain with Power-Law Behavior}{14}{subsection.2.2}%
 \contentsline {section}{\numberline {3}No Power-Law in Hidden Markov Models}{17}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Conclusions for Model Selection}{23}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.1}Conclusions for Model Selection}{24}{subsection.3.1}%
 \contentsline {section}{\numberline {4}Binary Tree Tensor Networks}{25}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Bulk Marginal Property}{25}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}Binary Tree Tensor Networks are Universal Approximators}{27}{subsection.4.2}%
@@ -25,6 +25,7 @@
 \contentsline {subsection}{\numberline {B.3}Mutual Information}{51}{subsection.B.3}%
 \contentsline {subsubsection}{\numberline {B.3.1}Data Processing Inequality}{54}{subsubsection.B.3.1}%
 \contentsline {subsection}{\numberline {B.4}Bounding Mutual Information via Matrix Rank of the Joint Distribution}{55}{subsection.B.4}%
-\contentsline {section}{\numberline {C}Tensor Networks}{56}{appendix.C}%
-\contentsline {subsection}{\numberline {C.1}Reshaping a Tensor (Matricization)}{61}{subsection.C.1}%
-\contentsline {subsubsection}{\numberline {C.1.1}An Upper Bound for the Rank of Matrices in Tensor Networks}{61}{subsubsection.C.1.1}%
+\contentsline {subsection}{\numberline {B.5}Convergence of Mutual Information}{56}{subsection.B.5}%
+\contentsline {section}{\numberline {C}Tensor Networks}{61}{appendix.C}%
+\contentsline {subsection}{\numberline {C.1}Reshaping a Tensor (Matricization)}{66}{subsection.C.1}%
+\contentsline {subsubsection}{\numberline {C.1.1}An Upper Bound for the Rank of Matrices in Tensor Networks}{66}{subsubsection.C.1.1}%

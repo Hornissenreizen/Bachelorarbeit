@@ -37,12 +37,12 @@
 \newlabel{fig:bayesian_network_markov_chain}{{2}{17}{Bayesian network of Markov chains. All arrows go from previous tokens to future tokens}{figure.2}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Bayesian network of a hidden Markov model.}}{18}{figure.3}\protected@file@percent }
 \newlabel{fig:bayesian_network_hidden_markov}{{3}{18}{Bayesian network of a hidden Markov model}{figure.3}{}}
-\newlabel{lemma:periodic_irreducible_stays_irreducible}{{3.2}{19}{}{lemma.3.2}{}}
-\newlabel{lemma:aperiodic_irreducible_stays_aperiodic}{{3.3}{19}{}{lemma.3.3}{}}
+\newlabel{lemma:aperiodic_irreducible_stays_aperiodic}{{3.2}{19}{}{lemma.3.2}{}}
+\newlabel{lemma:exponential_convergence_with_open_states}{{3.3}{19}{}{lemma.3.3}{}}
 \newlabel{lemma:exponential_convergence_with_open_states}{{3.4}{19}{}{lemma.3.4}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Adjusted Bayesian network of a hidden Markov model.}}{21}{figure.4}\protected@file@percent }
 \newlabel{fig:adjusted_bayesian_network_hidden_markov}{{4}{21}{Adjusted Bayesian network of a hidden Markov model}{figure.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Conclusions for Model Selection}{23}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Conclusions for Model Selection}{24}{subsection.3.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {4}Binary Tree Tensor Networks}{25}{section.4}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Binary tree model space for sequences of length $n = 2^k$.}}{25}{figure.5}\protected@file@percent }
 \newlabel{fig:binary_tree_tensor_network}{{5}{25}{Binary tree model space for sequences of length $n = 2^k$}{figure.5}{}}
@@ -102,15 +102,19 @@
 \newlabel{theorem:data_processing_inequality}{{B.3}{54}{Data Processing Inequality}{theorem.B.3}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {B.4}Bounding Mutual Information via Matrix Rank of the Joint Distribution}{55}{subsection.B.4}\protected@file@percent }
 \newlabel{theorem:mutual_information_is_bounded_by_log_rank}{{B.4}{55}{}{theorem.B.4}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {C}Tensor Networks}{56}{appendix.C}\protected@file@percent }
-\newlabel{section:tensor_networks}{{C}{56}{Tensor Networks}{appendix.C}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces A basic tensor network over $\Sigma ^3$.}}{57}{figure.16}\protected@file@percent }
-\newlabel{proposition:marginalized_tensor_network}{{C.1}{58}{}{proposition.C.1}{}}
-\newlabel{proposition:contracting_over_shared_index}{{C.2}{59}{}{proposition.C.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces Contracting multiple tensors over one shared index is equivalent to contracting them individually with a single copy tensor.}}{60}{figure.17}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {C.1}Reshaping a Tensor (Matricization)}{61}{subsection.C.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {C.1.1}An Upper Bound for the Rank of Matrices in Tensor Networks}{61}{subsubsection.C.1.1}\protected@file@percent }
-\newlabel{theorem:min_cut_caps_rank}{{C.1}{62}{}{theorem.C.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces A generic tensor network with a cut partitioning the physical indices into $\mathcal  {I}_A$ (blue) and $\mathcal  {I}_B$ (red). The cut crosses bonds $e_1, e_2, e_3$.}}{62}{figure.18}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces Contracting the subgraphs results in two tensors, $U$ and $V$, connected by the cut bonds.}}{62}{figure.19}\protected@file@percent }
-\gdef \@abspage@last{63}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.5}Convergence of Mutual Information}{56}{subsection.B.5}\protected@file@percent }
+\newlabel{eq:1}{{1}{56}{Convergence of Mutual Information}{equation.B.1}{}}
+\newlabel{eq:2}{{2}{56}{Convergence of Mutual Information}{equation.B.2}{}}
+\newlabel{eq:3}{{3}{56}{Convergence of Mutual Information}{equation.B.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {C}Tensor Networks}{61}{appendix.C}\protected@file@percent }
+\newlabel{section:tensor_networks}{{C}{61}{Tensor Networks}{appendix.C}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces A basic tensor network over $\Sigma ^3$.}}{62}{figure.16}\protected@file@percent }
+\newlabel{proposition:marginalized_tensor_network}{{C.1}{63}{}{proposition.C.1}{}}
+\newlabel{proposition:contracting_over_shared_index}{{C.2}{64}{}{proposition.C.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces Contracting multiple tensors over one shared index is equivalent to contracting them individually with a single copy tensor.}}{65}{figure.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.1}Reshaping a Tensor (Matricization)}{66}{subsection.C.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {C.1.1}An Upper Bound for the Rank of Matrices in Tensor Networks}{66}{subsubsection.C.1.1}\protected@file@percent }
+\newlabel{theorem:min_cut_caps_rank}{{C.1}{67}{}{theorem.C.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces A generic tensor network with a cut partitioning the physical indices into $\mathcal  {I}_A$ (blue) and $\mathcal  {I}_B$ (red). The cut crosses bonds $e_1, e_2, e_3$.}}{67}{figure.18}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces Contracting the subgraphs results in two tensors, $U$ and $V$, connected by the cut bonds.}}{67}{figure.19}\protected@file@percent }
+\gdef \@abspage@last{68}
