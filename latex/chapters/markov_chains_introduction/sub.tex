@@ -283,25 +283,40 @@ We notice that the behavior of this chain is periodic with a period of length $3
 %     Since $\gcd \{ t_{ji} + n + t_{ij}, t_{ji} + n + 1 + t_{ij} \} = 1$, we conclude that $\gcd \{ n \in \mathbb{N}_{>0} : (\bm{P}^n)_{jj} > 0 \} = 1$, and hence $j$ is aperiodic.
 % \end{proof}
 
-\begin{lemma}[Period is a Class Property]
-    \label{lemma:period_is_a_class_property}
-    Let $i, j$ be two states in a Markov chain such that $i \leftrightsquigarrow j$. Then $\operatorname{period}(i) = \operatorname{period}(j)$.
+\begin{lemma}
+    \label{lemma:return_states_with_period}
+    Let $i$ be a state with period $p \coloneqq \operatorname{period}(i)$. Then there exists an integer $L$ such that for all integers $n > L$, the time $np$ is a valid return time for state $i$. That is, for all $n > L$, $(\mathbf{P}^{np})_{ii} > 0$.
 \end{lemma}
 \vspace{-2.5em}
 \begin{proof}
-    Since $i \leftrightsquigarrow j$, there exist integers $m, n > 0$ such that $(\bm{P}^m)_{ij} > 0$ and $(\bm{P}^n)_{ji} > 0$. Consider any time $t$ such that $(\bm{P}^t)_{ii} > 0$. By combining paths it follows that
+    Let $\mathcal{T}_i = \{ t > 0 \mid (\mathbf{P}^t)_{ii} > 0 \}$ be the set of return times for state $i$. By definition, $p = \gcd(\mathcal{T}_i)$, which means all $t \in \mathcal{T}_i$ are multiples of $p$.
+    
+    Consider the set of integers $\mathcal{T}'_i = \{ t/p \mid t \in \mathcal{T}_i \}$. By construction, $\gcd(\mathcal{T}'_i) = 1$. Applying the same number theory result as in the previous lemma, there exists a number $L$ such that any integer $n > L$ can be expressed as a non-negative integer linear combination of elements from $\mathcal{T}'_i$.
+    
+    Let $n > L$. We can write $n = \sum_{k=1}^r c_k t'_k$ for some $t'_k \in \mathcal{T}'_i$ and $c_k \in \mathbb{N}_0$. Multiplying by $p$ gives:
+    \[
+        np = \sum_{k=1}^r c_k (t'_k p) \quad .
+    \]
+    Since each $t'_k p$ is a valid return time in $\mathcal{T}_i$, their sum $np$ also corresponds to a valid path from $i$ to $i$. Thus, $(\mathbf{P}^{np})_{ii} > 0$ for all $n > L$.
+\end{proof}
+
+\begin{proposition}[Period is a Class Property]
+    \label{proposition:period_is_a_class_property}
+    Let $i, j$ be two states in a Markov chain such that $i \leftrightsquigarrow j$. Then $\operatorname{period}(i) = \operatorname{period}(j)$.
+\end{proposition}
+\vspace{-2.5em}
+\begin{proof}
+    Since $i \leftrightsquigarrow j$, there exist integers $m, n > 0$ such that $(\bm{P}^m)_{ij} > 0$ and $(\bm{P}^n)_{ji} > 0$. Consider any time $t$ s.t. $(\bm{P}^t)_{ii} > 0$. By combining paths it follows that
     \[
         (\bm{P}^{n + t + m})_{jj} \geq (\bm{P}^n)_{ji} \cdot (\bm{P}^t)_{ii} \cdot (\bm{P}^m)_{ij} > 0 \quad .
     \]
-    Define $\mathcal{T}_i := \{ t : (\bm{P}^t)_{ii} > 0 \}$, $\mathcal{T}_j := \{ t : (\bm{P}^t)_{jj} > 0 \}$. Consider $\mathcal{T}' \coloneqq \dfrac{\mathcal{T}_i}{\operatorname{period}(i)}$.
-    
-    Clearly, $\gcd \mathcal{T}' = 1$. Hence, there exists $\ell \in \mathcal{T}'$ s.t. $(\ell + 1) \in \mathcal{T}'$ (as $\mathcal{T}'$ can be thought of as arising from an irreducible aperiodic Markov chain and hence lemma~\ref{lemma:aux} is applicable). Thus, $(\operatorname{period}(i)\ell) \in \mathcal{T}_i$ and $(\operatorname{period}(i)\ell + \operatorname{period}(i)) \in \mathcal{T}_i$.
+   Based on lemma~\ref{lemma:return_states_with_period}, we know that there exists an $\ell \in \mathbb{N}$ s.t. $(\bm{P}^{\operatorname{period}(i) \ell})_{ii} > 0$ and $(\bm{P}^{\operatorname{period}(i) (\ell + 1)})_{ii} > 0$.
 
     It follows that
     \[
-        \{m + n + \operatorname{period}(i) \ell, \ m + n + \operatorname{period}(i) \ell + \operatorname{period}(i)\} \subset \mathcal{T}_j \quad .
+        \{m + n + \operatorname{period}(i) \ell, \ m + n + \operatorname{period}(i) \ell + \operatorname{period}(i)\} \subset \{ t > 0 \mid (\mathbf{P}^t)_{ii} > 0 \} \quad .
     \]
-    Thus, $\operatorname{period}(j) = \gcd \mathcal{T}_j \leq \operatorname{period}(i)$. Because of symmetry, we also have $\operatorname{period}(i) \leq \operatorname{period}(j)$. Ultimately, we have $\operatorname{period}(i) = \operatorname{period}(j)$.
+    Thus, $\operatorname{period}(j) = \gcd \{ t > 0 \mid (\mathbf{P}^t)_{jj} > 0 \} \leq \operatorname{period}(i)$. Because of symmetry, we also have $\operatorname{period}(i) \leq \operatorname{period}(j)$. Ultimately, we have $\operatorname{period}(i) = \operatorname{period}(j)$.
 \end{proof}
 
 This result leads to the following definitions:

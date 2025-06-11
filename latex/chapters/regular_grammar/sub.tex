@@ -30,7 +30,7 @@
 
     This is an interesting approach, which we will investigate on. Since we already established interesting results for Markov chains, we would like to reduce any constant mode of transition to a Markov chain. But how do we do this for a larger context window, where we have many random variables influencing the current one?
     
-    The idea is to employ a hidden variable $Y \in \Sigma ^s$, where $\Sigma$ is the alphabet, and $s$ is the size of the context window, which we define as the length of the longest arrow in the mode of transition (for Markov chains $s = 1$). Clearly, $Y$ captures the entire \emph{state} at time $t$ of our model, and we can model the transitions $Y_t \to Y_{t + 1}$ as simple Markov chain transitions (and hence independent of time). And, of course, once we know $Y_t$, we also know $X_t$ (which of course can be modelled with Markov chain transitions as well). Thus, we have the following Bayesian network which is also called a \emph{hidden Markov model}:
+    The idea is to employ a hidden variable $Y \in \Sigma ^s$, where $\Sigma$ is the alphabet, and $s$ is the size of the context window, which we define as the length of the longest arrow in the mode of transition (for Markov chains $s = 1$). Clearly, $Y$ captures the entire \emph{state} at time $t$ of our model, and we can model the transitions $Y_t \to Y_{t + 1}$ as simple Markov chain transitions (and hence independent of time). And, of course, once we know $Y_t$, we also know $X_t$ (which of course can be modelled with Markov chain transitions as well). Thus, we have the following Bayesian network:
 
     \begin{figure}[h]
         \center
@@ -63,10 +63,43 @@
         \label{fig:bayesian_network_hidden_markov}
     \end{figure}
 
-    % These models are known as \emph{hidden Markov models}. Unfortunately, there is no free lunch, as we will see in the following. Let's first prove some lemmas.
+    \bigskip
+    These models are known as \emph{hidden Markov models}. Unfortunately, there is no free lunch, as we will see in the following. But first, we will prove some lemmas.
+
+    \begin{lemma}
+        \label{lemma:raising_marov_matrix_to_its_period}
+        Let $\bm{M}$ be the transition matrix for an irreducible Markov chain with period $p$. Then the chain described by $\bm{M}^p$ consists of exactly $p$ aperiodic, closed communication classes.
+    \end{lemma}
+    \vspace{-2.5em}
+    \begin{proof}
+        A key property of an irreducible Markov chain with period $p$ is that its state space $S$ can be uniquely partitioned into $p$ disjoint nonempty sets, called cyclic classes:
+        \[
+            S = C_0 \cup C_1 \cup \dots \cup C_{p-1} \quad .
+        \]
+        These classes are defined such that a one-step transition from any state in class $C_k$ can only lead to a state in the next class, $C_{(k+1) \pmod p}$.
+
+        \textbf{Proving there are $p$ Closed Classes} \\
+        Let's consider the chain governed by the transition matrix $\bm{M}^p$, which represents taking steps of size $p$. If we start in any state $s \in C_k$, after one step of the new chain (which is $p$ steps in the original chain), we will transition from $C_k \to C_{(k+1) \pmod p} \to \dots \to C_{(k+p) \pmod p}$.
+        
+        Since $(k+p) \pmod p = k$, any transition of length $p$ starting in $C_k$ must end in a state that is also in $C_k$. This means that for any state $s \in C_k$ and any state $t \notin C_k$, the transition probability is $(\bm{M}^p)_{st} = 0$.
+        
+        Since transitions under $\bm{M}^p$ from $C_k$ can only lead to states within $C_k$, each cyclic class is a closed communication class in the new chain. Furthermore, the partition gives us exactly $p$ such classes: Because the original chain is irreducible, every state must belong to one of these classes, and each class must be able to reach the next, ensuring all $p$ classes are part of the overall structure and are non-empty.
+
+        \textbf{Proving Aperiodicity} \\
+        Now we must show that each of these $p$ classes is aperiodic in the $\bm{M}^p$ chain. Based on lemma~\ref{lemma:return_states_with_period}, we know that for every state $i$ there exists an $\ell \in \mathbb{N}$ s.t. $\ell p$ and $(\ell + 1) p$ are both return times in $\bm{M}$. Hence, $\ell$ and $\ell + 1$ are return times in $\bm{M}^p$, and thus state $i$ is aperiodic in $\bm{M}^p$.
+    \end{proof}
+
+    \begin{lemma}
+        \label{lemma:irreducible_aperiodic_markov_chain_stays_irreducible_aperiodic}
+        Let $\bm{M}$ describe an irreducible aperiodic Markov chain. Then, for every $n \in \mathbb{N}_{>0}$, the Markov chain described by $\bm{M}^n$ is also irreducible and aperiodic.
+    \end{lemma}
+    \vspace{-2.5em}
+    \begin{proof}
+        Since $\bm{M}$ is irreducible and aperiodic, there exists an $m \in \mathbb{N}_{>0}$ s.t. $\bm{M}^m > \bm{0}$ based on theorem~\ref{theorem:positive_transition_matrix}. Hence, $\bm{0} < \bm{M}^{mn} = (\bm{M}^n)^m$. Finally, using corollary~\ref{corollary:converse_positive_transition_matrix}, it follows that $\bm{M}^n$ is irreducible and aperiodic.
+    \end{proof}
 
     \begin{lemma}[Hidden Markov Models have the Bulk Marginal Property]
-        Every hidden Markov model $(\bm{M_Y}, \bm{M_X})$ complies with the bulk marginal property.
+        Every hidden Markov model with finite state spaces $(S_Y, S_X)$ for its latent variable $Y$ and observable variable $X$ with transition matrices $(\bm{M_Y}, \bm{M_X})$ complies with the bulk marginal property.
     \end{lemma}
     \vspace{-2.5em}
     \begin{proof}
@@ -84,41 +117,6 @@
         \end{align*}
     \end{proof}
 
-    % \begin{lemma}
-    %     \label{lemma:periodic_irreducible_stays_irreducible}
-    %     Let $\bm{M}$ describe an irreducible Markov chain with period $p$. Then for every $n \in \mathbb{N}$ with $\gcd(n, p) = 1$, $\bm{M}^n$ is still irreducible.
-    % \end{lemma}
-    % \vspace{-2.5em}
-    % \begin{proof}
-    %     Let $\mathcal{S}$ denote the state space of the Markov chain. For any state $i \in \mathcal{S}$, define the set
-    %     \[
-    %         \mathcal{T}_i = \{ n \in \mathbb{N} : (\bm{M}^n)_{ii} > 0 \} \quad ,
-    %     \]
-    %     i.e. the set of return times to state $i$. Since the chain is irreducible, the period $p$ is the greatest common divisor of $\mathcal{T}_i$ for any $i$ (see lemma~\ref{lemma:period_is_a_class_property}). Hence there exists a $k \in \mathbb{N}$ s.t.
-    %     \[
-    %         \{kp, kp + p\} \subset \mathcal{T}_i \quad .
-    %     \]
-    %     (Compare with proof of lemma~\ref{lemma:period_is_a_class_property}.) Since $\bm{M}$ is irreducible, we can transition from any state $i$ to any other state $j$ in $d(i, j) \equiv d$ steps. We can also use the $kp$ loop $l$ times, and the $kp + p$ loop $m$ times. Set $m \coloneqq -l \mod p$. It follows that
-    %     \begin{align*}
-    %         l(kp) + m(kp+p) + d &\equiv_n kp(l+m) + mp + d \\
-    %         &\equiv_n mp + d \quad .
-    %     \end{align*}
-    %     Since $\gcd(n,p) = 1$, we can always chose $m$ s.t. $mp \equiv_n -d$. Hence we can always find $m, l \in \mathbb{N}$ that satisfy
-    %     \[
-    %         l(kp) + m(kp+p) + d \equiv_n 0 \quad ,
-    %     \]
-    %     i.e. we can transition from $i$ to $j$ by doing step sizes of $n$.
-    % \end{proof}
-
-    \begin{lemma}
-        \label{lemma:aperiodic_irreducible_stays_aperiodic}
-        Let $\bm{M}$ describe an irreducible aperiodic Markov chain. Then for every $n \in \mathbb{N}$, $\bm{M}^n$ is still irreducible and aperiodic.
-    \end{lemma}
-    \vspace{-2.5em}
-    \begin{proof}
-        Since $\bm{M}$ is irreducible and aperiodic, there exists an $m \in \mathbb{N}_{>0}$ s.t. $\bm{M}^m > \bm{0}$ based on theorem~\ref{theorem:positive_transition_matrix}. Hence, $\bm{M}^{mn} > \bm{0}$. Based on corollary~\ref{corollary:converse_positive_transition_matrix} we know that $\bm{M}^n$ is irreducible and aperiodic.
-    \end{proof}
-
     \begin{lemma}
         \label{lemma:exponential_convergence_with_open_states}
         Let
@@ -130,148 +128,145 @@
             \end{bmatrix}
         \]
         be a matrix consisting of submatrices \( \bm{A} \in \mathbb{R}^{k \times k} \), \( \bm{B} \in \mathbb{R}^{k \times \ell} \), and \( \bm{C} \in \mathbb{R}^{\ell \times \ell} \). Let $\bm{A}$ be an irreducible aperiodic Markov transition matrix, and let $\bm{C}^n \xrightarrow{n \to \infty} \bm{0}$ with exponential decay.
-        Then, $\bm{M}^n \xrightarrow{n \to \infty} \bm{M}'$ with exponential decay for some matrix $\bm{M}'$.
-        % Then \( \bm{M}^n \xrightarrow{n \to \infty}\bm{M}' \) with exponential decay, where
-        % \[
-        % \bm{M}' = 
-        % \begin{bmatrix}
-        % \bm{M_\mu} & \bm{D}_\infty \\
-        % \bm{0} & \bm{0}
-        % \end{bmatrix} \quad .
-        % \]
+        Then, $\bm{M}^n$ decays exponentially in $n$ towards a matrix $\bm{M}'$.
     \end{lemma}
     \vspace{-2.5em}
-    % \begin{proof}
-    %     Using induction, it is easy to show that
-    %     \[
-    %         \bm{M}^n =
-    %         \begin{bmatrix}
-    %         \bm{A}^n & \sum_{i=0}^{n-1} \bm{A}^{n-1-i} \bm{B} \bm{C}^i \\
-    %         \bm{0} & \bm{C}^n
-    %         \end{bmatrix}
-    %         \quad .
-    %     \]
-    %     We aim to show that this sum converges to a finite matrix:
-    %     \[
-    %     \lim_{n \to \infty} \sum_{i=0}^{n-1} \bm{A}^{n-1-i} \bm{B} \bm{C}^i \eqqcolon \bm{D}_\infty \quad .
-    %     \]
-    %     Let us denote:
-    %     \[
-    %     \bm{D}_n := \sum_{i=0}^{n-1} \bm{A}^{n-1-i} \bm{B} \bm{C}^i \quad .
-    %     \]
-    %     We want to show that $\|\bm{D}_{n+1} - \bm{D}_{n}\| \leq c e^{-\alpha n}$ for some $\alpha \in \mathbb{R}_{> 0}$.
-
-    %     We have:
-    %     \begin{align*}
-    %         \bm{D}_{n+1} - \bm{D}_{n} &= \sum_{i=0}^{n} \bm{A}^{n-i}\bm{BC}^i - \sum_{i=0}^{n-1} \bm{A}^{n-1-i}\bm{BC}^i \\
-    %         &= \bm{BC}^n + \sum_{i=0}^{n-1} \left[ \bm{A}^{n-i}\bm{BC}^i - \bm{A}^{n-1-i}\bm{BC}^i \right] \\
-    %         &= \bm{BC}^n + \sum_{i=0}^{\frac{n}{2}-1} \left[ \left( \bm{A}^{n-i} - \bm{A}^{n-1-i} \right) \bm{BC}^i \right] + \sum_{\frac{n}{2}}^{n-1} \left[ \left( \bm{A}^{n-i} - \bm{A}^{n-1-i} \right) \bm{BC}^i \right] \\
-    %         &= \pm \mathcal{O}(c_1 e^{-\alpha_1 n}) + \sum_{i=0}^{\frac{n}{2}-1} \left[ \left( \bm{A}^{n-i} - \bm{A}^{n-1-i} \right) \bm{BC}^i \right] \pm \mathcal{O}(\frac{n}{2} c_1 e^{-\alpha_1 \frac{n}{2}}) \\
-    %         &= \pm \mathcal{O}(c_1 e^{-\alpha_1 n}) + \sum_{i=0}^{\frac{n}{2}-1} \left[ \left( \bm{A}^{n-1-i} \pm \mathcal{O}(2c_2 e^{-\alpha_2 (n-1-i)}) - \bm{A}^{n-1-i} \right) \bm{BC}^i \right] \pm \mathcal{O}(\frac{n}{2} c_1 e^{-\alpha_1 \frac{n}{2}}) \\
-    %         &= \pm \mathcal{O}(c_1 e^{-\alpha_1 n}) + \sum_{i=0}^{\frac{n}{2}-1} \left[ \pm \mathcal{O}(c_2 e^{-\alpha_2 (n-1-i)}) \bm{BC}^i \right] \pm \mathcal{O}(\frac{n}{2} c_1 e^{-\alpha_1 \frac{n}{2}}) \\
-    %         &= \pm \mathcal{O}(c_1 e^{-\alpha_1 n})  \pm \mathcal{O}(\frac{n}{2} c_2 e^{-\alpha_2 \frac{n}{2}}) \pm \mathcal{O}(\frac{n}{2} c_1 e^{-\alpha_1 \frac{n}{2}}) \\
-    %         &= \pm \mathcal{O}(c e^{-\alpha n}) \quad .
-    %     \end{align*}
-    %     It is easy to see that $(\bm{D}_n)_{n=1}^{\infty}$ is a Cauchy sequence and hence $\bm{D}_\infty$ exists. And of course
-    %     \begin{align*}
-    %         \|\bm{D}_\infty - \bm{D}_{n}\| &\leq \sum_{i=n}^{\infty} c e^{-\alpha i} \\
-    %         &= c \sum_{i=n}^{\infty} (e^{-\alpha})^i \\
-    %         &= c \left( \frac{1}{1 - e^{-\alpha}} - \frac{1 - e^{-\alpha n}}{1 - e^{-\alpha} } \right) \\
-    %         &= c \frac{e^{-\alpha n}}{1 - e^{-\alpha}} \in \mathcal{O}(e^{-\alpha n}) \quad .
-    %     \end{align*}
+    \begin{proof}
+        Using induction, it is easy to show that
+        \[
+            \bm{M}^n =
+            \begin{bmatrix}
+            \bm{A}^n & \sum_{i=0}^{n-1} \bm{A}^{n-1-i} \bm{B} \bm{C}^i \\
+            \bm{0} & \bm{C}^n
+            \end{bmatrix}
+            \quad .
+        \]
+        We aim to show that this sum converges to a finite matrix:
+        \[
+        \lim_{n \to \infty} \sum_{i=0}^{n-1} \bm{A}^{n-1-i} \bm{B} \bm{C}^i \eqqcolon \bm{D}_\infty \quad .
+        \]
+        Let us denote:
+        \[
+        \bm{D}_n := \sum_{i=0}^{n-1} \bm{A}^{n-1-i} \bm{B} \bm{C}^i \quad .
+        \]
+        We want to show that $\|\bm{D}_{n+1} - \bm{D}_{n}\| \leq c e^{-\alpha n}$ for some $\alpha \in \mathbb{R}_{> 0}$. Note that the exponentially fast convergence of $\bm{D}_{n}$ is equivalent to exponentially fast convergence of every entry in the matrix.
         
-    %     From here, the claim follows trivially.
-    % \end{proof}
+        Since $\bm{A}$ is irreducible and aperiodic, it follows that $\lambda_1 = 1$ and $|\lambda_2| < 1$ based on theorem~\ref{theorem:perron_frobenius}. Hence, it converges exponentially fast with a basis of $|\lambda_2|$.
+
+        Furthermore, note that every entry $\alpha$ in every matrix for every $n$ is bounded by $\alpha \in [0, 1]$. Hence, we can argue about their element-wise deviation in big $\mathcal{O}$ notation where the hidden constants remain bounded:
+
+        \begin{align*}
+            &\bm{D}_{n+1} - \bm{D}_{n} \\
+            &= \sum_{i=0}^{n} \bm{A}^{n-i}\bm{BC}^i - \sum_{i=0}^{n-1} \bm{A}^{n-1-i}\bm{BC}^i \\
+            &= \bm{BC}^n + \sum_{i=0}^{n-1} \left[ \bm{A}^{n-i}\bm{BC}^i - \bm{A}^{n-1-i}\bm{BC}^i \right] \\
+            &= \bm{BC}^n + \sum_{i=0}^{\frac{n}{2}-1} \left[ \left( \bm{A}^{n-i} - \bm{A}^{n-1-i} \right) \bm{BC}^i \right] + \sum_{\frac{n}{2}}^{n-1} \left[ \left( \bm{A}^{n-i} - \bm{A}^{n-1-i} \right) \bm{BC}^i \right] \\
+            &= \pm \mathcal{O}(e^{-\alpha_1 n}) + \sum_{i=0}^{\frac{n}{2}-1} \left[ \left( \bm{A}^{n-i} - \bm{A}^{n-1-i} \right) \bm{BC}^i \right] + \sum_{\frac{n}{2}}^{n-1} \left[ \left( \bm{A}^{n-i} - \bm{A}^{n-1-i} \right) \bm{B} \cdot \mathcal{O}(e^{-\alpha_1 \frac{n}{2}}) \right] \\
+            &= \pm \mathcal{O}(e^{-\alpha_1 n}) + \sum_{i=0}^{\frac{n}{2}-1} \left[ \left( \bm{A}^{n-i} - \bm{A}^{n-1-i} \right) \bm{BC}^i \right] \pm \mathcal{O}(n e^{-\alpha_1 \frac{n}{2}}) \\
+            &= \pm \mathcal{O}(e^{-\alpha_1 n}) + \sum_{i=0}^{\frac{n}{2}-1} \left[ \left( \bm{A}^{n-i} - \bm{A}^\infty + \bm{A}^\infty - \bm{A}^{n-1-i} \right) \bm{BC}^i \right] \pm \mathcal{O}(n e^{-\alpha_1 \frac{n}{2}}) \\
+            &= \pm \mathcal{O}(e^{-\alpha_1 n}) + \sum_{i=0}^{\frac{n}{2}-1} \left[ \left( \pm \mathcal{O}(e^{-\alpha_2 (n-1-i)}) \right) \bm{BC}^i \right] \pm \mathcal{O}(n e^{-\alpha_1 \frac{n}{2}}) \\
+            &= \pm \mathcal{O}(e^{-\alpha_1 n})  \pm \mathcal{O}(n e^{-\alpha_2 \frac{n}{2}}) \pm \mathcal{O}(n e^{-\alpha_1 \frac{n}{2}}) \\
+            &= \pm \mathcal{O}(e^{-\alpha n}) \quad .
+        \end{align*}
+        It is easy to see that $(\bm{D}_n)_{n=1}^{\infty}$ is a Cauchy sequence and hence $\bm{D}_\infty$ exists. And of course
+        \begin{align*}
+            \|\bm{D}_\infty - \bm{D}_{n}\| &\leq \sum_{i=n}^{\infty} c e^{-\alpha i} \\
+            &= c \sum_{i=n}^{\infty} (e^{-\alpha})^i \\
+            &= c \left( \frac{1}{1 - e^{-\alpha}} - \frac{1 - e^{-\alpha n}}{1 - e^{-\alpha} } \right) \\
+            &= c \frac{e^{-\alpha n}}{1 - e^{-\alpha}} \in \mathcal{O}(e^{-\alpha n}) \quad .
+        \end{align*}
+        
+        From here, the claim follows trivially.
+    \end{proof}
 
 
 
-    \begin{lemma}
-    \label{lemma:exponential_convergence_with_open_states}
-    Let $\bm{M}$ be a block matrix representing a Markov chain, defined as
-    \[
-        \bm{M} \coloneqq
-        \begin{bmatrix}
-            \bm{A} & \bm{B} \\
-            \bm{0} & \bm{C}
-        \end{bmatrix}
-        \quad ,
-    \]
-    where \( \bm{A} \in \mathbb{R}^{k \times k} \), \( \bm{B} \in \mathbb{R}^{k \times \ell} \), and \( \bm{C} \in \mathbb{R}^{\ell \times \ell} \).
-    Assume the following conditions hold:
-    \begin{enumerate}
-        \item[\textnormal{(i)}] $\bm{A}$ is the transition matrix of an irreducible and aperiodic Markov chain.
-        \item[\textnormal{(ii)}] $\lim_{n \to \infty} \bm{C}^n = \bm{0}$ with an exponential rate of decay.
-    \end{enumerate}
-    Then $\bm{M}^n$ converges to a matrix $\bm{M}_\infty$ exponentially fast.
-\end{lemma}
+%     \begin{lemma}
+%     \label{lemma:exponential_convergence_with_open_states}
+%     Let $\bm{M}$ be a block matrix representing a Markov chain, defined as
+%     \[
+%         \bm{M} \coloneqq
+%         \begin{bmatrix}
+%             \bm{A} & \bm{B} \\
+%             \bm{0} & \bm{C}
+%         \end{bmatrix}
+%         \quad ,
+%     \]
+%     where \( \bm{A} \in \mathbb{R}^{k \times k} \), \( \bm{B} \in \mathbb{R}^{k \times \ell} \), and \( \bm{C} \in \mathbb{R}^{\ell \times \ell} \).
+%     Assume the following conditions hold:
+%     \begin{enumerate}
+%         \item[\textnormal{(i)}] $\bm{A}$ is the transition matrix of an irreducible and aperiodic Markov chain.
+%         \item[\textnormal{(ii)}] $\lim_{n \to \infty} \bm{C}^n = \bm{0}$ with an exponential rate of decay.
+%     \end{enumerate}
+%     Then $\bm{M}^n$ converges to a matrix $\bm{M}_\infty$ exponentially fast.
+% \end{lemma}
 
-\begin{proof}
-    By induction, the $n$-th power of the block matrix $\bm{M}$ is given by:
-    \[
-        \bm{M}^n =
-        \begin{bmatrix}
-        \bm{A}^n & \sum_{i=0}^{n-1} \bm{A}^{n-1-i} \bm{B} \bm{C}^i \\
-        \bm{0} & \bm{C}^n
-        \end{bmatrix}
-        \eqqcolon
-        \begin{bmatrix}
-        \bm{A}_n & \bm{D}_n \\
-        \bm{0} & \bm{C}_n
-        \end{bmatrix}
-        \quad .
-    \]
-    We will analyze the convergence of each block separately.
+% \begin{proof}
+%     By induction, the $n$-th power of the block matrix $\bm{M}$ is given by:
+%     \[
+%         \bm{M}^n =
+%         \begin{bmatrix}
+%         \bm{A}^n & \sum_{i=0}^{n-1} \bm{A}^{n-1-i} \bm{B} \bm{C}^i \\
+%         \bm{0} & \bm{C}^n
+%         \end{bmatrix}
+%         \eqqcolon
+%         \begin{bmatrix}
+%         \bm{A}_n & \bm{D}_n \\
+%         \bm{0} & \bm{C}_n
+%         \end{bmatrix}
+%         \quad .
+%     \]
+%     We will analyze the convergence of each block separately.
 
-    \textbf{Convergence of $\bm{A}_n = \bm{A}^n$}:
-    Since $\bm{A}$ is the transition matrix of an irreducible, aperiodic finite Markov chain, the Perron-Frobenius theorem guarantees that its powers converge exponentially to a rank-one matrix $\bm{A}_\infty$. Each row of $\bm{A}_\infty$ is the unique stationary distribution $\bm{\pi_A}$. Thus, there exist constants $c_A > 0$ and $\rho_A \in (0, 1)$ such that for any compatible matrix norm $\|\cdot\|$:
-    \[
-        \|\bm{A}^n - \bm{A}_\infty\| \leq c_A \rho_A^n \quad .
-    \]
+%     \textbf{Convergence of $\bm{A}_n = \bm{A}^n$}:
+%     Since $\bm{A}$ is the transition matrix of an irreducible, aperiodic finite Markov chain, the Perron-Frobenius theorem guarantees that its powers converge exponentially to a rank-one matrix $\bm{A}_\infty$. Each row of $\bm{A}_\infty$ is the unique stationary distribution $\bm{\pi_A}$. Thus, there exist constants $c_A > 0$ and $\rho_A \in (0, 1)$ such that for any compatible matrix norm $\|\cdot\|$:
+%     \[
+%         \|\bm{A}^n - \bm{A}_\infty\| \leq c_A \rho_A^n \quad .
+%     \]
 
-    \textbf{Convergence of $\bm{C}_n = \bm{C}^n$}:
-    By assumption (ii), $\bm{C}^n \to \bm{0}$ exponentially. This is equivalent to the condition that the spectral radius of $\bm{C}$, denoted $\rho(\bm{C})$, is less than 1. This implies that there exist constants $c_C > 0$ and $\rho_C \in (\rho(\bm{C}), 1)$ such that:
-    \[
-        \|\bm{C}^n\| \leq c_C \rho_C^n \quad .
-    \]
-    Furthermore, since $\rho(\bm{C}) < 1$, the matrix $(\bm{I} - \bm{C})$ is invertible, and the geometric series of matrices converges: $\sum_{i=0}^{\infty} \bm{C}^i = (\bm{I} - \bm{C})^{-1}$.
+%     \textbf{Convergence of $\bm{C}_n = \bm{C}^n$}:
+%     By assumption (ii), $\bm{C}^n \to \bm{0}$ exponentially. This is equivalent to the condition that the spectral radius of $\bm{C}$, denoted $\rho(\bm{C})$, is less than 1. This implies that there exist constants $c_C > 0$ and $\rho_C \in (\rho(\bm{C}), 1)$ such that:
+%     \[
+%         \|\bm{C}^n\| \leq c_C \rho_C^n \quad .
+%     \]
+%     Furthermore, since $\rho(\bm{C}) < 1$, the matrix $(\bm{I} - \bm{C})$ is invertible, and the geometric series of matrices converges: $\sum_{i=0}^{\infty} \bm{C}^i = (\bm{I} - \bm{C})^{-1}$.
 
-    \textbf{Convergence of $\bm{D}_n = \sum_{i=0}^{n-1} \bm{A}^{n-1-i} \bm{B} \bm{C}^i$}:
-    Let us define the limit matrix $\bm{D}_\infty \coloneqq \sum_{i=0}^{\infty} \bm{A}_\infty \bm{B} \bm{C}^i = \bm{A}_\infty \bm{B} (\bm{I} - \bm{C})^{-1}$. The existence of $\bm{D}_\infty$ is guaranteed by the convergence of the geometric series of $\bm{C}$. We now show that $\|\bm{D}_n - \bm{D}_\infty\|$ decays exponentially.
-    \begin{align*}
-        \bm{D}_\infty - \bm{D}_n &= \sum_{i=0}^{\infty} \bm{A}_\infty \bm{B} \bm{C}^i - \sum_{i=0}^{n-1} \bm{A}^{n-1-i} \bm{B} \bm{C}^i \\
-        &= \sum_{i=n}^{\infty} \bm{A}_\infty \bm{B} \bm{C}^i + \sum_{i=0}^{n-1} (\bm{A}_\infty - \bm{A}^{n-1-i}) \bm{B} \bm{C}^i \quad .
-    \end{align*}
-    Using the triangle inequality for the norm:
-    \[
-        \|\bm{D}_\infty - \bm{D}_n\| \leq \underbrace{\left\| \sum_{i=n}^{\infty} \bm{A}_\infty \bm{B} \bm{C}^i \right\|}_{\text{Term 1}} + \underbrace{\left\| \sum_{i=0}^{n-1} (\bm{A}_\infty - \bm{A}^{n-1-i}) \bm{B} \bm{C}^i \right\|}_{\text{Term 2}} \quad .
-    \]
-    For \textbf{Term 1}, the tail of a convergent geometric series also decays geometrically:
-    \[
-        \left\| \sum_{i=n}^{\infty} \bm{A}_\infty \bm{B} \bm{C}^i \right\| \leq \|\bm{A}_\infty\| \|\bm{B}\| \sum_{i=n}^{\infty} \|\bm{C}^i\| \leq \|\bm{A}_\infty\| \|\bm{B}\| \sum_{i=n}^{\infty} c_C \rho_C^i = \|\bm{A}_\infty\| \|\bm{B}\| c_C \frac{\rho_C^n}{1 - \rho_C} \quad .
-    \]
-    This term decays exponentially with rate $\rho_C$.
+%     \textbf{Convergence of $\bm{D}_n = \sum_{i=0}^{n-1} \bm{A}^{n-1-i} \bm{B} \bm{C}^i$}:
+%     Let us define the limit matrix $\bm{D}_\infty \coloneqq \sum_{i=0}^{\infty} \bm{A}_\infty \bm{B} \bm{C}^i = \bm{A}_\infty \bm{B} (\bm{I} - \bm{C})^{-1}$. The existence of $\bm{D}_\infty$ is guaranteed by the convergence of the geometric series of $\bm{C}$. We now show that $\|\bm{D}_n - \bm{D}_\infty\|$ decays exponentially.
+%     \begin{align*}
+%         \bm{D}_\infty - \bm{D}_n &= \sum_{i=0}^{\infty} \bm{A}_\infty \bm{B} \bm{C}^i - \sum_{i=0}^{n-1} \bm{A}^{n-1-i} \bm{B} \bm{C}^i \\
+%         &= \sum_{i=n}^{\infty} \bm{A}_\infty \bm{B} \bm{C}^i + \sum_{i=0}^{n-1} (\bm{A}_\infty - \bm{A}^{n-1-i}) \bm{B} \bm{C}^i \quad .
+%     \end{align*}
+%     Using the triangle inequality for the norm:
+%     \[
+%         \|\bm{D}_\infty - \bm{D}_n\| \leq \underbrace{\left\| \sum_{i=n}^{\infty} \bm{A}_\infty \bm{B} \bm{C}^i \right\|}_{\text{Term 1}} + \underbrace{\left\| \sum_{i=0}^{n-1} (\bm{A}_\infty - \bm{A}^{n-1-i}) \bm{B} \bm{C}^i \right\|}_{\text{Term 2}} \quad .
+%     \]
+%     For \textbf{Term 1}, the tail of a convergent geometric series also decays geometrically:
+%     \[
+%         \left\| \sum_{i=n}^{\infty} \bm{A}_\infty \bm{B} \bm{C}^i \right\| \leq \|\bm{A}_\infty\| \|\bm{B}\| \sum_{i=n}^{\infty} \|\bm{C}^i\| \leq \|\bm{A}_\infty\| \|\bm{B}\| \sum_{i=n}^{\infty} c_C \rho_C^i = \|\bm{A}_\infty\| \|\bm{B}\| c_C \frac{\rho_C^n}{1 - \rho_C} \quad .
+%     \]
+%     This term decays exponentially with rate $\rho_C$.
 
-    For \textbf{Term 2}, we bound the sum, which is a convolution of two exponentially decaying sequences:
-    \begin{align*}
-        \left\| \sum_{i=0}^{n-1} (\bm{A}_\infty - \bm{A}^{n-1-i}) \bm{B} \bm{C}^i \right\| &\leq \sum_{i=0}^{n-1} \|\bm{A}_\infty - \bm{A}^{n-1-i}\| \|\bm{B}\| \|\bm{C}^i\| \\
-        &\leq \sum_{i=0}^{n-1} (c_A \rho_A^{n-1-i}) \|\bm{B}\| (c_C \rho_C^i) \\
-        &= c_A c_C \|\bm{B}\| \sum_{i=0}^{n-1} \rho_A^{n-1-i} \rho_C^i \\
-        &= c_A c_C \|\bm{B}\| \rho_A^{n-1} \sum_{i=0}^{n-1} \left(\frac{\rho_C}{\rho_A}\right)^i \quad .
-    \end{align*}
-    If $\rho_A \neq \rho_C$, the geometric sum evaluates to $\frac{(\rho_C/\rho_A)^n - 1}{(\rho_C/\rho_A) - 1}$. The overall term is bounded by $k_1 \rho_A^n + k_2 \rho_C^n$ for some constants $k_1, k_2$. In either case (whether $\rho_A = \rho_C$ or not), the sum is bounded by a term that decays exponentially with a rate of $\max(\rho_A, \rho_C)$.
+%     For \textbf{Term 2}, we bound the sum, which is a convolution of two exponentially decaying sequences:
+%     \begin{align*}
+%         \left\| \sum_{i=0}^{n-1} (\bm{A}_\infty - \bm{A}^{n-1-i}) \bm{B} \bm{C}^i \right\| &\leq \sum_{i=0}^{n-1} \|\bm{A}_\infty - \bm{A}^{n-1-i}\| \|\bm{B}\| \|\bm{C}^i\| \\
+%         &\leq \sum_{i=0}^{n-1} (c_A \rho_A^{n-1-i}) \|\bm{B}\| (c_C \rho_C^i) \\
+%         &= c_A c_C \|\bm{B}\| \sum_{i=0}^{n-1} \rho_A^{n-1-i} \rho_C^i \\
+%         &= c_A c_C \|\bm{B}\| \rho_A^{n-1} \sum_{i=0}^{n-1} \left(\frac{\rho_C}{\rho_A}\right)^i \quad .
+%     \end{align*}
+%     If $\rho_A \neq \rho_C$, the geometric sum evaluates to $\frac{(\rho_C/\rho_A)^n - 1}{(\rho_C/\rho_A) - 1}$. The overall term is bounded by $k_1 \rho_A^n + k_2 \rho_C^n$ for some constants $k_1, k_2$. In either case (whether $\rho_A = \rho_C$ or not), the sum is bounded by a term that decays exponentially with a rate of $\max(\rho_A, \rho_C)$.
 
-    Let $\rho = \max(\rho_A, \rho_C) \in (0,1)$. Both Term 1 and Term 2 are bounded by expressions of the form $K \cdot n^p \cdot \rho^n$ for $p \in \{0, 1\}$, which decays exponentially. Therefore, $\|\bm{D}_n - \bm{D}_\infty\|$ decays exponentially.
+%     Let $\rho = \max(\rho_A, \rho_C) \in (0,1)$. Both Term 1 and Term 2 are bounded by expressions of the form $K \cdot n^p \cdot \rho^n$ for $p \in \{0, 1\}$, which decays exponentially. Therefore, $\|\bm{D}_n - \bm{D}_\infty\|$ decays exponentially.
 
-    \textbf{Conclusion}:
-    We have shown that each block of $\bm{M}^n$ converges exponentially to the corresponding block in the limit matrix
-    \[
-        \bm{M}_\infty \coloneqq \begin{bmatrix}
-        \bm{A}_\infty & \bm{D}_\infty \\
-        \bm{0} & \bm{0}
-        \end{bmatrix} \quad .
-    \]
-    The rate of convergence for the entire matrix $\bm{M}^n$ is governed by the slowest decaying term, so $\|\bm{M}^n - \bm{M}_\infty\|$ decays exponentially, which completes the proof.
-\end{proof}
+%     \textbf{Conclusion}:
+%     We have shown that each block of $\bm{M}^n$ converges exponentially to the corresponding block in the limit matrix
+%     \[
+%         \bm{M}_\infty \coloneqq \begin{bmatrix}
+%         \bm{A}_\infty & \bm{D}_\infty \\
+%         \bm{0} & \bm{0}
+%         \end{bmatrix} \quad .
+%     \]
+%     The rate of convergence for the entire matrix $\bm{M}^n$ is governed by the slowest decaying term, so $\|\bm{M}^n - \bm{M}_\infty\|$ decays exponentially, which completes the proof.
+% \end{proof}
 
     \begin{theorem}[No Hidden Markov Model with Power-Law Behavior]
         % There is no hidden Markov model $(\bm{M_Y}, \bm{M_X})$ with $I(X_{t_0}, X_{t_0 + \tau}) \in \mathcal{O}(\tau^{-\alpha})$ and $I(X_{t_0}, X_{t_0 + \tau}) \in \Omega (\tau^{-\beta})$ for some $\alpha, \beta \in \mathbb{R}_{>0}$.
@@ -316,7 +311,7 @@
 
         We see that $P(X_{\tau} = a \mid X_0 = b) = (\bm{M_X} \bm{M_Y}^\tau \bm{M_R})_{ab}$.
 
-        Now, for the sake of contradiction, assume that there exists a model $(\bm{M_Y}, \bm{M_X})$ with weak power-law behavior. It follows that $I(X_0; X_{\tau}) \xrightarrow{\tau \to \infty} 0$. We will show that for certain $m \in \mathbb{N}$ we have $\bm{M_X} \bm{M_Y}^{m \tau} \bm{M_R} \xrightarrow{\tau \to \infty} \bm{M'}$ with exponential decay. Now, either $\bm{M'}$ implies a mutual information greater than zero, but then we don't have decay towards zero and hence no power-law behavior, or we indeed have mutual information of zero, but since we converge with exponential decay, the mutual information cannot be lower bounded by a power-law. (Really true?)
+        Now, for the sake of contradiction, assume that there exists a model $(\bm{M_Y}, \bm{M_X})$ with weak power-law behavior. It follows that $I(X_0; X_{\tau}) \xrightarrow{\tau \to \infty} 0$. We will show that for certain $m \in \mathbb{N}$ we have $\bm{M_X} \bm{M_Y}^{m \tau} \bm{M_R} \xrightarrow{\tau \to \infty} \bm{M'}$ with exponential decay. Now, either $\bm{M'}$ implies a mutual information greater than zero, but then we don't have decay towards zero and hence no power-law behavior, or we indeed have mutual information of zero, but since we converge with exponential decay, the mutual information cannot be lower bounded by a power-law (see corollary~\ref{corollary:exponential_convergence_of_conditional_probability_matrix_implies_exponential_convergence_of_mutual_information}).
         
         Note that if $\bm{M_Y}^{m \tau}$ converges to any matrix with exponential decay for $\tau \to \infty$, then $\bm{M_X} \bm{M_Y}^{m \tau} \bm{M_R}$ will be forced to converge with exponential decay as well.
         
@@ -327,9 +322,23 @@
         \[
             I(X_0; X_\tau) \leq I(Y_0; Y_\tau) \quad .
         \]
-        But we have already proven that $I(Y_0; Y_\tau)$ decays exponentially.
+        But we have already proven that $I(Y_0; Y_\tau)$ decays exponentially in theorem~\ref{theorem:no_power-law_in_irreducible_aperdioc_markov_chains}.
 
-        \textbf{Case 2: Multiple Closed Aperiodic Communication Classes} \\
+        \textbf{Case 2: Irreducible and Periodic} \\
+        Assume $\bm{M_Y}$ has periodicity $p$. Let's analyze $\bm{M_Y}^p$: Based on lemma~\ref{lemma:raising_marov_matrix_to_its_period}, it must decompose into $p$ aperiodic closed blocks (when ordering the states accordingly):
+        \[
+            \bm{M_Y}^p = 
+            \begin{bmatrix}
+            \bm{B_1} & \bm{0} & \cdots & \bm{0} \\
+            \bm{0} & \bm{B_2} & \cdots & \bm{0} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            \bm{0} & \bm{0} & \cdots & \bm{B_p}
+            \end{bmatrix}
+            \quad .
+        \]
+        Since all blocks represent irreducible aperiodic Markov chains, $\bm{M_Y}^{p \tau}$ must converge exponentially fast. But this means that $I(X_0; X_\tau)$ converges exponentially fast for $\tau = n \cdot p, \ n \in \mathbb{N}$, and hence it cannot be lower bounded by a power-law assuming convergence to $0$.
+
+        \textbf{Case 3: Multiple Closed Aperiodic Communication Classes} \\
         In this case, we can order the states such that $\bm{M_Y}$ is block diagonal, i.e.
         \[
             \bm{M_Y} = 
@@ -354,25 +363,6 @@
         \]
         Hence, $\bm{M_Y}^\tau$ converges to a certain block diagonal matrix with exponential decay since all the blocks $\bm{B_i}$ are irreducible and aperiodic.
 
-        \textbf{Case 3: Irreducible and Periodic} \\
-        Assume $\bm{M_Y}$ has periodicity $p$. Let's analyze $\bm{M_Y}^p$: Because of periodicity, it must decompose into $p$ independent blocks (when ordering the states accordingly):
-        \[
-            \bm{M_Y}^p = 
-            \begin{bmatrix}
-            \bm{B_1} & \bm{0} & \cdots & \bm{0} \\
-            \bm{0} & \bm{B_2} & \cdots & \bm{0} \\
-            \vdots & \vdots & \ddots & \vdots \\
-            \bm{0} & \bm{0} & \cdots & \bm{B_p}
-            \end{bmatrix}
-            \quad .
-        \]
-        Because $\bm{M_Y}$ is irreducible, so must all blocks $\bm{B_i}$. Now there are two cases: Either all blocks are aperiodic, but then we are in case 2, hence $\bm{M_Y}^{p \tau}$ converges with exponential decay. But this means that $I(X_0; X_\tau)$ has exponential decay for $\tau = n \cdot p, \ n \in \mathbb{N}$, and hence it cannot be lower bounded by a power-law.
-
-        % On the other hand, if there are blocks that are still periodic, we recursively apply this procedure and see that all the blocks $\bm{B_i}$ converge exponentially for $\tau = n \cdot m_i, \ n \in \mathbb{N}$. Define $m_I$ as the smallest common multiple of all $m_i$, and we see that $\bm{M_Y}^\tau$ itself converges with exponential decay when $\tau = n \cdot p \cdot m_I, \ n \in \mathbb{N}$.
-        On the other hand, if there are blocks that are still are periodic, we recursively apply this procedure to arrive at a matrix $\bm{M_Y}^m$ for some $m \in \mathbb{N}$ with irreducible aperiodic blocks after finitely many iterations (note
-        % lemma~\ref{lemma:periodic_irreducible_stays_irreducible}and
-        lemma~\ref{lemma:aperiodic_irreducible_stays_aperiodic}). Hence, by the same logic we arrive at a contradiction.
-
         \textbf{Case 4: Multiple Closed Communication Classes} \\
         Now assume $\bm{M_Y}$ consists of many closed communication classes that can be either periodic or aperiodic. But we know that all the aperiodic classes converge with exponential decay, and the periodic ones as well if we restrict $\tau \equiv_{m_i} 0$ for a specific $m_i$ associated with block $\bm{B_i}$. By calculating the smallest common multiple of all $m_i$ defined as $m_I$, we see that $\bm{M_Y}^\tau$ converges with exponential decay for $\tau = n \cdot m_I, \ n \in \mathbb{N}$.
 
@@ -395,9 +385,9 @@
             \end{bmatrix}
             \quad .
         \]
-        Thus, the block described by $\bm{S_C}$ will converge with exponential decay for $\tau = n \cdot m, \ n \in \mathbb{N}$ for some $m \in \mathbb{N}$ based on Case 4. Furthermore, $\bm{S_O}^{\tau}$ decays to $\bm{0}$ with exponential decay. (One can show that $|\lambda_1| \leq 1$ like in the proof of theorem~\ref{theorem:perron_frobenius}. Also, since $\bm{S_O}$ describes a collection of states in open communication classes, we have $|\lambda_1| \neq 1$. (Why?)) 
+        Thus, the block described by $\bm{S_C}$ will converge with exponential decay for $\tau = n \cdot m, \ n \in \mathbb{N}$ for some $m \in \mathbb{N}$ based on Case 4, and $\bm{S_O}^{\tau}$ decays to $\bm{0}$ with exponential decay as well.
 
-        But what about the states in $\bm{S_O}'$? Well, based on the previous discussion, we know there exists an $m \in \mathbb{N}$ s.t. $\bm{S_C}^m$ is block diagonal with every block being irreducible and aperiodic:
+        But what about the states in $\bm{S_O}'$? Well, based on lemma~\ref{lemma:irreducible_aperiodic_markov_chain_stays_irreducible_aperiodic} and the previous discussion, we know there exists an $m \in \mathbb{N}$ s.t. $\bm{S_C}^m$ is block diagonal with every block being irreducible and aperiodic:
         \[
             \bm{M_Y}^m = 
             \begin{bmatrix}
