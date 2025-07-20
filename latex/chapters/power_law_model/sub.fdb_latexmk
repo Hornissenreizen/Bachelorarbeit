@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1753016111 "/home/jonas/Desktop/Desktop/Bachelorarbeit/latex/chapters/power_law_model/sub.tex" "chapters/power_law_model/sub.pdf" "sub" 1753016112
+["pdflatex"] 1753026507 "/home/jonas/Desktop/Desktop/Bachelorarbeit/latex/chapters/power_law_model/sub.tex" "chapters/power_law_model/sub.pdf" "sub" 1753026508
   "/etc/texmf/web2c/texmf.cnf" 1667832238 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/jonas/Desktop/Desktop/Bachelorarbeit/latex/chapters/power_law_model/sub.tex" 1753016111 9331 d735352fc4e406624b846364e900ef34 ""
+  "/home/jonas/Desktop/Desktop/Bachelorarbeit/latex/chapters/power_law_model/sub.tex" 1753026507 12523 12243bfd74a8eee4a434cfe5cd72fbc5 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1246382020 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm" 1246382020 1120 7f9f170e8aa57527ad6c49feafd45d54 ""
@@ -34,6 +34,7 @@
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb" 1248133631 36281 c355509802a035cadc5f15869451dcee ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb" 1248133631 36912 b448ef9ad9d7228ec3c6e71005136d55 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1248133631 35752 024fb6c41858982481f6968b5fc26508 ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb" 1248133631 31809 8670ca339bf94e56da1fc21c80635e2a ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1248133631 32762 224316ccc9ad3ca0423a14971cfa7fc1 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb" 1248133631 32915 7bf7720c61a5b3a7ff25b0964421c9b6 ""
@@ -221,9 +222,9 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1697878699 128028 f533b797fba58d231669ea19e894e23e ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1712737265 1405647 f966d3218063cabc8be94f5b4e8cfbea ""
   "chapters/power_law_model/../../main.tex" 1753000081 2439 2e22c7b0c0031ce7fd268985b1660356 ""
-  "chapters/power_law_model/sub.aux" 1753016112 1461 9ab74f7fccd6ccf5c02eed1fb6a69290 "pdflatex"
-  "chapters/power_law_model/sub.out" 1753016112 952 a5ea34aaded96b2795322a05b7166cc1 "pdflatex"
-  "chapters/power_law_model/sub.tex" 1753016111 9331 d735352fc4e406624b846364e900ef34 ""
+  "chapters/power_law_model/sub.aux" 1753026508 1736 162fe69f8545cc8eb39885c153aee7ee "pdflatex"
+  "chapters/power_law_model/sub.out" 1753026508 952 a5ea34aaded96b2795322a05b7166cc1 "pdflatex"
+  "chapters/power_law_model/sub.tex" 1753026507 12523 12243bfd74a8eee4a434cfe5cd72fbc5 ""
   (generated)
   "chapters/power_law_model/sub.aux"
   "chapters/power_law_model/sub.log"

@@ -145,14 +145,75 @@ What is left to do is to ensure that the so defined matrix $\bm{\Sigma}$ is inde
 Note that $\bm{\Sigma}$ is symmetric, and has positive entries along its diagonal. Thus, it is sufficient for positive definiteness to show that $\bm{\Sigma}$ is strictly diagonally dominant, i.e.
 \begin{align}
     &\forall i \in [n]: |\bm{\Sigma}_{ii}| > \sum_{j \neq i} |\bm{\Sigma}_{ij}| \notag \\
-    \iff \ &\forall i \in [n]: 1 > \sum_{j \neq i} |\rho_{|i-j|}| \quad .
+    \iff \ &\forall i \in [n]: 1 > \sum_{j \neq i} |\rho_{|i-j|}| \quad . \label{eq:diagonal_dominant}
 \end{align}
 
 When using this method, we immediately see that the sign of $\rho_\Delta$ is of no meaning. Hence, we may chose all entries of $\bm{\Sigma}$ to be positive.
 
 Note that a specific entry $\rho_\Delta$ can occur two times in the same row. This happens especially in the middle rows of the matrix. However, for a fixed $\Delta$, $\rho_\Delta$ can occur at most two times in the same row. Hence, we derive the following bound:
-\[
-    \sum_{j \neq i} |\rho_{|i-j|}| \leq 2 \sum_{\Delta = 1}^{\infty} \rho_\Delta \quad .
-\]
+\begin{equation}
+    \sum_{j \neq i} |\rho_{|i-j|}| \leq 2 \sum_{\Delta = 1}^{\infty} \rho_\Delta \quad . \label{eq:diagonal_dominant_sufficient}
+\end{equation}
+
+We need an upper bound for $\rho_\Delta$. As it turns out, we will need a lower bound later as well. Hence, we will provide both at this point:
+
+\begin{proposition}
+    Let $\rho_\Delta \coloneqq \sqrt{1 - e^{-2c \Delta^{-\alpha}}}$. Then, we have
+    \[
+        \sqrt{\frac{2c}{2c + 1}} \Delta^{-0.5 \alpha} \leq \rho_\Delta \leq \sqrt{2c} \Delta^{-0.5 \alpha} \quad ,
+    \]
+    where the lower bound holds for all $\Delta \in \mathbb{N}_{>0}$, and the upper bound \\ for $\Delta > (2c)^{\frac{1}{\alpha}}$.
+\end{proposition}
+
+\begin{proof}
+    Note the inequality $x + 1 \leq e^x$. For $x > -1$ it follows that
+    \begin{equation}
+        e^{-x} \leq \frac{1}{x + 1} \label{eq:e_to_the_minus_ex_bound} \quad .
+    \end{equation}
+    Applying equation~\ref{eq:e_to_the_minus_ex_bound} to $e^{-2c \Delta^{-\alpha}}$ with $x \coloneqq 2c \Delta^{-\alpha}$ yields
+    \[
+        e^{-2c \Delta^{-\alpha}} \leq \frac{1}{2c \Delta^{-\alpha} + 1} \quad ,
+    \]
+    where we have $x > -1 \iff 2c \Delta^{-\alpha} > -1 \impliedby \Delta \in \mathbb{N}_{>0}$.
+
+    Plugging this into the equation for $\rho_\Delta$ gives
+    \begin{align*}
+        \rho_\Delta &\geq \sqrt{1 - \frac{1}{2c \Delta^{-\alpha} + 1}} \\
+        &= \sqrt{\frac{2c \Delta^{-\alpha}}{2c \Delta^{-\alpha} + 1}} \\
+        &= \sqrt{2c} \Delta^{-0.5\alpha} \sqrt{\frac{1}{2c \Delta^{-\alpha} + 1}} \\
+        &\geq \sqrt{2c} \Delta^{-0.5\alpha} \sqrt{\frac{1}{2c 1^{-\alpha} + 1}} \\
+        &= \sqrt{\frac{2c}{2c + 1}} \Delta^{-0.5 \alpha} \quad .
+    \end{align*}
+    This proves the lower bound.
+
+    Let's now focus on the upper bound. Applying equation~\ref{eq:e_to_the_minus_ex_bound} to $e^{2c \Delta^{-\alpha}}$ with $x \coloneqq -2c \Delta^{-\alpha}$ yields
+    \[
+        e^{2c \Delta^{-\alpha}} \leq \frac{1}{-2c \Delta^{-\alpha} + 1} \quad ,
+    \]
+    where we have $x > -1 \iff -2c \Delta^{-\alpha} > -1 \iff \Delta > (2c)^{\frac{1}{\alpha}}$.
+
+    Under this assumption, both sides of the inequality are positive, and hence it follows that
+    \[
+        e^{-2c \Delta^{-\alpha}} \geq 1 -2c \Delta^{-\alpha} \quad .
+    \]
+
+    Plugging this into the equation for $\rho_\Delta$ gives
+    \begin{align*}
+        \rho_\Delta &\leq \sqrt{1 - (1 -2c \Delta^{-\alpha})} \\
+        &= \sqrt{2c \Delta^{-\alpha}} \\
+        &= \sqrt{2c} \Delta^{-0.5\alpha} \quad .
+    \end{align*}
+\end{proof}
+
+Having this result established, we can continue on equation~\eqref{eq:diagonal_dominant_sufficient}. To this end, set $\alpha \coloneqq 4$, and $c < \frac{9}{2 \pi^4}$, like $c \coloneqq 0.045$. For $\Delta > (2c)^{\frac{1}{\alpha}}$ we can now use the upper bound, which translates to all $\Delta \in \mathbb{N}_{>0}$. Hence:
+\begin{align*}
+    \sum_{j \neq i} |\rho_{|i-j|}| &\leq 2 \sum_{\Delta = 1}^{\infty} \rho_\Delta \\
+    &\leq 2 \sum_{\Delta = 1}^{\infty} \frac{\sqrt{2 \cdot 0.045}}{\Delta^2} \\
+    &= 2 \cdot 0.3 \sum_{\Delta = 1}^{\infty} \frac{1}{\Delta^2} \\
+    &= 2 \cdot 0.3 \cdot \frac{\pi^2}{6} \\
+    &= \frac{\pi^2}{10} \\
+    &< 1 \quad ,
+\end{align*}
+which proves equation~\eqref{eq:diagonal_dominant}.
 
 \end{document}
