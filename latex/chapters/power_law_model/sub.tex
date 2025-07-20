@@ -1,0 +1,158 @@
+\documentclass[../../main.tex]{subfiles}
+
+\begin{document}
+\section{A Model with Power-Law Behavior}
+Based on our definitions it is very easy to define models without power-law behavior (see chapter~\ref{sec:mutual_information_in_markov_chains}). However, one might ask the question whether there actually exists a model that satisfies strong power-law behavior.
+
+\subsection{The Model}
+Which simple model could we try to analyze? Well, one intuitive option is to use a normal distribution. The model $S_n$ is then simply a normal distribution $\mathcal{N}(\bm{\mu}, \bm{\Sigma})$ with the parameters $\bm{\mu}$ and $\bm{\Sigma}$.
+
+There is one problem, though. We defined $S_n$ to be a probability measure, but $\mathcal{N}(\bm{\mu}, \bm{\Sigma})$ is a \emph{probability density function} over $\mathbb{R}^n$. So, how can we solve this?
+
+Well, we can just set $\bm{\mu} \coloneqq \bm{0}$, and discretize our probability space by integrating over the quadrants. Thus, we created a model $S_n$ over $\{-1, 1\}^n$, where for example $S_2(11)$ is defined as the integral over the first quadrant, $S_2(-11)$ as the integral over the second quadrant, and so on.
+
+\begin{definition}[The Model]
+    Let $\mathcal{N}(\bm{0}, \bm{\Sigma})$ be a normal distribution with a positive definite parameter matrix $\bm{\Sigma}$, and let $p(\bm{x})$ denote the associated probability density function. We define a model $S_{n, \bm{\Sigma}}$ over $\{-1, 1\}^n$ with
+    \[
+        S_{n, \bm{\Sigma}}(w) = \int_{Q_w} p(\bm{x}) d\bm{x} \quad ,
+    \]
+    where $Q_w$ is the quadrant
+    \[
+        Q_w = \{ \bm{x} \in \mathbb{R}^n \mid \forall i \in [n] : w_i \bm{x}_i \geq 0 \} \quad .
+    \]
+\end{definition}
+
+\begin{remark}
+    It is obvious that this is a valid probability distribution.
+\end{remark}
+
+Note that we are not really interested in the exact probabilities of our model. Instead, we focus on the pairwise mutual information.
+
+\subsubsection{A Formula for Mutual Information}
+Let's take a step back and consider the continuous normal distribution again. The mutual information is also well defined in this case. We will make use of some properties of the normal distribution, like the following (without proof):
+
+\pagebreak
+\begin{proposition}[Marginal Distributions of a Normal Distribution]
+    Let the $n$-dimensional random vector $\bm{X}$ follow a multivariate normal distribution, $\bm{X} \sim \mathcal{N}(\bm{\mu}, \bm{\Sigma})$. We partition $\bm{X}$ into two sub-vectors, $\bm{X}_1 \in \mathbb{R}^k$ and $\bm{X}_2 \in \mathbb{R}^{n-k}$, with the corresponding partitions of the mean vector $\bm{\mu}$ and covariance matrix $\bm{\Sigma}$ as:
+    \[
+        \bm{X} = \begin{pmatrix} \bm{X}_1 \\ \bm{X}_2 \end{pmatrix} \quad , \quad 
+        \bm{\mu} = \begin{pmatrix} \bm{\mu}_1 \\ \bm{\mu}_2 \end{pmatrix} \quad , \quad 
+        \bm{\Sigma} = \begin{pmatrix} \bm{\Sigma}_{11} & \bm{\Sigma}_{12} \\ \bm{\Sigma}_{21} & \bm{\Sigma}_{22} \end{pmatrix} \quad ,
+    \]
+    where $\bm{\mu}_1 \in \mathbb{R}^k$ and $\bm{\Sigma}_{11}$ is a $k \times k$ matrix.
+    
+    Then the marginal distribution of the sub-vector $\bm{X}_1$ is also a multivariate normal distribution given by:
+    \[
+        \bm{X}_1 \sim \mathcal{N}(\bm{\mu}_1, \bm{\Sigma}_{11}) \quad .
+    \]
+\end{proposition}
+
+\begin{proposition}[Entropy of a Multivariate Normal Distribution]
+    Let the random vector $\bm{X} \in \mathbb{R}^n$ follow a multivariate normal distribution $\mathcal{N}(\bm{\mu}, \bm{\Sigma})$ with a positive definite covariance matrix $\bm{\Sigma}$. The entropy of $\bm{X}$ is given by
+    \[
+        H(\bm{X}) = \frac{1}{2} \log\left( (2\pi e)^n \det(\bm{\Sigma}) \right) \quad,
+    \]
+    where $\log$ is the natural logarithm.
+\end{proposition}
+
+\begin{proof}
+    The Entropy is defined as $H(\bm{X}) = E[-\log p(\bm{X})]$, where $p(\bm{x})$ is the probability density function (PDF). The PDF for $\mathcal{N}(\bm{\mu}, \bm{\Sigma})$ is
+    \[
+        p(\bm{x}) = \frac{1}{\sqrt{(2\pi)^n \det(\bm{\Sigma})}} \exp\left(-\frac{1}{2}(\bm{x}-\bm{\mu})^T \bm{\Sigma}^{-1} (\bm{x}-\bm{\mu})\right) \quad.
+    \]
+    Taking the natural logarithm of the PDF gives:
+    \[
+        \log p(\bm{x}) = -\frac{1}{2}\log\left((2\pi)^n \det(\bm{\Sigma})\right) - \frac{1}{2}(\bm{x}-\bm{\mu})^T \bm{\Sigma}^{-1} (\bm{x}-\bm{\mu}) \quad.
+    \]
+    Now, we take the expectation of $-\log p(\bm{X})$:
+    \begin{align*}
+        H(\bm{X}) &= E\left[ \frac{1}{2}\log\left((2\pi)^n \det(\bm{\Sigma})\right) + \frac{1}{2}(\bm{X}-\bm{\mu})^T \bm{\Sigma}^{-1} (\bm{X}-\bm{\mu}) \right] \\
+        &= \frac{1}{2}\log\left((2\pi)^n \det(\bm{\Sigma})\right) + \frac{1}{2}E\left[(\bm{X}-\bm{\mu})^T \bm{\Sigma}^{-1} (\bm{X}-\bm{\mu})\right] \quad.
+    \end{align*}
+    We evaluate the expectation term. Since the quadratic form is a scalar, it equals its trace.
+    \begin{align*}
+        E\left[(\bm{X}-\bm{\mu})^T \bm{\Sigma}^{-1} (\bm{X}-\bm{\mu})\right] &= E\left[\text{tr}\left((\bm{X}-\bm{\mu})^T \bm{\Sigma}^{-1} (\bm{X}-\bm{\mu})\right)\right] \\
+        &= E\left[\text{tr}\left(\bm{\Sigma}^{-1} (\bm{X}-\bm{\mu})(\bm{X}-\bm{\mu})^T\right)\right] \\
+        &= \text{tr}\left(\bm{\Sigma}^{-1} E\left[(\bm{X}-\bm{\mu})(\bm{X}-\bm{\mu})^T\right]\right) \\
+        &= \text{tr}\left(\bm{\Sigma}^{-1} \bm{\Sigma}\right) \\
+        &= \text{tr}(\mathbf{I}_n) = n \quad.
+    \end{align*}
+    Substituting this result back into the entropy equation:
+    \begin{align*}
+        H(\bm{X}) &= \frac{1}{2}\log\left((2\pi)^n \det(\bm{\Sigma})\right) + \frac{1}{2}n \\
+        &= \frac{1}{2} \left( n \log(2\pi) + \log(\det(\bm{\Sigma})) + n\log(e) \right) \\
+        &= \frac{1}{2} \left( n \log(2\pi e) + \log(\det(\bm{\Sigma})) \right) \\
+        &= \frac{1}{2} \log\left( (2\pi e)^n \det(\bm{\Sigma}) \right) \quad.
+    \end{align*}
+\end{proof}
+
+Let's now consider
+\[
+    \begin{pmatrix*}
+        X \\
+        Y \\
+    \end{pmatrix*}
+    \sim \mathcal{N}\left(\bm{0}, \begin{pmatrix*}
+        1 & \rho \\
+        \rho & 1 \\
+    \end{pmatrix*}\right)
+    \quad .
+\]
+
+With our previous results in mind, we calculate the mutual information:
+\begin{align}
+    I(X; Y) &= H(X) + H(Y) - H(X, Y) \notag \\
+    &= \left[ \frac{1}{2} \log(2\pi e \cdot 1) \right] + \left[ \frac{1}{2} \log(2\pi e \cdot 1) \right] - \left[ \frac{1}{2} \log\left( (2\pi e)^2 \det\begin{pmatrix*} 1 & \rho \\ \rho & 1 \end{pmatrix*} \right) \right] \notag \\
+    &= \log(2\pi e) - \frac{1}{2} \log\left( (2\pi e)^2 (1-\rho^2) \right) \notag \\
+    &= \log(2\pi e) - \frac{1}{2} \left( \log((2\pi e)^2) + \log(1-\rho^2) \right) \notag \\
+    &= \log(2\pi e) - \frac{1}{2} \left( 2\log(2\pi e) + \log(1-\rho^2) \right) \notag \\
+    &= \log(2\pi e) - \log(2\pi e) - \frac{1}{2}\log(1-\rho^2) \notag \\
+    &= -\frac{1}{2}\log(1-\rho^2) \label{eq:gauss_mutual_information} \quad .
+\end{align}
+
+\subsubsection{Initializing Parameters}
+Our discretized model $S_{n, \bm{\Sigma}}$ behaves differently than the continuous normal distribution, and so do the pairwise mutual information measures. However, let's act like the behave similar.
+
+Let $(Y_1, \dots, Y_n)$ denote the random variables of the n-dimensional normal distribution
+\[
+    \mathcal{N}\left(\bm{0}, \begin{pmatrix*}
+        1& \rho_1& \rho_2& \dots & \rho_{n-1} \\
+        \rho_1& 1& \rho_1& \dots & \rho_{n-2} \\
+        \vdots &  & \ddots & & \vdots \\
+        \rho_{n-1} & \rho_{n-2} & \rho_{n-3} & \dots & 1 \\
+    \end{pmatrix*}\right) \quad .
+\]
+We want the mutual information $I(Y_i; Y_j)$ to follow a power-law, i.e.
+\[
+    I(Y_i; Y_j) \overset{!}{=} c |i-j|^{-\alpha} \quad ,
+\]
+for some $c, \alpha \in \mathbb{R}_{>0}$.
+
+Let $\Delta \coloneqq |i-j|$. Using equation~\eqref{eq:gauss_mutual_information} it follows that
+\begin{align*}
+    -\frac{1}{2}\log(1-\rho_\Delta^2) &= c \Delta^{-\alpha} \\
+    \log(1-\rho_\Delta^2) &= -2c \Delta^{-\alpha} \\
+    1-\rho_\Delta^2 &= e^{-2c \Delta^{-\alpha}} \\
+    \rho_\Delta^2 &= 1 - e^{-2c \Delta^{-\alpha}} \\
+    \rho_\Delta &= \pm \sqrt{1 - e^{-2c \Delta^{-\alpha}}} \quad .
+\end{align*}
+
+Thus, upon defining the constants $c$ and $\alpha$, we can directly calculate the parameters $\rho_\Delta$, where we have the freedom to chose the sign.
+
+\subsubsection{Ensure Positive Definiteness}
+What is left to do is to ensure that the so defined matrix $\bm{\Sigma}$ is indeed positive definite. How should we define, $c$ and $\alpha$, and which signs should we choose?
+
+Note that $\bm{\Sigma}$ is symmetric, and has positive entries along its diagonal. Thus, it is sufficient for positive definiteness to show that $\bm{\Sigma}$ is strictly diagonally dominant, i.e.
+\begin{align}
+    &\forall i \in [n]: |\bm{\Sigma}_{ii}| > \sum_{j \neq i} |\bm{\Sigma}_{ij}| \notag \\
+    \iff \ &\forall i \in [n]: 1 > \sum_{j \neq i} |\rho_{|i-j|}| \quad .
+\end{align}
+
+When using this method, we immediately see that the sign of $\rho_\Delta$ is of no meaning. Hence, we may chose all entries of $\bm{\Sigma}$ to be positive.
+
+Note that a specific entry $\rho_\Delta$ can occur two times in the same row. This happens especially in the middle rows of the matrix. However, for a fixed $\Delta$, $\rho_\Delta$ can occur at most two times in the same row. Hence, we derive the following bound:
+\[
+    \sum_{j \neq i} |\rho_{|i-j|}| \leq 2 \sum_{\Delta = 1}^{\infty} \rho_\Delta \quad .
+\]
+
+\end{document}
