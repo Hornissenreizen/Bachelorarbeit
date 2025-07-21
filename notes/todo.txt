@@ -1,4 +1,7 @@
 - prove: I(X;Y) approaches 0 if and only if X and Y approach to be independent?
-- model framework I(X,Y) -> I(X;Y)
+- model framework I(X,Y) -> I(X;Y) DONE
 - time-homogeneous Markov chain
-- period of a class! reference it in lemma for regular grammars
+- period of a class! reference it in lemma for regular grammars DONE
+- convergence of mutual information: sequences include indices; unify x_0 and x_\infty
+- unify starting at 0 or 1 for random variables
+- rework tensor networks

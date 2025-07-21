@@ -603,7 +603,7 @@ This shows that $\{f(\bm{x}_k)\}$ converges exponentially to $f(\bm{x}_0)$ with 
 
 \begin{lemma}
 \label{lemma:xlogx_exponential_convergence}
-Let the function $f: [0, 1] \to \mathbb{R}$ be defined as $f(x) = x \log x$, with the convention $f(0) = 0$. If a sequence $\{x_k\}_{k=1}^\infty \subset [0,1]$ converging to a limit $x_\infty \in [0,1]$ satisfies $|x_k - x_\infty| \leq C \rho^k$ for some $C \in \mathbb{R}_{>0}, \ \rho \in [0, 1)$, then the sequence $\{f(x_k)\}$ converges to $f(x_\infty)$ with $|f(x_k) - f(x_\infty)| \leq C \rho^k \ |\log C + k \log \rho|$ for $k \geq \log_\rho \left( \dfrac{e^{-1}}{C} \right) \eqqcolon K$.
+Let the function $f: [0, \infty) \to \mathbb{R}$ be defined as $f(x) = x \log x$ for $x \in (0, 1)$, and $f(x) = 0$ everywhere else. If a sequence $\{x_k\}_{k=1}^\infty \subset [0,1]$ converging to a limit $x_\infty \in [0,1]$ satisfies $|x_k - x_\infty| \leq C \rho^k$ for some $C \in \mathbb{R}_{>0}, \ \rho \in [0, 1)$, then the sequence $\{f(x_k)\}$ converges to $f(x_\infty)$ with $|f(x_k) - f(x_\infty)| \leq C \rho^k \ |\log C + k \log \rho|$ for $k \geq \log_\rho \left( \dfrac{e^{-1}}{C} \right) \eqqcolon K$.
 \end{lemma}
 \vspace{-2.5em}
 \begin{proof}
@@ -624,7 +624,7 @@ Similarly, for $k \geq K$ we have $|x_k - x_\infty| \leq C \rho^k \leq e^{-1}$. 
 \end{proof}
 
 \begin{theorem}[Element-Wise Exponential Convergence Property of Mutual Information]
-Let the function $f: [0, 1] \to \mathbb{R}$ be defined as $f(x) = x \log x$, with the convention $f(0) = 0$. Define the function $I: [0, 1]^{mn} \mapsto \mathbb{R}$ for a matrix $\bm{M}$ as:
+Let the function $f: [0, \infty) \to \mathbb{R}$ be defined as $f(x) = x \log x$ for $x \in (0, 1)$, and $f(x) = 0$ everywhere else. Define the function $I: [0, 1]^{mn} \to \mathbb{R}$ for a matrix $\bm{M}$ as:
 \begin{align*}
     I(\bm{M}) &= \sum_{i=1}^m \sum_{j=1}^n f(M_{ij}) - \sum_{i=1}^m f\left(\sum_{j=1}^n M_{ij}\right) - \sum_{j=1}^n f\left(\sum_{i=1}^m M_{ij}\right) \quad .
 \end{align*}
@@ -657,7 +657,7 @@ Hence, by lemma~\ref{lemma:xlogx_exponential_convergence}, we have:
 \begin{align*}
 |I(\bm{U}_k) - I(\bm{U}_\infty)| &\leq 3 C \rho^k \ |\log C + k \log \rho| \\
 &\leq 3 C \rho^k k \ (|\log C| + |\log \rho|) \\
-&\leq C' \rho^k k \quad ,
+&= C' \rho^k k \quad ,
 \end{align*}
 with $C' \coloneqq 3 C (|\log C| + |\log \rho|)$ and for all $k \geq K(C, \rho)$. Note that $K$, $C'$ and $P$ only depend on $C$ and $\rho$.
 \end{proof}

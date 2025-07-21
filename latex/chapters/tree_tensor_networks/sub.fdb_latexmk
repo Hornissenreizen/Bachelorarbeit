@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1749635809.03153 "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/chapters/tree_tensor_networks/sub.tex" "chapters/tree_tensor_networks/sub.pdf" "sub" 1749635809.8312 0
-  "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/chapters/tree_tensor_networks/sub.tex" 1749635807.67553 23777 4fd44bb5a5ca667dd8387ad81e8337b1 ""
+["pdflatex"] 1749720397.36315 "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/chapters/tree_tensor_networks/sub.tex" "chapters/tree_tensor_networks/sub.pdf" "sub" 1749720398.16794 0
+  "/home/jonas/Documents/University/6. Semester/Bachelorarbeit/latex/chapters/tree_tensor_networks/sub.tex" 1749720396.03736 23780 16a7ee1cbb1bf879084e120d0f2fef62 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1734431873.45473 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1734431874.71172 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm" 1734431874.71172 1120 7f9f170e8aa57527ad6c49feafd45d54 ""
@@ -219,10 +219,10 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1734431864.2608 5485709 8129e419010b46b234085a26866cdb87 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1734431864.3988 3343776 2b14423543ae36c58e6a97232fe20f3b ""
   "/usr/local/texlive/2024/texmf.cnf" 1734431864.4218 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
-  "chapters/tree_tensor_networks/../../main.tex" 1749635255.33971 2386 6eb610a850b614ca09dbdf5358902427 ""
-  "chapters/tree_tensor_networks/sub.aux" 1749635809.76653 2844 edd05b60b90d2dc17a570742436c5901 "pdflatex"
-  "chapters/tree_tensor_networks/sub.out" 1749635809.76653 1347 24a0ca5356adf9a48f5897a71002fcc5 "pdflatex"
-  "chapters/tree_tensor_networks/sub.tex" 1749635807.67553 23777 4fd44bb5a5ca667dd8387ad81e8337b1 ""
+  "chapters/tree_tensor_networks/../../main.tex" 1749720182.74715 2386 6eb610a850b614ca09dbdf5358902427 ""
+  "chapters/tree_tensor_networks/sub.aux" 1749720398.10335 2854 b590895dbd76cc23d7ca383dc6719c78 "pdflatex"
+  "chapters/tree_tensor_networks/sub.out" 1749720398.10435 1357 167fe9640eb7ac4e0f580a12e3a72fca "pdflatex"
+  "chapters/tree_tensor_networks/sub.tex" 1749720396.03736 23780 16a7ee1cbb1bf879084e120d0f2fef62 ""
   (generated)
   "chapters/tree_tensor_networks/sub.aux"
   "chapters/tree_tensor_networks/sub.log"
