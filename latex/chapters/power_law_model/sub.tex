@@ -5,16 +5,17 @@
 Based on our definitions it is very easy to define models without power-law behavior (see chapter~\ref{sec:mutual_information_in_markov_chains}). However, one might ask the question whether there actually exists a model that satisfies strong power-law behavior.
 
 \subsection{The Model}
-Which simple model could we try to analyze? Well, one intuitive option is to use a normal distribution. The model $S_n$ is then simply a normal distribution $\mathcal{N}(\bm{\mu}, \bm{\Sigma})$ with the parameters $\bm{\mu}$ and $\bm{\Sigma}$.
+Which simple model could we try to analyze? Well, one intuitive option is to use a normal distribution. The model $S_n$ is then simply a family of normal distributions $\mathcal{N}(\bm{\mu}_n, \bm{\Sigma}_n)$ with parameters $\bm{\mu}_n$ and $\bm{\Sigma}_n$.
 
-There is one problem, though. We defined $S_n$ to be a probability measure, but $\mathcal{N}(\bm{\mu}, \bm{\Sigma})$ is a \emph{probability density function} over $\mathbb{R}^n$. So, how can we solve this?
+There is one problem, though. We defined $S_n$ to be a probability measure, but $\mathcal{N}(\bm{\mu}_n, \bm{\Sigma}_n)$ is a \emph{probability density function} over $\mathbb{R}^n$. So, how can we solve this?
 
-Well, we can just set $\bm{\mu} \coloneqq \bm{0}$, and discretize our probability space by integrating over the quadrants. Thus, we created a model $S_n$ over $\{-1, 1\}^n$, where for example $S_2(11)$ is defined as the integral over the first quadrant, $S_2(-11)$ as the integral over the second quadrant, and so on.
+Well, we can just set $\bm{\mu}_n \coloneqq \bm{0}$, and discretize our probability space by integrating over the quadrants. Thus, we created a model $S_n$ over $\{-1, 1\}^n$, where for example $S_2(11)$ is defined as the integral over the first quadrant, $S_2(-11)$ as the integral over the second quadrant, and so on.
 
 \begin{definition}[The Model]
-    Let $\mathcal{N}(\bm{0}, \bm{\Sigma})$ be a normal distribution with a positive definite parameter matrix $\bm{\Sigma}$, and let $p(\bm{x})$ denote the associated probability density function. We define a model $S_{n, \bm{\Sigma}}$ over $\{-1, 1\}^n$ with
+    \label{definition:the_model}
+    Let $\mathcal{N}(\bm{0}, \bm{\Sigma}_n)$ be a family of normal distributions with a positive definite parameter matrix $\bm{\Sigma}_n$, and let $p_n(\bm{x})$ denote the associated probability density functions. We define a model $S_{n, \bm{\Sigma}_n}$ over $\{-1, 1\}^n$ with
     \[
-        S_{n, \bm{\Sigma}}(w) = \int_{Q_w} p(\bm{x}) d\bm{x} \quad ,
+        S_{n, \bm{\Sigma}_n}(w) = \int_{Q_w} p_n(\bm{x}) d\bm{x} \quad ,
     \]
     where $Q_w$ is the quadrant
     \[
@@ -33,6 +34,7 @@ Let's take a step back and consider the continuous normal distribution again. Th
 
 \pagebreak
 \begin{proposition}[Marginal Distributions of a Normal Distribution]
+    \label{proposition:marginal_distributions_of_a_normal_distribution}
     Let the $n$-dimensional random vector $\bm{X}$ follow a multivariate normal distribution, $\bm{X} \sim \mathcal{N}(\bm{\mu}, \bm{\Sigma})$. We partition $\bm{X}$ into two sub-vectors, $\bm{X}_1 \in \mathbb{R}^k$ and $\bm{X}_2 \in \mathbb{R}^{n-k}$, with the corresponding partitions of the mean vector $\bm{\mu}$ and covariance matrix $\bm{\Sigma}$ as:
     \[
         \bm{X} = \begin{pmatrix} \bm{X}_1 \\ \bm{X}_2 \end{pmatrix} \quad , \quad 
@@ -111,7 +113,8 @@ With our previous results in mind, we calculate the mutual information:
 \end{align}
 
 \subsubsection{Initializing Parameters}
-Our discretized model $S_{n, \bm{\Sigma}}$ behaves differently than the continuous normal distribution, and so do the pairwise mutual information measures. However, let's act like the behave similar.
+\label{sec:initializing_parameters}
+Our discretized model $S_{n, \bm{\Sigma}_n}$ behaves differently than the continuous normal distribution, and so do the pairwise mutual information measures. However, let's act like the behave similar.
 
 Let $(Y_1, \dots, Y_n)$ denote the random variables of the n-dimensional normal distribution
 \[
@@ -129,18 +132,18 @@ We want the mutual information $I(Y_i; Y_j)$ to follow a power-law, i.e.
 for some $c, \alpha \in \mathbb{R}_{>0}$.
 
 Let $\Delta \coloneqq |i-j|$. Using equation~\eqref{eq:gauss_mutual_information} it follows that
-\begin{align*}
-    -\frac{1}{2}\log(1-\rho_\Delta^2) &= c \Delta^{-\alpha} \\
-    \log(1-\rho_\Delta^2) &= -2c \Delta^{-\alpha} \\
-    1-\rho_\Delta^2 &= e^{-2c \Delta^{-\alpha}} \\
-    \rho_\Delta^2 &= 1 - e^{-2c \Delta^{-\alpha}} \\
-    \rho_\Delta &= \pm \sqrt{1 - e^{-2c \Delta^{-\alpha}}} \quad .
-\end{align*}
-
+\begin{alignat*}{2}
+    && I(Y_i; Y_j) &= c |i-j|^{-\alpha} \\
+    & \iff \quad & -\frac{1}{2}\log(1-\rho_\Delta^2) &= c \Delta^{-\alpha} \\
+    & \iff \quad & \log(1-\rho_\Delta^2) &= -2c \Delta^{-\alpha} \\
+    & \iff \quad & 1-\rho_\Delta^2 &= e^{-2c \Delta^{-\alpha}} \\
+    & \iff \quad & \rho_\Delta^2 &= 1 - e^{-2c \Delta^{-\alpha}} \\
+    & \iff \quad & \rho_\Delta &= \pm \sqrt{1 - e^{-2c \Delta^{-\alpha}}} \quad . \\
+\end{alignat*}
 Thus, upon defining the constants $c$ and $\alpha$, we can directly calculate the parameters $\rho_\Delta$, where we have the freedom to chose the sign.
 
 \subsubsection{Ensure Positive Definiteness}
-What is left to do is to ensure that the so defined matrix $\bm{\Sigma}$ is indeed positive definite. How should we define, $c$ and $\alpha$, and which signs should we choose?
+What is left to do is to ensure that the so defined matrix $\bm{\Sigma} \equiv \bm{\Sigma}_n$ is indeed positive definite. How should we define, $c$ and $\alpha$, and which signs should we choose?
 
 Note that $\bm{\Sigma}$ is symmetric, and has positive entries along its diagonal. Thus, it is sufficient for positive definiteness to show that $\bm{\Sigma}$ is strictly diagonally dominant, i.e.
 \begin{align}
@@ -148,7 +151,7 @@ Note that $\bm{\Sigma}$ is symmetric, and has positive entries along its diagona
     \iff \ &\forall i \in [n]: 1 > \sum_{j \neq i} |\rho_{|i-j|}| \quad . \label{eq:diagonal_dominant}
 \end{align}
 
-When using this method, we immediately see that the sign of $\rho_\Delta$ is of no meaning. Hence, we may chose all entries of $\bm{\Sigma}$ to be positive.
+When using this method, we immediately see that we can freely choose the sign of $\rho_\Delta$. Hence, we may choose all entries of $\bm{\Sigma}$ to be positive.
 
 Note that a specific entry $\rho_\Delta$ can occur two times in the same row. This happens especially in the middle rows of the matrix. However, for a fixed $\Delta$, $\rho_\Delta$ can occur at most two times in the same row. Hence, we derive the following bound:
 \begin{equation}
@@ -157,13 +160,14 @@ Note that a specific entry $\rho_\Delta$ can occur two times in the same row. Th
 
 We need an upper bound for $\rho_\Delta$. As it turns out, we will need a lower bound later as well. Hence, we will provide both at this point:
 
-\begin{proposition}
+\begin{lemma}
+    \label{lemma:bounding_rho}
     Let $\rho_\Delta \coloneqq \sqrt{1 - e^{-2c \Delta^{-\alpha}}}$. Then, we have
     \[
         \sqrt{\frac{2c}{2c + 1}} \Delta^{-0.5 \alpha} \leq \rho_\Delta \leq \sqrt{2c} \Delta^{-0.5 \alpha} \quad ,
     \]
     where the lower bound holds for all $\Delta \in \mathbb{N}_{>0}$, and the upper bound \\ for $\Delta > (2c)^{\frac{1}{\alpha}}$.
-\end{proposition}
+\end{lemma}
 
 \begin{proof}
     Note the inequality $x + 1 \leq e^x$. For $x > -1$ it follows that
@@ -216,4 +220,202 @@ Having this result established, we can continue on equation~\eqref{eq:diagonal_d
 \end{align*}
 which proves equation~\eqref{eq:diagonal_dominant}.
 
+\subsubsection{Strong Power-Law Behavior}
+Now that we have defined our model and shown that it is a valid probability distribution, we can finally prove that it has the desired property of strong power-law behavior according to definition~\ref{definition:strong_model_power_law_behavior}.
+
+We motivated our model with the continuous normal distribution like presented in section~\ref{sec:initializing_parameters}. However, our model $S_{n, \bm{\Sigma}_n}$ is a discretized version of it (defined in definition~\ref{definition:the_model}). 
+
+Another way to think about this is that the continuous normal distribution has an associated vector $(Y_1, \dots, Y_n) \in \mathbb{R}^n$ of random variables, and in order to get the random variables $(X_1, \dots, X_n) \in \{-1, 1\}^n$ of our model, we \emph{process} each $Y_i$ in the following manner:
+\[
+    X_i = \begin{cases}
+        1 \quad \text{if } Y_i \geq 0 \\
+        -1 \quad \text{else}
+    \end{cases}
+    \quad .
+\]
+
+We can make use of the data processing inequality (see theorem~\ref{theorem:data_processing_inequality}), which also works in the continuous case, to derive that
+\[
+    I(X_i; X_j) \leq I(X_i; Y_j) \leq I(Y_i; Y_j) = c \cdot |i - j|^{-\alpha}\quad ,
+\]
+i.e. the model has strong upper bound power-law behavior.
+
+\bigskip
+What is left to do is to prove strong lower bound power-law behavior. In order to calculate $I(X_i; X_j)$, we need the joint distribution of these two variables when marginalizing over the other ones.
+
+Luckily, we can use proposition~\ref{proposition:marginal_distributions_of_a_normal_distribution} again, and we can focus on two dimensional normal distributions of the form
+\[
+    \begin{pmatrix*}
+        Y_i \\
+        Y_j \\
+    \end{pmatrix*}
+    \sim \mathcal{N}\left(\bm{0}, \begin{pmatrix*}
+        1 & \rho_\Delta \\
+        \rho_\Delta & 1 \\
+    \end{pmatrix*}\right)
+    \quad .
+\]
+Of course, we get the probabilities for the joint distribution of $(X_i, X_j)$ by integrating over the quadrants. To this end, we use the following proposition:
+
+\begin{proposition}
+The probabilities for the four quadrants are given by:
+\begin{enumerate}
+    \item $P(X > 0, Y > 0) = P(X < 0, Y < 0) = \dfrac{1}{4} + \dfrac{\arcsin(\rho_\Delta)}{2\pi}$
+    \item $P(X < 0, Y > 0) = P(X > 0, Y < 0) = \dfrac{1}{4} - \dfrac{\arcsin(\rho_\Delta)}{2\pi}$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Let $p(\rho_\Delta) = P(X > 0, Y > 0)$. The probability is the integral of the bivariate normal PDF, $f(x, y; \rho_\Delta)$, over the first quadrant:
+$$
+p(\rho_\Delta) = \int_0^\infty \int_0^\infty f(x, y; \rho_\Delta) \,dx\,dy
+$$
+A standard result for the bivariate normal PDF is the identity:
+$$
+\frac{\partial f}{\partial \rho_\Delta} = \frac{\partial^2 f}{\partial x \partial y}
+$$
+Differentiating $p(\rho_\Delta)$ with respect to $\rho_\Delta$ and applying this identity yields:
+\begin{align*}
+    \frac{dp}{d\rho_\Delta} &= \int_0^\infty \int_0^\infty \frac{\partial^2 f}{\partial x \partial y} \,dx\,dy \\
+    &= \int_0^\infty \left[ \frac{\partial f}{\partial x} \right]_{y=0}^{y=\infty} \,dx && \text{(Integrate w.r.t. } y\text{)} \\
+    &= \int_0^\infty \left( 0 - \frac{\partial f(x, 0; \rho_\Delta)}{\partial x} \right) \,dx && \text{(Since } f \to 0 \text{ at infinity)} \\
+    &= \left[ -f(x, 0; \rho_\Delta) \right]_{x=0}^{x=\infty} && \text{(Integrate w.r.t. } x\text{)} \\
+    &= 0 - (-f(0, 0; \rho_\Delta)) = f(0, 0; \rho_\Delta) && \text{(Since } f \to 0 \text{ at infinity)}
+\end{align*}
+The PDF evaluated at the origin is:
+$$
+f(0, 0; \rho_\Delta) = \frac{1}{2\pi\sqrt{1-\rho_\Delta^2}}
+$$
+We now solve the differential equation $\frac{dp}{d\rho_\Delta} = \frac{1}{2\pi\sqrt{1-\rho_\Delta^2}}$ by integration:
+$$
+p(\rho_\Delta) = \int \frac{d\rho_\Delta}{2\pi\sqrt{1-\rho_\Delta^2}} = \frac{1}{2\pi}\arcsin(\rho_\Delta) + C
+$$
+To find the constant of integration $C$, we consider the case where $\rho_\Delta = 0$. Here, $X$ and $Y$ are independent, so $p(0) = P(X>0)P(Y>0) = \frac{1}{2} \cdot \frac{1}{2} = \frac{1}{4}$.
+Substituting this into our expression gives $C = 1/4$. Thus,
+$$
+P(X > 0, Y > 0) = \frac{1}{4} + \frac{\arcsin(\rho_\Delta)}{2\pi}
+$$
+The probabilities for the other quadrants follow from the symmetry of the Gaussian distribution.
+\end{proof}
+
+Now, set $\delta_\Delta \coloneqq \frac{\arcsin(\rho_\Delta)}{2\pi}$. Note that since $\rho_\Delta \in (0, 1)$, we have $\delta_\Delta \in (0, \frac{1}{4})$. Based on the previous result, the joint probability distribution of $(X_i, X_j)$ looks like this:
+\begin{table}[h]
+    \centering
+    \begin{tabular}{r|c|c}
+        & $X_i = 1$ & $X_i = -1$ \\
+        \hline
+        \rule{0pt}{15pt} $X_j = 1$ & $\frac{1}{4} + \delta_\Delta$ & $\frac{1}{4} - \delta_\Delta$ \\
+        \rule{0pt}{15pt} $X_j = -1$ & $\frac{1}{4} - \delta_\Delta$ & $\frac{1}{4} + \delta_\Delta$
+    \end{tabular}
+\end{table}
+
+Let's finally compute the mutual information $I(X_i; X_j)$. First, note that the marginalized distribution of a single $X_i$ is just the uniform distribution on $\{-1, 1\}$. Furthermore, let's substitute $f: (0, \frac{1}{2}) \to \mathbb{R}, \ x \mapsto x \log x$, where $\log$ is the natural logarithm. Thus:
+\begin{align*}
+    I(X_i; X_j) &= H(X_i) + H(X_j) - H(X_i, X_j) \\
+    &= \log 2 + \log 2 - \left[ - \sum_{(x_i, x_j) \in \{-1, 1\}^2} p(x_i, x_j) \log p(x_i, x_j) \right] \\
+    &= \log 4 + 2 \cdot f(\frac{1}{4} - \delta_\Delta) + 2 \cdot f(\frac{1}{4} + \delta_\Delta) \quad .
+\end{align*}
+
+Using that $\log 4 = - \log \frac{1}{4} = -4 \cdot f(\frac{1}{4})$, we arrive at
+\begin{align}
+    I(X_i; X_j) &= 2 \cdot f(\frac{1}{4} - \delta_\Delta) + 2 \cdot f(\frac{1}{4} + \delta_\Delta) -4 \cdot f(\frac{1}{4}) \notag \\
+    &= 4 \cdot \left[ \frac{1}{2} \cdot f(\frac{1}{4} - \delta_\Delta) + \frac{1}{2} \cdot f(\frac{1}{4} + \delta_\Delta) - f(\frac{1}{4}) \right] \quad . \label{eq:mutual_information_in_terms_of_f}
+\end{align}
+
+This expression looks like it measures how \emph{convex} the function $f$ is at the point $\frac{1}{4}$. Hence, we might guess that we can lower bound the expression by substituting a less convex function $g$ for $f$. This idea is formalized in the following lemma:
+
+\begin{lemma}
+    \label{lemma:convex_function_bound}
+    Let $I \subseteq \mathbb{R}$ be an interval, and let $f, g \in \mathcal{C}^2(I, \mathbb{R})$ be two functions that are twice differentiable s.t. $f''(x) \geq g''(x)$ for all $x \in I$. Furthermore, let $x_0 \in I$ and $\epsilon \in \mathbb{R}_{>0}$ s.t. $U_\epsilon(x_0) \subseteq I$. Then, it follows that for all $\delta \in (-\epsilon, \epsilon)$ we have:
+    \[
+        \frac{1}{2} \cdot f(x_0 - \delta) + \frac{1}{2} \cdot f(x_0 + \delta) - f(x_0) \geq \frac{1}{2} \cdot g(x_0 - \delta) + \frac{1}{2} \cdot g(x_0 + \delta) - g(x_0) \quad .
+    \]
+\end{lemma}
+\begin{proof}
+Let's define a new function $h: I \to \mathbb{R}$ as the difference between $f$ and $g$:
+\[
+    h(x) \coloneqq f(x) - g(x) \quad .
+\]
+Since both $f, g \in \mathcal{C}^2(I, \mathbb{R})$, their difference $h$ is also twice continuously differentiable on $I$. We compute the second derivative of $h(x)$:
+\[
+    h''(x) = \frac{d^2}{dx^2}(f(x) - g(x)) = f''(x) - g''(x) \quad .
+\]
+From the lemma's premise, we know that $f''(x) \geq g''(x)$ for all $x \in I$. Therefore, it follows that
+\[
+    h''(x) \geq 0 \quad \forall x \in I \quad ,
+\]
+which means that $h(x)$ is a convex function on $I$.
+
+By the definition of convexity, for any points $a, b \in I$, we have:
+\[
+    \frac{h(a) + h(b)}{2} \geq h\left(\frac{a+b}{2}\right) \quad .
+\]
+Let us choose our points $a = x_0 - \delta$ and $b = x_0 + \delta$. Since $\delta \in (-\epsilon, \epsilon)$ and the neighborhood $U_\epsilon(x_0) \subseteq I$, both $a$ and $b$ are in the interval $I$. Their midpoint is $\frac{(x_0 - \delta) + (x_0 + \delta)}{2} = x_0$.
+
+Applying the convexity inequality to $h$ with these specific points gives:
+\[
+    \frac{1}{2} h(x_0 - \delta) + \frac{1}{2} h(x_0 + \delta) \geq h(x_0) \quad .
+\]
+Now, we substitute the definition of $h(x) = f(x) - g(x)$ back into this inequality:
+\[
+    \frac{1}{2} [f(x_0 - \delta) - g(x_0 - \delta)] + \frac{1}{2} [f(x_0 + \delta) - g(x_0 + \delta)] \geq f(x_0) - g(x_0) \quad .
+\]
+Rearranging the terms to separate the functions $f$ and $g$, we arrive at the desired result:
+\[
+    \frac{1}{2} f(x_0 - \delta) + \frac{1}{2} f(x_0 + \delta) - f(x_0) \geq \frac{1}{2} g(x_0 - \delta) + \frac{1}{2} g(x_0 + \delta) - g(x_0) \quad .
+\]
+\end{proof}
+
+Remember, we defined $f: (0, \frac{1}{2}) \to \mathbb{R}, \ x \mapsto x \log x$. Hence:
+\begin{align*}
+    f'(x) &= \log x + 1 \\
+    f''(x) &= \frac{1}{x} \quad .
+\end{align*}
+
+Note that $f''(x) \geq 2$ for all $x \in (0, \frac{1}{2})$. Thus, when we define $g: (0, \frac{1}{2}) \to \mathbb{R}, \ x \mapsto x^2$, where $g''(x) \equiv 2$, we can use lemma~\ref{lemma:convex_function_bound} in equation~\eqref{eq:mutual_information_in_terms_of_f}:
+\begin{align*}
+    I(X_i; X_j) &= 4 \cdot \left[ \frac{1}{2} \cdot f(\frac{1}{4} - \delta_\Delta) + \frac{1}{2} \cdot f(\frac{1}{4} + \delta_\Delta) - f(\frac{1}{4}) \right] \\
+    &\geq 4 \cdot \left[ \frac{1}{2} \cdot g(\frac{1}{4} - \delta_\Delta) + \frac{1}{2} \cdot g(\frac{1}{4} + \delta_\Delta) - g(\frac{1}{4}) \right] \\
+    &= 4 \cdot \left[ \frac{1}{2} \left(\frac{1}{4} - \delta_\Delta\right)^2 + \frac{1}{2} \left(\frac{1}{4} + \delta_\Delta\right)^2 - \left(\frac{1}{4}\right)^2 \right] \\
+    &= 2 \left[ \left(\frac{1}{16} - \frac{1}{2}\delta_\Delta + \delta_\Delta^2\right) + \left(\frac{1}{16} + \frac{1}{2}\delta_\Delta + \delta_\Delta^2\right) \right] - 4\left(\frac{1}{16}\right) \\
+    &= 2 \left[ \frac{2}{16} + 2\delta_\Delta^2 \right] - \frac{4}{16} \\
+    &= 2 \left[ \frac{1}{8} + 2\delta_\Delta^2 \right] - \frac{1}{4} \\
+    &= \frac{1}{4} + 4\delta_\Delta^2 - \frac{1}{4} \\
+    &= 4\delta_\Delta^2 \quad .
+\end{align*}
+
+Since $\delta_\Delta = \frac{\arcsin(\rho_\Delta)}{2\pi}$, we conclude
+\begin{align*}
+    I(X_i; X_j) &\geq 4 \frac{\arcsin(\rho_\Delta)^2}{4\pi^2} \\
+    &\geq \frac{\rho_\Delta^2}{\pi^2} \quad ,
+\end{align*}
+since $\arcsin(x) \geq x$ for $x \in (0, 1)$.
+
+Finally, we use the lower bound of $\rho_\Delta$ provided by lemma~\ref{lemma:bounding_rho}, to arrive at
+\begin{align*}
+    I(X_i; X_j) \geq \frac{2c}{(2c + 1) \cdot \pi^2} \Delta^{-\alpha} \quad .
+\end{align*}
+
+\pagebreak
+\subsection{Summary}
+Let's summarize our findings in a concise theorem:
+
+\begin{theorem}[A Model with Strong Power-Law Behavior]
+    Define $\alpha \coloneqq 4$, and $c \coloneqq 0.045$. Furthermore, let $\rho_\Delta \coloneqq \sqrt{1 - e^{-2c \Delta^{-\alpha}}}$. We define the matrix
+    \[
+        \bm{\Sigma}_n = \begin{pmatrix*}
+        1& \rho_1& \rho_2& \dots & \rho_{n-1} \\
+        \rho_1& 1& \rho_1& \dots & \rho_{n-2} \\
+        \vdots &  & \ddots & & \vdots \\
+        \rho_{n-1} & \rho_{n-2} & \rho_{n-3} & \dots & 1 \\
+    \end{pmatrix*} \quad .
+    \]
+    We use $\bm{\Sigma_n}$ as the parameter covariance matrix of the model defined in definition~\ref{definition:the_model}. It follows that $S_{n, \bm{\Sigma_n}}$ is a valid model over $\{-1, 1\}$, since $\bm{\Sigma_n}$ is positive definite especially. Furthermore, $S$ has strong power-law behavior according to definition~\ref{definition:strong_model_power_law_behavior}. Specifically, for any random variables $X_i, X_j$ from our model $S$, we have:
+    \[
+        \frac{2c}{(2c + 1) \cdot \pi^2} |i-j|^{-\alpha} \leq I(X_i; X_j) \leq |i-j|^{-\alpha} \quad .
+    \]
+\end{theorem}
+\begin{proof}
+    The proof directly follows from our preliminary considerations.
+\end{proof}
 \end{document}
