@@ -10,10 +10,10 @@
     \]
     for some fixed $\alpha, \beta \in \mathbb{R}_{>0}$. The first condition is the important one, while the latter ensures that $I(X_t; X_{t + \tau}) \xrightarrow{\tau \to \infty} 0$. We also may replace the latter condition by this one.
 
-    This was straight forward. The challenging part is to define what a  model is. In the case of Markov chains this seems trivial: We define a finite set of parameters (the transition probabilities), and we get a model over $\Sigma^*$, that is for every $n \in \mathbb{N}$ the model defines a probability measure over $\Sigma^n$. Thus:
+    This was straight forward. The challenging part is to define what a  model is. In the case of Markov chains this seems trivial: We define a finite set of parameters (the transition probabilities), and we get a model over the alphabet $\Sigma$, that is for every $n \in \mathbb{N}$ the model defines a probability measure over $\Sigma^n$. Thus:
 
-    \begin{definition}[Model over $\Sigma^*$]
-        A model $S$ over $\Sigma^*$ is a function $S: \mathbb{N} \times \Sigma^* \mapsto [0, 1], \ (n, w) \mapsto p$, for $n \in \mathbb{N}, \ w \in \Sigma^n, \ p \in [0, 1]$ s.t. $\sum_{w \in \Sigma^n} S(n, w) = 1$. $S$ assigns the probability $p$ to the word $w$ of length $n$.
+    \begin{definition}[Model over $\Sigma$]
+        A model $S$ over $\Sigma$ is a function $S: \mathbb{N} \times \Sigma^* \mapsto [0, 1], \ (n, w) \mapsto p$, for $n \in \mathbb{N}, \ w \in \Sigma^n, \ p \in [0, 1]$ s.t. $\sum_{w \in \Sigma^n} S(n, w) = 1$. $S$ assigns the probability $p$ to the word $w$ of length $n$.
     \end{definition}
 
     But really, we want to restrain $S$ in order to have reasonable time and space complexity, and to ensure the model is \emph{reasonable}, which means that the language of $S_n(w)$ should look \emph{similar} to $S_{n + d}(w)$, whatever this might mean, where we used the notation $S_n(w) \equiv S(n, w)$. We also write $w_i$ for $X_i$. Really, $w$ is a 1-indexed String of $X_i$.  

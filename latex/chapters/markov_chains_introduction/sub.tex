@@ -401,9 +401,9 @@ This is a mouthful, and we will not prove this theorem in this general form, as 
 
 \begin{proof}[Proof of Perron-Frobenius for Positive Markov Chain Transition Matrices]
     ~\\
-    Consider the mapping $T: \Delta \to \Delta$ from the unit simplex $\Delta$ onto itself defined by $T(\bm{v}) \coloneqq \bm{Pv}$. We want to show that $T$ is a contraction mapping with respect to the $L_1$ norm. We do this step last in order to understand the line of argument better.
+    Consider the mapping $T: \tau \to \tau$ from the unit simplex $\tau$ onto itself defined by $T(\bm{v}) \coloneqq \bm{Pv}$. We want to show that $T$ is a contraction mapping with respect to the $L_1$ norm. We do this step last in order to understand the line of argument better.
     
-    Thus, assume that $T$ is a contraction mapping with respect to the $L_1$ norm. By the \textsc{Banach Fixed-Point Theorem} we know that this mapping has a \emph{unique} fixed point $\bm{v}^*$. We see that $\bm{v}^*$ is an eigenvector of $\bm{P}$ with eigenvalue $\lambda = 1$. Clearly, $\bm{v}^*$ is positive and is the only eigenvector with non-negative entries, as if there were another one say $\bm{v}'$, then $\frac{\bm{v}'}{\|\bm{v}'\|_1}$ must be one as well, but this point lies on $\Delta$, hence it must have an eigenvalue of $1$ and must be a fixed point of $T$, a contradiction to the uniqueness of $\bm{v}^*$.
+    Thus, assume that $T$ is a contraction mapping with respect to the $L_1$ norm. By the \textsc{Banach Fixed-Point Theorem} we know that this mapping has a \emph{unique} fixed point $\bm{v}^*$. We see that $\bm{v}^*$ is an eigenvector of $\bm{P}$ with eigenvalue $\lambda = 1$. Clearly, $\bm{v}^*$ is positive and is the only eigenvector with non-negative entries, as if there were another one say $\bm{v}'$, then $\frac{\bm{v}'}{\|\bm{v}'\|_1}$ must be one as well, but this point lies on $\tau$, hence it must have an eigenvalue of $1$ and must be a fixed point of $T$, a contradiction to the uniqueness of $\bm{v}^*$.
 
     So every other eigenvector $\bm{w}$ with eigenvalue $\mu$ must have a coordinate-entry which is negative or truly complex. Write $|\bm{w}|$ for the vector with coordinates $|\bm{w}_j|$. The computation
     \[
@@ -414,30 +414,30 @@ This is a mouthful, and we will not prove this theorem in this general form, as 
     To see this, note that we only have equality iff all entries of $\bm{w}$ are on a line in the complex plane, i.e. we can write $\bm{w} = c |\bm{w}|$ for some $c \in \mathbb{C}, |c| = 1$. This would mean that $\bm{P} \bm{w} = \bm{P} c |\bm{w}| = c \bm{P} |\bm{w}| \overset{!}{=} \mu \bm{w}$. Hence, $\bm{P} |\bm{w}| = \frac{\mu}{c} \bm{w} = |\frac{\mu}{c}| |\bm{w}|$. Thus, we must have $|\bm{w}| = \bm{v}^*$ and $|\mu| = |c| = 1$ as already discussed. Hence, $\bm{w} = c \bm{v}^*$ (and $\mu = 1$), which is just a different representation of the eigenvector $\bm{v}^*$ already found. So for every eigenvector $\bm{w}$ other than $\bm{v}^*$ with eigenvalue $\mu$ we must have that $|\mu| < 1$.
 
     \smallskip
-    Now, the only thing left to do is to show that $T$ is in fact a contraction mapping. To this end, we must find a $0 \leq k < 1$ s.t. for all $\bm{x}, \bm{y} \in \Delta$ we have
+    Now, the only thing left to do is to show that $T$ is in fact a contraction mapping. To this end, we must find a $0 \leq k < 1$ s.t. for all $\bm{x}, \bm{y} \in \tau$ we have
     \[
         \|T(\bm{x}) - T(\bm{y})\|_1 = \|\bm{P} (\bm{x} - \bm{y})\|_1 \leq k \|\bm{x} - \bm{y}\|_1 \quad .
     \]
-    The idea is that $T$ maps from $\Delta$ into a real subspace $\Delta_{\bm{P}} \subsetneq \Delta$ defined by the simplex spanned by the columns of $\bm{P}$, which we call the vertices of the simplex $\Delta_{\bm{P}}$. $\Delta_{\bm{P}}$ does not contain any of the border points of $\Delta$. Applying $T$, we see that $T^2$ maps into an even smaller sub-simplex $\Delta_{\bm{P}^2} \subsetneq \Delta_{\bm{P}}$, and so on and so forth.
+    The idea is that $T$ maps from $\tau$ into a real subspace $\tau_{\bm{P}} \subsetneq \tau$ defined by the simplex spanned by the columns of $\bm{P}$, which we call the vertices of the simplex $\tau_{\bm{P}}$. $\tau_{\bm{P}}$ does not contain any of the border points of $\tau$. Applying $T$, we see that $T^2$ maps into an even smaller sub-simplex $\tau_{\bm{P}^2} \subsetneq \tau_{\bm{P}}$, and so on and so forth.
 
-    Formally, we define $k$ as $k \coloneqq \frac{\|\Delta_{\bm{P}}\|_1}{2}$, where $\|\Delta_{\bm{P}}\|_1$ denotes the maximum $L_1$ distance between any points in $\Delta_{\bm{P}}$. We can always measure this distance at two of the vertices of the simplex, as both the $L_1$ norm and the simplex are convex, so the maximum will be reached at vertices. But since all coordinates of all vertices are strictly positive, we have $\|\Delta_{\bm{P}}\|_1 < 2$, so $k$ is in fact valid.
+    Formally, we define $k$ as $k \coloneqq \frac{\|\tau_{\bm{P}}\|_1}{2}$, where $\|\tau_{\bm{P}}\|_1$ denotes the maximum $L_1$ distance between any points in $\tau_{\bm{P}}$. We can always measure this distance at two of the vertices of the simplex, as both the $L_1$ norm and the simplex are convex, so the maximum will be reached at vertices. But since all coordinates of all vertices are strictly positive, we have $\|\tau_{\bm{P}}\|_1 < 2$, so $k$ is in fact valid.
 
-    Now, for the sake of contradiction, assume $\|\bm{P} (\bm{x} - \bm{y})\|_1 > k \|\bm{x} - \bm{y}\|_1$ for some $\bm{x}, \bm{y} \in \Delta$. Note that $\bm{x} - \bm{y}$ is a vector with entries which sum to $0$, which defines a direction tangent to the unit simplex $\Delta$. We can always find two points $\bm{x}', \bm{y}' \in \Delta$ with the same direction and $\|\bm{x}' - \bm{y}'\|_1 = 2$ (one point will be a vertex, the other will lay on the opposite side). Hence:
+    Now, for the sake of contradiction, assume $\|\bm{P} (\bm{x} - \bm{y})\|_1 > k \|\bm{x} - \bm{y}\|_1$ for some $\bm{x}, \bm{y} \in \tau$. Note that $\bm{x} - \bm{y}$ is a vector with entries which sum to $0$, which defines a direction tangent to the unit simplex $\tau$. We can always find two points $\bm{x}', \bm{y}' \in \tau$ with the same direction and $\|\bm{x}' - \bm{y}'\|_1 = 2$ (one point will be a vertex, the other will lay on the opposite side). Hence:
     \begin{align*}
         \|\bm{P} (\bm{x}' - \bm{y}')\|_1 &= \frac{\|(\bm{x}' - \bm{y}')\|_1}{\|(\bm{x} - \bm{y})\|_1} \|\bm{P} (\bm{x} - \bm{y})\|_1 \\
         &> k \frac{\|(\bm{x}' - \bm{y}')\|_1}{\|(\bm{x} - \bm{y})\|_1} \|\bm{x} - \bm{y}\|_1 \\
-        &= k \|(\bm{x}' - \bm{y}')\|_1 = 2k = \|\Delta_{\bm{P}}\|_1 \quad , \\
+        &= k \|(\bm{x}' - \bm{y}')\|_1 = 2k = \|\tau_{\bm{P}}\|_1 \quad , \\
     \end{align*}
     a contradiction.
 \end{proof}
 
 \begin{corollary}[Extension to More General Markov Chains]
     \label{corollary:perron_frobenius_extension}
-    Based on the proof, we see that we only needed $\bm{P}$ to be positive in order to, first, guarantee $\|\Delta_{\bm{P}}\|_1 < 2$. Of course, many other $\bm{P}$ imply this, as we just need every pair of columns of $\bm{P}$ to have at least one pair of positive entries at common indices. Thus, the Perron-Frobenius Theorem also applies to Markov chains $\bm{P}$ where one row of $\bm{P}$ is strictly positive for example. However, the associated eigenvector is only non-negative instead of positive, since that was the second application of $\bm{P} > \bm{0}$.
+    Based on the proof, we see that we only needed $\bm{P}$ to be positive in order to, first, guarantee $\|\tau_{\bm{P}}\|_1 < 2$. Of course, many other $\bm{P}$ imply this, as we just need every pair of columns of $\bm{P}$ to have at least one pair of positive entries at common indices. Thus, the Perron-Frobenius Theorem also applies to Markov chains $\bm{P}$ where one row of $\bm{P}$ is strictly positive for example. However, the associated eigenvector is only non-negative instead of positive, since that was the second application of $\bm{P} > \bm{0}$.
 \end{corollary}
 
 \begin{corollary}
-    Based on the proof, we see that for every $\bm{v} \in \Delta: \lim_{n \to \infty} \bm{P}^n \bm{v} = \bm{v}^*$. Now, set $\bm{v} \coloneqq \bm{e_i}$. It follows that $\lim_{n \to \infty} \bm{P}^n = \bm{P}_{\bm{v}^*}$, where $\bm{P}_{\bm{v}^*}$ is the matrix whose columns all consist of the unique fixed point $\bm{v}^*$. This convergence is independent of the norm.
+    Based on the proof, we see that for every $\bm{v} \in \tau: \lim_{n \to \infty} \bm{P}^n \bm{v} = \bm{v}^*$. Now, set $\bm{v} \coloneqq \bm{e_i}$. It follows that $\lim_{n \to \infty} \bm{P}^n = \bm{P}_{\bm{v}^*}$, where $\bm{P}_{\bm{v}^*}$ is the matrix whose columns all consist of the unique fixed point $\bm{v}^*$. This convergence is independent of the norm.
 \end{corollary}
 
 \begin{lemma}
@@ -456,28 +456,28 @@ This is a mouthful, and we will not prove this theorem in this general form, as 
 \end{corollary}
 
 \begin{remark}
-    $T: \Delta \to \Delta, T(\bm{v}) \coloneqq \bm{Pv}$ is not a contraction mapping in general for irreducible aperiodic Markov chain tranisition matrices $\bm{P}$. But we still have $\Delta_{\bm{P}^{r+1}} \subsetneq \Delta_{\bm{P}^{r}}$, so intuitively $T^{r}(\bm{v}) = \bm{P}^r\bm{v}$ itself will converge to $\bm{\mu}$. To formally prove this, let $m \in \mathbb{N}$ be s.t. $\bm{P}^m > \bm{0}$. Then also $\bm{P}^{m + 1} > \bm{0}$. $((\bm{P}^m)^r)_{r \in \mathbb{N}}$ and $((\bm{P}^{m + 1})^r)_{r \in \mathbb{N}}$ have the common subsequence $((\bm{P}^{m^2 + m})^r)_{r \in \mathbb{N}}$ and hence must converge to the same $\bm{P_\mu}$. From this, it follows that $(\bm{P}^r)_{r \in \mathbb{N}}$ itself converges to $\bm{P_\mu}$.
+    $T: \tau \to \tau, T(\bm{v}) \coloneqq \bm{Pv}$ is not a contraction mapping in general for irreducible aperiodic Markov chain tranisition matrices $\bm{P}$. But we still have $\tau_{\bm{P}^{r+1}} \subsetneq \tau_{\bm{P}^{r}}$, so intuitively $T^{r}(\bm{v}) = \bm{P}^r\bm{v}$ itself will converge to $\bm{\mu}$. To formally prove this, let $m \in \mathbb{N}$ be s.t. $\bm{P}^m > \bm{0}$. Then also $\bm{P}^{m + 1} > \bm{0}$. $((\bm{P}^m)^r)_{r \in \mathbb{N}}$ and $((\bm{P}^{m + 1})^r)_{r \in \mathbb{N}}$ have the common subsequence $((\bm{P}^{m^2 + m})^r)_{r \in \mathbb{N}}$ and hence must converge to the same $\bm{P_\mu}$. From this, it follows that $(\bm{P}^r)_{r \in \mathbb{N}}$ itself converges to $\bm{P_\mu}$.
 \end{remark}
 
 \begin{remark}
     \label{remark:exponential_decay}
     Again, let $m \in \mathbb{N}$ be s.t. $\bm{P}^m > \bm{0}$. Based on the proof, we see that
     \[
-        \| \bm{P}^{mr} \bm{v} - \bm{\mu} \|_1 \leq \dfrac{\|\Delta_{\bm{P^m}}\|_1^r}{2^r} \| (\bm{v} - \bm{\mu}) \|_1 \in \mathcal{O} \left( \left[ \frac{\|\Delta_{\bm{P^m}}\|_1}{2} \right] ^r \right) \quad .
+        \| \bm{P}^{mr} \bm{v} - \bm{\mu} \|_1 \leq \dfrac{\|\tau_{\bm{P^m}}\|_1^r}{2^r} \| (\bm{v} - \bm{\mu}) \|_1 \in \mathcal{O} \left( \left[ \frac{\|\tau_{\bm{P^m}}\|_1}{2} \right] ^r \right) \quad .
     \]
     In other words, we have \emph{exponential decay} in the distance between $\bm{P}^{mr} \bm{v}$ and $\bm{\mu}$ with respect to $r$. Hence, we also have
     \[
-        \| \bm{P}^{r} \bm{v} - \bm{\mu} \|_1 \in \mathcal{O} \left( \left[ \frac{\|\Delta_{\bm{P^m}}\|_1}{2} \right] ^{\dfrac{r}{m}} \right) = 
-        \mathcal{O} \left( \left[ \left( \frac{\|\Delta_{\bm{P^m}}\|_1}{2} \right) ^{\dfrac{1}{m}} \right] ^r \right) \quad .
+        \| \bm{P}^{r} \bm{v} - \bm{\mu} \|_1 \in \mathcal{O} \left( \left[ \frac{\|\tau_{\bm{P^m}}\|_1}{2} \right] ^{\dfrac{r}{m}} \right) = 
+        \mathcal{O} \left( \left[ \left( \frac{\|\tau_{\bm{P^m}}\|_1}{2} \right) ^{\dfrac{1}{m}} \right] ^r \right) \quad .
     \]
 \end{remark}
 
 % \begin{hypothesis}
 %     Maybe
 %     \[
-%         \lim_{m \to \infty} \left[ \|\Delta_{\bm{P^m}}\|_1 \right] ^{\frac{1}{m}}
+%         \lim_{m \to \infty} \left[ \|\tau_{\bm{P^m}}\|_1 \right] ^{\frac{1}{m}}
 %     \]
-%     evaluates to something interesting like $|\lambda_2|$ of $\bm{P}$, or equivalently $\lim_{m \to \infty}: |\lambda_2^{(m)}|^{\frac{1}{m}} = \|\Delta_{\bm{P^m}}\|_1^\frac{1}{m}$ where $\lambda_2^{(m)}$ is the second largest eigenvalue of $\bm{P}^m$. Maybe in the proof there is another (complex) eigenvector hidden. Maybe we also use another norm, as we have convergence independent of the norm, but the contraction mapping is not as trivial.
+%     evaluates to something interesting like $|\lambda_2|$ of $\bm{P}$, or equivalently $\lim_{m \to \infty}: |\lambda_2^{(m)}|^{\frac{1}{m}} = \|\tau_{\bm{P^m}}\|_1^\frac{1}{m}$ where $\lambda_2^{(m)}$ is the second largest eigenvalue of $\bm{P}^m$. Maybe in the proof there is another (complex) eigenvector hidden. Maybe we also use another norm, as we have convergence independent of the norm, but the contraction mapping is not as trivial.
 % \end{hypothesis}
 
 \end{document}
