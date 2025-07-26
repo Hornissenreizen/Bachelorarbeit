@@ -1,0 +1,674 @@
+\documentclass[../../main.tex]{subfiles}
+
+\begin{document}
+\section{Information Theory}
+\label{section:information_theory}
+
+\subsection{Entropy}
+
+\begin{definition}[Entropy]
+Let \( X \) be a discrete random variable taking values in a finite set \( \mathcal{X} \) with probability mass function \( p(x) = P(X = x) \). The \emph{entropy} of \( X \), denoted \( H(X) \), is defined as:
+\[
+H(X) \coloneqq - \sum_{x \in \mathcal{X}} p(x) \log p(x),
+\]
+where the logarithm is typically taken base 2 (bits) or base \( e \) (nats).
+\end{definition}
+
+\begin{remark}
+    If $p(x) = 0$, we set $p(x) \log p(x) \coloneqq 0$. This ensures that $p(x) \log p(x)$ is continuous on $[0, 1]$.
+\end{remark}
+
+\begin{figure}[h]
+    \centering
+\begin{tikzpicture}[>=stealth]
+    \begin{axis}[
+        xmin=0,xmax=1,
+        ymin=0,ymax=1,
+        axis x line=middle,
+        axis y line=middle,
+        axis line style=->,
+        xlabel={$x$},
+        ylabel={$y$},
+        ]
+        \addplot[no marks,black,-] expression[domain=0:1,samples=100]{-x * ln(x)} 
+                    node[pos=0.65,anchor=south west]{$y=-x\ln(x)$}; 
+    \end{axis}
+\end{tikzpicture}
+    \caption{Plot of the function $y=-x\ln(x)$.}
+\end{figure}
+
+\begin{remark}
+Entropy measures the uncertainty or information content of a random variable. Higher entropy indicates more unpredictability.
+\end{remark}
+
+\begin{proposition}[Non-Negativity of Entropy]
+For any discrete random variable \( X \), we have \( H(X) \geq 0 \).
+\end{proposition}
+\vspace{-2.5em}
+\begin{proof}
+Since \( 0 \leq p(x) \leq 1 \) and \( -\log p(x) \geq 0 \), each term in the sum is non-negative, so their total sum is non-negative.
+\end{proof}
+
+\begin{lemma}[Jensen's Inequality]
+    Let $X \in \mathcal{X}$ be a random variable over a finite set $\mathcal{X}$, and let $\phi$ be a convex function defined for all $X$. Then:
+    \[
+        \phi(E[X]) \leq E[\phi(X)] \quad .
+    \]
+\end{lemma}
+\begin{proof}
+    We use induction over $n = |\mathcal{X}|$. The base case $n = 1$ is trivial. Hence, assume that the claim holds for some $n$. We now prove the claim for $n + 1$. Clearly, for $n > 1$, we must have $P(X = x_k) < 1$ for some $x_k \in \mathcal{X}$. Without loss of generality, we assume $k = n+1$. Hence:
+
+    \begin{align*}
+        \phi(E[X]) &= \phi \left( \sum_{i = 1}^{n+1} p(x_i) x_i \right) \\
+        &= \phi \left( \left[ (1 - p(x_{n+1})) \sum_{i = 1}^{n} \frac{p(x_i)}{1 - p(x_{n+1})} x_i \right] + p(x_{n+1}) x_{n+1} \right) \\
+        &\underset{\text{convexity}}{\leq} (1 - p(x_{n+1})) \phi \left( \sum_{i = 1}^{n} \frac{p(x_i)}{1 - p(x_{n+1})} x_i \right) + p(x_{n+1}) \phi(x_{n+1}) \\
+        &\underset{\text{inductive hypothesis}}{\leq} (1 - p(x_{n+1})) \sum_{i = 1}^{n} \frac{p(x_i)}{1 - p(x_{n+1})} \phi(x_i) + p(x_{n+1}) \phi(x_{n+1}) \\
+        &= \sum_{i = 1}^{n+1} p(x_i) \phi(x_i) = E[\phi(X)] \quad .
+    \end{align*}
+\end{proof}
+
+\begin{remark}
+    For strictly convex $\phi$, it can be shown that
+    \[
+        \phi(E[X]) = E[\phi(X)] \text{ is maximized } \iff X \text{ is sampled from a uniform distribution} \quad .
+    \]
+\end{remark}
+
+\pagebreak
+\begin{proposition}[Maximum Entropy]
+    For a discrete random variable \( X \) over \( n \) outcomes, entropy is maximized when \( X \) is uniform:
+    \[
+        H(X) \leq \log n \quad .
+    \]
+\end{proposition}
+\begin{proof}
+    We have:
+    \begin{align*}
+        -H(X) &= -E[-\log(p(X))] \\
+        &= E \left[ -\log \left( \frac{1}{p(X)} \right)  \right] \\
+        &\underset{\text{Jensen's Inequality}}{\geq} -\log \left( E \left[ \frac{1}{p(X)} \right] \right) \\
+        &= -\log n \quad ,
+    \end{align*}
+    where we assumed $p(X) > 0$. Of course, the cases where $p(X) = 0$ follow directly, since $p(X) \log p(X) = 0$.
+    
+    $H(X) \leq \log n$ follows directly. Note that we have equality iff $X$ has uniform distribution (since $-\log(x)$ is strictly convex).
+\end{proof}
+
+\bigskip
+\subsubsection{Joint, Conditional, and Cross Entropy}
+
+\begin{definition}[Joint Entropy]
+    For a pair of discrete random variables \( X \) and \( Y \), the joint entropy is:
+    \[
+        H(X, Y) \coloneqq -\sum_{x,y} p(x, y) \log p(x, y) \quad .
+    \]
+\end{definition}
+
+\begin{definition}[Conditional Entropy]
+    The conditional entropy of \( Y \) given \( X \) is defined as:
+    \[
+        H(Y \mid X) \coloneqq \sum_{x} p(x) H(Y \mid X = x) = -\sum_{x, y} p(x, y) \log p(y \mid x).
+    \]
+\end{definition}
+
+\begin{corollary}
+    We immediately see from the first equation that $H(Y \mid X) \geq 0$.
+\end{corollary}
+
+\pagebreak
+\begin{theorem}[Chain Rule for Entropy]
+    \[
+        H(X, Y) = H(X) + H(Y \mid X) \quad .
+    \]
+\end{theorem}
+\vspace{-2.5em}
+\begin{proof}
+    We have:
+    \begin{align*}
+        H(X, Y) &= - \sum_{x,y} p(x, y) \log p(x, y) \\
+        &= - \sum_{x,y} p(x, y) \log \left(p(x) p(y \mid x) \right) \\
+        &= - \sum_{x,y} p(x, y) \log p(x) - \sum_{x,y} p(x, y) \log p(y \mid x) \\
+        &= H(X) + H(Y \mid X) \quad .
+    \end{align*}
+\end{proof}
+
+\begin{corollary}
+    $H(X, Y) \geq 0$ follows directly.
+\end{corollary}
+
+\begin{definition}[Cross-Entropy]
+    Let \( p \) and \( q \) be two probability distributions over a finite set \( \mathcal{X} \), with \( p(x) > 0 \Rightarrow q(x) > 0 \). The \emph{cross-entropy} of \( p \) relative to \( q \) is defined as:
+    \[
+        H_q(p) \coloneqq -\sum_{x \in \mathcal{X}} p(x) \log q(x) \quad .
+    \]
+\end{definition}
+
+\begin{remark}
+    Cross-entropy measures the expected number of bits required to encode samples from \( p \) using a code optimized for the distribution \( q \).
+\end{remark}
+
+\begin{remark}
+    Cross-entropy is non-negative (see section~\ref{sec:kullback_leibler_divergence}).
+\end{remark}
+
+\smallskip
+\subsubsection{Properties of Entropy}
+
+\begin{proposition}
+    \label{proposition:entropy_conditional}
+    Conditional entropy satisfies:
+    \[
+        H(Y \mid X) \leq H(Y) \quad ,
+    \]
+    with equality if and only if \( X \) and \( Y \) are independent.
+\end{proposition}
+\vspace{-2.5em}
+\begin{proof}
+    From the chain rule:
+    \[
+        H(X, Y) = H(Y) + H(X \mid Y) = H(X) + H(Y \mid X) \quad ,
+    \]
+    which implies:
+    \[
+        H(Y \mid X) = H(Y) + H(X \mid Y) - H(X) = H(Y) - I(X; Y) \quad ,
+    \]
+    with mutual information \( I(X; Y) \geq 0 \) (see section~\ref{sec:mutual_information}). Equality holds if and only if \( I(X; Y) = 0 \), i.e., \( X \) and \( Y \) are independent.
+\end{proof}
+
+\medskip
+\begin{corollary}[Subadditivity of Entropy]
+    For any two random variables \( X \) and \( Y \),
+    \[
+        H(X, Y) \leq H(X) + H(Y) \quad ,
+    \]
+    with equality if and only if \( X \) and \( Y \) are independent.
+\end{corollary}
+\vspace{-2.5em}
+\begin{proof}
+    From the chain rule:
+    \[
+        H(X, Y) = H(X) + H(Y \mid X) \leq H(X) + H(Y) \quad ,
+    \]
+    since \( H(Y \mid X) \leq H(Y) \) based on proposition~\ref{proposition:entropy_conditional}. Equality holds if and only if \( H(Y \mid X) = H(Y) \), i.e., \( X \) and \( Y \) are independent.
+\end{proof}
+
+\medskip
+\begin{theorem}[Concavity of Entropy]
+The entropy function \( H(p) \), where \( p \in \tau \) is a probability vector, is concave on the probability simplex $\tau$.
+\end{theorem}
+
+\begin{proof}
+    This follows from the fact that \( f(x) = -x \log x \) is concave for \( x \in [0, 1] \), and entropy is the sum of such terms. Therefore, for every convex combination \( p = \lambda p_1 + (1 - \lambda)p_2 \):
+    \[
+        H(p) \geq \lambda H(p_1) + (1 - \lambda) H(p_2) \quad .
+    \]
+\end{proof}
+
+\textbf{Summary of Key Properties}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Non-negativity: \( H(X) \geq 0 \)
+    \item Maximum entropy: \( H(X) \leq \log |\mathcal{X}| \)
+    \item Chain rule: \( H(X, Y) = H(X) + H(Y \mid X) \)
+    \item Subadditivity: \( H(X, Y) \leq H(X) + H(Y) \)
+    \item Conditioning reduces entropy: \( H(Y \mid X) \leq H(Y) \)
+    \item Concavity: \( H(p) \) is concave in the distribution \( p \)
+\end{itemize}
+
+\pagebreak
+\subsection{Kullback-Leibler Divergence}
+\label{sec:kullback_leibler_divergence}
+
+\begin{definition}[KL Divergence]
+    Let \( P \) and \( Q \) be two discrete probability distributions over the same finite set \( \mathcal{X} \), with \( P(x) > 0 \Rightarrow Q(x) > 0 \). The Kullback-Leibler divergence (or relative entropy) from \( P \) to \( Q \) is defined as:
+    \begin{align*}
+        D_{\mathrm{KL}}(P \| Q) 
+        &\coloneqq \sum_{x \in \mathcal{X}} P(x) \log \frac{P(x)}{Q(x)} \\
+        &= - \sum_{x} P(x) \log Q(x) + \sum_{x} P(x) \log P(x) \\
+        &= H_Q(P) - H(P) \quad .
+    \end{align*}
+
+\end{definition}
+
+\begin{remark}
+    If $P(x) = Q(x) = 0$, we set $P(x) \log \dfrac{P(x)}{Q(x)} \coloneqq 0$.
+\end{remark}
+
+\begin{remark}
+KL divergence measures the inefficiency of assuming that the distribution is \( Q \) when the true distribution is \( P \). It is not a metric: it is not symmetric and does not satisfy the triangle inequality.
+\end{remark}
+
+\begin{lemma}[Gibb's Inequality]
+    Suppose that $P = \{ p_1, \dots, p_n \}$ and $Q = \{ q_1, \dots, q_n \}$ are discrete probability distributions. Then:
+    \[
+        - \sum_{i = 1}^{n} p_i \log p_i \leq - \sum_{i = 1}^{n} p_i \log q_i \quad .
+    \]
+\end{lemma}
+\begin{proof}
+    The claim is equivalent to $\sum_{i = 1}^{n} p_i \log p_i - \sum_{i = 1}^{n} p_i \log q_i \geq 0$. We have:
+    \begin{align*}
+        \sum_{i = 1}^{n} p_i \log p_i - \sum_{i = 1}^{n} p_i \log q_i &= \sum_{i = 1}^{n} p_i \log \frac{p_i}{q_i} \\
+        &= \sum_{i = 1}^{n} p_i \left( - \log \frac{q_i}{p_i} \right) \\
+        &\underset{\text{Jensen's Inequality}}{\geq} - \log \left( \sum_{i = 1}^{n} p_i \frac{q_i}{p_i} \right) \\
+        &= - \log(1) = 0 \quad .
+    \end{align*}
+\end{proof}
+
+\begin{corollary}
+    It directly follows from the proof that $D_{\mathrm{KL}}(P \| Q) \geq 0$ and $0 \leq H(P) \leq H_Q(P)$.
+\end{corollary}
+
+\pagebreak
+\begin{proposition}[Additivity]
+    Let \( P = P_1 \times P_2 \), \( Q = Q_1 \times Q_2 \). Then:
+    \[
+        D_{\mathrm{KL}}(P \| Q) = D_{\mathrm{KL}}(P_1 \| Q_1) + D_{\mathrm{KL}}(P_2 \| Q_2) \quad .
+    \]
+\end{proposition}
+\begin{proof}
+    \begin{align*}
+        D_{\mathrm{KL}}(P_1 \times P_2 \| Q_1 \times Q_2)
+        &= \sum_{x,y} P_1(x)P_2(y) \log \frac{P_1(x)P_2(y)}{Q_1(x)Q_2(y)} \\
+        &= \sum_{x,y} P_1(x)P_2(y) \left( \log \frac{P_1(x)}{Q_1(x)} + \log \frac{P_2(y)}{Q_2(y)} \right) \\
+        &= \sum_x P_1(x) \log \frac{P_1(x)}{Q_1(x)} + \sum_y P_2(y) \log \frac{P_2(y)}{Q_2(y)} \\
+        &= D_{\mathrm{KL}}(P_1 \| Q_1) + D_{\mathrm{KL}}(P_2 \| Q_2) \quad .
+    \end{align*}
+\end{proof}
+
+\begin{proposition}[Entropy Representation via KL Divergence]
+    Let \( U \) be the uniform distribution over \( \mathcal{X} \), where \( |\mathcal{X}| = n \). Then for any distribution \( P \),
+    \[
+        H(P) = \log n - D_{\mathrm{KL}}(P \| U) \quad .
+    \]
+\end{proposition}
+\begin{proof}
+    \begin{align*}
+        D_{\mathrm{KL}}(P \| U) &= \sum_{x} P(x) \log \frac{P(x)}{1/n}
+        = \sum_{x} P(x) \log P(x) + \sum_{x} P(x) \log n \\
+        &= -H(P) + \log n \quad .
+    \end{align*}
+\end{proof}
+
+\textbf{Summary of Key Properties}
+\begin{itemize}[leftmargin=1.2cm]
+    \item \( D_{\mathrm{KL}}(P \| Q) \geq 0 \)
+    \item \( D_{\mathrm{KL}}(P \| Q) = 0 \iff P = Q \)
+    \item Asymmetric: \( D_{\mathrm{KL}}(P \| Q) \neq D_{\mathrm{KL}}(Q \| P) \)
+    \item Additive over independent distributions
+    \item Connection to entropy: \( H(P) = \log n - D_{\mathrm{KL}}(P \| U) \)
+\end{itemize}
+
+
+\subsection{Mutual Information}
+\label{sec:mutual_information}
+
+\begin{definition}[Mutual Information]
+    Let \( X \) and \( Y \) be discrete random variables with joint distribution \( p(x, y) \) and marginals \( p(x) \), \( p(y) \). The \emph{mutual information} between \( X \) and \( Y \) is defined as:
+    \[
+        I(X; Y) \coloneqq \sum_{x, y} p(x, y) \log \left( \frac{p(x, y)}{p(x) p(y)} \right) \quad .
+    \]
+\end{definition}
+
+\begin{remark}
+    Mutual information quantifies how much knowing \( X \) reduces uncertainty about \( Y \), and vice versa. Per definition, it is symmetric: \( I(X; Y) = I(Y; X) \).
+\end{remark}
+
+\begin{proposition}[Equivalent Expressions]
+    Mutual information can also be expressed as:
+    \begin{align*}
+        I(X; Y) &= D_{\mathrm{KL}}(p(x,y) \,\|\, p(x)p(y)) \\
+        &= H_{p(x)p(y)}(p(x,y)) - H(X, Y) \\
+        &= \left[ -\sum_{x,y} p(x,y) \log(p(x)p(y)) \right] - H(X, Y) \\
+        &= H(X) + H(Y) - H(X, Y) \\
+        &= H(X) - H(X \mid Y) \\
+        &= H(Y) - H(Y \mid X) \\
+    \end{align*}
+\end{proposition}
+\begin{proof}
+    Each follows from basic entropy identities and the definition of KL divergence.
+\end{proof}
+
+\begin{corollary}
+    $I(X; Y) \geq 0$, since \( I(X; Y) = D_{\mathrm{KL}}(p(x,y) \| p(x)p(y)) \) and KL divergence is always non-negative.
+\end{corollary}
+
+
+\begin{definition}[Conditional Mutual Information]
+    Let \( X, Y, Z \) be discrete random variables. The \emph{conditional mutual information} of \( X \) and \( Y \) given \( Z \) is defined as:
+    \[
+        I(X; Y \mid Z) \coloneqq \sum_{x, y, z} p(x, y, z) \log \frac{p(x, y \mid z)}{p(x \mid z) p(y \mid z)} \quad .
+    \]
+    Equivalently, in terms of entropy:
+    \[
+        I(X; Y \mid Z) = H(X \mid Z) - H(X \mid (Y, Z)) \quad .
+    \]
+\end{definition}
+\begin{proof}
+    \begin{align*}
+        &H(X \mid Z) - H(X \mid (Y, Z)) \\
+        &= \sum_{z} p(z) H(X \mid Z = z) - \sum_{y, z} p(y, z) H(X \mid Y = y, Z = z) \\
+        &= - \sum_{z} p(z) \sum_{x} p(x \mid z) \log p(x \mid z)
+        \ + \ \sum_{y,z} p(y,z) \sum_x p(x \mid y, z) \log p(x \mid y, z) \\
+        &= \sum_{x,y,z} p(x, y, z) \log \frac{p(x \mid y, z)}{p(x \mid z)} \\
+        &= \sum_{x,y,z} p(x, y, z) \log \frac{p(x, y \mid z)}{p(x \mid z) p(y \mid z)} \\
+        &= I(X; Y \mid Z)  \quad .
+    \end{align*}
+\end{proof}
+
+\begin{remark}
+    Conditional mutual information measures how much knowing \( Y \) reduces the uncertainty of \( X \), \emph{given} that we already know \( Z \).
+\end{remark}
+
+\begin{proposition}[Chain Rule for Mutual Information]
+    Let \( X \), \( Y \), and \( Z \) be random variables. Then:
+    \[
+        I(X; Y, Z) = I(X; Z) + I(X; Y \mid Z) \quad .
+    \]
+\end{proposition}
+\begin{proof}
+    We use entropy-based expressions for mutual information:
+    \begin{align*}
+        I(X; Y, Z) &= H(X) - H(X \mid (Y, Z)) \\
+        &= I(X; Z) + H(X \mid Z) - H(X \mid (Y, Z)) \\
+        &= I(X; Z) + H(X \mid Z) - (H(X \mid Z) - I(X; Y \mid Z)) \\
+        &= I(X; Z) + I(X; Y \mid Z) \quad .
+    \end{align*}
+\end{proof}
+
+\begin{proposition}[Non-Negativity of Conditional Mutual Information]
+    It holds true that
+    \[
+        I(X; Y \mid Z) \geq 0 \quad .
+    \]
+\end{proposition}
+\vspace{-2.5em}
+\begin{proof}
+    We have:
+    \begin{align*}
+        I(X; Y \mid Z) &= \sum_{x, y, z} p(x, y, z) \log \frac{p(x, y \mid z)}{p(x \mid z) p(y \mid z)} \\
+        &= \sum_{z} p(z) \sum_{x, y} p(x, y \mid z) \log \frac{p(x, y \mid z)}{p(x \mid z) p(y \mid z)} \\
+        &= \sum_{z} p(z) D_{\mathrm{KL}} \left( p(x, y \mid z) \, \| \, p(x \mid z) p(y \mid z) \right) \geq 0 \quad .
+    \end{align*}
+\end{proof}
+
+\begin{corollary}
+    As a direct consequence, we have
+    \[
+        I(X; Z) \leq I(X; Y, Z) \quad .
+    \]
+\end{corollary}
+
+\begin{definition}[Conditional Independence]
+    Let \( X, Y, Z \) be discrete random variables. We say that \( X \) is \emph{conditionally independent} of \( Z \) given \( Y \), and write:
+    \[
+        X \perp Z \mid Y
+    \]
+    if and only if
+    \[
+        p(z \mid x, y) = p(z \mid y) \quad \text{for all } x, y, z \quad .
+    \]
+    Equivalently:
+    \[
+        p(x, z \mid y) = p(x \mid y) p(z \mid y) \quad .
+    \]
+\end{definition}
+
+\begin{proposition}
+    If \( X \perp Z \mid Y \), then the conditional mutual information between \( X \) and \( Z \) given \( Y \) is zero:
+    \[
+        I(X; Z \mid Y) = 0 \quad .
+    \]
+\end{proposition}
+
+\begin{proof}
+By definition of conditional mutual information:
+    \[
+        I(X; Z \mid Y) = \sum_{x, z, y} p(x, z, y) \log \frac{p(x, z \mid y)}{p(x \mid y) p(z \mid y)} \quad .
+    \]
+
+    If \( X \perp Z \mid Y \), then:
+    \[
+        p(x, z \mid y) = p(x \mid y) p(z \mid y) \quad ,
+    \]
+    so the logarithm becomes:
+    \[
+        \log \frac{p(x \mid y) p(z \mid y)}{p(x \mid y) p(z \mid y)} = \log 1 = 0 \quad .
+    \]
+
+    Hence, each term in the sum is zero, and:
+    \[
+        I(X; Z \mid Y) = 0 \quad .
+    \]
+\end{proof}
+
+\pagebreak
+\subsubsection{Data Processing Inequality}
+
+\begin{lemma}[Markov Chain]
+    Let \( X, Y, Z \) be random discrete random variables forming the Markov chain $X \to Y \to Z$. Then:
+    \[
+        X \perp Z \mid Y \quad .
+    \]
+\end{lemma}
+\begin{proof}
+    Per definition from Markov chains, we have:
+    \[
+        p(z \mid x, y) = p(z \mid y) \quad ,
+    \]
+    and hence $X \perp Z \mid Y$.
+\end{proof}
+
+\begin{theorem}[Data Processing Inequality]
+    \label{theorem:data_processing_inequality}
+    If \( X \to Y \to Z \) is a Markov chain, then:
+    \[
+        I(X; Z) \leq I(X; Y) \quad .
+    \]
+\end{theorem}
+
+\begin{proof}
+    We use the chain rule and conditional independence:
+    \begin{align*}
+        I(X; Z) &= I(X; Z, Y) - I(X; Y \mid Z) \\
+        &= I(X; Y) + I(X; Z \mid Y) - I(X; Y \mid Z) \quad .
+    \end{align*}
+    Since \( X \to Y \to Z \), we have \( I(X; Z \mid Y) = 0 \). Thus:
+    \[
+        I(X; Z) = I(X; Y) - I(X; Y \mid Z) \leq I(X; Y) \quad ,
+    \]
+    because \( I(X; Y \mid Z) \geq 0 \).
+\end{proof}
+
+\begin{corollary}[No Gain in Processing]
+    Any function \( f(Y) \) of \( Y \) cannot increase information about \( X \):
+    \[
+        I(X; f(Y)) \leq I(X; Y) \quad .
+    \]
+\end{corollary}
+\begin{proof}
+    This follows by applying the DPI to the chain \( X \to Y \to f(Y) \).
+\end{proof}
+
+\textbf{Summary of Key Properties}
+\begin{itemize}[leftmargin=1.2cm]
+    \item \( I(X; Y) \geq 0 \)
+    \item \( I(X; Y) = 0 \) if and only if \( X \perp Y \)
+    \item \( I(X; Y) = D_{\mathrm{KL}}(p(x, y) \| p(x)p(y)) \)
+    \item Chain rule: \( I(X; Y, Z) = I(X; Z) + I(X; Y \mid Z) \)
+    \item Data Processing Inequality: \( X \to Y \to Z \Rightarrow I(X; Z) \leq I(X; Y) \)
+\end{itemize}
+
+\subsection{Bounding Mutual Information via Matrix Rank of the Joint Distribution}
+\begin{theorem}
+    \label{theorem:mutual_information_is_bounded_by_log_rank}
+    Let $X, Y$ be random variables from finite sets $\mathcal{X, Y}$, and let matrix $\bm{P}$ denote their joint probability distribution, i.e. $\bm{P}_{ij} = p(x_i, y_j)$. Let $r \coloneqq \operatorname{rank} \bm{P}$ denote the rank of matrix $\bm{P}$. Then we have
+    \[
+        I(X; Y) \leq \log r \quad .
+    \]
+\end{theorem}
+\begin{proof}
+    Let $n \coloneqq |\mathcal{X}|$ and $m \coloneqq |\mathcal{Y}|$. If $\bm{P}$ has rank $r$, then so must the transition matrix $\bm{P}_{Y|X} \in \mathbb{R}^{m \times n}$ defined as $(\bm{P}_{Y|X})_{ij} \coloneqq p(y_i \mid x_j) = \frac{p(x_j, y_i)}{\sum_{k} p(x_k, y_i)}$, since $\bm{P}_{Y|X}$ is created from $\bm{P}$ by transposing and column scaling. If one column consisted of only zeros, i.e. $\sum_{k} p(x_k, y_i) = 0$, we may just copy a different scaled column vector to this column.
+
+    Now, let's analyze matrix $\bm{P}_{Y|X}$. First, note that it is a Markov chain transition matrix, and hence all its columns lie in the m-dimensional unit simplex. Consider the convex hull of the column vectors, it is a r-dimensional convex polytope in the m-dimensional unit simplex. Thus, we can find a r-dimensional simplex with corners collected by matrix $\bm{U}$ s.t. it is a superset of this polytope and still a subset of the (potentially) higher dimensional unit simplex. 
+
+    Thus, every column vector in $\bm{P}_{Y|X}$ can be written as a convex combination of the column vectors in $\bm{U}$. It follows that $\bm{P}_{Y|X}$ can be decomposed as
+    \[
+        \bm{P}_{Y|X} = \bm{UV} \ , \quad \bm{U} \in \mathbb{R}^{m \times r}, \bm{V} \in \mathbb{R}^{r \times n} \quad ,
+    \]
+    where both $\bm{U}$ and $\bm{V}$ are Markov chain transition matrices as well.
+
+    Hence, we can introduce a latent variable $Z \in \{ 1, \dots , r \}$, which forms the Markov chain
+    \[
+        X \underset{\bm{V}}{\to} Z \underset{\bm{U}}{\to} Y \quad .
+    \]
+    Finally, based on theorem~\ref{theorem:data_processing_inequality} it follows that
+    \[
+        I(X; Y) \leq I(X; Z) = H(Z) - H(Z \mid X) \leq H(Z) \leq \log r \quad .
+    \]
+\end{proof}
+
+
+
+
+\pagebreak
+\subsection{Convergence of Mutual Information}
+\begin{theorem}[Element-Wise Exponential Convergence Implies Exponential Convergence]
+    \label{theorem:element-wise_exponential_convergence_implies_exponential_convergence}
+Let $f: \mathcal{D} \to \mathbb{R}^m$ be a function defined on a convex domain $\mathcal{D} \subseteq \mathbb{R}^n$ that is a Cartesian product of real intervals, i.e., $\mathcal{D} = \mathcal{D}_1 \times \mathcal{D}_2 \times \dots \times \mathcal{D}_n$ where each $\mathcal{D}_i \subseteq \mathbb{R}$ is an interval. Let $\{\bm{x}_k\}_{k=1}^\infty \subset \mathcal{D}$ be a sequence converging exponentially fast to $\bm{x}_0 \in \mathcal{D}$.
+
+Let $\bm{e}_j$ denote the $j$-th standard basis vector in $\mathbb{R}^n$. Suppose that for each input coordinate $j \in \{1, 2, \dots, n\}$ there exist functions $K_j(C', \rho)$, $C_j(C', \rho)$, $P_j(C', \rho)$ s.t. for every sequence $\{\bm{u}_k\}_{k=1}^\infty \subset \mathcal{D}$ converging to $\bm{u}_0$ where the difference $\bm{u}_\ell-\bm{u}_{\ell'}$ is parallel to $\bm{e}_j$ (i.e., they only differ in the $j$-th coordinate) that satisfies $|\bm{u}_0 - \bm{u}_k| \leq C' \rho^k$ for all $k$ and some $\rho \in [0, 1), \ C' > 0$, we have for all $k \geq K_j(C', \rho)$:
+\[
+    \|f(\bm{u}_0) - f(\bm{u}_k)\| \le C_j(C', \rho) \rho^k k^{P_j(C', \rho)} \quad .
+\]
+Then, there exist constants $C > 0$ and $\sigma \in [0, 1)$ such that for all sufficiently large $k$:
+\[
+    \|f(\bm{x}_0) - f(\bm{x}_k)\| \le C \sigma^k \quad .
+\]
+\end{theorem}
+
+\begin{proof}
+Let the sequence $\{\bm{x}_k\}_{k=1}^\infty \subset \mathcal{D}$ converge exponentially to $\bm{x}_0 \in \mathcal{D}$. By definition, there exist constants $C_x > 0$ and $\rho \in [0, 1)$ such that for all $k$,
+\[
+    \|\bm{x}_k - \bm{x}_0\| \le C_x \rho^k \quad .
+\]
+Let $\bm{x}_k = (x_{k,1}, \dots, x_{k,n})^T$ and $\bm{x}_0 = (x_{0,1}, \dots, x_{0,n})^T$. An immediate consequence is that each coordinate also converges exponentially, i.e., for each $j \in \{1, \dots, n\}$:
+\[
+    |x_{k,j} - x_{0,j}| \le \|\bm{x}_k - \bm{x}_0\|_{\infty} \le \|\bm{x}_k - \bm{x}_0\| \le C_x \rho^k \quad ,
+\]
+where we use the equivalence of norms in $\mathbb{R}^n$.
+
+To bound $\|f(\bm{x}_0) - f(\bm{x}_k)\|$, we define a sequence of $n+1$ intermediate points that form a path from $\bm{x}_k$ to $\bm{x}_0$ by changing one coordinate at a time. For each $k$, let:
+\begin{align*}
+    \bm{z}_{k,0} &:= \bm{x}_k = (x_{k,1}, x_{k,2}, \dots, x_{k,n}) \\
+    \bm{z}_{k,1} &:= (x_{0,1}, x_{k,2}, \dots, x_{k,n}) \\
+    & \vdots \\
+    \bm{z}_{k,j} &:= (x_{0,1}, \dots, x_{0,j}, x_{k,j+1}, \dots, x_{k,n}) \\
+    & \vdots \\
+    \bm{z}_{k,n} &:= (x_{0,1}, \dots, x_{0,n}) = \bm{x}_0 \quad .
+\end{align*}
+Since $\mathcal{D}$ is a cartesian product intervals and both $\bm{x}_k$ and $\bm{x}_0$ are in $\mathcal{D}$, all intermediate points $\bm{z}_{k,j}$ are also contained in $\mathcal{D}$. We can express the total difference $f(\bm{x}_0) - f(\bm{x}_k)$ as a telescoping sum:
+\[
+    f(\bm{x}_0) - f(\bm{x}_k) = f(\bm{z}_{k,n}) - f(\bm{z}_{k,0}) = \sum_{j=1}^{n} \left( f(\bm{z}_{k,j}) - f(\bm{z}_{k,j-1}) \right) \quad .
+\]
+By the triangle inequality, we have:
+\[
+    \|f(\bm{x}_0) - f(\bm{x}_k)\| \le \sum_{j=1}^{n} \|f(\bm{z}_{k,j}) - f(\bm{z}_{k,j-1})\| \quad .
+\]
+Now, we analyze each term $\|f(\bm{z}_{k,j}) - f(\bm{z}_{k,j-1})\|$ for a fixed $j \in \{1, \dots, n\}$. The points $\bm{z}_{k,j}$ and $\bm{z}_{k,j-1}$ differ only in their $j$-th coordinate.
+
+Let us define a sequence $\{\bm{u}_m\}_{m=1}^\infty$ and a limit point $\bm{u}_0$ that fit the condition in the theorem's hypothesis. For the given $j$ and $k$, let
+\begin{align*}
+    \bm{u}_m &:= (x_{0,1}, \dots, x_{0,j-1}, x_{m,j}, x_{k,j+1}, \dots, x_{k,n}) \\
+    \bm{u}_0 &:= (x_{0,1}, \dots, x_{0,j-1}, x_{0,j}, x_{k,j+1}, \dots, x_{k,n}) \quad .
+\end{align*}
+Note that $\bm{u}_0 = \bm{z}_{k,j}$ and by setting $m=k$, we get $\bm{u}_k = \bm{z}_{k,j-1}$.
+The sequence $\{\bm{u}_m\}$ lies on a line parallel to the $j$-th coordinate axis. As $m \to \infty$, $\bm{u}_m \to \bm{u}_0$ because $x_{m,j} \to x_{0,j}$. The convergence is exponential:
+\[
+    \|\bm{u}_m - \bm{u}_0\| = |x_{m,j} - x_{0,j}| \le C_x \rho^m \quad .
+\]
+The hypothesis states that for any such sequence, there exist constants $K_j(C_x, \rho)$, $C_j(C_x, \rho)$, $P_j(C_x, \rho)$ which are independent of the specific line, such that for all $k \geq K_j(C_x, \rho)$ we have $\|f(\bm{u}_0) - f(\bm{u}_m)\| \le C_j(C_x, \rho) \rho^m m^{P_j(C_x, \rho)}$. Applying this for $m=k$:
+\[
+    \|f(\bm{z}_{k,j}) - f(\bm{z}_{k,j-1})\| = \|f(\bm{u}_0) - f(\bm{u}_k)\| \leq C_j(C_x, \rho) \rho^k k^{P_j(C_x, \rho)} \quad .
+\]
+This inequality holds for each $j=1, \dots, n$. Substituting these bounds back into the sum:
+\[
+    \|f(\bm{x}_0) - f(\bm{x}_k)\| \le \sum_{j=1}^{n} C_j(C_x, \rho) \rho^k k^{P_j(C_x, \rho)} \quad .
+\]
+Let $K \coloneqq \max_{j \in \{1, \dots, n\}} \{K_j(C_x, \rho)\}$, $C \coloneqq \sum_{j=1}^{n} C_j(C_x, \rho)$ and \\
+$P \coloneqq \max_{j \in \{1, \dots, n\}} \{P_j(C_x, \rho)\}$. Hence, for all $k \geq K$:
+\[
+    \|f(\bm{x}_0) - f(\bm{x}_k)\| \le \sum_{j=1}^{n} C_j(C_x, \rho) \rho^k k^P = \left( \sum_{j=1}^{n} C_j(C_x, \rho) \right) \rho^k k^P = C \rho^k k^P \quad .
+\]
+This shows that $\{f(\bm{x}_k)\}$ converges exponentially to $f(\bm{x}_0)$ with a rate of $\sigma$ s.t. $\rho < \sigma < 1$ (like $\sigma \coloneqq \sqrt{\rho}$). This completes the proof.
+\end{proof}
+
+\begin{lemma}
+\label{lemma:xlogx_exponential_convergence}
+Let the function $f: [0, \infty) \to \mathbb{R}$ be defined as $f(x) = x \log x$ for $x \in (0, 1)$, and $f(x) = 0$ everywhere else. If a sequence $\{x_k\}_{k=1}^\infty \subset [0,1]$ converging to a limit $x_\infty \in [0,1]$ satisfies $|x_k - x_\infty| \leq C \rho^k$ for some $C \in \mathbb{R}_{>0}, \ \rho \in [0, 1)$, then the sequence $\{f(x_k)\}$ converges to $f(x_\infty)$ with $|f(x_k) - f(x_\infty)| \leq C \rho^k \ |\log C + k \log \rho|$ for $k \geq \log_\rho \left( \dfrac{e^{-1}}{C} \right) \eqqcolon K$.
+\end{lemma}
+\vspace{-2.5em}
+\begin{proof}
+We consider two cases for the limit $x_\infty$:
+
+\textbf{Case 1: $x_\infty = 0$} \\
+In this case, $|x_k - 0| = x_k \le C \rho^k$. We want to bound the difference $|f(x_k) - f(0)| = |x_k \log x_k|$.
+Note that $|x \log x|$ is monotonically increasing on $[0, e^{-1}]$. For $k \geq K$ we have $x_k \leq e^{-1}$. Thus, for all $k \geq K$:
+\[
+    |x_k \log x_k| \leq |C \rho^k \log (C \rho^k)| = C \rho^k \ |\log C + k \log \rho| \quad .
+\]
+
+\textbf{Case 2: $x_\infty > 0$} \\
+Similarly, for $k \geq K$ we have $|x_k - x_\infty| \leq C \rho^k \leq e^{-1}$. Based on the function graph, it follows that for $k \geq K$ we have:
+\[
+    |f(x_k) - f(x_\infty)| \leq |f(C \rho^k) - f(0)| = |f(C \rho^k)| = C \rho^k \ |\log C + k \log \rho| \quad .
+\]
+\end{proof}
+
+\begin{theorem}[Element-Wise Exponential Convergence Property of Mutual Information]
+Let the function $f: [0, \infty) \to \mathbb{R}$ be defined as $f(x) = x \log x$ for $x \in (0, 1)$, and $f(x) = 0$ everywhere else. Define the function $I: [0, 1]^{mn} \to \mathbb{R}$ for a matrix $\bm{M}$ as:
+\begin{align*}
+    I(\bm{M}) &= \sum_{i=1}^m \sum_{j=1}^n f(M_{ij}) - \sum_{i=1}^m f\left(\sum_{j=1}^n M_{ij}\right) - \sum_{j=1}^n f\left(\sum_{i=1}^m M_{ij}\right) \quad .
+\end{align*}
+This function exhibits element-wise exponential convergence. That is, for any single component $(i_0, j_0)$, if a sequence of matrices $\{\bm{U}_k\}_{k=1}^\infty \subset [0, 1]^{mn}$ converges to a limit $\bm{U}_\infty$, varies only in the $(i_0, j_0)$-th component and satisfies $\|\bm{U}_k - \bm{U}_\infty\| \leq C \rho^k$ for some $C > 0$, $\rho \in [0, 1)$ and all $k$, then the sequence of values $\{I(\bm{U}_k)\}$ converges to $I(\bm{U}_\infty)$ with $|I(\bm{U}_k) - I(\bm{U}_\infty)| \leq C'(C, \rho) \rho^k k^{P(C, \rho)}$ for all $k \geq K(C, \rho)$.
+\end{theorem}
+% \vspace{-2.5em}
+\pagebreak
+\begin{proof}
+The function $I(\bm{M})$ is a sum of terms involving $f$ applied to the matrix entries and their row and column sums. Let $m_i(\bm{M}) = \sum_j M_{ij}$ and $m'_j(\bm{M}) = \sum_i M_{ij}$. We have:
+\[
+    I(\bm{M}) = \sum_{i,j} f(M_{ij}) - \sum_i f(m_i(\bm{M})) - \sum_j f(m'_j(\bm{M})) \quad .
+\]
+We are given a sequence $\{\bm{U}_k\}$ that varies only in the $(i_0, j_0)$-th component, $u_k = U_k(i_0, j_0)$. All other components are constant. The exponential convergence of $\{\bm{U}_k\}$ means $|u_k - u_\infty| \le C \rho^k$.
+
+The difference $I(\bm{U}_k) - I(\bm{U}_\infty)$ consists only of terms whose arguments change with $k$. These are:
+\begin{enumerate}
+    \item The entry term: $f(u_k)$.
+    \item The row-sum term: $f(m_{i_0}(\bm{U}_k))$, where $m_{i_0}(\bm{U}_k) = u_k + \text{const}$.
+    \item The column-sum term: $f(m'_{j_0}(\bm{U}_k))$, where $m'_{j_0}(\bm{U}_k) = u_k + \text{const}$.
+\end{enumerate}
+By the triangle inequality, the total error is bounded by the sum of the absolute errors of these three terms:
+\begin{align*}
+|I(\bm{U}_k) - I(\bm{U}_\infty)| \le \ & |f(u_k) - f(u_\infty)| \\
+& + |f(m_{i_0}(\bm{U}_k)) - f(m_{i_0}(\bm{U}_\infty))| \\
+& + |f(m'_{j_0}(\bm{U}_k)) - f(m'_{j_0}(\bm{U}_\infty))| \quad .
+\end{align*}
+The arguments to the function $f$ in each of these three terms converge exponentially to their limits with rate $\rho$ and constant $C$, since $|m_{i_0}(\bm{U}_k) - m_{i_0}(\bm{U}_\infty)| = |u_k - u_\infty|$ and $|m'_{j_0}(\bm{U}_k) - m'_{j_0}(\bm{U}_\infty)| = |u_k - u_\infty|$.
+
+Hence, by lemma~\ref{lemma:xlogx_exponential_convergence}, we have:
+\begin{align*}
+|I(\bm{U}_k) - I(\bm{U}_\infty)| &\leq 3 C \rho^k \ |\log C + k \log \rho| \\
+&\leq 3 C \rho^k k \ (|\log C| + |\log \rho|) \\
+&= C' \rho^k k \quad ,
+\end{align*}
+with $C' \coloneqq 3 C (|\log C| + |\log \rho|)$ and for all $k \geq K(C, \rho)$. Note that $K$, $C'$ and $P$ only depend on $C$ and $\rho$.
+\end{proof}
+
+\begin{corollary}
+    Using theorem~\ref{theorem:element-wise_exponential_convergence_implies_exponential_convergence}, we see that if a sequence $\{\bm{P}_k\}$ of joint probability distributions converges exponentially fast, then $\{I(\bm{P}_k)\}$ converges exponentially fast as well.
+\end{corollary}
+
+\begin{corollary}
+    \label{corollary:exponential_convergence_of_conditional_probability_matrix_implies_exponential_convergence_of_mutual_information}
+    A joint probability matrix $\bm{P}_{X,Y}$ can be calculated from the conditional probability matrix $\bm{P}_{Y \mid X}$ and the diagonal matrix $\bm{P}_{X}$ with the probabilities for $X$ on its diagonal using $\bm{P}_{X,Y} = \bm{P}_{Y \mid X} \bm{P}_{X}$. Hence, if $\bm{P}_{Y \mid X}$ converges exponentially fast while $\bm{P}_X$ stays constant, the mutual information $I(X;Y)$ will converge exponentially fast as well.
+\end{corollary}
+
+\end{document}

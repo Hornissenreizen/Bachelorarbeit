@@ -1,0 +1,205 @@
+\documentclass[../../main.tex]{subfiles}
+
+\begin{document}
+\section{Model Framework}
+    We are interested in models with asymptotically power-law decay of the mutual information measure with respect to the distance between the tokens in the sequence. So far so good. But what does it \emph{actually} mean?
+
+    The tokens, represented by random variables $X_t$, are elements of a finite alphabet $\Sigma$. The distance between $X_t$ and $X_{t + \tau}$ is $\tau$, and for every $t$ and every $\tau > 0$ we want to bound
+    \[
+        I(X_t; X_{t + \tau}) \in \Omega(\tau^{-\alpha}), \ I(X_t; X_{t + \tau}) \in \mathcal{O}(\tau^{-\beta}) \quad ,
+    \]
+    for some fixed $\alpha, \beta \in \mathbb{R}_{>0}$. The first condition is the important one, while the latter ensures that $I(X_t; X_{t + \tau}) \xrightarrow{\tau \to \infty} 0$. We also may replace the latter condition by this one.
+
+    This was straight forward. The challenging part is to define what a  model is. In the case of Markov chains this seems trivial: We define a finite set of parameters (the transition probabilities), and we get a model over the alphabet $\Sigma$, that is for every $n \in \mathbb{N}$ the model defines a probability measure over $\Sigma^n$. Thus:
+
+    \begin{definition}[Model over $\Sigma$]
+        \label{definition:model_over_sigma}
+        A model $S$ over $\Sigma$ is a function $S: \mathbb{N} \times \Sigma^* \mapsto [0, 1], \ (n, w) \mapsto p$, for $n \in \mathbb{N}, \ w \in \Sigma^n, \ p \in [0, 1]$ s.t. $\sum_{w \in \Sigma^n} S(n, w) = 1$. $S$ assigns the probability $p$ to the word $w$ of length $n$.
+    \end{definition}
+
+    But really, we want to restrain $S$ in order to have reasonable time and space complexity, and to ensure the model is \emph{reasonable}, which means that the language of $S_n(w)$ should look \emph{similar} to $S_{n + d}(w)$, whatever this might mean, where we used the notation $S_n(w) \equiv S(n, w)$. We also write $w_i$ for $X_i$. Really, $w$ is a 1-indexed String of $X_i$.  
+
+    We present one strict definition for this \emph{similarity} in the following definition:
+
+    \begin{definition}
+        We say $S$ has the \emph{bulk marginal property} iff for every $n \in \mathbb{N}, \ w \in \Sigma^{n + 1}$ it holds true that
+        \[
+            \sum_{w_{n + 1} \in \Sigma} S_{n + 1}(w) = S_n(w_{-\{n + 1\}}) \quad .
+        \]
+    \end{definition}
+
+    \begin{remark}
+        Markov chains have the bulk marginal property.
+    \end{remark}
+
+\pagebreak
+    \begin{lemma}
+        \label{lemma:random_variables_do_not_change_with_future_models}
+        For every $d \in \mathbb{N}$, let $I \coloneqq [n + d] \setminus [n] = \{ n+1, \dots, n + d \}$. Then, if $S$ has the bulk marginal property, we have for every $w \in \Sigma^{n + d}$:
+        \[
+            \sum_{w_I \in \Sigma^d} S_{n + d}(w) = S_n(w_{-I}) \quad .
+        \]
+    \end{lemma}
+    % \vspace{-2.5em}
+    \begin{proof}
+        We use induction over $d$. The base case follows directly from the definition of the bulk marginal property. Thus, assume the claim holds for some $d \coloneqq k$. Then we have
+        \begin{align*}
+            \sum_{w_I \in \Sigma^{k + 1}} S_{n + k + 1}(w) &= \sum_{w_{I \setminus \{ k + 1 \}} \in \Sigma^{k}} \sum_{w_{k + 1} \in \Sigma} S_{n + k + 1}(w) \\
+            &\underset{\text{bulk marginal property}}{=} \sum_{w_{I \setminus \{ k + 1 \}} \in \Sigma^{k}} S_{n + k}(w_{-\{ k + 1 \}}) \\
+            &\underset{\text{inductive hypothesis}}{=} S_n(w_{-I}) \quad ,
+        \end{align*}
+        which concludes the induction step.
+    \end{proof}
+
+    \begin{definition}[Induced Bulk Marginal Model]
+        \label{def:induced_bulk_marginal_model}
+        Based on the model $S$, we can construct an \emph{induced bulk marginal} model $S^*$ by defining $S_n^*$ recursively as 
+        \begin{itemize}
+            \item $S_1^* \coloneqq S_1$ ,
+            \item $S_{n + 1}^*(w) \coloneqq S_n^*(w_{-\{n+1\}}) \dfrac{S_{n+1}(w)}{\sum_{w_{n+1} \in \Sigma} S_{n+1}(w)}$ .
+        \end{itemize}
+    \end{definition}
+
+    \begin{remark}
+        If $\sum_{w_{n+1} \in \Sigma} S_{n+1}(w) = 0$, we might set $S_{n + 1}^*(w) \coloneqq S_n^*(w_{-\{n+1\}}) \dfrac{1}{|\Sigma|}$.
+    \end{remark}
+
+    \begin{lemma}
+        The induced bulk marginal model $S^*$ indeed has the bulk marginal property.
+    \end{lemma}
+    \vspace{-2.5em}
+    \begin{proof}
+        We have:
+        \begin{align*}
+            \sum_{w_{n + 1} \in \Sigma} S_{n + 1}^*(w) &= \sum_{w_{n + 1} \in \Sigma} S_n^*(w_{-\{n+1\}}) \dfrac{S_{n+1}(w)}{\sum_{w_{n+1} \in \Sigma} S_{n+1}(w)} \\
+            &= \dfrac{S_n^*(w_{-\{n+1\}})}{\sum_{w_{n+1} \in \Sigma} S_{n+1}(w)} \sum_{w_{n + 1} \in \Sigma} S_{n+1}(w) \\
+            &\overset{\checkmark}{=} S_n^*(w_{-\{n+1\}}) \quad .
+        \end{align*}
+    \end{proof}
+
+\pagebreak
+    Now, we want to look at how we might restrict our model $(S_n)_{n \in \mathbb{N}} \equiv S$. One approach might be to define a model structure for every $n \in \mathbb{N}$. To this end, we define $S_n$ by some finite parameters $\bm{\theta}_n$ over the \emph{model space} $\mathcal{S}(n) \equiv \mathcal{S}_n$, which specifies the structure of our models. Thus:
+    \[
+        S_n \in \{ S_n(\bm{\theta}_n) : \bm{\theta}_n \in \Theta_n \} \eqqcolon \mathcal{S}_n \quad ,
+    \]
+    where $\Theta_n$ is the set of all possible parameters of $\mathcal{S}_n$. We write $S_{n, \bm{\theta}_n}$ for $S_n$ with parameters $\bm{\theta}_n$. Hence, $(S_n)_{n \in \mathbb{N}}$ is completely defined by $(\mathcal{S}_n, \bm{\theta}_n)_{n \in \mathbb{N}}$.
+
+    \begin{remark}
+        The parameter space $\Theta_n$ may consist of parameter vectors with varying lengths. The same model $S_n$ may be defined by two parameter vectors with very different sizes over the same model space $\mathcal{S}_n$ or potentially two different model spaces. Thus, the parametrization complexity depends of the model space $\mathcal{S}$.
+    \end{remark}
+
+    \begin{definition}[Model over Model Space]
+        We say $(S_n)_{n \in \mathbb{N}}$ is a \emph{model over the model space} $\mathcal{S}$ iff $S_n \in \mathcal{S}_n$ for every $n \in \mathbb{N}$. As a shorthand, we write $S \in \mathcal{S}$.
+    \end{definition}
+
+    For our model $S$, we want power-law decay in the mutual information with respect to $\tau$ between \emph{any} two variables $X_t$, $X_{t + \tau}$, i.e. it has to hold for every $t$ and \emph{every} $S_n$. But what does this actually mean?
+
+    \begin{definition}
+        We define $i_{S_n}(\tau)$ and $I_{S_n}(\tau)$ to be the minimal and maximal mutual information between any two variables of $S_n$ with distance $\tau$. Formally, let $X_t; X_{t + \tau}$ ($t + \tau \leq n$) be random variables with distributions defined by $S_n$. Then:
+        \vspace{-1em}
+        \begin{itemize}
+            \item $i_{S_n}(\tau) \coloneqq \min_{t \in [n - \tau]} I(X_t; X_{t + \tau}) \quad ,$
+            \item $I_{S_n}(\tau) \coloneqq \max_{t \in [n - \tau]} I(X_t; X_{t + \tau}) \quad .$
+        \end{itemize}
+    \end{definition}
+
+    \begin{definition}[Strong Power-Law Behavior]
+        \label{definition:strong_model_power_law_behavior}
+        A model $S$ has \emph{strong lower bound power-law behavior} iff there exist constants $c_\alpha, \alpha \in \mathbb{R}_{>0}$ s.t. for every $n \in \mathbb{N}$ it holds true that $i_{S_n}(\tau) \geq c_\alpha \tau^{-\alpha}$. Similarly, $S$ has \emph{upper bound power-law behavior} iff there exist constants $c_\beta, \beta \in \mathbb{R}_{>0}$ s.t. for every $n \in \mathbb{N}$ it holds true that $I_{S_n}(\tau) \leq c_\beta \tau^{-\beta}$. Furthermore, $S$ has \emph{decaying behavior} iff for every $n \in \mathbb{N}$ we have $I_{S_{n + \tau}}(\tau) \xrightarrow{\tau \to \infty} 0$. Lastly, $S$ has \emph{strong power-law behavior} iff it has strong lower bound and upper bound power-law behavior (alternatively decaying behavior instead of upper bound power-law behavior).
+    \end{definition}
+
+    \begin{remark}
+        For a model $S^*$ with the bulk marginal property we can replace "for every $n \in \mathbb{N}$" in definition~\ref{definition:strong_model_power_law_behavior} with "for $n \to \infty$" thanks to lemma~\ref{lemma:random_variables_do_not_change_with_future_models}.
+    \end{remark}
+
+\pagebreak
+    \begin{proposition}
+        Upper bound power-law behavior implies decaying behavior.
+    \end{proposition}
+    \vspace{-2.5em}
+    \begin{proof}
+        Assume model $S$ has upper bound power-law behavior. Then there exist constants $c_\beta, \beta \in \mathbb{R}_{>0}$ s.t. for every $n \in \mathbb{N}$ it holds true that $I_{S_n}(\tau) \leq c_\beta \tau^{-\beta}$, especially for $n \coloneqq n' + \tau$. Thus, for every $n' \in \mathbb{N}$:
+        \[
+            I_{S_{n' + \tau}}(\tau) \leq c_\beta \tau^{-\beta} \xrightarrow{\tau \to \infty} 0 \quad .
+        \]
+    \end{proof}
+
+    \begin{definition}
+        We define $\overline{i_{S_n}}$ to be the minimal mutual information between any two variables over $S_n$ with arbitrary distance $\tau$. Formally, let $X_i, X_j$ ($1 \leq i < j \leq n$) be random variables with distributions defined by $S_n$. Then:
+        \[
+            \overline{i_{S_n}} \coloneqq \min_{(i, j) \in [n]^2, i < j} I(X_i; X_j) = \min_{\tau \in [n - 1]} i_{S_n}(\tau) \quad .
+        \]
+    \end{definition}
+
+    \begin{definition}[Weak Power-Law Behavior]
+        \label{definition:weak_power_law_behavior}
+        A model $S$ has \emph{weak lower bound power-law behavior} iff $\overline{i_{S_n}} \in \Omega(n^{-\alpha})$ for some $\alpha \in \mathbb{R}_{>0}$. Additionally, $S$ has \emph{weak power-law behavior} iff it has weak lower bound and upper bound power-law behavior (alternatively decaying behavior instead of upper bound power-law behavior).
+    \end{definition}
+
+    \begin{theorem}[Every Token has Power-Law Decay in Models with the Bulk Marginal Property and Weak Power-Law Behavior]
+        \label{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior}
+        Let $S$ be a model that satisfies the bulk marginal property and exhibits weak lower bound power-law behavior. Then, there exists an $\alpha \in \mathbb{R}_{>0}$ s.t. for every $X_t$, $I(X_{t}; X_{t + \tau}) \in \Omega(\tau^{-\alpha})$ (where $X_t$ and $X_{t + \tau}$ are sampled over $S_{t + \tau}$, or, equivalently, any $S_{t + \tau + k}$).
+    \end{theorem}
+    \vspace{-2.5em}
+    \begin{proof}
+        Since $S$ has weak lower bound power-law behavior, there exist $\alpha', c' \in \mathbb{R}_{>0}$ s.t. $\overline{i_{S_n}} \geq c' n^{-\alpha'}$. Then, for every $t \in \mathbb{N}$, we have for $n \coloneqq t + \tau$ by the definition of $\overline{i_{S_n}}$:
+        \begin{align*}
+            I(X_{t}; X_{t + \tau}) &\geq \overline{i_{S_{t + \tau}}} \\
+            &\geq c' (t + \tau)^{-\alpha'} \\
+            &= c' \tau^{-\alpha'} (\frac{t}{\tau} + 1)^{-\alpha'} \\
+            &\geq c' \tau^{-\alpha'} (t + 1)^{-\alpha'} \quad .
+        \end{align*}
+        Since $S$ is has the bulk marginal property, this inequality holds when sampling over any $S_{t + \tau + k}, \ k \in \mathbb{N}$. Now, set $\alpha \coloneqq \alpha'$ and $c \coloneqq c' (t + 1)^{-\alpha'}$. Note that $\alpha$ does not depend on $t$. Finally, we see that $I(X_{t}; X_{t + \tau}) \geq c \tau^{-\alpha}$. Thus, we get $I(X_{t}; X_{t + \tau}) \in \Omega(\tau^{-\alpha})$.
+    \end{proof}
+
+    \begin{remark}
+        If additionally $S$ had decaying behavior, then of course we would also have $I(X_{t}; X_{t + \tau}) \xrightarrow{\tau \to \infty} 0$.
+    \end{remark}
+
+    \begin{remark}
+        The importance of this implication might depend on the context. However, this theorem proves to be very useful when considering its contraposition. In fact, we will use this contraposition later to disprove weak power-law behavior for Markov chains (and hence also strong power-law behavior).
+    \end{remark}
+
+    \begin{remark}
+        It is crucial for $S$ to have the bulk marginal property in theorem~\ref{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior}, or else $I(X_{t}; X_{t + \tau})$ might depend on $S_n$, and we cannot exclude $I(X_{t}; X_{t + \tau}) \xrightarrow{n \to \infty} 0$.
+    \end{remark}
+
+% \pagebreak
+    \begin{proposition}
+        \label{proposition:strong_slbplb_implies_wlbplb}
+        Strong lower bound power-law behavior implies weak lower bound power-law behavior.
+    \end{proposition}
+    \vspace{-2.5em}
+    \begin{proof}
+        Assume model $S$ has strong lower bound power-law behavior. Thus, it follows that there exist $c_\alpha, \alpha \in \mathbb{R}_{>0}$ s.t. for all $n \in \mathbb{N}$ we have that $i_{S_n}(\tau) \geq c_\alpha \tau^{-\alpha}$. Hence:
+        \begin{align*}
+            \overline{i_{S_n}} &= \min_{\tau \in [n - 1]} i_{S_n}(\tau) \\
+            &\geq \min_{\tau \in [n - 1]} c_\alpha \tau^{-\alpha} \\
+            &\geq c_\alpha (n - 1)^{-\alpha} \\
+            &= c_\alpha n^{-\alpha} (1 - \frac{1}{n})^{-\alpha} \\
+            &\geq c_\alpha n^{-\alpha} 1^{-\alpha} \\
+            &= c_\alpha n^{-\alpha} \quad .
+        \end{align*}
+        It follows that $\overline{i_{S_n}} \in \Omega(n^{-\alpha})$, and hence $S$ has weak lower bound power-law behavior.
+    \end{proof}
+
+    \begin{remark}
+        Weak lower bound power-law behavior does \emph{not} imply strong lower bound power-law behavior, not even for models with the bulk marginal property. To see this, note that we might have  $i_{S_n}(1) \xrightarrow{n \to \infty} 0$ for some models with weak lower bound power-law behavior. ($S_n$ may force $i_{S_n}(1)$ to decay to $0$ for $n \to \infty$ because of weak correlations of consecutive tokens very late in the sequence.) The proof of theorem~\ref{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior} fails when defining $c$, as it depends on $t$.
+    \end{remark}
+
+    \begin{remark}
+        If $S$ has decaying behavior, we cannot prove that $S$ has strong lower bound power-law behavior by bounding $\overline{i_{S_{t + \tau}}}$ (using $\overline{i_{S_{t + \tau}}} \leq i_{S_{t + \tau}}(\tau)$), as we have for every $\tau \in \mathbb{N}$:
+        \[
+            0 \leq \overline{i_{S_{t + \tau}}} \leq I_{S_{t + \tau}}(t) \xrightarrow{t \to \infty} 0 \quad .
+        \]
+    \end{remark}
+
+    % \begin{definition}
+    %     \label{definition:large_scale_time_invariance}
+    %     A model $S$ is called \emph{large scale time invariant} iff there exists a vector $\bm{\mu} \in [0,1]^\Sigma$ s.t. for all $a \in \Sigma$ we have
+    %     \[
+    %         P(X_t = a) \xrightarrow{t \to \infty} \bm{\mu}_a \quad ,
+    %     \]
+    %     where $X_t$ is sampled over any $S_{t + k}, k \in \mathbb{N}$.
+    % \end{definition}
+\end{document}

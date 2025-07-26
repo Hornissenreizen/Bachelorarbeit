@@ -1,0 +1,62 @@
+\documentclass[../../main.tex]{subfiles}
+
+\begin{document}
+\section{Technical Details}
+\label{section:technical_details}
+In this appendix we provide some further details of our arguments.
+
+\subsection{Integrating over the Quadrants of a Normal Distribution}
+\label{section:integrating_quadrants}
+In order to derive the formula, we first have to prove an auxiliary lemma:
+
+\begin{lemma}
+Let $X$ and $Y$ have a bivariate normal distribution where $X$ and $Y$ are standard normal variables, $X, Y \sim \mathcal{N}(0,1)$, with correlation $\rho$. The variable $Z = \frac{Y-\rho X}{\sqrt{1-\rho^2}}$ is a standard normal variable, and $X$ and $Z$ are independent.
+\end{lemma}
+
+\begin{proof}
+First, we show that $Z$ is a standard normal variable. Since $Z$ is a linear combination of the jointly normal variables $X$ and $Y$, $Z$ is also a normal variable. We compute its mean and variance.
+
+The mean of $Z$ is:
+$$ E[Z] = E\left[\frac{Y-\rho X}{\sqrt{1-\rho^2}}\right] = \frac{E[Y]-\rho E[X]}{\sqrt{1-\rho^2}} = \frac{0 - \rho \cdot 0}{\sqrt{1-\rho^2}} = 0 \quad .$$
+The variance of $Z$ is:
+\begin{align*}
+    \text{Var}(Z) &= \text{Var}\left(\frac{Y-\rho X}{\sqrt{1-\rho^2}}\right) = \frac{1}{1-\rho^2}\text{Var}(Y-\rho X) \\
+    &= \frac{1}{1-\rho^2}\left(\text{Var}(Y) + \rho^2\text{Var}(X) - 2\rho\text{Cov}(X,Y)\right) \quad .
+\end{align*}
+Since $X$ and $Y$ are standard normal variables, $\text{Var}(X) = 1$, $\text{Var}(Y) = 1$, and their covariance $\text{Cov}(X,Y)$ is equal to their correlation $\rho$. Hence:
+$$ \text{Var}(Z) = \frac{1}{1-\rho^2}(1 + \rho^2(1) - 2\rho(\rho)) = \frac{1-\rho^2}{1-\rho^2} = 1 \quad . $$
+Thus, $Z$ is a standard normal variable, $Z \sim \mathcal{N}(0,1)$.
+
+To show that $X$ and $Z$ are independent, we compute their covariance. Since they are jointly normal, zero covariance implies independence.
+\begin{align*}
+    \text{Cov}(X,Z) &= \text{Cov}\left(X, \frac{Y-\rho X}{\sqrt{1-\rho^2}}\right) = \frac{1}{\sqrt{1-\rho^2}}\text{Cov}(X, Y-\rho X) \\
+    &= \frac{1}{\sqrt{1-\rho^2}}\left(\text{Cov}(X,Y) - \rho\text{Cov}(X,X)\right) \\
+    &= \frac{1}{\sqrt{1-\rho^2}}\left(\rho - \rho\text{Var}(X)\right) = \frac{1}{\sqrt{1-\rho^2}}(\rho - \rho \cdot 1) = 0 \quad .
+\end{align*}
+Since $\text{Cov}(X,Z)=0$ and they are jointly normal, $X$ and $Z$ are independent.
+\end{proof}
+
+Now we can prove our proposition of interest:
+
+\begin{proposition}
+For bivariate standard normal variables $X$ and $Y$ with correlation $\rho$,
+$$ P(X>0, Y>0) = \frac{1}{4} + \frac{1}{2\pi}\arcsin(\rho) \quad . $$
+\end{proposition}
+
+\begin{proof}
+Define the random variable $Z$ like in the previous lemma. Then, the event $\{X>0, Y>0\}$ is the same as the event $\{X>0, Z > \frac{-\rho}{\sqrt{1-\rho^2}}X\}$, where $X$ and $Z$ are independent standard normal variables as shown above. Writing $a := \frac{-\rho}{\sqrt{1-\rho^2}}$ for brevity, the desired probability is expressible as a double integral involving the joint density of $(X,Z)$:
+\begin{align*}
+    P(X>0, Y>0) &= P(X>0, Z>aX) \\
+    &= \int_{x=0}^{\infty} \int_{z=ax}^{\infty} \frac{1}{\sqrt{2\pi}}e^{-x^2/2} \frac{1}{\sqrt{2\pi}}e^{-z^2/2} \,dz\,dx \quad .
+\end{align*}
+Switching to polar coordinates ($x=r\cos\theta, z=r\sin\theta$), the integral becomes:
+$$ \int_{\theta=\arctan(a)}^{\pi/2} \int_{r=0}^{\infty} \frac{1}{2\pi} e^{-r^2/2} r \,dr\,d\theta = \int_{\theta=\arctan(a)}^{\pi/2} \frac{1}{2\pi} \left[-e^{-r^2/2}\right]_0^\infty \,d\theta \quad . $$
+This equals:
+$$ \int_{\theta=\arctan(a)}^{\pi/2} \frac{1}{2\pi} \,d\theta = \frac{1}{2\pi}\left(\frac{\pi}{2} - \arctan(a)\right) = \frac{1}{4} - \frac{1}{2\pi}\arctan\left(\frac{-\rho}{\sqrt{1-\rho^2}}\right) \quad  .$$
+Using the fact that the arctan function is odd, i.e. $\arctan(-u) = -\arctan(u)$, we get:
+$$ \frac{1}{4} + \frac{1}{2\pi}\arctan\left(\frac{\rho}{\sqrt{1-\rho^2}}\right) \quad . $$
+To finish, we use the identity $\arcsin(\rho) = \arctan\left(\frac{\rho}{\sqrt{1-\rho^2}}\right)$. To see this, let $\phi = \arcsin(\rho)$ for $\phi \in [-\pi/2, \pi/2]$. Then $\sin(\phi) = \rho$ and $\cos(\phi) = \sqrt{1-\rho^2}$. Thus, $\tan(\phi) = \frac{\sin(\phi)}{\cos(\phi)} = \frac{\rho}{\sqrt{1-\rho^2}}$, which implies $\phi = \arctan\left(\frac{\rho}{\sqrt{1-\rho^2}}\right)$.
+Substituting this into our expression gives the final result:
+$$ P(X>0, Y>0) = \frac{1}{4} + \frac{1}{2\pi}\arcsin(\rho) \quad . $$
+\end{proof}
+\end{document}

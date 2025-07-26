@@ -1,0 +1,13 @@
+\contentsline {section}{\numberline {1}Model Framework}{2}{section.1}%
+\contentsline {section}{\numberline {2}A Model with Power-Law Behavior}{7}{section.2}%
+\contentsline {subsection}{\numberline {2.1}A Continuous Model with Power-Law Behavior}{7}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}A Formula for Mutual Information}{7}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}Initializing Parameters}{8}{subsubsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.3}Ensure Positive Definiteness}{9}{subsubsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.2}The Discretized Model}{11}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Strong Power-Law Behavior}{12}{subsubsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.3}Summary}{17}{subsection.2.3}%
+\contentsline {section}{\numberline {3}No Power-Law in Hidden Markov Models}{18}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Conclusions for Model Selection}{25}{subsection.3.1}%
+\contentsline {section}{\numberline {A}Technical Details}{27}{appendix.A}%
+\contentsline {subsection}{\numberline {A.1}Integrating over the Quadrants of a Normal Distribution}{27}{subsection.A.1}%
