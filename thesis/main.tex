@@ -1,5 +1,8 @@
 \documentclass{article}
 
+\usepackage[utf8]{inputenc}
+\usepackage{cite} % optional, for numeric citations
+
 \usepackage{subfiles}
 \usepackage{graphicx}
 \usepackage{mathtools}
@@ -90,5 +93,7 @@
 \newpage
 \subfile{chapters/technical_details/sub.tex}
 
-
+\newpage
+\bibliographystyle{plain}  % or 'abbrv', 'unsrt', 'ieeetr', etc.
+\bibliography{entropy-v19-i07_20250727}
 \end{document}

@@ -2,22 +2,47 @@
 
 \begin{document}
 \section{Model Framework}
-    We are interested in models with asymptotically power-law decay of the mutual information measure with respect to the distance between the tokens in the sequence. So far so good. But what does it \emph{actually} mean?
+    Empirical analysis of \emph{natural language} reveals an interesting relation between the distance of characters in a text and their mutual information.
 
-    The tokens, represented by random variables $X_t$, are elements of a finite alphabet $\Sigma$. The distance between $X_t$ and $X_{t + \tau}$ is $\tau$, and for every $t$ and every $\tau > 0$ we want to bound
+    \begin{figure}[h]
+        \includegraphics*[width=\textwidth]{./natl_pl.png}
+        \caption{Decay of mutual information with separation. Source: \cite{e19070299}}
+    \end{figure}
+
+    The data show that mutual information tends to decay with distance, but it does so slowly. To be precise, \emph{mutual information in natural language seems to follow a power-law}.
+
+    Thus, models of natural language should show a similar behavior. In order to filter potential models for natural language by their ability for \emph{power-law behavior}, we need a precise definition.
+
+\subsection*{The Framework}
+    The tokens, represented by random variables $X_t$, are elements of a finite alphabet $\Sigma$. For every $t$ and every separation $\tau > 0$, we want to bound
     \[
         I(X_t; X_{t + \tau}) \in \Omega(\tau^{-\alpha}), \ I(X_t; X_{t + \tau}) \in \mathcal{O}(\tau^{-\beta}) \quad ,
     \]
-    for some fixed $\alpha, \beta \in \mathbb{R}_{>0}$. The first condition is the important one, while the latter ensures that $I(X_t; X_{t + \tau}) \xrightarrow{\tau \to \infty} 0$. We also may replace the latter condition by this one.
+    for some fixed $\alpha, \beta \in \mathbb{R}_{>0}$. 
+    
+    The first condition ensures that the mutual information does not decay too quickly, while the latter ensures that $I(X_t; X_{t + \tau}) \xrightarrow{\tau \to \infty} 0$, just like the data show. We also may replace the latter condition by this implication.
 
-    This was straight forward. The challenging part is to define what a  model is. In the case of Markov chains this seems trivial: We define a finite set of parameters (the transition probabilities), and we get a model over the alphabet $\Sigma$, that is for every $n \in \mathbb{N}$ the model defines a probability measure over $\Sigma^n$. Thus:
+    The importance of the second condition is further emphasized when considering models like the following time-homogenous Markov chain consisting of the two states $A$ and $B$: The probability to transition from $A$ to $A$ is one, and hence the transition probability from $A$ to $B$ is zero. Similarly, starting at state $B$, we can only remain at state $B$.
+    
+    The pairwise mutual information of this simple model equals a constant. Thus, we can lower bound it by a power-law. However, the problem is that the mutual information does not \emph{decay with distance}. Thus, we conclude that high mutual information alone is not a good indicator for model quality.
 
-    \begin{definition}[Model over $\Sigma$]
-        \label{definition:model_over_sigma}
-        A model $S$ over $\Sigma$ is a function $S: \mathbb{N} \times \Sigma^* \mapsto [0, 1], \ (n, w) \mapsto p$, for $n \in \mathbb{N}, \ w \in \Sigma^n, \ p \in [0, 1]$ s.t. $\sum_{w \in \Sigma^n} S(n, w) = 1$. $S$ assigns the probability $p$ to the word $w$ of length $n$.
+\subsubsection*{Model over $\Sigma^*$}
+    \vspace{-1em}
+    In sequence modeling, a model is typically built from a finite set of rules or parameters defined over an alphabet $\Sigma$. These rules allow us to assign a probability to any finite string. For instance, a time-homogeneous Markov chain uses a fixed transition matrix to define a probability measure over the set of all strings of a given length $n$ (i.e., over $\Sigma^n$) for any $n \in \mathbb{N}$.
+
+    This central idea of a family of finite domains leads to our definition:
+
+    \begin{definition}[Model over $\Sigma^*$]
+    \label{definition:model_over_sigma_star}
+    A model $S$ over the alphabet $\Sigma$ is a function $S: \Sigma^* \mapsto [0, 1]$ that assigns a probability to each finite string $w \in \Sigma^*$, subject to the constraint that for any length $n \in \mathbb{N}$, the probabilities of all strings of that length sum to one:
+    \[
+        \sum_{w \in \Sigma^n} S(w) = 1 \quad .
+    \]
     \end{definition}
 
-    But really, we want to restrain $S$ in order to have reasonable time and space complexity, and to ensure the model is \emph{reasonable}, which means that the language of $S_n(w)$ should look \emph{similar} to $S_{n + d}(w)$, whatever this might mean, where we used the notation $S_n(w) \equiv S(n, w)$. We also write $w_i$ for $X_i$. Really, $w$ is a 1-indexed String of $X_i$.  
+    Another strength of this definition is that we don't constrain models by their parameterization. How the models are defined, and how they compute the probabilities is up to them.
+
+    Additionally, we might want to restrain $S$ in order to have reasonable time and space complexity, and to ensure the model is \emph{reasonable}, which means that the language of $S_n(w)$ should look \emph{similar} to $S_{n + d}(w')$, whatever this might mean, where we used the notation $S_{|w|}(w) \coloneqq S \big|_{\Sigma^{|w|}}$. We also write $w_i$ for $X_i$. Really, $w$ is a 1-indexed String of $X_i$.  
 
     We present one strict definition for this \emph{similarity} in the following definition:
 
