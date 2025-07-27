@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1753512607 "/home/jonas/Desktop/Desktop/Bachelorarbeit/thesis/chapters/regular_grammar/sub.tex" "chapters/regular_grammar/sub.pdf" "sub" 1753512609
+["pdflatex"] 1753620154 "/home/jonas/Desktop/Desktop/Bachelorarbeit/thesis/chapters/regular_grammar/sub.tex" "chapters/regular_grammar/sub.pdf" "sub" 1753620156
   "/etc/texmf/web2c/texmf.cnf" 1667832238 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/jonas/Desktop/Desktop/Bachelorarbeit/thesis/chapters/regular_grammar/sub.tex" 1753512604 35669 53a23a2f5e77c97bef954f7321043cc3 ""
+  "/home/jonas/Desktop/Desktop/Bachelorarbeit/thesis/chapters/regular_grammar/sub.tex" 1753620153 23452 cbdcd876040dcae6037c7d900b641674 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1246382020 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm" 1246382020 1120 7f9f170e8aa57527ad6c49feafd45d54 ""
@@ -223,10 +223,10 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1697878699 128028 f533b797fba58d231669ea19e894e23e ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1712737265 1405647 f966d3218063cabc8be94f5b4e8cfbea ""
-  "chapters/regular_grammar/../../main.tex" 1753512228 2260 afb814ce6af820a2c0dc372d5ba62ad2 ""
-  "chapters/regular_grammar/sub.aux" 1753512608 2239 ca2298321b9f5690c637e4ce15af1bae "pdflatex"
-  "chapters/regular_grammar/sub.out" 1753512608 459 8f54ba2574cb7e8e4a7b4e1781540c5e "pdflatex"
-  "chapters/regular_grammar/sub.tex" 1753512604 35669 53a23a2f5e77c97bef954f7321043cc3 ""
+  "chapters/regular_grammar/../../main.tex" 1753619898 2196 47abe2a7117a04186b48cd4c5a65d679 ""
+  "chapters/regular_grammar/sub.aux" 1753620155 2304 7c3ceab91c5b637760f373f143e53afc "pdflatex"
+  "chapters/regular_grammar/sub.out" 1753620155 507 bc7370ffccaed466a5c349b3ee39ad33 "pdflatex"
+  "chapters/regular_grammar/sub.tex" 1753620153 23452 cbdcd876040dcae6037c7d900b641674 ""
   (generated)
   "chapters/regular_grammar/sub.aux"
   "chapters/regular_grammar/sub.log"

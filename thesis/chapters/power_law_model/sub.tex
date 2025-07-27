@@ -219,9 +219,7 @@ Here is the clever part: Instead of discretizing the continuous normal distribut
     \end{pmatrix*}\right)
     \quad .
 \]
-Thus, in order to calculate the joint distribution of $(X_i, X_j)$, we need a formula for integrating a two dimensional normal distribution over the quadrants.
-
-As it turns out, the solution is neat formula:
+Thus, in order to calculate the joint distribution of $(X_i, X_j)$, we need a formula for integrating a two dimensional normal distribution over the quadrants. As it turns out, the solution is a neat formula in terms of $\rho$:
 \[
     P(Y_i>0, Y_j>0) = \frac{1}{4} + \frac{1}{2\pi}\arcsin(\rho) \quad .
 \]
@@ -323,9 +321,9 @@ This is looking very promising! We only need to bound $\rho_\tau$ again, but thi
 \begin{proof}
     Note the inequality $x + 1 \leq e^x$. For $x > -1$ it follows that
     \begin{equation}
-        e^{-x} \leq \frac{1}{x + 1} \label{eq:e_to_the_minus_ex_bound} \quad .
+        e^{-x} \leq \frac{1}{x + 1} \label{eq:e_to_the_minus_ex_bound_2} \quad .
     \end{equation}
-    Applying equation~\ref{eq:e_to_the_minus_ex_bound} to $e^{-2c \tau^{-\alpha}}$ with $x \coloneqq 2c \tau^{-\alpha}$ yields
+    Applying equation~\ref{eq:e_to_the_minus_ex_bound_2} to $e^{-2c \tau^{-\alpha}}$ with $x \coloneqq 2c \tau^{-\alpha}$ yields
     \[
         e^{-2c \tau^{-\alpha}} \leq \frac{1}{2c \tau^{-\alpha} + 1} \quad ,
     \]
