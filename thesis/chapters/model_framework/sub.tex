@@ -13,7 +13,7 @@
 
     Thus, models of natural language should show a similar behavior. In order to filter potential models for natural language by their ability for \emph{power-law behavior}, we need a precise definition.
 
-\subsection*{The Framework}
+\subsection{The Framework}
     The tokens, represented by random variables $X_t$, are elements of a finite alphabet $\Sigma$. For every $t$ and every separation $\tau > 0$, we want to bound
     \[
         I(X_t; X_{t + \tau}) \in \Omega(\tau^{-\alpha}), \ I(X_t; X_{t + \tau}) \in \mathcal{O}(\tau^{-\beta}) \quad ,
@@ -26,54 +26,51 @@
     
     The pairwise mutual information of this simple model equals a constant. Thus, we can lower bound it by a power-law. However, the problem is that the mutual information does not \emph{decay with distance}. Thus, we conclude that high mutual information alone is not a good indicator for model quality.
 
-\subsubsection*{Model over $\Sigma^*$}
-    \vspace{-1em}
+\subsubsection{Model Definition}
     In sequence modeling, a model is typically built from a finite set of rules or parameters defined over an alphabet $\Sigma$. These rules allow us to assign a probability to any finite string. For instance, a time-homogeneous Markov chain uses a fixed transition matrix to define a probability measure over the set of all strings of a given length $n$ (i.e., over $\Sigma^n$) for any $n \in \mathbb{N}$.
 
-    This central idea of a family of finite domains leads to our definition:
+    This central idea of a family of finite domains leads to our general definition:
 
     \begin{definition}[Model over $\Sigma^*$]
-    \label{definition:model_over_sigma_star}
-    A model $S$ over the alphabet $\Sigma$ is a function $S: \Sigma^* \mapsto [0, 1]$ that assigns a probability to each finite string $w \in \Sigma^*$, subject to the constraint that for any length $n \in \mathbb{N}$, the probabilities of all strings of that length sum to one:
-    \[
-        \sum_{w \in \Sigma^n} S(w) = 1 \quad .
-    \]
+        \label{definition:model_over_sigma_star}
+        Let $\Sigma$ be a finite alphabet. A model $S$ over $\Sigma^*$ is a function $S: \Sigma^* \mapsto [0, 1]$ that assigns a probability to each finite string $w \in \Sigma^*$, subject to the constraint that for any length $n \in \mathbb{N}$, the probabilities of all strings of that length sum to one:
+        \[
+            \sum_{w \in \Sigma^n} S(w) = 1 \quad .
+        \]
+        Furthermore, we denote the restriction of $S$ to strings of length $n$ as $S_n \coloneqq S|_{\Sigma^n}$. The function $S_n: \Sigma^n \to [0,1]$ is thus a probability measure over $\Sigma^n$.
     \end{definition}
 
     Another strength of this definition is that we don't constrain models by their parameterization. How the models are defined, and how they compute the probabilities is up to them.
 
-    Additionally, we might want to restrain $S$ in order to have reasonable time and space complexity, and to ensure the model is \emph{reasonable}, which means that the language of $S_n(w)$ should look \emph{similar} to $S_{n + d}(w')$, whatever this might mean, where we used the notation $S_{|w|}(w) \coloneqq S \big|_{\Sigma^{|w|}}$. We also write $w_i$ for $X_i$. Really, $w$ is a 1-indexed String of $X_i$.  
+    Additionally, we might want to restrain $S$ in order to have reasonable time and space complexity, and to ensure the model is \emph{consistent}, which means that the language of $S_n$ should look \emph{similar} to $S_{n + d}$, whatever this might mean. We also write $w_i$ for $X_i$. We can think of $w$ as a 1-indexed String of random variables.
 
     We present one strict definition for this \emph{similarity} in the following definition:
 
     \begin{definition}
-        We say $S$ has the \emph{bulk marginal property} iff for every $n \in \mathbb{N}, \ w \in \Sigma^{n + 1}$ it holds true that
+        We say $S$ has the \emph{bulk marginal property} iff for every $n \in \mathbb{N}, \ w \in \Sigma^{n}$ it holds true that
         \[
-            \sum_{w_{n + 1} \in \Sigma} S_{n + 1}(w) = S_n(w_{-\{n + 1\}}) \quad .
+            \sum_{c \in \Sigma} S_{n + 1}(wc) = S_n(w) \quad .
         \]
     \end{definition}
 
-    \begin{remark}
-        Markov chains have the bulk marginal property.
-    \end{remark}
-
-\pagebreak
     \begin{lemma}
         \label{lemma:random_variables_do_not_change_with_future_models}
-        For every $d \in \mathbb{N}$, let $I \coloneqq [n + d] \setminus [n] = \{ n+1, \dots, n + d \}$. Then, if $S$ has the bulk marginal property, we have for every $w \in \Sigma^{n + d}$:
+        For every $d \in \mathbb{N}$, let $I \coloneqq [n + d] \setminus [n] = \{ n+1, \dots, n + d \}$. Then, if $S$ has the bulk marginal property, we have for every $w \in \Sigma^{n}$:
         \[
-            \sum_{w_I \in \Sigma^d} S_{n + d}(w) = S_n(w_{-I}) \quad .
+            \sum_{s \in \Sigma^d} S_{n + d}(ws) = S_n(w) \quad .
         \]
     \end{lemma}
     % \vspace{-2.5em}
     \begin{proof}
-        We use induction over $d$. The base case follows directly from the definition of the bulk marginal property. Thus, assume the claim holds for some $d \coloneqq k$. Then we have
+        We use induction over $d$. The base case directly follows from the definition of the bulk marginal property. Thus, assume the claim holds for some $d \coloneqq k$. Then we have
         \begin{align*}
-            \sum_{w_I \in \Sigma^{k + 1}} S_{n + k + 1}(w) &= \sum_{w_{I \setminus \{ k + 1 \}} \in \Sigma^{k}} \sum_{w_{k + 1} \in \Sigma} S_{n + k + 1}(w) \\
-            &\underset{\text{bulk marginal property}}{=} \sum_{w_{I \setminus \{ k + 1 \}} \in \Sigma^{k}} S_{n + k}(w_{-\{ k + 1 \}}) \\
-            &\underset{\text{inductive hypothesis}}{=} S_n(w_{-I}) \quad ,
+            \sum_{s \in \Sigma^{k+1}} S_{n + k + 1}(ws) 
+            &= \sum_{v \in \Sigma^k} \sum_{c \in \Sigma} S_{n + k + 1}(wvc) \\
+            &= \sum_{v \in \Sigma^k} \left( \sum_{c \in \Sigma} S_{n + k + 1}((wv)c) \right) \\
+            &\underset{\text{bulk marginal property}}{=} \sum_{v \in \Sigma^k} S_{n+k}(wv) \\
+            &\underset{\text{inductive hypothesis}}{=} S_n(w) \quad ,
         \end{align*}
-        which concludes the induction step.
+        which concludes the induction.
     \end{proof}
 
     \begin{definition}[Induced Bulk Marginal Model]
@@ -81,12 +78,13 @@
         Based on the model $S$, we can construct an \emph{induced bulk marginal} model $S^*$ by defining $S_n^*$ recursively as 
         \begin{itemize}
             \item $S_1^* \coloneqq S_1$ ,
-            \item $S_{n + 1}^*(w) \coloneqq S_n^*(w_{-\{n+1\}}) \dfrac{S_{n+1}(w)}{\sum_{w_{n+1} \in \Sigma} S_{n+1}(w)}$ .
+            \item $S_{n + 1}^*(wc) \coloneqq S_n^*(w) \dfrac{S_{n+1}(wc)}{\sum_{c' \in \Sigma} S_{n+1}(wc')}$ ,
         \end{itemize}
+        where $w \in \Sigma^n, c \in \Sigma$.
     \end{definition}
 
     \begin{remark}
-        If $\sum_{w_{n+1} \in \Sigma} S_{n+1}(w) = 0$, we might set $S_{n + 1}^*(w) \coloneqq S_n^*(w_{-\{n+1\}}) \dfrac{1}{|\Sigma|}$.
+        If $\sum_{c' \in \Sigma} S_{n+1}(wc') = 0$, we might set $S_{n + 1}^*(wc) \coloneqq S_n^*(w) \dfrac{1}{|\Sigma|}$.
     \end{remark}
 
     \begin{lemma}
@@ -96,31 +94,37 @@
     \begin{proof}
         We have:
         \begin{align*}
-            \sum_{w_{n + 1} \in \Sigma} S_{n + 1}^*(w) &= \sum_{w_{n + 1} \in \Sigma} S_n^*(w_{-\{n+1\}}) \dfrac{S_{n+1}(w)}{\sum_{w_{n+1} \in \Sigma} S_{n+1}(w)} \\
-            &= \dfrac{S_n^*(w_{-\{n+1\}})}{\sum_{w_{n+1} \in \Sigma} S_{n+1}(w)} \sum_{w_{n + 1} \in \Sigma} S_{n+1}(w) \\
-            &\overset{\checkmark}{=} S_n^*(w_{-\{n+1\}}) \quad .
+            \sum_{c \in \Sigma} S_{n + 1}^*(wc) 
+            &\underset{\text{def of } S^*}{=} \sum_{c \in \Sigma} S_n^*(w) \frac{S_{n+1}(wc)}{\sum_{c' \in \Sigma} S_{n+1}(wc')} \\
+            &= S_n^*(w) \cdot \frac{1}{\sum_{c' \in \Sigma} S_{n+1}(wc')} \sum_{c \in \Sigma} S_{n+1}(wc) \\
+            &= S_n^*(w) \cdot \frac{\sum_{c \in \Sigma} S_{n+1}(wc)}{\sum_{c' \in \Sigma} S_{n+1}(wc')} \\
+            &\overset{\checkmark}{=} S_n^*(w) \quad .
         \end{align*}
     \end{proof}
 
-\pagebreak
-    Now, we want to look at how we might restrict our model $(S_n)_{n \in \mathbb{N}} \equiv S$. One approach might be to define a model structure for every $n \in \mathbb{N}$. To this end, we define $S_n$ by some finite parameters $\bm{\theta}_n$ over the \emph{model space} $\mathcal{S}(n) \equiv \mathcal{S}_n$, which specifies the structure of our models. Thus:
+\subsubsection{Restricting the Model}
+    We can restrict our general model $S$ by specifying that for each length $n$, the probability distribution $S_n$ is computed by a parameterized \textbf{inference function}, $f_{n, \bm{\theta}_n}: \Sigma^n \to [0, 1]$. Each function is identified by a parameter vector $\bm{\theta}_n$ from a corresponding \textbf{parameter space} $\Theta_n$.
+
+    For the framework to be valid, each function must define a proper probability distribution. We denote this distribution by $S_{n, \bm{\theta}_n}$ and require that:
     \[
-        S_n \in \{ S_n(\bm{\theta}_n) : \bm{\theta}_n \in \Theta_n \} \eqqcolon \mathcal{S}_n \quad ,
+        S_{n, \bm{\theta}_n}(w) \coloneqq f_{n, \bm{\theta}_n}(w) \quad \text{and} \quad \sum_{w \in \Sigma^n} f_{n, \bm{\theta}_n}(w) = 1 \quad .
     \]
-    where $\Theta_n$ is the set of all possible parameters of $\mathcal{S}_n$. We write $S_{n, \bm{\theta}_n}$ for $S_n$ with parameters $\bm{\theta}_n$. Hence, $(S_n)_{n \in \mathbb{N}}$ is completely defined by $(\mathcal{S}_n, \bm{\theta}_n)_{n \in \mathbb{N}}$.
+    This approach defines a \textbf{model class} $\mathcal{S}_n$, which is the set of all distributions that can be generated by the family of inference functions with parameters in $\Theta_n$:
+    \[
+        \mathcal{S}_n \coloneqq \{ S_{n, \bm{\theta}_n} \mid \bm{\theta}_n \in \Theta_n \} \quad .
+    \]
+    A complete model $S \equiv (S_n)_{n \in \mathbb{N}}$ is thus specified by an inference function and a corresponding sequence of chosen parameters $(\bm{\theta}_n)_{n \in \mathbb{N}}$.
 
     \begin{remark}
-        The parameter space $\Theta_n$ may consist of parameter vectors with varying lengths. The same model $S_n$ may be defined by two parameter vectors with very different sizes over the same model space $\mathcal{S}_n$ or potentially two different model spaces. Thus, the parametrization complexity depends of the model space $\mathcal{S}$.
+        The distinction between the inference function $f$ and the distribution $S$ is crucial. Two different functions, $f_{n, \bm{\theta}}$ and $f_{n, \bm{\theta}'}$, might have vastly different time and space complexities even if they compute the exact same distribution (i.e., $S_{n, \bm{\theta}} = S_{n, \bm{\theta}'}$). The complexity is therefore a property of the specific algorithmic implementation and parameterization of $f_{n, \bm{\theta}_n}$.
     \end{remark}
 
-    \begin{definition}[Model over Model Space]
-        We say $(S_n)_{n \in \mathbb{N}}$ is a \emph{model over the model space} $\mathcal{S}$ iff $S_n \in \mathcal{S}_n$ for every $n \in \mathbb{N}$. As a shorthand, we write $S \in \mathcal{S}$.
-    \end{definition}
 
-    For our model $S$, we want power-law decay in the mutual information with respect to $\tau$ between \emph{any} two variables $X_t$, $X_{t + \tau}$, i.e. it has to hold for every $t$ and \emph{every} $S_n$. But what does this actually mean?
+\subsubsection{Power-Law Behavior}
+    Now, we formalize what it means for a model to exhibit power-law behavior. Specifically, we require power-law decay in mutual information with respect to $\tau$ between \emph{any} two variables $X_t$ and $X_{t + \tau}$. This condition must hold for all $t$ and for samples from \emph{any} distribution $S_n$ where $t + \tau \leq n$.
 
     \begin{definition}
-        We define $i_{S_n}(\tau)$ and $I_{S_n}(\tau)$ to be the minimal and maximal mutual information between any two variables of $S_n$ with distance $\tau$. Formally, let $X_t; X_{t + \tau}$ ($t + \tau \leq n$) be random variables with distributions defined by $S_n$. Then:
+        We define $i_{S_n}(\tau)$ and $I_{S_n}(\tau)$ to be the minimal and maximal mutual information between any two variables of $S_n$ with distance $\tau$. Formally, let $X_t, X_{t + \tau}$ ($t + \tau \leq n$) be random variables sampled from $S_n$. Then:
         \vspace{-1em}
         \begin{itemize}
             \item $i_{S_n}(\tau) \coloneqq \min_{t \in [n - \tau]} I(X_t; X_{t + \tau}) \quad ,$
@@ -137,7 +141,6 @@
         For a model $S^*$ with the bulk marginal property we can replace "for every $n \in \mathbb{N}$" in definition~\ref{definition:strong_model_power_law_behavior} with "for $n \to \infty$" thanks to lemma~\ref{lemma:random_variables_do_not_change_with_future_models}.
     \end{remark}
 
-\pagebreak
     \begin{proposition}
         Upper bound power-law behavior implies decaying behavior.
     \end{proposition}
@@ -161,7 +164,7 @@
         A model $S$ has \emph{weak lower bound power-law behavior} iff $\overline{i_{S_n}} \in \Omega(n^{-\alpha})$ for some $\alpha \in \mathbb{R}_{>0}$. Additionally, $S$ has \emph{weak power-law behavior} iff it has weak lower bound and upper bound power-law behavior (alternatively decaying behavior instead of upper bound power-law behavior).
     \end{definition}
 
-    \begin{theorem}[Every Token has Power-Law Decay in Models with the Bulk Marginal Property and Weak Power-Law Behavior]
+    \begin{theorem}[Power-Law Decay for All Tokens in Models with the Bulk Marginal Property]
         \label{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior}
         Let $S$ be a model that satisfies the bulk marginal property and exhibits weak lower bound power-law behavior. Then, there exists an $\alpha \in \mathbb{R}_{>0}$ s.t. for every $X_t$, $I(X_{t}; X_{t + \tau}) \in \Omega(\tau^{-\alpha})$ (where $X_t$ and $X_{t + \tau}$ are sampled over $S_{t + \tau}$, or, equivalently, any $S_{t + \tau + k}$).
     \end{theorem}
@@ -177,19 +180,21 @@
         Since $S$ is has the bulk marginal property, this inequality holds when sampling over any $S_{t + \tau + k}, \ k \in \mathbb{N}$. Now, set $\alpha \coloneqq \alpha'$ and $c \coloneqq c' (t + 1)^{-\alpha'}$. Note that $\alpha$ does not depend on $t$. Finally, we see that $I(X_{t}; X_{t + \tau}) \geq c \tau^{-\alpha}$. Thus, we get $I(X_{t}; X_{t + \tau}) \in \Omega(\tau^{-\alpha})$.
     \end{proof}
 
+    In other words, mutual information decays polynomially with distance for all tokens, and the constant $\alpha$ is always the same. This sounds like strong power-law behavior, but the issue is that the scalar $c$ depends on $t$ and we cannot lower bound it by constant greater than zero. Hence, the \emph{starting threshold} $I(X_t; X_{t+1})$ can decay to zero for $t \to \infty$.
+
     \begin{remark}
         If additionally $S$ had decaying behavior, then of course we would also have $I(X_{t}; X_{t + \tau}) \xrightarrow{\tau \to \infty} 0$.
     \end{remark}
 
     \begin{remark}
-        The importance of this implication might depend on the context. However, this theorem proves to be very useful when considering its contraposition. In fact, we will use this contraposition later to disprove weak power-law behavior for Markov chains (and hence also strong power-law behavior).
+        The importance of this implication might depend on the context. However, this theorem proves to be very useful when considering its contraposition. In fact, we will use this contraposition later to disprove weak power-law behavior of hidden Markov models (and hence also strong power-law behavior).
     \end{remark}
 
     \begin{remark}
         It is crucial for $S$ to have the bulk marginal property in theorem~\ref{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior}, or else $I(X_{t}; X_{t + \tau})$ might depend on $S_n$, and we cannot exclude $I(X_{t}; X_{t + \tau}) \xrightarrow{n \to \infty} 0$.
     \end{remark}
 
-% \pagebreak
+\pagebreak
     \begin{proposition}
         \label{proposition:strong_slbplb_implies_wlbplb}
         Strong lower bound power-law behavior implies weak lower bound power-law behavior.

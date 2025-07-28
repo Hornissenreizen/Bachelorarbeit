@@ -2,7 +2,7 @@
 
 \begin{document}
 \section{A Model with Power-Law Behavior}
-Based on our definitions it is very easy to define models without power-law behavior. For example, a single pair of random variables which are independent when marginalizing over the other ones violates every definition of power-law behavior, as it implies a mutual information of zero. Furthermore, hidden Markov models are also incapable of producing power-law behavior, see chapter~\ref{sec:mutual_information_in_markov_chains}.
+Based on our definitions it is very easy to define models without power-law behavior. For example, a single pair of random variables which are independent when marginalizing over the other ones violates every definition of power-law behavior, as it implies a mutual information of zero. Furthermore, hidden Markov models are also incapable of producing power-law behavior, see chapter~\ref{section:no_power-law_in_hidden_markov_models}.
 
 This begs the question whether there actually exists a model that satisfies our strong power-law behavior definition.
 
@@ -171,13 +171,13 @@ The central idea is to discretize our probability space by integrating over the 
 
 \begin{definition}[The Model]
     \label{definition:the_model}
-    Let $\left(\mathcal{N}(\bm{0}, \bm{\Sigma}_n)\right)_{n=1}^\infty$ be a family of normal distributions with a positive definite parameter matrix $\bm{\Sigma}_n$ for all $n \in \mathbb{N}_{>0}$, and let $p_n(\bm{x})$ denote the associated probability density functions. We define a model $S_{n, \bm{\Sigma}_n}$ over $\{-1, 1\}$ with
+    Let $\left(\mathcal{N}(\bm{0}, \bm{\Sigma}_n)\right)_{n=1}^\infty$ be a family of normal distributions with a positive definite parameter matrix $\bm{\Sigma}_n$ for all $n \in \mathbb{N}_{>0}$, and let $p_n(\bm{x})$ denote the associated probability density functions. We define the probability measure $S_{n, \bm{\Sigma}_n}$ over $\{-1, 1\}^n$ as:
     \[
-        S_{n, \bm{\Sigma}_n}(w) = \int_{Q_w} p_n(\bm{x}) d\bm{x} \quad ,
+        S_{n, \bm{\Sigma}_n}(w) \coloneqq \int_{Q_w} p_n(\bm{x}) d\bm{x} \quad ,
     \]
     where $Q_w$ is the quadrant
     \[
-        Q_w = \{ \bm{x} \in \mathbb{R}^n \mid \forall i \in [n] : w_i \bm{x}_i \geq 0 \} \quad .
+        Q_w \coloneqq \{ \bm{x} \in \mathbb{R}^n \mid \forall i \in [n] : w_i \bm{x}_i \geq 0 \} \quad .
     \]
 \end{definition}
 
@@ -289,6 +289,7 @@ Remember, we defined $f: (0, \frac{1}{2}) \to \mathbb{R}, \ x \mapsto x \log x$.
 \end{align*}
 
 Note that $f''(x) \geq 2$ for all $x \in (0, \frac{1}{2})$. Thus, when we define $g: (0, \frac{1}{2}) \to \mathbb{R}, \ x \mapsto x^2$, where $g''(x) \equiv 2$, we can use lemma~\ref{lemma:convex_function_bound} in equation~\eqref{eq:mutual_information_in_terms_of_f}:
+
 \begin{align*}
     I(X_i; X_j) &= 4 \cdot \left[ \frac{1}{2} \cdot f(\frac{1}{4} - \delta_\tau) + \frac{1}{2} \cdot f(\frac{1}{4} + \delta_\tau) - f(\frac{1}{4}) \right] \\
     &\geq 4 \cdot \left[ \frac{1}{2} \cdot g(\frac{1}{4} - \delta_\tau) + \frac{1}{2} \cdot g(\frac{1}{4} + \delta_\tau) - g(\frac{1}{4}) \right] \\
@@ -360,7 +361,7 @@ Let's summarize our findings in a concise theorem:
         \rho_{n-1} & \rho_{n-2} & \rho_{n-3} & \dots & 1 \\
     \end{pmatrix*} \quad .
     \]
-    We use $\bm{\Sigma}_n$ as the parameter covariance matrix of the model defined in definition~\ref{definition:the_model}. It follows that $S_{n, \bm{\Sigma}_n}$ is a valid model over $\{-1, 1\}$, since $\bm{\Sigma}_n$ is positive definite especially. Furthermore, $S$ has strong power-law behavior according to definition~\ref{definition:strong_model_power_law_behavior}. Specifically, for any random variables $X_i, X_j$ sampled from $S$, we have:
+    Define the model $S$ according to definition~\ref{definition:the_model} using the covariance matrix $\bm{\Sigma}_n$. It follows that $S_{n, \bm{\Sigma}_n}$ is a valid probability measure over $\{-1, 1\}^n$, since $\bm{\Sigma}_n$ is positive definite especially. Furthermore, $S$ has strong power-law behavior according to definition~\ref{definition:strong_model_power_law_behavior}. Specifically, for any random variables $X_i, X_j$ sampled from $S$, we have:
     \[
         \frac{2c}{(2c + 1) \cdot \pi^2} |i-j|^{-\alpha} \leq I(X_i; X_j) \leq |i-j|^{-\alpha} \quad .
     \]

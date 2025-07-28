@@ -1,18 +1,22 @@
-\contentsline {section}{\numberline {1}Model Framework}{2}{section.1}%
-\contentsline {section}{\numberline {2}A Model with Power-Law Behavior}{9}{section.2}%
-\contentsline {subsection}{\numberline {2.1}A Continuous Model with Power-Law Behavior}{9}{subsection.2.1}%
-\contentsline {subsubsection}{\numberline {2.1.1}A Formula for Mutual Information}{9}{subsubsection.2.1.1}%
-\contentsline {subsubsection}{\numberline {2.1.2}Initializing Parameters}{10}{subsubsection.2.1.2}%
-\contentsline {subsubsection}{\numberline {2.1.3}Ensure Positive Definiteness}{11}{subsubsection.2.1.3}%
-\contentsline {subsection}{\numberline {2.2}The Discretized Model}{13}{subsection.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.1}Strong Power-Law Behavior}{14}{subsubsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.3}Summary}{19}{subsection.2.3}%
-\contentsline {section}{\numberline {3}No Power-Law Behavior in Hidden Markov Models}{20}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Conclusions for Model Selection}{25}{subsection.3.1}%
-\contentsline {section}{\numberline {A}Technical Details}{26}{appendix.A}%
-\contentsline {subsection}{\numberline {A.1}Integrating over the Quadrants of a Normal Distribution}{26}{subsection.A.1}%
-\contentsline {subsection}{\numberline {A.2}Prerequisites for Theorem\nobreakspace {}\ref {theorem:no_hidden_markov_model_with_power-law}}{28}{subsection.A.2}%
-\contentsline {paragraph}{1. The Form of \(\bm {M}^n\)}{28}{section*.4}%
-\contentsline {paragraph}{2. The Limit Matrix \(\bm {M}'\)}{28}{section*.5}%
-\contentsline {paragraph}{3. Exponential Rate of Convergence}{29}{section*.6}%
-\contentsline {subsubsection}{\numberline {A.2.1}Convergence of Mutual Information}{30}{subsubsection.A.2.1}%
+\contentsline {section}{\numberline {1}Model Framework}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}The Framework}{3}{subsection.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1}Model Definition}{4}{subsubsection.1.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.2}Restricting the Model}{6}{subsubsection.1.1.2}%
+\contentsline {subsubsection}{\numberline {1.1.3}Power-Law Behavior}{7}{subsubsection.1.1.3}%
+\contentsline {section}{\numberline {2}A Model with Power-Law Behavior}{10}{section.2}%
+\contentsline {subsection}{\numberline {2.1}A Continuous Model with Power-Law Behavior}{10}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}A Formula for Mutual Information}{10}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}Initializing Parameters}{11}{subsubsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.3}Ensure Positive Definiteness}{12}{subsubsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.2}The Discretized Model}{14}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Strong Power-Law Behavior}{15}{subsubsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.3}Summary}{20}{subsection.2.3}%
+\contentsline {section}{\numberline {3}No Power-Law Behavior in Hidden Markov Models}{21}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Conclusions for Model Selection}{26}{subsection.3.1}%
+\contentsline {section}{\numberline {A}Technical Details}{27}{appendix.A}%
+\contentsline {subsection}{\numberline {A.1}Integrating over the Quadrants of a Normal Distribution}{27}{subsection.A.1}%
+\contentsline {subsection}{\numberline {A.2}Prerequisites for Theorem~\ref {theorem:no_hidden_markov_model_with_power-law}}{29}{subsection.A.2}%
+\contentsline {paragraph}{1. The Form of \(\bm {M}^n\)}{29}{section*.2}%
+\contentsline {paragraph}{2. The Limit Matrix \(\bm {M}'\)}{29}{section*.3}%
+\contentsline {paragraph}{3. Exponential Rate of Convergence}{30}{section*.4}%
+\contentsline {subsubsection}{\numberline {A.2.1}Convergence of Mutual Information}{31}{subsubsection.A.2.1}%
