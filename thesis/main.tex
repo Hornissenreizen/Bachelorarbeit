@@ -21,7 +21,12 @@
 \usepackage{graphicx}
 \usepackage{bm}
 \usepackage{pgfplots}
-\usepackage{biblatex}
+% \usepackage[
+%     backend=biber,     % Wichtig: Legt das Programm zur Verarbeitung fest
+%     style=numeric,     % Zitierstil, z.B. numeric, authoryear, alphabetic
+%     sorting=nyt        % Sortierreihenfolge der Quellen (Name, Year, Title)
+% ]{biblatex}
+% \addbibresource{entropy-v19-i07_20250727}
 
 \usepackage[utf8]{inputenc}      % Für Umlaute (ä, ö, ü)
 \usepackage[T1]{fontenc}         % Für korrekte Silbentrennung
@@ -33,7 +38,6 @@
 \usepackage{scrlayer-scrpage}
 \clearpairofpagestyles
 \cfoot*{\pagemark}
-
 
 % GLOBAL FORMATTING CHANGES
 \setlength{\parindent}{0pt}        % No paragraph indentation
@@ -97,7 +101,6 @@
 
 \newpage
 \pagestyle{scrheadings}
-% \maketitle
 \tableofcontents
 
 \subfile{chapters/model_framework/sub.tex}
@@ -107,9 +110,12 @@
 \appendix
 \subfile{chapters/technical_details/sub.tex}
 
-% \newpage
-% \bibliographystyle{plain}  % or 'abbrv', 'unsrt', 'ieeetr', etc.
-% \bibliography{entropy-v19-i07_20250727}
-\clearpage
-\printbibliography[heading=bibintoc]
+\newpage
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliographystyle{plain}  % or 'abbrv', 'unsrt', 'ieeetr', etc.
+\bibliography{entropy-v19-i07_20250727}
+% \clearpage
+% \printbibliography[heading=bibintoc]
 \end{document}
