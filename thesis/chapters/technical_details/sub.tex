@@ -1,11 +1,11 @@
 \documentclass[../../main.tex]{subfiles}
 
 \begin{document}
-\section{Technical Details}
+\chapter{Technical Details}
 \label{section:technical_details}
 In this appendix we provide some further details to our arguments.
 
-\subsection{Integrating over the Quadrants of a Normal Distribution}
+\section{Integrating over the Quadrants of a Normal Distribution}
 \label{section:integrating_quadrants}
 In order to derive the formula, we first have to prove an auxiliary lemma:
 
@@ -60,7 +60,7 @@ Substituting this into our expression gives the final result:
 $$ P(X>0, Y>0) = \frac{1}{4} + \frac{1}{2\pi}\arcsin(\rho) \quad . $$
 \end{proof}
 
-\subsection{Prerequisites for Theorem~\ref{theorem:no_hidden_markov_model_with_power-law}}
+\section{Prerequisites for Theorem~\ref{theorem:no_hidden_markov_model_with_power-law}}
 \label{section:prerequisites_for_theorem}
 \begin{lemma}
     \label{lemma:exponential_convergence_with_open_states}
@@ -131,7 +131,7 @@ Since $\|\bm{X}_n - \bm{X}'\|$ is bounded by a sum of exponentially decaying ter
 \end{proof}
 
 
-\subsubsection{Convergence of Mutual Information}
+\subsection{Convergence of Mutual Information}
 \begin{theorem}[Element-Wise Exponential Convergence Implies Exponential Convergence]
     \label{theorem:element-wise_exponential_convergence_implies_exponential_convergence}
 Let $f: \mathcal{D} \to \mathbb{R}^m$ be a function defined on a convex domain $\mathcal{D} \subseteq \mathbb{R}^n$ that is a Cartesian product of real intervals, i.e., $\mathcal{D} = \mathcal{D}_1 \times \mathcal{D}_2 \times \dots \times \mathcal{D}_n$ where each $\mathcal{D}_i \subseteq \mathbb{R}$ is an interval. Let $\{\bm{x}_k\}_{k=1}^\infty \subset \mathcal{D}$ be a sequence converging exponentially fast to $\bm{x}_0 \in \mathcal{D}$.

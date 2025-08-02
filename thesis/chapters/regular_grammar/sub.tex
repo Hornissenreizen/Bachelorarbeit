@@ -1,7 +1,7 @@
 \documentclass[../../main.tex]{subfiles}
 
 \begin{document}
-\section{No Power-Law Behavior in Hidden Markov Models}
+\chapter{No Power-Law Behavior in Hidden Markov Models}
     \label{section:no_power-law_in_hidden_markov_models}
     When modelling \emph{natural language}, we generate the next token(s) based on the previous tokens (and hence not based on future tokens; we generate text from left to right). Thus, when disregarding the future tokens, i.e. when marginalizing over them, we can determine the Markov blanket of the current token, i.e. determine the minimal set of tokens that influence the current one.
 
@@ -297,7 +297,7 @@
     % \end{proof}
 
     \smallskip
-\subsection{Conclusions for Model Selection}
+\section{Conclusions for Model Selection}
     Since we are interested in natural language modelling, a model with strong power-law behavior seems very desirable. However, as we just saw, a fixed-sized context window is not sufficient for power-law behavior, hence we should look out for alternatives instead.
 
     \textbf{1. Change Transition Tables over Time.} This is a simple approach, but it assumes a prior about the character distribution based on their position, but this is non-characteristic of natural language. Instead, we should change the transitions based on what we have seen (or generated) thus far, but this is equivalent of augmenting the context window at each step. Of course, we now must have a dynamic model capable of processing arbitrary large sentences.

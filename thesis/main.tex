@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[12pt, a4paper, oneside]{scrreprt}
 
 \usepackage[utf8]{inputenc}
 \usepackage{cite} % optional, for numeric citations
@@ -21,6 +21,18 @@
 \usepackage{graphicx}
 \usepackage{bm}
 \usepackage{pgfplots}
+\usepackage{biblatex}
+
+\usepackage[utf8]{inputenc}      % Für Umlaute (ä, ö, ü)
+\usepackage[T1]{fontenc}         % Für korrekte Silbentrennung
+\usepackage[ngerman, english]{babel}      % Für deutsche Spracheinstellungen
+
+% % Seitenränder anpassen (optional)
+\usepackage[left=4cm, right=2.5cm, top=3cm, bottom=3.5cm]{geometry}
+
+\usepackage{scrlayer-scrpage}
+\clearpairofpagestyles
+\cfoot*{\pagemark}
 
 
 % GLOBAL FORMATTING CHANGES
@@ -77,23 +89,27 @@
 \author{Jonas Peters}
 
 \begin{document}
-\maketitle
+\pagestyle{empty}
+\input{chapters/titlepage/sub.tex}
+
+\newpage
+\subfile{chapters/abstract/sub.tex}
+
+\newpage
+\pagestyle{scrheadings}
+% \maketitle
 \tableofcontents
 
-\newpage
 \subfile{chapters/model_framework/sub.tex}
-
-\newpage
 \subfile{chapters/power_law_model/sub.tex}
-
-\newpage
 \subfile{chapters/regular_grammar/sub.tex}
 
 \appendix
-\newpage
 \subfile{chapters/technical_details/sub.tex}
 
-\newpage
-\bibliographystyle{plain}  % or 'abbrv', 'unsrt', 'ieeetr', etc.
-\bibliography{entropy-v19-i07_20250727}
+% \newpage
+% \bibliographystyle{plain}  % or 'abbrv', 'unsrt', 'ieeetr', etc.
+% \bibliography{entropy-v19-i07_20250727}
+\clearpage
+\printbibliography[heading=bibintoc]
 \end{document}

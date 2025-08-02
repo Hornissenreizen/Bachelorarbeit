@@ -1,12 +1,12 @@
 \documentclass[../../main.tex]{subfiles}
 
 \begin{document}
-\section{A Model with Power-Law Behavior}
+\chapter{A Model with Power-Law Behavior}
 Based on our definitions it is very easy to define models without power-law behavior. For example, a single pair of random variables which are independent when marginalizing over the other ones violates every definition of power-law behavior, as it implies a mutual information of zero. Furthermore, hidden Markov models are also incapable of producing power-law behavior, see chapter~\ref{section:no_power-law_in_hidden_markov_models}.
 
 This begs the question whether there actually exists a model that satisfies our strong power-law behavior definition.
 
-\subsection{A Continuous Model with Power-Law Behavior}
+\section{A Continuous Model with Power-Law Behavior}
 Let's consider a multivariate continuous normal distribution. The following two properties of the normal distribution prove to be very helpful for our analysis of pairwise mutual information. They are standard results and thus are stated without proof.
 
 \begin{proposition}[Marginal Distributions of a Normal Distribution]
@@ -34,7 +34,7 @@ Let's consider a multivariate continuous normal distribution. The following two 
     where $\log$ is the natural logarithm.
 \end{proposition}
 
-\subsubsection{A Formula for Mutual Information}
+\subsection{A Formula for Mutual Information}
 With these two propositions at hand, we can derive a formula for mutual information based on the parameters of our normal distribution.
 
 To this end, let $(Y_1, \dots, Y_n)$ denote the random variables of the n-dimensional normal distribution
@@ -74,7 +74,7 @@ Similarly, $Y_i \sim \mathcal{N}(0, 1)$ and $Y_j \sim \mathcal{N}(0, 1)$. Using 
 
 Great, the mutual information $I(Y_i; Y_j)$ is fully specified by the parameter $\rho_\tau$, and hence for every pair $(Y_i, Y_j)$ we can fine tune $I(Y_i; Y_j)$ by only changing $\rho_\tau$.
 
-\subsubsection{Initializing Parameters}
+\subsection{Initializing Parameters}
 We want the mutual information $I(Y_i; Y_j)$ to follow a power-law, i.e.
 \[
     I(Y_i; Y_j) \overset{!}{=} c |i-j|^{-\alpha} \quad ,
@@ -95,7 +95,7 @@ Thus, upon defining the constants $c$ and $\alpha$, we can directly calculate th
 
 It seems like we are done, but not so fast! In order for our covariance matrix to define a valid normal distribution, we have to ensure its positive definiteness. But, it turns out that this is not an issue:
 
-\subsubsection{Ensure Positive Definiteness}
+\subsection{Ensure Positive Definiteness}
 Note that we have the freedom to define $c, \alpha \in \mathbb{R}_{>0}$ how we like. Thus, our choice of these constants should imply positive definiteness of the covariance matrix
 \[
     \bm{\Sigma}_n = \begin{pmatrix*}
@@ -166,7 +166,7 @@ which proves equation~\eqref{eq:diagonal_dominant}, and hence ultimately the pos
 \bigskip
 With that we have successfully defined a model where the pairwise mutual information perfectly follows a power-law! Now, we would like to extend this family of normal distributions so it fits our model definition~\ref{definition:model_over_sigma}. The only thing needed is a finite domain of our random variables.
 
-\subsection{The Discretized Model}
+\section{The Discretized Model}
 The central idea is to discretize our probability space by integrating over the quadrants. Thus, we effectively created a probability measure $S_n$ over $\{-1, 1\}^n$, where for example $S_2(11)$ is defined as the integral over the first quadrant, $S_2(-11)$ as the integral over the second quadrant, and so on. This leads to our formal definition:
 
 \begin{definition}[The Model]
@@ -183,7 +183,7 @@ The central idea is to discretize our probability space by integrating over the 
 
 By defining our model this way, we ensure that $S_n$ is a valid probability measure over $\{-1, 1\}^n$ for every $n \in \mathbb{N}$. Thus, we can dive right into the analysis of pairwise mutual information:
 
-\subsubsection{Strong Power-Law Behavior}
+\subsection{Strong Power-Law Behavior}
 In this section we will prove that our model has the desired property of strong power-law behavior according to definition~\ref{definition:strong_model_power_law_behavior}.
 
 Another way to think about our model is that the continuous normal distribution has an associated vector $(Y_1, \dots, Y_n) \in \mathbb{R}^n$ of random variables, and in order to get the random variables $(X_1, \dots, X_n) \in \{-1, 1\}^n$ of our model, we \emph{process} each $Y_i$ in the following manner:
@@ -348,7 +348,7 @@ Finally, we use the lower bound of $\rho_\tau$ provided by lemma~\ref{lemma:boun
 This proves the strong lower bound power-law behavior property of our model.
 
 \pagebreak
-\subsection{Summary}
+\section{Summary}
 Let's summarize our findings in a concise theorem:
 
 \begin{theorem}[A Model with Strong Power-Law Behavior]
