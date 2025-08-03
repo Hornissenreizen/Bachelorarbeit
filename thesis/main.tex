@@ -1,8 +1,9 @@
-\documentclass[12pt, a4paper, twoside]{scrreprt}
+\documentclass[12pt, a4paper, twoside, openright]{scrreprt}
 
 \usepackage[utf8]{inputenc}
 \usepackage{cite} % optional, for numeric citations
 
+\usepackage{pdfpages}
 \usepackage{subfiles}
 \usepackage{graphicx}
 \usepackage{mathtools}
@@ -99,10 +100,12 @@
 
 \newpage
 \subfile{chapters/abstract/sub.tex}
+\cleardoublepage
 
 \newpage
 \pagestyle{scrheadings}
 \tableofcontents
+\cleardoublepage
 
 \subfile{chapters/model_framework/sub.tex}
 \subfile{chapters/power_law_model/sub.tex}
@@ -120,4 +123,11 @@
 % \printbibliography[heading=bibintoc]
 
 \subfile{chapters/ki/sub.tex}
+
+\pagestyle{empty}
+\cleardoublepage
+\includepdf[pages=-, pagecommand={}]{erklaerung.pdf}
+
+\cleardoublepage
+\includepdf[pages=-, pagecommand={}]{freigabe.pdf}
 \end{document}
