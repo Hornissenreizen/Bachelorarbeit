@@ -135,75 +135,146 @@ Since $\|\bm{X}_n - \bm{X}'\|$ is bounded by a sum of exponentially decaying ter
 
 \clearpage
 \subsection{Convergence of Mutual Information}
+% \begin{theorem}[Element-Wise Exponential Convergence Implies Exponential Convergence]
+%     \label{theorem:element-wise_exponential_convergence_implies_exponential_convergence}
+% Let $f: \mathcal{D} \to \mathbb{R}^m$ be a function defined on a convex domain $\mathcal{D} \subseteq \mathbb{R}^n$ that is a Cartesian product of real intervals, i.e., $\mathcal{D} = \mathcal{D}_1 \times \mathcal{D}_2 \times \dots \times \mathcal{D}_n$ where each $\mathcal{D}_i \subseteq \mathbb{R}$ is an interval. Let $\{\bm{x}_k\}_{k=1}^\infty \subset \mathcal{D}$ be a sequence converging exponentially fast to $\bm{x}_0 \in \mathcal{D}$.
+
+% Let $\bm{e}_j$ denote the $j$-th standard basis vector in $\mathbb{R}^n$. Suppose that for each input coordinate $j \in \{1, 2, \dots, n\}$ there exist functions $K_j(C', \rho)$, $C_j(C', \rho)$, $P_j(C', \rho)$ s.t. for every sequence $\{\bm{u}_k\}_{k=1}^\infty \subset \mathcal{D}$ converging to $\bm{u}_0$ where the difference $\bm{u}_\ell-\bm{u}_{\ell'}$ is parallel to $\bm{e}_j$ (i.e., they only differ in the $j$-th coordinate) that satisfies $|\bm{u}_0 - \bm{u}_k| \leq C' \rho^k$ for all $k$ and some $\rho \in [0, 1), \ C' > 0$, we have for all $k \geq K_j(C', \rho)$:
+% \[
+%     \|f(\bm{u}_0) - f(\bm{u}_k)\| \le C_j(C', \rho) \rho^k k^{P_j(C', \rho)} \quad .
+% \]
+% Then, there exist constants $C > 0$ and $\sigma \in [0, 1)$ such that for all sufficiently large $k$:
+% \[
+%     \|f(\bm{x}_0) - f(\bm{x}_k)\| \le C \sigma^k \quad .
+% \]
+% \end{theorem}
+
+% \begin{proof}
+% Let the sequence $\{\bm{x}_k\}_{k=1}^\infty \subset \mathcal{D}$ converge exponentially to $\bm{x}_0 \in \mathcal{D}$. By definition, there exist constants $C_x > 0$ and $\rho \in [0, 1)$ such that for all $k$,
+% \[
+%     \|\bm{x}_k - \bm{x}_0\| \le C_x \rho^k \quad .
+% \]
+% Let $\bm{x}_k = (x_{k,1}, \dots, x_{k,n})^T$ and $\bm{x}_0 = (x_{0,1}, \dots, x_{0,n})^T$. An immediate consequence is that each coordinate also converges exponentially, i.e., for each $j \in \{1, \dots, n\}$:
+% \[
+%     |x_{k,j} - x_{0,j}| \le \|\bm{x}_k - \bm{x}_0\|_{\infty} \le \|\bm{x}_k - \bm{x}_0\| \le C_x \rho^k \quad ,
+% \]
+% where we use the equivalence of norms in $\mathbb{R}^n$.
+
+% To bound $\|f(\bm{x}_0) - f(\bm{x}_k)\|$, we define a sequence of $n+1$ intermediate points that form a path from $\bm{x}_k$ to $\bm{x}_0$ by changing one coordinate at a time. For each $k$, let:
+% \begin{align*}
+%     \bm{z}_{k,0} &:= \bm{x}_k = (x_{k,1}, x_{k,2}, \dots, x_{k,n}) \\
+%     \bm{z}_{k,1} &:= (x_{0,1}, x_{k,2}, \dots, x_{k,n}) \\
+%     & \vdots \\
+%     \bm{z}_{k,j} &:= (x_{0,1}, \dots, x_{0,j}, x_{k,j+1}, \dots, x_{k,n}) \\
+%     & \vdots \\
+%     \bm{z}_{k,n} &:= (x_{0,1}, \dots, x_{0,n}) = \bm{x}_0 \quad .
+% \end{align*}
+% Since $\mathcal{D}$ is a cartesian product intervals and both $\bm{x}_k$ and $\bm{x}_0$ are in $\mathcal{D}$, all intermediate points $\bm{z}_{k,j}$ are also contained in $\mathcal{D}$. We can express the total difference $f(\bm{x}_0) - f(\bm{x}_k)$ as a telescoping sum:
+% \[
+%     f(\bm{x}_0) - f(\bm{x}_k) = f(\bm{z}_{k,n}) - f(\bm{z}_{k,0}) = \sum_{j=1}^{n} \left( f(\bm{z}_{k,j}) - f(\bm{z}_{k,j-1}) \right) \quad .
+% \]
+% By the triangle inequality, we have:
+% \[
+%     \|f(\bm{x}_0) - f(\bm{x}_k)\| \le \sum_{j=1}^{n} \|f(\bm{z}_{k,j}) - f(\bm{z}_{k,j-1})\| \quad .
+% \]
+% Now, we analyze each term $\|f(\bm{z}_{k,j}) - f(\bm{z}_{k,j-1})\|$ for a fixed $j \in \{1, \dots, n\}$. The points $\bm{z}_{k,j}$ and $\bm{z}_{k,j-1}$ differ only in their $j$-th coordinate.
+
+% Let us define a sequence $\{\bm{u}_m\}_{m=1}^\infty$ and a limit point $\bm{u}_0$ that fit the condition in the theorem's hypothesis. For the given $j$ and $k$, let
+% \begin{align*}
+%     \bm{u}_m &:= (x_{0,1}, \dots, x_{0,j-1}, x_{m,j}, x_{k,j+1}, \dots, x_{k,n}) \\
+%     \bm{u}_0 &:= (x_{0,1}, \dots, x_{0,j-1}, x_{0,j}, x_{k,j+1}, \dots, x_{k,n}) \quad .
+% \end{align*}
+% Note that $\bm{u}_0 = \bm{z}_{k,j}$ and by setting $m=k$, we get $\bm{u}_k = \bm{z}_{k,j-1}$.
+% The sequence $\{\bm{u}_m\}$ lies on a line parallel to the $j$-th coordinate axis. As $m \to \infty$, $\bm{u}_m \to \bm{u}_0$ because $x_{m,j} \to x_{0,j}$. The convergence is exponential:
+% \[
+%     \|\bm{u}_m - \bm{u}_0\| = |x_{m,j} - x_{0,j}| \le C_x \rho^m \quad .
+% \]
+% The hypothesis states that for any such sequence, there exist constants $K_j(C_x, \rho)$, $C_j(C_x, \rho)$, $P_j(C_x, \rho)$ which are independent of the specific line, such that for all $k \geq K_j(C_x, \rho)$ we have $\|f(\bm{u}_0) - f(\bm{u}_m)\| \le C_j(C_x, \rho) \rho^m m^{P_j(C_x, \rho)}$. Applying this for $m=k$:
+% \[
+%     \|f(\bm{z}_{k,j}) - f(\bm{z}_{k,j-1})\| = \|f(\bm{u}_0) - f(\bm{u}_k)\| \leq C_j(C_x, \rho) \rho^k k^{P_j(C_x, \rho)} \quad .
+% \]
+% This inequality holds for each $j=1, \dots, n$. Substituting these bounds back into the sum:
+% \[
+%     \|f(\bm{x}_0) - f(\bm{x}_k)\| \le \sum_{j=1}^{n} C_j(C_x, \rho) \rho^k k^{P_j(C_x, \rho)} \quad .
+% \]
+% Let $K \coloneqq \max_{j \in \{1, \dots, n\}} \{K_j(C_x, \rho)\}$, $C \coloneqq \sum_{j=1}^{n} C_j(C_x, \rho)$ and \\
+% $P \coloneqq \max_{j \in \{1, \dots, n\}} \{P_j(C_x, \rho)\}$. Hence, for all $k \geq K$:
+% \[
+%     \|f(\bm{x}_0) - f(\bm{x}_k)\| \le \sum_{j=1}^{n} C_j(C_x, \rho) \rho^k k^P = \left( \sum_{j=1}^{n} C_j(C_x, \rho) \right) \rho^k k^P = C \rho^k k^P \quad .
+% \]
+% This shows that $\{f(\bm{x}_k)\}$ converges exponentially to $f(\bm{x}_0)$ with a rate of $\sigma$ s.t. $\rho < \sigma < 1$ (like $\sigma \coloneqq \sqrt{\rho}$). This completes the proof.
+% \end{proof}
+
 \begin{theorem}[Element-Wise Exponential Convergence Implies Exponential Convergence]
     \label{theorem:element-wise_exponential_convergence_implies_exponential_convergence}
-Let $f: \mathcal{D} \to \mathbb{R}^m$ be a function defined on a convex domain $\mathcal{D} \subseteq \mathbb{R}^n$ that is a Cartesian product of real intervals, i.e., $\mathcal{D} = \mathcal{D}_1 \times \mathcal{D}_2 \times \dots \times \mathcal{D}_n$ where each $\mathcal{D}_i \subseteq \mathbb{R}$ is an interval. Let $\{\bm{x}_k\}_{k=1}^\infty \subset \mathcal{D}$ be a sequence converging exponentially fast to $\bm{x}_0 \in \mathcal{D}$.
+Let $f: \mathcal{D} \to \mathbb{R}^m$ be a function defined on a convex domain $\mathcal{D} \subseteq \mathbb{R}^n$ that is a Cartesian product of real intervals, i.e., $\mathcal{D} = \mathcal{D}_1 \times \mathcal{D}_2 \times \dots \times \mathcal{D}_n$ where each $\mathcal{D}_i \subseteq \mathbb{R}$ is an interval. Let $\{\bm{x}_k\}_{k=1}^\infty \subset \mathcal{D}$ be a sequence converging exponentially fast to $\bm{x}_\infty \in \mathcal{D}$.
 
-Let $\bm{e}_j$ denote the $j$-th standard basis vector in $\mathbb{R}^n$. Suppose that for each input coordinate $j \in \{1, 2, \dots, n\}$ there exist functions $K_j(C', \rho)$, $C_j(C', \rho)$, $P_j(C', \rho)$ s.t. for every sequence $\{\bm{u}_k\}_{k=1}^\infty \subset \mathcal{D}$ converging to $\bm{u}_0$ where the difference $\bm{u}_\ell-\bm{u}_{\ell'}$ is parallel to $\bm{e}_j$ (i.e., they only differ in the $j$-th coordinate) that satisfies $|\bm{u}_0 - \bm{u}_k| \leq C' \rho^k$ for all $k$ and some $\rho \in [0, 1), \ C' > 0$, we have for all $k \geq K_j(C', \rho)$:
+Let $\bm{e}_j$ denote the $j$-th standard basis vector in $\mathbb{R}^n$. Suppose that for each input coordinate $j \in \{1, 2, \dots, n\}$ there exist functions $K_j(C', \rho)$, $C_j(C', \rho)$, $P_j(C', \rho)$ s.t. for every sequence $\{\bm{u}_k\}_{k=1}^\infty \subset \mathcal{D}$ converging to $\bm{u}_\infty$ where the difference $\bm{u}_\ell-\bm{u}_{\ell'}$ is parallel to $\bm{e}_j$ (i.e., they only differ in the $j$-th coordinate) that satisfies $|\bm{u}_\infty - \bm{u}_k| \leq C' \rho^k$ for all $k$ and some $\rho \in [0, 1), \ C' > 0$, we have for all $k \geq K_j(C', \rho)$:
 \[
-    \|f(\bm{u}_0) - f(\bm{u}_k)\| \le C_j(C', \rho) \rho^k k^{P_j(C', \rho)} \quad .
+    \|f(\bm{u}_\infty) - f(\bm{u}_k)\| \le C_j(C', \rho) \rho^k k^{P_j(C', \rho)} \quad .
 \]
 Then, there exist constants $C > 0$ and $\sigma \in [0, 1)$ such that for all sufficiently large $k$:
 \[
-    \|f(\bm{x}_0) - f(\bm{x}_k)\| \le C \sigma^k \quad .
+    \|f(\bm{x}_\infty) - f(\bm{x}_k)\| \le C \sigma^k \quad .
 \]
 \end{theorem}
 
 \begin{proof}
-Let the sequence $\{\bm{x}_k\}_{k=1}^\infty \subset \mathcal{D}$ converge exponentially to $\bm{x}_0 \in \mathcal{D}$. By definition, there exist constants $C_x > 0$ and $\rho \in [0, 1)$ such that for all $k$,
+Let the sequence $\{\bm{x}_k\}_{k=1}^\infty \subset \mathcal{D}$ converge exponentially to $\bm{x}_\infty \in \mathcal{D}$. By definition, there exist constants $C_x > 0$ and $\rho \in [0, 1)$ such that for all $k$,
 \[
-    \|\bm{x}_k - \bm{x}_0\| \le C_x \rho^k \quad .
+    \|\bm{x}_k - \bm{x}_\infty\| \le C_x \rho^k \quad .
 \]
-Let $\bm{x}_k = (x_{k,1}, \dots, x_{k,n})^T$ and $\bm{x}_0 = (x_{0,1}, \dots, x_{0,n})^T$. An immediate consequence is that each coordinate also converges exponentially, i.e., for each $j \in \{1, \dots, n\}$:
+Let $\bm{x}_k = (x_{k,1}, \dots, x_{k,n})^T$ and $\bm{x}_\infty = (x_{\infty,1}, \dots, x_{\infty,n})^T$. An immediate consequence is that each coordinate also converges exponentially, i.e., for each $j \in \{1, \dots, n\}$:
 \[
-    |x_{k,j} - x_{0,j}| \le \|\bm{x}_k - \bm{x}_0\|_{\infty} \le \|\bm{x}_k - \bm{x}_0\| \le C_x \rho^k \quad ,
+    |x_{k,j} - x_{\infty,j}| \le \|\bm{x}_k - \bm{x}_\infty\|_{\infty} \le \|\bm{x}_k - \bm{x}_\infty\| \le C_x \rho^k \quad ,
 \]
 where we use the equivalence of norms in $\mathbb{R}^n$.
 
-To bound $\|f(\bm{x}_0) - f(\bm{x}_k)\|$, we define a sequence of $n+1$ intermediate points that form a path from $\bm{x}_k$ to $\bm{x}_0$ by changing one coordinate at a time. For each $k$, let:
+To bound $\|f(\bm{x}_\infty) - f(\bm{x}_k)\|$, we define a sequence of $n+1$ intermediate points that form a path from $\bm{x}_k$ to $\bm{x}_\infty$ by changing one coordinate at a time. For each $k$, let:
 \begin{align*}
     \bm{z}_{k,0} &:= \bm{x}_k = (x_{k,1}, x_{k,2}, \dots, x_{k,n}) \\
-    \bm{z}_{k,1} &:= (x_{0,1}, x_{k,2}, \dots, x_{k,n}) \\
+    \bm{z}_{k,1} &:= (x_{\infty,1}, x_{k,2}, \dots, x_{k,n}) \\
     & \vdots \\
-    \bm{z}_{k,j} &:= (x_{0,1}, \dots, x_{0,j}, x_{k,j+1}, \dots, x_{k,n}) \\
+    \bm{z}_{k,j} &:= (x_{\infty,1}, \dots, x_{\infty,j}, x_{k,j+1}, \dots, x_{k,n}) \\
     & \vdots \\
-    \bm{z}_{k,n} &:= (x_{0,1}, \dots, x_{0,n}) = \bm{x}_0 \quad .
+    \bm{z}_{k,n} &:= (x_{\infty,1}, \dots, x_{\infty,n}) = \bm{x}_\infty \quad .
 \end{align*}
-Since $\mathcal{D}$ is a cartesian product intervals and both $\bm{x}_k$ and $\bm{x}_0$ are in $\mathcal{D}$, all intermediate points $\bm{z}_{k,j}$ are also contained in $\mathcal{D}$. We can express the total difference $f(\bm{x}_0) - f(\bm{x}_k)$ as a telescoping sum:
+Since $\mathcal{D}$ is a cartesian product of intervals and both $\bm{x}_k$ and $\bm{x}_\infty$ are in $\mathcal{D}$, all intermediate points $\bm{z}_{k,j}$ are also contained in $\mathcal{D}$. We can express the total difference $f(\bm{x}_\infty) - f(\bm{x}_k)$ as a telescoping sum:
 \[
-    f(\bm{x}_0) - f(\bm{x}_k) = f(\bm{z}_{k,n}) - f(\bm{z}_{k,0}) = \sum_{j=1}^{n} \left( f(\bm{z}_{k,j}) - f(\bm{z}_{k,j-1}) \right) \quad .
+    f(\bm{x}_\infty) - f(\bm{x}_k) = f(\bm{z}_{k,n}) - f(\bm{z}_{k,0}) = \sum_{j=1}^{n} \left( f(\bm{z}_{k,j}) - f(\bm{z}_{k,j-1}) \right) \quad .
 \]
 By the triangle inequality, we have:
 \[
-    \|f(\bm{x}_0) - f(\bm{x}_k)\| \le \sum_{j=1}^{n} \|f(\bm{z}_{k,j}) - f(\bm{z}_{k,j-1})\| \quad .
+    \|f(\bm{x}_\infty) - f(\bm{x}_k)\| \le \sum_{j=1}^{n} \|f(\bm{z}_{k,j}) - f(\bm{z}_{k,j-1})\| \quad .
 \]
 Now, we analyze each term $\|f(\bm{z}_{k,j}) - f(\bm{z}_{k,j-1})\|$ for a fixed $j \in \{1, \dots, n\}$. The points $\bm{z}_{k,j}$ and $\bm{z}_{k,j-1}$ differ only in their $j$-th coordinate.
 
-Let us define a sequence $\{\bm{u}_m\}_{m=1}^\infty$ and a limit point $\bm{u}_0$ that fit the condition in the theorem's hypothesis. For the given $j$ and $k$, let
+Let us define a sequence $\{\bm{u}_m\}_{m=1}^\infty$ and a limit point $\bm{u}_\infty$ that fit the condition in the theorem's hypothesis. For the given $j$ and $k$, let
 \begin{align*}
-    \bm{u}_m &:= (x_{0,1}, \dots, x_{0,j-1}, x_{m,j}, x_{k,j+1}, \dots, x_{k,n}) \\
-    \bm{u}_0 &:= (x_{0,1}, \dots, x_{0,j-1}, x_{0,j}, x_{k,j+1}, \dots, x_{k,n}) \quad .
+    \bm{u}_m &:= (x_{\infty,1}, \dots, x_{\infty,j-1}, x_{m,j}, x_{k,j+1}, \dots, x_{k,n}) \\
+    \bm{u}_\infty &:= (x_{\infty,1}, \dots, x_{\infty,j-1}, x_{\infty,j}, x_{k,j+1}, \dots, x_{k,n}) \quad .
 \end{align*}
-Note that $\bm{u}_0 = \bm{z}_{k,j}$ and by setting $m=k$, we get $\bm{u}_k = \bm{z}_{k,j-1}$.
-The sequence $\{\bm{u}_m\}$ lies on a line parallel to the $j$-th coordinate axis. As $m \to \infty$, $\bm{u}_m \to \bm{u}_0$ because $x_{m,j} \to x_{0,j}$. The convergence is exponential:
+Note that $\bm{u}_\infty = \bm{z}_{k,j}$ and by setting $m=k$, we get $\bm{u}_k = \bm{z}_{k,j-1}$.
+The sequence $\{\bm{u}_m\}$ lies on a line parallel to the $j$-th coordinate axis. As $m \to \infty$, $\bm{u}_m \to \bm{u}_\infty$ because $x_{m,j} \to x_{\infty,j}$. The convergence is exponential:
 \[
-    \|\bm{u}_m - \bm{u}_0\| = |x_{m,j} - x_{0,j}| \le C_x \rho^m \quad .
+    \|\bm{u}_m - \bm{u}_\infty\| = |x_{m,j} - x_{\infty,j}| \le C_x \rho^m \quad .
 \]
-The hypothesis states that for any such sequence, there exist constants $K_j(C_x, \rho)$, $C_j(C_x, \rho)$, $P_j(C_x, \rho)$ which are independent of the specific line, such that for all $k \geq K_j(C_x, \rho)$ we have $\|f(\bm{u}_0) - f(\bm{u}_m)\| \le C_j(C_x, \rho) \rho^m m^{P_j(C_x, \rho)}$. Applying this for $m=k$:
+The hypothesis states that for any such sequence, there exist constants $K_j(C_x, \rho)$, $C_j(C_x, \rho)$, $P_j(C_x, \rho)$ which are independent of the specific line, such that for all $k \geq K_j(C_x, \rho)$ we have $\|f(\bm{u}_\infty) - f(\bm{u}_m)\| \le C_j(C_x, \rho) \rho^m m^{P_j(C_x, \rho)}$. Applying this for $m=k$:
 \[
-    \|f(\bm{z}_{k,j}) - f(\bm{z}_{k,j-1})\| = \|f(\bm{u}_0) - f(\bm{u}_k)\| \leq C_j(C_x, \rho) \rho^k k^{P_j(C_x, \rho)} \quad .
+    \|f(\bm{z}_{k,j}) - f(\bm{z}_{k,j-1})\| = \|f(\bm{u}_\infty) - f(\bm{u}_k)\| \leq C_j(C_x, \rho) \rho^k k^{P_j(C_x, \rho)} \quad .
 \]
 This inequality holds for each $j=1, \dots, n$. Substituting these bounds back into the sum:
 \[
-    \|f(\bm{x}_0) - f(\bm{x}_k)\| \le \sum_{j=1}^{n} C_j(C_x, \rho) \rho^k k^{P_j(C_x, \rho)} \quad .
+    \|f(\bm{x}_\infty) - f(\bm{x}_k)\| \le \sum_{j=1}^{n} C_j(C_x, \rho) \rho^k k^{P_j(C_x, \rho)} \quad .
 \]
 Let $K \coloneqq \max_{j \in \{1, \dots, n\}} \{K_j(C_x, \rho)\}$, $C \coloneqq \sum_{j=1}^{n} C_j(C_x, \rho)$ and \\
 $P \coloneqq \max_{j \in \{1, \dots, n\}} \{P_j(C_x, \rho)\}$. Hence, for all $k \geq K$:
 \[
-    \|f(\bm{x}_0) - f(\bm{x}_k)\| \le \sum_{j=1}^{n} C_j(C_x, \rho) \rho^k k^P = \left( \sum_{j=1}^{n} C_j(C_x, \rho) \right) \rho^k k^P = C \rho^k k^P \quad .
+    \|f(\bm{x}_\infty) - f(\bm{x}_k)\| \le \sum_{j=1}^{n} C_j(C_x, \rho) \rho^k k^P = \left( \sum_{j=1}^{n} C_j(C_x, \rho) \right) \rho^k k^P = C \rho^k k^P \quad .
 \]
-This shows that $\{f(\bm{x}_k)\}$ converges exponentially to $f(\bm{x}_0)$ with a rate of $\sigma$ s.t. $\rho < \sigma < 1$ (like $\sigma \coloneqq \sqrt{\rho}$). This completes the proof.
+This shows that $\{f(\bm{x}_k)\}$ converges exponentially to $f(\bm{x}_\infty)$ with a rate of $\sigma$ s.t. $\rho < \sigma < 1$ (like $\sigma \coloneqq \sqrt{\rho}$). This completes the proof.
 \end{proof}
+
 
 \begin{lemma}
 \label{lemma:xlogx_exponential_convergence}
