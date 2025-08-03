@@ -3,11 +3,14 @@
 \begin{document}
 \chapter{Technical Details}
 \label{section:technical_details}
-In this appendix we provide some further details to our arguments.
+In this appendix we provide additional details to our arguments.
 
-\section{Integrating over the Quadrants of a Normal Distribution}
+\section{Quadrant Probabilities for the Bivariate Normal Distribution}
 \label{section:integrating_quadrants}
-In order to derive the formula, we first have to prove an auxiliary lemma:
+In order to derive a formula for the quadrant probabilities of $\mathcal{N}\left(\bm{0}, \begin{pmatrix*}
+    1 & \rho \\
+    \rho & 1 \\
+\end{pmatrix*}\right)$, we first have to prove an auxiliary lemma:
 
 \begin{lemma}
 Let $X$ and $Y$ have a bivariate normal distribution where $X$ and $Y$ are standard normal variables, $X, Y \sim \mathcal{N}(0,1)$, with correlation $\rho$. The variable $Z = \frac{Y-\rho X}{\sqrt{1-\rho^2}}$ is a standard normal variable, and $X$ and $Z$ are independent.
@@ -130,7 +133,7 @@ The norm of each part is bounded by an exponentially decaying function:
 Since $\|\bm{X}_n - \bm{X}'\|$ is bounded by a sum of exponentially decaying terms, it also decays exponentially. As all blocks of $\bm{M}^n - \bm{M}'$ converge to zero exponentially, the norm $\|\bm{M}^n - \bm{M}'\|$ does as well. This completes the proof.
 \end{proof}
 
-
+\clearpage
 \subsection{Convergence of Mutual Information}
 \begin{theorem}[Element-Wise Exponential Convergence Implies Exponential Convergence]
     \label{theorem:element-wise_exponential_convergence_implies_exponential_convergence}
@@ -232,7 +235,6 @@ Let the function $f: [0, \infty) \to \mathbb{R}$ be defined as $f(x) = x \log x$
 This function exhibits element-wise exponential convergence. That is, for any single component $(i_0, j_0)$, if a sequence of matrices $\{\bm{U}_k\}_{k=1}^\infty \subset [0, 1]^{m \times n}$ converges to a limit $\bm{U}_\infty$, varies only in the $(i_0, j_0)$-th component and satisfies $\|\bm{U}_k - \bm{U}_\infty\| \leq C \rho^k$ for some $C > 0$, $\rho \in [0, 1)$ and all $k$, then the sequence of values $\{I(\bm{U}_k)\}$ converges to $I(\bm{U}_\infty)$ with $|I(\bm{U}_k) - I(\bm{U}_\infty)| \leq C'(C, \rho) \rho^k k^{P(C, \rho)}$ for all $k \geq K(C, \rho)$.
 \end{theorem}
 % \vspace{-2.5em}
-\pagebreak
 \begin{proof}
 The function $I(\bm{M})$ is a sum of terms involving $f$ applied to the matrix entries and their row and column sums. Let $m_i(\bm{M}) = \sum_j M_{ij}$ and $m'_j(\bm{M}) = \sum_i M_{ij}$. We have:
 \[
@@ -240,6 +242,7 @@ The function $I(\bm{M})$ is a sum of terms involving $f$ applied to the matrix e
 \]
 We are given a sequence $\{\bm{U}_k\}$ that varies only in the $(i_0, j_0)$-th component, $u_k = \bm{U}_k(i_0, j_0)$. All other components are constant. The exponential convergence of $\{\bm{U}_k\}$ means $|u_k - u_\infty| \le C \rho^k$.
 
+\clearpage
 The difference $I(\bm{U}_k) - I(\bm{U}_\infty)$ consists only of terms whose arguments change with $k$. These are:
 \begin{enumerate}
     \item The entry term: $f(u_k)$.

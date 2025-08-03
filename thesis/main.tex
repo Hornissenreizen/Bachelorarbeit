@@ -1,4 +1,4 @@
-\documentclass[12pt, a4paper, oneside]{scrreprt}
+\documentclass[12pt, a4paper, twoside]{scrreprt}
 
 \usepackage[utf8]{inputenc}
 \usepackage{cite} % optional, for numeric citations
@@ -110,7 +110,6 @@
 \appendix
 \subfile{chapters/technical_details/sub.tex}
 
-\newpage
 \cleardoublepage
 \phantomsection
 \addcontentsline{toc}{chapter}{Bibliography}
@@ -118,4 +117,6 @@
 \bibliography{entropy-v19-i07_20250727}
 % \clearpage
 % \printbibliography[heading=bibintoc]
+
+\subfile{chapters/ki/sub.tex}
 \end{document}

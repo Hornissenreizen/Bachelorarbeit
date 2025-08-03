@@ -3,9 +3,7 @@
 \begin{document}
 \chapter{No Power-Law Behavior in Hidden Markov Models}
     \label{section:no_power-law_in_hidden_markov_models}
-    When modelling \emph{natural language}, we generate the next token(s) based on the previous tokens (and hence not based on future tokens; we generate text from left to right). Thus, when disregarding the future tokens, i.e. when marginalizing over them, we can determine the Markov blanket of the current token, i.e. determine the minimal set of tokens that influence the current one.
-
-    Naturally, we can think of natural language modelling as \emph{Bayesian networks} over the characters in the text. Because we generate text from left to right, we naturally assume all arrows to go from previous tokens to future tokens (because this is also the modus operandi for token generation). For example, Markov chains up to character position $t$ have the following simple representation:
+    When modelling \emph{natural language}, we generate the next token(s) based on the previous tokens (and hence not based on future tokens; we generate text from left to right). Thus, we can think of natural language modelling as \emph{Bayesian networks} over the characters in the text, where all arrows go from previous tokens to future tokens. For example, Markov chains up to character position $t$ have the following simple representation:
 
     \begin{figure}[h]
         \center
@@ -27,9 +25,7 @@
 
     From a modelling perspective, it is very reasonable to reuse the same transitions over time, as we cannot have infinitely many "hard-coded" transitions (but we can use different models with implicitly infinite transitions). Furthermore, when making a prediction of the next token given a fixed context window, it seems reasonable to assume invariance in time, i.e. fixed transition probabilities similar to time-homogenous Markov chains.
 
-    Now, the question is, can we achieve power-law behavior with an arbitrarily large fixed-sized context window with fixed transition probabilities?
-
-    In order to answer this question, let us first reduce our setting to a simpler model, specifically to the already mentioned time-homogenous Markov chains:
+    Now, the question is, can we achieve power-law behavior with an arbitrarily large but fixed-sized context window with fixed transition probabilities? In order to answer this question, let us first reduce our setting to a simpler model, specifically to the already mentioned time-homogenous Markov chains:
     
     The idea is to employ a hidden variable $Y \in \Sigma ^{s+1}$, where $\Sigma$ is the alphabet, and $s$ is the size of the context window (for Markov chains $s = 1$). Clearly, $Y$ captures the entire \emph{state} at time $t$ of our model, that is all the previous $s$ tokens and the current one, and we can model the transitions $Y_t \to Y_{t + 1}$ as simple time-homogenous Markov chain transitions (and hence invariant in time). And, of course, once we know $Y_t$, we also know $X_t$ (which of course can be modelled with time-homogenous Markov chain transitions as well). These models are known as \emph{hidden Markov models}.
 
@@ -100,7 +96,7 @@
 
     Additional prerequisites can be found in the appendix, see section~\ref{section:prerequisites_for_theorem}.
 
-    With all that being covered, we can finally state and prove our main result:
+    With all that being covered, we can finally state and prove the main result:
 
     \begin{theorem}[No Hidden Markov Model with Power-Law Behavior]
         \label{theorem:no_hidden_markov_model_with_power-law}
@@ -146,9 +142,9 @@
 
         We see that $P(X_{\tau} = a \mid X_0 = b) = (\bm{M_X} \bm{M_Y}^\tau \bm{M_R})_{ab}$, where $\bm{M_R}$ is the transition matrix from $X_0$ to $Y_0$.
 
-        Now, for the sake of contradiction, assume that there exists a model $(\bm{M_Y}, \bm{M_X})$ with weak power-law behavior. It follows that $I(X_0; X_{\tau}) \xrightarrow{\tau \to \infty} 0$. We will show that for a certain $m \in \mathbb{N}$ we have $\bm{M_X} \bm{M_Y}^{m \tau} \bm{M_R} \xrightarrow{\tau \to \infty} \bm{M'}$ exponentially fast in $\tau$, which implies exponentially fast convergence of $\bm{M_X} \bm{M_Y}^{\tau} \bm{M_R}$ for the subsequence $\tau \coloneqq n \cdot m, n \in \mathbb{N}$. Now, either $\bm{M'}$ implies a mutual information greater than zero, but then we don't have decay towards zero and hence no power-law behavior, or we indeed have mutual information of zero, but since a subsequence converges exponentially fast to $\bm{M'}$, the mutual information cannot be lower bounded by a power-law (see corollary~\ref{corollary:exponential_convergence_of_conditional_probability_matrix_implies_exponential_convergence_of_mutual_information}).
+        Now, for the sake of contradiction, assume that there exists a model $(\bm{M_Y}, \bm{M_X})$ with weak power-law behavior. It follows that $I(X_0; X_{\tau}) \xrightarrow{\tau \to \infty} 0$. We will show that for a certain $m \in \mathbb{N}$ we have $\bm{M_X} \bm{M_Y}^{m \tau} \bm{M_R} \xrightarrow{\tau \to \infty} \bm{M'}$ exponentially fast in $\tau$, which implies exponentially fast convergence of $\bm{M_X} \bm{M_Y}^{\tau} \bm{M_R}$ for the subsequence $\tau \coloneqq n \cdot m, n \in \mathbb{N}$.
         
-        Note that if $\bm{M_Y}^{m \tau}$ converges to any matrix exponentially fast for $\tau \to \infty$, then $\bm{M_X} \bm{M_Y}^{m \tau} \bm{M_R}$ will be forced to converge exponentially fast as well.
+        Now, either $\bm{M'}$ implies a mutual information greater than zero, but then we don't have decay towards zero and hence no power-law behavior, or we indeed have mutual information of zero, but since a subsequence converges exponentially fast to $\bm{M'}$, the mutual information cannot be lower bounded by a power-law (see corollary~\ref{corollary:exponential_convergence_of_conditional_probability_matrix_implies_exponential_convergence_of_mutual_information}). Note that if $\bm{M_Y}^{m \tau}$ converges to any matrix exponentially fast for $\tau \to \infty$, then $\bm{M_X} \bm{M_Y}^{m \tau} \bm{M_R}$ will be forced to converge exponentially fast as well.
         
         We differentiate the following cases based on the properties of $\bm{M_Y}$:
 
@@ -171,7 +167,7 @@
             \end{bmatrix}
             \quad .
         \]
-        Since all blocks represent irreducible aperiodic Markov chains, $\bm{M_Y}^{p \tau}$ must converge exponentially fast. But this means that $I(X_0; X_\tau)$ converges exponentially fast for $\tau = n \cdot p, \ n \in \mathbb{N}$, and hence it cannot be lower bounded by a power-law assuming convergence to zero.
+        Since all blocks represent irreducible aperiodic Markov chains, $\bm{M_Y}^{p \tau}$ must converge exponentially fast in $\tau$.
 
         \textbf{Case 3: Multiple Closed Aperiodic Communication Classes} \\
         In this case, we can order the states such that $\bm{M_Y}$ is block diagonal, i.e.
@@ -196,7 +192,7 @@
             \end{bmatrix}
             \quad .
         \]
-        Hence, $\bm{M_Y}^\tau$ converges to a certain block diagonal matrix exponentially fast, since all the blocks $\bm{B_i}$ are irreducible and aperiodic.
+        Hence, just like before, $\bm{M_Y}^\tau$ converges to a certain block diagonal matrix exponentially fast, since all the blocks $\bm{B_i}$ are irreducible and aperiodic.
 
         \textbf{Case 4: Multiple Closed Communication Classes} \\
         Now assume $\bm{M_Y}$ consists of many closed communication classes that can be either periodic or aperiodic. But we know that all the aperiodic classes converge exponentially fast, and the periodic ones as well if we restrict $\tau \equiv_{m_i} 0$ for a specific $m_i$ associated with block $\bm{B_i}$. By calculating the smallest common multiple of all $m_i$ defined as $m_I$, we see that $\bm{M_Y}^\tau$ converges exponentially fast for the subsequence $\tau = n \cdot m_I, \ n \in \mathbb{N}$.

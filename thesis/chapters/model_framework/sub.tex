@@ -66,7 +66,7 @@
         \begin{align*}
             \sum_{s \in \Sigma^{k+1}} S_{n + k + 1}(ws) 
             &= \sum_{v \in \Sigma^k} \sum_{c \in \Sigma} S_{n + k + 1}(wvc) \\
-            &= \sum_{v \in \Sigma^k} \left( \sum_{c \in \Sigma} S_{n + k + 1}((wv)c) \right) \\
+            % &= \sum_{v \in \Sigma^k} \left( \sum_{c \in \Sigma} S_{n + k + 1}((wv)c) \right) \\
             &\underset{\text{bulk marginal property}}{=} \sum_{v \in \Sigma^k} S_{n+k}(wv) \\
             &\underset{\text{inductive hypothesis}}{=} S_n(w) \quad ,
         \end{align*}
@@ -103,7 +103,7 @@
     \end{proof}
 
 \subsection{Restricting the Model}
-    We can restrict our general model $S$ by specifying that for each length $n$, the probability distribution $S_n$ is computed by a parameterized \textbf{inference function}, $f_{n, \bm{\theta}_n}: \Sigma^n \to [0, 1]$. Each function is identified by a parameter vector $\bm{\theta}_n$ from a corresponding \textbf{parameter space} $\Theta_n$.
+    In order to analyze a group of models for power-law behavior, we first define a model class by imposing specific constraints on our general model definition. To this end, we restrict our general model $S$ by specifying that for each length $n$, the probability distribution $S_n$ is computed by a parameterized \textbf{inference function}, $f_{n, \bm{\theta}_n}: \Sigma^n \to [0, 1]$. Each function is identified by a parameter vector $\bm{\theta}_n$ from a corresponding \textbf{parameter space} $\Theta_n$.
 
     For the framework to be valid, each function must define a proper probability distribution. We denote this distribution by $S_{n, \bm{\theta}_n}$ and require that:
     \[
@@ -125,7 +125,7 @@
 
     \begin{definition}
         We define $i_{S_n}(\tau)$ and $I_{S_n}(\tau)$ to be the minimal and maximal mutual information between any two variables of $S_n$ with distance $\tau$. Formally, let $X_t, X_{t + \tau}$ ($t + \tau \leq n$) be random variables sampled from $S_n$. Then:
-        \vspace{-1em}
+        % \vspace{-1em}
         \begin{itemize}
             \item $i_{S_n}(\tau) \coloneqq \min_{t \in [n - \tau]} I(X_t; X_{t + \tau}) \quad ,$
             \item $I_{S_n}(\tau) \coloneqq \max_{t \in [n - \tau]} I(X_t; X_{t + \tau}) \quad .$
@@ -191,7 +191,7 @@
     \end{remark}
 
     \begin{remark}
-        It is crucial for $S$ to have the bulk marginal property in theorem~\ref{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior}, or else $I(X_{t}; X_{t + \tau})$ might depend on $S_n$, and we cannot exclude $I(X_{t}; X_{t + \tau}) \xrightarrow{n \to \infty} 0$.
+        It is crucial for $S$ to have the bulk marginal property in theorem~\ref{theorem:power_law_decay_in_well-behaved_models_with_weak_power-law_behavior}, or else $I(X_{t}; X_{t + \tau})$ might depend on $S_n$, and we cannot exclude \\ $I(X_{t}; X_{t + \tau}) \xrightarrow{n \to \infty} 0$.
     \end{remark}
 
 \pagebreak

@@ -4,7 +4,7 @@
 \chapter{A Model with Power-Law Behavior}
 Based on our definitions it is very easy to define models without power-law behavior. For example, a single pair of random variables which are independent when marginalizing over the other ones violates every definition of power-law behavior, as it implies a mutual information of zero. Furthermore, hidden Markov models are also incapable of producing power-law behavior, see chapter~\ref{section:no_power-law_in_hidden_markov_models}.
 
-This begs the question whether there actually exists a model that satisfies our strong power-law behavior definition.
+This begs the question whether there actually exists a model that satisfies our strong power-law behavior definition (see definition~\ref{definition:strong_model_power_law_behavior}).
 
 \section{A Continuous Model with Power-Law Behavior}
 Let's consider a multivariate continuous normal distribution. The following two properties of the normal distribution prove to be very helpful for our analysis of pairwise mutual information. They are standard results and thus are stated without proof.
@@ -81,7 +81,7 @@ We want the mutual information $I(Y_i; Y_j)$ to follow a power-law, i.e.
 \]
 for some $c, \alpha \in \mathbb{R}_{>0}$.
 
-Hence, based on our previous result we have:
+Let $\tau \coloneqq |i-j|$. Using proposition~\ref{proposition:marginal_distributions_of_a_normal_distribution}  and equation~\eqref{eq:gauss_mutual_information} it follows that
 \begin{alignat*}{2}
     && I(Y_i; Y_j) &= c |i-j|^{-\alpha} \\
     & \iff \quad & -\frac{1}{2}\log(1-\rho_\tau^2) &= c \tau^{-\alpha} \\
@@ -106,7 +106,6 @@ Note that we have the freedom to define $c, \alpha \in \mathbb{R}_{>0}$ how we l
     \end{pmatrix*}
     \quad .
 \]
-
 Note that $\bm{\Sigma} \equiv \bm{\Sigma}_n$ is symmetric, and has positive entries along its diagonal. Thus, it is sufficient for positive definiteness to show that $\bm{\Sigma}$ is strictly diagonally dominant, i.e.
 \begin{align}
     &\forall i \in [n]: |\bm{\Sigma}_{ii}| > \sum_{j \neq i} |\bm{\Sigma}_{ij}| \notag \\
@@ -288,13 +287,16 @@ Remember, we defined $f: (0, \frac{1}{2}) \to \mathbb{R}, \ x \mapsto x \log x$.
     f''(x) &= \frac{1}{x} \quad .
 \end{align*}
 
-Note that $f''(x) \geq 2$ for all $x \in (0, \frac{1}{2})$. Thus, when we define $g: (0, \frac{1}{2}) \to \mathbb{R}, \ x \mapsto x^2$, where $g''(x) \equiv 2$, we can use lemma~\ref{lemma:convex_function_bound} in equation~\eqref{eq:mutual_information_in_terms_of_f}:
+Note that $f''(x) \geq 2$ for all $x \in (0, \frac{1}{2})$. Thus, when we define $g: (0, \frac{1}{2}) \to \mathbb{R}, \\ x \mapsto x^2$, where $g''(x) \equiv 2$, we can use lemma~\ref{lemma:convex_function_bound} in equation~\eqref{eq:mutual_information_in_terms_of_f}:
 
 \begin{align*}
     I(X_i; X_j) &= 4 \cdot \left[ \frac{1}{2} \cdot f(\frac{1}{4} - \delta_\tau) + \frac{1}{2} \cdot f(\frac{1}{4} + \delta_\tau) - f(\frac{1}{4}) \right] \\
     &\geq 4 \cdot \left[ \frac{1}{2} \cdot g(\frac{1}{4} - \delta_\tau) + \frac{1}{2} \cdot g(\frac{1}{4} + \delta_\tau) - g(\frac{1}{4}) \right] \\
-    &= 4 \cdot \left[ \frac{1}{2} \left(\frac{1}{4} - \delta_\tau\right)^2 + \frac{1}{2} \left(\frac{1}{4} + \delta_\tau\right)^2 - \left(\frac{1}{4}\right)^2 \right] \\
-    &= 2 \left[ \left(\frac{1}{16} - \frac{1}{2}\delta_\tau + \delta_\tau^2\right) + \left(\frac{1}{16} + \frac{1}{2}\delta_\tau + \delta_\tau^2\right) \right] - 4\left(\frac{1}{16}\right) \\
+    &= 4 \cdot \left[ \frac{1}{2} \left(\frac{1}{4} - \delta_\tau\right)^2 + \frac{1}{2} \left(\frac{1}{4} + \delta_\tau\right)^2 - \left(\frac{1}{4}\right)^2 \right] \quad .
+\end{align*}
+Simplifying yields:
+\begin{align*}
+    I(X_i; X_j) &= 2 \left[ \left(\frac{1}{16} - \frac{1}{2}\delta_\tau + \delta_\tau^2\right) + \left(\frac{1}{16} + \frac{1}{2}\delta_\tau + \delta_\tau^2\right) \right] - 4\left(\frac{1}{16}\right) \\
     &= 2 \left[ \frac{2}{16} + 2\delta_\tau^2 \right] - \frac{4}{16} \\
     &= 2 \left[ \frac{1}{8} + 2\delta_\tau^2 \right] - \frac{1}{4} \\
     &= \frac{1}{4} + 4\delta_\tau^2 - \frac{1}{4} \\
