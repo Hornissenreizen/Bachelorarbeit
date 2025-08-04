@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.17)  4 AUG 2025 09:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.17)  4 AUG 2025 09:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"/home/jonas/Documents/University/6. Semester/Bachelorarbeit/thesis/chapters/power_law_model/sub.tex"
-(/home/jonas/Documents/University/6. Semester/Bachelorarbeit/thesis/chapters/power_law_model/sub.tex
+**"/home/jonas/Documents/University/6. Semester/Bachelorarbeit/thesis/chapters/ki/sub.tex"
+(/home/jonas/Documents/University/6. Semester/Bachelorarbeit/thesis/chapters/ki/sub.tex
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-11-02>
 (/usr/local/texlive/2024/texmf-dist/tex/latex/subfiles/subfiles.cls
@@ -12,7 +12,7 @@ Document Class: subfiles 2020/11/14 v2.2 Multi-file projects (class)
 Preamble taken from file `../../main.tex'
 (/usr/local/texlive/2024/texmf-dist/tex/latex/import/import.sty
 Package: import 2020/04/01  v 6.2
-) (chapters/power_law_model/../../main.tex (/usr/local/texlive/2024/texmf-dist/tex/latex/koma-script/scrreprt.cls
+) (chapters/ki/../../main.tex (/usr/local/texlive/2024/texmf-dist/tex/latex/koma-script/scrreprt.cls
 Document Class: scrreprt 2024/10/24 v3.43 KOMA-Script document class (report)
 (/usr/local/texlive/2024/texmf-dist/tex/latex/koma-script/scrkbase.sty
 Package: scrkbase 2024/10/24 v3.43 KOMA-Script package (KOMA-Script-dependent basics and keyval usage)
@@ -774,7 +774,7 @@ Package scrlayer-scrpage Info: Makeing stand-alone element `pagehead' from
 \c@hypothesis=\count354
  (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
-))) (chapters/power_law_model/sub.aux)
+))) (chapters/ki/sub.aux)
 \openout1 = `sub.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 3.
@@ -834,7 +834,7 @@ Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 ))
 Package hyperref Info: Link coloring ON on input line 3.
- (chapters/power_law_model/sub.out) (chapters/power_law_model/sub.out)
+ (chapters/ki/sub.out) (chapters/ki/sub.out)
 \@outlinefile=\write4
 \openout4 = `sub.out'.
 
@@ -894,12 +894,7 @@ Package pgfplots Warning: running in backwards compatibility mode (unsuitable ti
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-chapter 1.
 
-LaTeX Warning: Reference `section:no_power-law_in_hidden_markov_models' on page 1 undefined on input line 5.
-
-
-LaTeX Warning: Reference `definition:strong_model_power_law_behavior' on page 1 undefined on input line 7.
 
 LaTeX Font Info:    Trying to load font information for U+msa on input line 14.
 (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -912,74 +907,31 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 LaTeX Font Info:    Trying to load font information for U+rsfs on input line 14.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
-)
-
-[1
+) [1
 
 
 
-{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}]
-
-[2]
-
-[3]
-
-[4]
-
-LaTeX Warning: Reference `definition:model_over_sigma_star' on page 5 undefined on input line 166.
-
-
-
-[5]
-
-LaTeX Warning: Reference `definition:strong_model_power_law_behavior' on page 6 undefined on input line 186.
-
-
-LaTeX Warning: Reference `section:integrating_quadrants' on page 6 undefined on input line 226.
-
-
-
-[6]
-
-[7]
-
-[8]
-
-[9]
-
-[10]
-
-LaTeX Warning: Reference `definition:strong_model_power_law_behavior' on page 11 undefined on input line 366.
-
-
-
-[11
-
-] (chapters/power_law_model/sub.aux)
+{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}] (chapters/ki/sub.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2020/03/25>
  ***********
-
-
-LaTeX Warning: There were undefined references.
-
 Package rerunfilecheck Info: File `sub.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 40890 strings out of 473330
- 947746 string characters out of 5719768
- 1751666 words of memory out of 5000000
- 63341 multiletter control sequences out of 15000+600000
- 574399 words of font info for 77 fonts, out of 8000000 for 9000
+ 40740 strings out of 473330
+ 943610 string characters out of 5719768
+ 1741666 words of memory out of 5000000
+ 63226 multiletter control sequences out of 15000+600000
+ 570187 words of font info for 72 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,20n,124p,11016b,625s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfsx1440.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfsx1728.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfsx2488.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on chapters/power_law_model/sub.pdf (11 pages, 288087 bytes).
+ 128i,20n,124p,11003b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfsx2488.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
+Output written on chapters/ki/sub.pdf (1 page, 57366 bytes).
 PDF statistics:
- 225 PDF objects out of 1000 (max. 8388607)
- 170 compressed objects within 2 object streams
- 33 named destinations out of 1000 (max. 500000)
- 77 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 33 PDF objects out of 1000 (max. 8388607)
+ 23 compressed objects within 1 object stream
+ 3 named destinations out of 1000 (max. 500000)
+ 13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
